@@ -2,12 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-
 using System.Data.SqlClient;
 using System.Data;
-using ProjectImmediateReply;
 
-namespace WeekFour.Utility
+
+namespace ProjectImmediateReply.Utility
 {
     public class LoginHelper
     {   //定義三個常數分別儲存"登入狀態","登入者名稱"及"登入者權限"的Session名稱

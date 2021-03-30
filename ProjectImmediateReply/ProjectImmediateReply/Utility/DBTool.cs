@@ -5,7 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Data;
 
-namespace ProjectImmediateReply
+namespace ProjectImmediateReply.Utility
 {
     public class DBTool
     {
