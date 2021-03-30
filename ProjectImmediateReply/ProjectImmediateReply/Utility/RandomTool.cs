@@ -73,7 +73,13 @@ namespace ProjectImmediateReply.Utility
             }
 
         }
-
+        /// <summary>
+        /// 亂數將專案及小組分配為4組,回傳值為集合第一項為專案,後續為組員的集合
+        /// </summary>
+        /// <param name="assignpeople">當前班級所有人的集合</param>
+        /// <param name="assignporject">當前所有專案的集合</param>
+        /// <param name="Pri">傳入Session中的權限值,認證用</param>
+        /// <returns></returns>
         public static List<string> RandomAssign(List<string> assignpeople,List<string> assignporject, string Pri)
         {
             if (Pri != "Manager")
