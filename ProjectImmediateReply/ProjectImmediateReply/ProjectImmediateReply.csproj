@@ -90,6 +90,7 @@
     <Content Include="images\slide04.jpg" />
     <Content Include="images\slide05.jpg" />
     <Content Include="Web.config" />
+    <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -99,6 +100,13 @@
     <Compile Include="Utility\DBTool.cs" />
     <Compile Include="Utility\LoginHelper.cs" />
     <Compile Include="Utility\RandomTool.cs" />
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\fonts\fontawesome-webfont.eot" />
