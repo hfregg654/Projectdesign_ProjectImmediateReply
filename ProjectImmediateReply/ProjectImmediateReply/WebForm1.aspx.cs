@@ -14,7 +14,7 @@ namespace ProjectImmediateReply
             List<string> people = new List<string>()
             {
                 "陳彥瑋","鍾學武","饒文傑","林可偉","歐紀安","翁秉寬","郭家榮","胡冠傑","徐丞邑",
-                "葉韋豪","張瑋芝","吳遠哲","連秋堂"
+                "葉韋豪","張瑋芝","吳遠哲","連秋堂","AAA","BBB","CCC","DDD","EEE","FFF"
             };
             List<string> project = new List<string>()
             {

@@ -167,8 +167,8 @@ namespace ProjectImmediateReply.Utility
                                     AssignMember(assignpeople, team);
                                     AssignProject_AssignTeam(assignporject, team, _class);
                                 }
-                                //若多出的人數已經比剩餘的組數少了
-                                else if (peoplelonly < _class.Count)
+                                //若多出的人數已經等於剩餘的組數了
+                                else if (peoplelonly == 4 - _class.Count)
                                 {
                                     //多出的人數-1,再抽一人加入該組並分配專案及加入班級
                                     peoplelonly--;
