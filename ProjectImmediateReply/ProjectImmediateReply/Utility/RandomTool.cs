@@ -13,7 +13,7 @@ namespace ProjectImmediateReply.Utility
         /// <param name="num">授權碼組數</param>
         /// <param name="Pri">傳入Session中的權限值,認證用</param>
         /// <returns></returns>
-        public static List<string> CreateLicence(int num, string Pri)
+        public List<string> CreateLicence(int num, string Pri)
         {
             //判斷身分是否為管理者,不是則回傳null
             if (Pri != "Manager")
@@ -80,7 +80,7 @@ namespace ProjectImmediateReply.Utility
         /// </summary>
         /// <param name="people">當前剩餘人員之集合</param>
         /// <param name="team">當前未滿人之小組集合</param>
-        private static void AssignMember(List<string> assignpeople, List<string> team)
+        private void AssignMember(List<string> assignpeople, List<string> team)
         {
             //定義亂數種子並定義數字儲存被抽到的人員在集合中的號碼
             Random random = new Random();
@@ -95,7 +95,7 @@ namespace ProjectImmediateReply.Utility
         /// <param name="assignporject">當前剩餘專案之集合</param>
         /// <param name="team">當前已滿人之小組集合</param>
         /// <param name="_class">當前未滿組之班級集合</param>
-        private static void AssignProject_AssignTeam(List<string> assignporject, List<string> team, List<string> _class)
+        private void AssignProject_AssignTeam(List<string> assignporject, List<string> team, List<string> _class)
         {
             //定義亂數種子並定義數字儲存被抽到的專案在集合中的號碼
             Random random = new Random();
@@ -113,7 +113,7 @@ namespace ProjectImmediateReply.Utility
         /// <param name="assignporject">當前所有專案的集合</param>
         /// <param name="Pri">傳入Session中的權限值,認證用</param>
         /// <returns></returns>
-        public static List<string> RandomAssign(List<string> assignpeople, List<string> assignporject, string Pri)
+        public List<string> RandomAssign(List<string> assignpeople, List<string> assignporject, string Pri)
         {
             //判斷身分是否為管理者,不是則回傳null
             if (Pri != "Manager")

@@ -16,7 +16,7 @@ namespace ProjectImmediateReply.Utility
         /// <param name="readtablename">目標資料表名稱</param>
         /// <param name="readcolname">目標欄位名稱的陣列</param>
         /// <returns></returns>
-        public static DataTable readTable(string readtablename, string[] readcolname)
+        public DataTable readTable(string readtablename, string[] readcolname)
         {
             //資料庫連結字串
             string connectionString =
@@ -82,7 +82,7 @@ namespace ProjectImmediateReply.Utility
         /// <param name="Where_Logic">Where條件</param>
         /// <param name="Where_P">條件的參數值</param>
         /// <returns></returns>
-        public static DataTable readTableWhere(string readtablename, string[] readcolname, string Where_Logic, string Where_P)
+        public DataTable readTableWhere(string readtablename, string[] readcolname, string Where_Logic, string Where_P)
         {
             string connectionString =
                "Data Source=localhost\\SQLEXPRESS;Initial Catalog=ProjectImmediateReply; Integrated Security=true";
@@ -146,7 +146,7 @@ namespace ProjectImmediateReply.Utility
         /// <param name="insertcolname">目標欄位名稱的陣列</param>
         /// <param name="insertcolname_P">目標欄位名稱帶有@的陣列</param>
         /// <param name="insert_P">需給予@欄位之參數值的集合</param>
-        public static void InsertTable(string inserttablename, string[] insertcolname, string[] insertcolname_P, List<string> insert_P)
+        public void InsertTable(string inserttablename, string[] insertcolname, string[] insertcolname_P, List<string> insert_P)
         {
             string connectionString =
                 "Data Source=localhost\\SQLEXPRESS;Initial Catalog=ProjectImmediateReply; Integrated Security=true";
@@ -193,7 +193,7 @@ namespace ProjectImmediateReply.Utility
         /// <param name="Where_Logic">Where條件</param>
         /// <param name="updatecolname_P">目標欄位名稱及Where條件欄位帶有@的陣列</param>
         /// <param name="update_P">需給予@欄位之參數值的集合</param>
-        public static void UpdateTable(string updatetablename, string[] updatecol_Logic, string Where_Logic, string[] updatecolname_P, List<string> update_P)
+        public void UpdateTable(string updatetablename, string[] updatecol_Logic, string Where_Logic, string[] updatecolname_P, List<string> update_P)
         {
             string connectionString =
                 "Data Source=localhost\\SQLEXPRESS;Initial Catalog=ProjectImmediateReply; Integrated Security=true";
@@ -235,7 +235,7 @@ namespace ProjectImmediateReply.Utility
         /// <param name="deletecolname">目標欄位名稱</param>
         /// <param name="deletecolname_P">目標欄位名稱帶有@的字串</param>
         /// <param name="delete_P">需給予@欄位之參數值</param>
-        public static void DeleteTable(string deletetablename, string deletecolname, string deletecolname_P, string delete_P)
+        public void DeleteTable(string deletetablename, string deletecolname, string deletecolname_P, string delete_P)
         {
             string connectionString =
                 "Data Source=localhost\\SQLEXPRESS;Initial Catalog=ProjectImmediateReply; Integrated Security=true";

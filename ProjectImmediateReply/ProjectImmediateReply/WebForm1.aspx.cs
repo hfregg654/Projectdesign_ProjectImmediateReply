@@ -21,7 +21,9 @@ namespace ProjectImmediateReply
                 "財務系統","無人機管理系統","專案及時回覆系統","選課系統"
             };
             DateTime start = DateTime.Now;
-            foreach (string item in Utility.RandomTool.RandomAssign(people, project ,"Manager").ToArray())
+            Utility.RandomTool tool = new Utility.RandomTool();
+            
+            foreach (string item in tool.RandomAssign(people, project ,"Manager").ToArray())
             {
                 Response.Write($"{item}<br/>");
             }
