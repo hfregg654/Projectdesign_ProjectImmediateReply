@@ -17,7 +17,7 @@ namespace ProjectImmediateReply.Utility
         /// 確認登入狀態,回傳值為true or false
         /// </summary>
         /// <returns></returns>
-        public static bool HasLogIned()
+        public bool HasLogIned()
         {
             //定義布林值取得登入狀態的Session
             bool? val = HttpContext.Current.Session[_sessionislogin] as bool?;
@@ -33,14 +33,15 @@ namespace ProjectImmediateReply.Utility
         /// <param name="Account">使用者帳號</param>
         /// <param name="Password">使用者密碼</param>
         /// <returns></returns>
-        public static bool TryLogIn(string Account, string Password)
+        public bool TryLogIn(string Account, string Password)
         {
             //若已是登入狀態則回傳true
-            if (LoginHelper.HasLogIned())
+            if (HasLogIned())
                 return true;
             //從資料庫裡撈出符合帳號的資料,若沒有則回傳FALSE
             string[] readcol = { "Account", "PassWord", "Name", "Privilege" };
-            DataTable dtuserAccount = DBTool.readTableWhere("Users", readcol, "Account=@Account", Account);
+            var getaccount = new DBTool();
+            DataTable dtuserAccount = getaccount.readTableWhere("Users", readcol, "Account=@Account", Account);
             if (dtuserAccount == null || dtuserAccount.Rows.Count == 0)
                 return false;
             //將撈到的資料放進變數中存放
@@ -63,10 +64,10 @@ namespace ProjectImmediateReply.Utility
         /// <summary>
         /// 將使用者登出並刪除其Session
         /// </summary>
-        public static void Logout()
+        public void Logout()
         {
             //若為非登入狀態直接回傳
-            if (!LoginHelper.HasLogIned())
+            if (!HasLogIned())
                 return;
             HttpContext.Current.Session.Remove(_sessionislogin);
             HttpContext.Current.Session.Remove(_sessionUserName);
@@ -77,9 +78,9 @@ namespace ProjectImmediateReply.Utility
         /// 取得已登入者的資訊，若沒登入傳空字串
         /// </summary>
         /// <returns></returns>
-        public static string GetCurrentUserInfo()
+        public string GetCurrentUserInfo()
         {
-            if (!LoginHelper.HasLogIned())
+            if (!HasLogIned())
                 return string.Empty;
             return HttpContext.Current.Session[_sessionUserName] as string;
 
