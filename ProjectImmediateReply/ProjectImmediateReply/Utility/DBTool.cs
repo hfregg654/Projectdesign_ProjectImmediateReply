@@ -9,21 +9,16 @@ namespace ProjectImmediateReply.Utility
 {
     public class DBTool
     {
+        //資料庫連結字串
+        private const string connectionString =
+               "Data Source=localhost\\SQLEXPRESS;Initial Catalog=ProjectImmediateReply; Integrated Security=true";
         /// <summary>
-        /// 讀取資料庫目標資料表的目標欄位資料
-        /// SELECT 欄位名稱 FROM 資料表名稱 ORDER BY 排序目標
+        /// 判斷接過來的readtablename來決定那個表的order方式
         /// </summary>
         /// <param name="readtablename">目標資料表名稱</param>
-        /// <param name="readcolname">目標欄位名稱的陣列</param>
         /// <returns></returns>
-        public DataTable readTable(string readtablename, string[] readcolname)
+        private string OrderName(string readtablename)
         {
-            //資料庫連結字串
-            string connectionString =
-               "Data Source=localhost\\SQLEXPRESS;Initial Catalog=ProjectImmediateReply; Integrated Security=true";
-            //將接過來的目標欄位名稱陣列用「,」連接成一個字串
-            string readcoladd = string.Join(",", readcolname);
-            //判斷接過來的readtablename來決定那個表的order方式
             string ordername;
             switch (readtablename)
             {
@@ -45,6 +40,21 @@ namespace ProjectImmediateReply.Utility
                         return null;
                     }
             }
+            return ordername;
+        }
+        /// <summary>
+        /// 讀取資料庫目標資料表的目標欄位資料
+        /// SELECT 欄位名稱 FROM 資料表名稱 ORDER BY 排序目標
+        /// </summary>
+        /// <param name="readtablename">目標資料表名稱</param>
+        /// <param name="readcolname">目標欄位名稱的陣列</param>
+        /// <returns></returns>
+        public DataTable readTable(string readtablename, string[] readcolname)
+        {
+            //將接過來的目標欄位名稱陣列用「,」連接成一個字串
+            string readcoladd = string.Join(",", readcolname);
+            //判斷接過來的readtablename來決定那個表的order方式
+            string ordername = OrderName(readtablename);
             //SQL語法參數化"SELECT 欄位名稱 FROM 資料表名稱 ORDER BY 排序目標"
             string queryString =
                 $@" SELECT {readcoladd} FROM {readtablename}
@@ -73,54 +83,40 @@ namespace ProjectImmediateReply.Utility
         }
         /// <summary>
         /// 讀取資料庫目標資料表的目標欄位中符合條件的資料
-        /// SELECT 欄位名稱 FROM 資料表名稱 WHERE Where條件(欄位名稱=@欄位名稱) ORDER BY 排序目標
-        /// readcolname第一個值須為Where的目標欄位名稱
-        /// 只能下一種WHERE條件
+        /// 不需要的參數請傳入NULL
+        /// SELECT 欄位名稱 FROM 資料表名稱 Where條件(例:欄位名稱=@欄位名稱)或其他條件(例:GROUP BY 欄位名稱) ORDER BY 排序目標
+        /// 條件的帶@參數名及參數值順序必須相同
         /// </summary>
         /// <param name="readtablename">目標資料表名稱</param>
         /// <param name="readcolname">目標欄位名稱的陣列</param>
-        /// <param name="Where_Logic">Where條件</param>
-        /// <param name="Where_P">條件的參數值</param>
+        /// <param name="Logic">條件</param>
+        /// <param name="Pname">條件的帶@參數名陣列</param>
+        /// <param name="P">條件的參數值陣列</param>
         /// <returns></returns>
-        public DataTable readTableWhere(string readtablename, string[] readcolname, string Where_Logic, string Where_P)
+        public DataTable readTable(string readtablename, string[] readcolname,
+            string Logic, string[] Pname, string[] P)
+
         {
-            string connectionString =
-               "Data Source=localhost\\SQLEXPRESS;Initial Catalog=ProjectImmediateReply; Integrated Security=true";
             //將接過來的目標欄位名稱陣列用「,」連接成一個字串
             string readcoladd = string.Join(",", readcolname);
             //判斷接過來的readtablename來決定那個表的排序方式
-            string ordername;
-            switch (readtablename)
-            {
-                case "Users":
-                    ordername = "UserID";
-                    break;
-                case "Projects":
-                    ordername = "ProjectID";
-                    break;
-                case "Works":
-                    ordername = "WorkID";
-                    break;
-                case "Grades":
-                    ordername = "UserID";
-                    break;
-                default:
-                    {
-                        HttpContext.Current.Response.Write("請輸入正確資料表名稱");
-                        return null;
-                    }
-            }
-            //SQL語法參數化"SELECT 欄位名稱 FROM 資料表名稱 WHERE Where條件(欄位名稱=@欄位名稱) ORDER BY 排序目標"
+            string ordername = OrderName(readtablename);
+            //SQL語法參數化"SELECT 欄位名稱 FROM 資料表名稱 條件"
             string queryString =
                 $@" SELECT {readcoladd} FROM {readtablename}
-                    WHERE  {Where_Logic}
-                    ORDER BY {ordername} ;";
+                    {Logic};";
+                    
             //資料庫開啟並執行SQL
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
-                //傳入參數至Where條件的@目標欄位
-                command.Parameters.AddWithValue($"@{readcolname[0]}", Where_P);
+                //傳入參數至@目標欄位
+                if (Pname != null && P != null 
+                    && Pname.Length != 0 && P.Length != 0)
+                {
+                    for (int i = 0; i < Pname.Length; i++)
+                        command.Parameters.AddWithValue(Pname[i], P[i]);
+                }
                 try
                 {
                     connection.Open();
@@ -142,14 +138,13 @@ namespace ProjectImmediateReply.Utility
         /// INSERT INTO 資料表名稱 (欄位名稱) VALUES (@欄位名稱)
         /// 傳入的@欄位和參數的順序必須相同
         /// </summary>
-        /// <param name="readtablename">目標資料表名稱</param>
+        /// <param name="inserttablename">目標資料表名稱</param>
         /// <param name="insertcolname">目標欄位名稱的陣列</param>
         /// <param name="insertcolname_P">目標欄位名稱帶有@的陣列</param>
         /// <param name="insert_P">需給予@欄位之參數值的集合</param>
-        public void InsertTable(string inserttablename, string[] insertcolname, string[] insertcolname_P, List<string> insert_P)
+        public void InsertTable(string inserttablename, string[] insertcolname, 
+            string[] insertcolname_P, List<string> insert_P)
         {
-            string connectionString =
-                "Data Source=localhost\\SQLEXPRESS;Initial Catalog=ProjectImmediateReply; Integrated Security=true";
             //將接過來的目標欄位名稱及目標欄位名稱帶有@的陣列各自用「,」連接成一個字串
             string insertcolum = string.Join(",", insertcolname);
             string insertparameter = string.Join(",", insertcolname_P);
@@ -195,8 +190,6 @@ namespace ProjectImmediateReply.Utility
         /// <param name="update_P">需給予@欄位之參數值的集合</param>
         public void UpdateTable(string updatetablename, string[] updatecol_Logic, string Where_Logic, string[] updatecolname_P, List<string> update_P)
         {
-            string connectionString =
-                "Data Source=localhost\\SQLEXPRESS;Initial Catalog=ProjectImmediateReply; Integrated Security=true";
             //將接過來的陣列用「,」連接成一個字串
             string updatecolum = string.Join(",", updatecol_Logic);
             //將user輸入的集合轉為陣列
@@ -237,8 +230,6 @@ namespace ProjectImmediateReply.Utility
         /// <param name="delete_P">需給予@欄位之參數值</param>
         public void DeleteTable(string deletetablename, string deletecolname, string deletecolname_P, string delete_P)
         {
-            string connectionString =
-                "Data Source=localhost\\SQLEXPRESS;Initial Catalog=ProjectImmediateReply; Integrated Security=true";
             //SQL語法參數化"DELETE FROM 資料表名稱 WHERE 欄位名稱=@欄位名稱"
             string queryString = $"DELETE FROM {deletetablename} WHERE {deletecolname} = {deletecolname_P}";
             //資料庫開啟並執行SQL
