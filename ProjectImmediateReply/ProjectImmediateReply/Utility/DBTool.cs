@@ -84,7 +84,7 @@ namespace ProjectImmediateReply.Utility
         /// <summary>
         /// 讀取資料庫目標資料表的目標欄位中符合條件的資料
         /// 不需要的參數請傳入NULL
-        /// SELECT 欄位名稱 FROM 資料表名稱 Where條件(例:欄位名稱=@欄位名稱)或其他條件(例:GROUP BY 欄位名稱) ORDER BY 排序目標
+        /// SELECT 欄位名稱 FROM 資料表名稱 "SELECT 欄位名稱 FROM 資料表名稱 條件"
         /// 條件的帶@參數名及參數值順序必須相同
         /// </summary>
         /// <param name="readtablename">目標資料表名稱</param>
