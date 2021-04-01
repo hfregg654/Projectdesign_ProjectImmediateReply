@@ -1,0 +1,71 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ImmediateReplay.master.cs" Inherits="ProjectImmediateReply.ImmediateReplay" %>
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="../assets/css/ImmediateReplayMain.css" rel="stylesheet" />
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--materialize-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--animate-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <!--fontawesome-->
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+        integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+        crossorigin="anonymous" />
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <!----------navbar---------------->
+        <nav class="light-blue">
+            <div class="nav-wrapper row">
+                <a href="#" class="brand-logo">
+                    <span style="color: #0069CE">u</span>
+                    <span style="color: #00A65A">B</span>
+                    <span style="color: #EEC803">A</span>
+                    <span style="color: #EC475A">Y</span>
+                </a>
+            </div>
+        </nav>
+
+
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+
+
+
+        <!-- Footer -->
+        <footer class="section footer light-blue lighten-1 white-text center">
+            <p class="flow-text">
+                Copyright&copy;2021, <span style="color: #0069CE">u</span>
+                <span style="color: #00A65A">B</span>
+                <span style="color: #EEC803">A</span>
+                <span style="color: #EC475A">Y</span> All Right Reserved
+            </p>
+        </footer>
+
+        <!--------------------->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script type="text/javascript">
+            // Modal trigger
+            $(document).ready(function () {
+                $('.modal').modal();
+            });
+			// ----
+        </script>
+    </form>
+</body>
+</html>

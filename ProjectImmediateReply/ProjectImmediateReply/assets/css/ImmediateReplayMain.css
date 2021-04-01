@@ -1,0 +1,55 @@
+﻿/* footer固定在下 */
+html,
+body {
+    display: flex;
+    /*使物件依序排列*/
+    flex-direction: column;
+    /*使物件垂直排列*/
+    height: 100%;
+    margin: 0;
+    background-image: url(https://t4.ftcdn.net/jpg/01/19/11/55/360_F_119115529_mEnw3lGpLdlDkfLgRcVSbFRuVl6sMDty.jpg);
+    background-size: cover;
+}
+
+.brand-logo {
+    margin-left: 0.5rem;
+}
+
+.login .card {
+    background: rgba(0, 0, 0, .6);
+}
+
+.wrapper {
+    flex-grow: 1;
+    /*可佔滿垂直剩餘的空間*/
+}
+
+.footer {
+    background-color: gray;
+}
+
+/* --------- */
+.slider .btn {
+    margin-top: 20px;
+}
+
+.section-search input {
+    padding: 10px !important;
+    padding-left: 20px !important;
+    font-size: 28px !important;
+    width: 90% !important;
+    border: #f4f4f4 3px solid !important;
+}
+
+.section-follow .fa-4x {
+    margin: 5px 10px;
+}
+
+.section-contact h5 {
+    margin-bottom: 30px;
+}
+
+.caption {
+    animation-duration: 1s !important;
+    animation-delay: 2s !important;
+}

@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<link href="../assets/css/ImmediateReplayMain.css" rel="stylesheet" />
+	<!-- Compiled and minified CSS -->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+	<!--materialize-->
+	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+	<!--animate-->
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+	<!--fontawesome-->
+	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+		  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+		  crossorigin="anonymous" />
+</head>
+	<body>
+		<!----------navbar---------------->
+		<nav class="light-blue">
+			<div class="nav-wrapper row">
+				<a href="#" class="brand-logo">
+					<font color="#0069CE">u</font>
+					<font color="#00A65A">B</font>
+					<font color="#EEC803">A</font>
+					<font color="#EC475A">Y</font>
+				</a>
+			</div>
+		</nav>
+		<!-- -wrapper包容器 不可刪---- -->
+		<div class="wrapper">
+			<!-- ------Login Form---------
+				 -->
+			<div class="row login">
+				<div class="col s12 l4 offset-l4">
+					<div class="card">
+
+						<div class="card-action red white-text">
+							<div class="center-align">
+								<p class="flow-text">專案即時回覆系統</p>
+							</div>
+						</div>
+						<div class="card-content">
+							<div class="form-field">
+								<label for="username">帳號</label>
+								<input type="text" id="username" />
+							</div><br>
+							<div class="form-field">
+								<label for="password">密碼</label>
+								<input type="password" id="password" />
+							</div><br>
+							<div class="form-field center-align">
+								<button class="btn-large red">登入<i class="material-icons right">send</i></button>
+							</div>
+							<div class="card-content center-align">
+								<a class="modal-trigger" href="#terms">註冊帳號</a><br>
+								<a class="modal-trigger" href="#terms1">忘記密碼</a>
+							</div>
+							<!--modal 外層用container包著 ------
+							 -->
+							<div class="container">
+								<!-- 註冊帳號彈跳視窗內容 -->
+								<div id="terms" class="modal">
+									<div class="modal-content center-align">
+										<h4>帳號註冊</h4>
+
+										<div class="row">
+											<form class="col s12">
+												<div class="row">
+													<div class="input-field col s6">
+														<input id="register_name" type="text" class="validate">
+														<label for="register_name">姓名</label>
+													</div>
+													<div class="input-field col s6">
+														<input id="register_number" type="tel" class="validate">
+														<label for="register_number">電話號碼</label>
+													</div>
+												</div>
+												<div class="row">
+													<div class="input-field col s6">
+														<input id="register_email" type="email" class="validate">
+														<label for="register_email">電子郵件</label>
+													</div>
+													<div class="input-field col s6">
+														<input id="register_lineid" type="text" class="validate">
+														<label for="register_lineid">LineID</label>
+													</div>
+												</div>
+												<div class="row">
+													<div class="input-field col s6">
+														<input id="register_class" type="text" class="validate">
+														<label for="register_class">班別</label>
+													</div>
+													<div class="input-field col s6">
+														<input id="register_account" type="text" class="validate">
+														<label for="register_account">帳號</label>
+													</div>
+												</div>
+												<div class="row">
+													<div class="input-field col s6">
+														<input id="register_password" type="password" class="validate">
+														<label for="register_password">密碼</label>
+													</div>
+													<div class="input-field col s6">
+														<input id="register_confirm_password" type="password"
+															class="validate">
+														<label for="register_confirm_password">密碼確認</label>
+													</div>
+												</div>
+												<div class="row">
+													<div class="input-field col s12">
+														<input id="register_key" type="text" class="validate">
+														<label for="register_key">授權碼</label>
+													</div>
+												</div>
+
+											</form>
+										</div>
+
+									</div>
+									<div class="modal-footer">
+										<a href="#!" class="modal-close btn orange btn-large">建立</a>
+									</div>
+								</div>
+								<!-- 註冊彈跳視窗內容結束 -->
+								<!-- 忘記密碼彈跳視窗開始 -->
+								<div class="container center-align">
+									<div id="terms1" class="modal">
+										<div class="modal-content">
+											<h4>忘記密碼</h4>
+
+											<div class="row">
+												<form class="col s12">
+													<div class="row">
+														<div class="col s12">
+															請輸入授權碼
+															<div class="input-field inline">
+																<input id="rescue_key" type="text" class="validate">
+																<label for="rescue_key">授權碼</label>
+															</div>
+														</div>
+													</div>
+
+												</form>
+											</div>
+
+										</div>
+										<div class="modal-footer">
+											<a href="#!" class="modal-close btn orange btn-large">搜尋</a>
+										</div>
+									</div>
+								</div>
+
+								<!-- 忘記密碼彈跳視窗結束 -->
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+		<!-- Footer -->
+		<footer class="section footer light-blue lighten-1 white-text center">
+			<p class="flow-text">Copyright&copy;2021, <font color="#0069CE">u</font>
+				<font color="#00A65A">B</font>
+				<font color="#EEC803">A</font>
+				<font color="#EC475A">Y</font> All Right Reserved
+			</p>
+		</footer>
+
+		<!--------------------->
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<!-- Compiled and minified JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script type="text/javascript">
+			// Modal trigger
+			$(document).ready(function() {
+				$('.modal').modal();
+			});
+			// ----
+		</script>
+
+	</body>
+
+	<!--<style type="text/css">
+		/* footer固定在下 */
+		html,
+		body {
+			display: flex;
+			/*使物件依序排列*/
+			flex-direction: column;
+			/*使物件垂直排列*/
+			height: 100%;
+			margin: 0;
+			background-image: url(https://t4.ftcdn.net/jpg/01/19/11/55/360_F_119115529_mEnw3lGpLdlDkfLgRcVSbFRuVl6sMDty.jpg);
+			background-size: cover;
+		}
+
+		.brand-logo {
+			margin-left: 0.5rem;
+		}
+
+		.login .card {
+			background: rgba(0, 0, 0, .6);
+		}
+
+		.wrapper {
+			flex-grow: 1;
+			/*可佔滿垂直剩餘的空間*/
+		}
+
+		.footer {
+			background-color: gray;
+		}
+
+		/* --------- */
+		.slider .btn {
+			margin-top: 20px;
+		}
+
+		.section-search input {
+			padding: 10px !important;
+			padding-left: 20px !important;
+			font-size: 28px !important;
+			width: 90% !important;
+			border: #f4f4f4 3px solid !important;
+		}
+
+		.section-follow .fa-4x {
+			margin: 5px 10px;
+		}
+
+		.section-contact h5 {
+			margin-bottom: 30px;
+		}
+
+		.caption {
+			animation-duration: 1s !important;
+			animation-delay: 2s !important;
+		}
+	</style>-->
+
+</html>

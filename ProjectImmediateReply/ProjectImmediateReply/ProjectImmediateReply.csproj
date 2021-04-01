@@ -68,6 +68,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\css\font-awesome.min.css" />
+    <Content Include="assets\css\ImmediateReplayMain.css" />
     <Content Include="assets\css\main.css" />
     <Content Include="assets\css\W3HWStyle.css" />
     <Content Include="assets\fonts\fontawesome-webfont.svg" />
@@ -77,6 +78,7 @@
     <Content Include="assets\js\skel.min.js" />
     <Content Include="assets\js\util.js" />
     <Content Include="Global.asax" />
+    <Content Include="HTML\login.html" />
     <Content Include="images\002.jpg" />
     <Content Include="images\bg.jpg" />
     <Content Include="images\geoglo.png" />
@@ -89,23 +91,54 @@
     <Content Include="images\slide03.jpg" />
     <Content Include="images\slide04.jpg" />
     <Content Include="images\slide05.jpg" />
+    <Content Include="ucForgetpassword.ascx" />
+    <Content Include="ucRegistered.ascx" />
     <Content Include="Web.config" />
-    <Content Include="WebForm1.aspx" />
+    <Content Include="Tooltest.aspx" />
+    <Content Include="Index.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="ImmediateReplay.Master.cs">
+      <DependentUpon>ImmediateReplay.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ImmediateReplay.Master.designer.cs">
+      <DependentUpon>ImmediateReplay.Master</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ucForgetpassword.ascx.cs">
+      <DependentUpon>ucForgetpassword.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucForgetpassword.ascx.designer.cs">
+      <DependentUpon>ucForgetpassword.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ucRegistered.ascx.cs">
+      <DependentUpon>ucRegistered.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucRegistered.ascx.designer.cs">
+      <DependentUpon>ucRegistered.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Utility\DBTool.cs" />
     <Compile Include="Utility\LoginHelper.cs" />
     <Compile Include="Utility\RandomTool.cs" />
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Tooltest.aspx.cs">
+      <DependentUpon>Tooltest.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
+    <Compile Include="Tooltest.aspx.designer.cs">
+      <DependentUpon>Tooltest.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -114,6 +147,7 @@
     <Content Include="assets\fonts\fontawesome-webfont.woff" />
     <Content Include="assets\fonts\fontawesome-webfont.woff2" />
     <Content Include="assets\fonts\FontAwesome.otf" />
+    <Content Include="ImmediateReplay.Master" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
