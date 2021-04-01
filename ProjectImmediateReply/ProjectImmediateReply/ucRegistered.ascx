@@ -28,10 +28,10 @@
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
-                        <asp:DropDownList runat="server" ID="register_class" CssClass="validate">
-                            <asp:ListItem Text="text1"/>
-                            <asp:ListItem Text="text2" />
-                        </asp:DropDownList>
+                        <select id="register_class" class="validate" runat="server">
+                            <option value="value">text</option>
+                            <option value="value">text</option>
+                        </select>
                         <label for="register_class">班別</label>
                     </div>
                     <div class="input-field col s6">
@@ -65,4 +65,5 @@
         <a href="#!" id="registeredbutton" class="modal-close btn orange btn-large" runat="server">建立</a>
     </div>
 </div>
-<!-- 註冊彈跳視窗內容結束 -->k
+<!-- 註冊彈跳視窗內容結束 -->
+k

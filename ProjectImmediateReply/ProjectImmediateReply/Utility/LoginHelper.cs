@@ -40,8 +40,10 @@ namespace ProjectImmediateReply.Utility
                 return true;
             //從資料庫裡撈出符合帳號的資料,若沒有則回傳FALSE
             string[] readcol = { "Account", "PassWord", "Name", "Privilege" };
+            string[] Pname = { "@Account" };
+            string[] P = { Account };
             var getaccount = new DBTool();
-            DataTable dtuserAccount = getaccount.readTableWhere("Users", readcol, "Account=@Account", Account);
+            DataTable dtuserAccount = getaccount.readTable("Users", readcol, "WHERE Account=@Account", Pname, P);
             if (dtuserAccount == null || dtuserAccount.Rows.Count == 0)
                 return false;
             //將撈到的資料放進變數中存放
