@@ -25,12 +25,12 @@
                     <div class="card-content">
                         <div class="form-field">
                             <label for="username">帳號</label>
-                            <input type="text" id="username" />
+                            <input type="text" id="username" runat="server" style="color: white" />
                         </div>
                         <br>
                         <div class="form-field">
                             <label for="password">密碼</label>
-                            <input type="password" id="password" />
+                            <input type="password" id="password" runat="server" style="color: white" />
                         </div>
                         <br>
                         <div class="form-field center-align">
@@ -43,8 +43,8 @@
                         <!--modal 外層用container包著 ------
 							 -->
                         <div class="container">
-                            <uc1:ucRegistered runat="server" id="ucRegistered" />
-                            <uc1:ucForgetpassword runat="server" id="ucForgetpassword" />
+                            <uc1:ucRegistered runat="server" ID="ucRegistered" />
+                            <uc1:ucForgetpassword runat="server" ID="ucForgetpassword" />
                         </div>
                     </div>
                 </div>
