@@ -44,17 +44,25 @@
 						<div class="card-content">
 							<div class="form-field">
 								<label for="username">帳號</label>
-								<input type="text" id="username" />
+								<input type="text" id="username" onkeyup="value=value.replace(/[\W]/g,'') " />
 							</div><br>
 							<div class="form-field">
 								<label for="password">密碼</label>
-								<input type="password" id="password" />
+								<div class="row">
+									<div class="col s10">
+										<input type="password" id="password" onkeyup="value=value.replace(/[\W]/g,'') "
+											onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
+									</div>
+									<div class="col s2">
+										<a href="#" id="showpassword"><i class="material-icons">remove_red_eye</i></a>
+									</div>
+								</div>
 							</div><br>
 							<div class="form-field center-align">
 								<button class="btn-large red">登入<i class="material-icons right">send</i></button>
 							</div>
 							<div class="card-content center-align">
-								<a class="modal-trigger" href="#terms">註冊帳號</a><br>
+								<a class="modal-trigger" href="#terms">註冊帳號</a><br><br>
 								<a class="modal-trigger" href="#terms1">忘記密碼</a>
 							</div>
 							<!--modal 外層用container包著 ------
@@ -90,14 +98,18 @@
 												<!-- 增加班別選單開始 -->
 												<div class="row">
 													<div class="input-field col s6">
-													    <select class="icons">
-													      <option disabled selected>班別</option>
-													      <option data-icon="https://visualpharm.com/assets/160/Class-595b40b65ba036ed117d2ab4.svg">1</option>
-													      <option data-icon="https://visualpharm.com/assets/160/Class-595b40b65ba036ed117d2ab4.svg">2</option>
-													    </select>
+														<select class="icons">
+															<option disabled selected>班別</option>
+															<option
+																data-icon="https://visualpharm.com/assets/160/Class-595b40b65ba036ed117d2ab4.svg">
+																1</option>
+															<option
+																data-icon="https://visualpharm.com/assets/160/Class-595b40b65ba036ed117d2ab4.svg">
+																2</option>
+														</select>
 														<label>請選擇班別</label>
-													  </div>
-													  <!-- 增加班別選單結束 -->
+													</div>
+													<!-- 增加班別選單結束 -->
 													<div class="input-field col s6">
 														<input id="register_account" type="text" class="validate">
 														<label for="register_account">帳號</label>
@@ -187,10 +199,26 @@
 			});
 			// ----
 			//增加班別選單
-			$(document).ready(function(){
-			    $('select').formSelect();
-			  });
-			  // ----
+			$(document).ready(function() {
+				$('select').formSelect();
+			});
+			// ----
+			// 增加密碼框顯示功能
+			let Password = document.getElementById('password')
+			let btn = document.getElementById('showpassword')
+			let flag = true; // 狀態控制
+			btn.onclick = function() {
+				if (flag) {
+					btn.innerHTML = '<i class="material-icons">visibility_off</i>'
+					Password.type = 'text'
+					flag = false
+				} else {
+					btn.innerHTML = '<i class="material-icons">visibility</i>'
+					Password.type = 'password'
+					flag = true
+				}
+			}
+			// ----
 		</script>
 
 	</body>
@@ -206,10 +234,6 @@
 			margin: 0;
 			background-image: url(https://t4.ftcdn.net/jpg/01/19/11/55/360_F_119115529_mEnw3lGpLdlDkfLgRcVSbFRuVl6sMDty.jpg);
 			background-size: cover;
-		}
-		.select-dropdown{
-		  color:grey;
-		  font-size: 1.0625rem!important;
 		}
 
 		.brand-logo {
