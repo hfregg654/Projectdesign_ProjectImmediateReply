@@ -1,22 +1,21 @@
 ﻿<!DOCTYPE html>
 <html>
 
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<meta http-equiv="X-UA-Compatible" content="ie=edge">
-	<link href="../assets/css/ImmediateReplayMain.css" rel="stylesheet" />
-	<!-- Compiled and minified CSS -->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
-	<!--materialize-->
-	<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-	<!--animate-->
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
-	<!--fontawesome-->
-	<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
-		  integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
-		  crossorigin="anonymous" />
-</head>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<!-- Compiled and minified CSS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<!--materialize-->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<!--animate-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+		<!--fontawesome-->
+		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+			integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+			crossorigin="anonymous" />
+	</head>
 	<body>
 		<!----------navbar---------------->
 		<nav class="light-blue">
@@ -88,11 +87,17 @@
 														<label for="register_lineid">LineID</label>
 													</div>
 												</div>
+												<!-- 增加班別選單開始 -->
 												<div class="row">
 													<div class="input-field col s6">
-														<input id="register_class" type="text" class="validate">
-														<label for="register_class">班別</label>
-													</div>
+													    <select class="icons">
+													      <option disabled selected>班別</option>
+													      <option data-icon="https://visualpharm.com/assets/160/Class-595b40b65ba036ed117d2ab4.svg">1</option>
+													      <option data-icon="https://visualpharm.com/assets/160/Class-595b40b65ba036ed117d2ab4.svg">2</option>
+													    </select>
+														<label>請選擇班別</label>
+													  </div>
+													  <!-- 增加班別選單結束 -->
 													<div class="input-field col s6">
 														<input id="register_account" type="text" class="validate">
 														<label for="register_account">帳號</label>
@@ -181,11 +186,15 @@
 				$('.modal').modal();
 			});
 			// ----
+			//增加班別選單
+			$(document).ready(function(){
+			    $('select').formSelect();
+			  });
+			  // ----
 		</script>
 
 	</body>
-
-	<!--<style type="text/css">
+	<style type="text/css">
 		/* footer固定在下 */
 		html,
 		body {
@@ -197,6 +206,10 @@
 			margin: 0;
 			background-image: url(https://t4.ftcdn.net/jpg/01/19/11/55/360_F_119115529_mEnw3lGpLdlDkfLgRcVSbFRuVl6sMDty.jpg);
 			background-size: cover;
+		}
+		.select-dropdown{
+		  color:grey;
+		  font-size: 1.0625rem!important;
 		}
 
 		.brand-logo {
@@ -241,6 +254,6 @@
 			animation-duration: 1s !important;
 			animation-delay: 2s !important;
 		}
-	</style>-->
+	</style>
 
 </html>

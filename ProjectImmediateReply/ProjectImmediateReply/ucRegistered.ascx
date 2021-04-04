@@ -26,14 +26,17 @@
                         <label for="register_lineid">LineID</label>
                     </div>
                 </div>
+                <!-- 增加班別選單開始 -->
                 <div class="row">
                     <div class="input-field col s6">
-                        <select id="register_class" class="validate" runat="server">
-                            <option value="value">text</option>
-                            <option value="value">text</option>
+                        <select class="icons" runat="server" id="register_class">
+                            <option disabled selected>班別</option>
+                            <%--<option data-icon="https://visualpharm.com/assets/160/Class-595b40b65ba036ed117d2ab4.svg">1</option>
+                            <option data-icon="https://visualpharm.com/assets/160/Class-595b40b65ba036ed117d2ab4.svg">2</option>--%>
                         </select>
-                        <label for="register_class">班別</label>
+                        <label>請選擇班別</label>
                     </div>
+                    <!-- 增加班別選單結束 -->
                     <div class="input-field col s6">
                         <input id="register_account" type="text" class="validate" runat="server">
                         <label for="register_account">帳號</label>

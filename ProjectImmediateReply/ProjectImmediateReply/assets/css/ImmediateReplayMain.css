@@ -10,6 +10,10 @@ body {
     background-image: url(https://t4.ftcdn.net/jpg/01/19/11/55/360_F_119115529_mEnw3lGpLdlDkfLgRcVSbFRuVl6sMDty.jpg);
     background-size: cover;
 }
+.select-dropdown {
+    color: grey;
+    font-size: 1.0625rem !important;
+}
 
 .brand-logo {
     margin-left: 0.5rem;
