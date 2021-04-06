@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Data.SqlClient;
 using System.Data;
+using ProjectImmediateReply.Models;
 
 namespace ProjectImmediateReply.Utility
 {
@@ -95,7 +96,6 @@ namespace ProjectImmediateReply.Utility
         /// <returns></returns>
         public DataTable readTable(string readtablename, string[] readcolname,
             string Logic, string[] Pname, string[] P)
-
         {
             //將接過來的目標欄位名稱陣列用「,」連接成一個字串
             string readcoladd = string.Join(",", readcolname);
@@ -133,6 +133,112 @@ namespace ProjectImmediateReply.Utility
                 }
             }
         }
+        /// <summary>
+        /// 將DataTable轉換至UserInfo型別
+        /// </summary>
+        /// <param name="dataTable">DataTable型別的資料</param>
+        /// <returns></returns>
+        public List<UserInfo> ChangeTypeUserInfo(DataTable dataTable)
+        {
+            List<UserInfo> list = new List<UserInfo>();
+            try
+            {
+                foreach (DataRow item in dataTable.Rows)
+                {
+                    var uInfo = new UserInfo();
+                    //uInfo.Account = item["Account"].ToString();
+                    //uInfo.Name = item["Name"].ToString();
+                    //uInfo.License = item["License"].ToString();
+                    list.Add(uInfo);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Response.Write($"請聯繫開發人員。錯誤訊息：{ex}");
+                return null;
+            }
+        }
+        /// <summary>
+        /// 將DataTable轉換至ProjectInfo型別
+        /// </summary>
+        /// <param name="dataTable">DataTable型別的資料</param>
+        /// <returns></returns>
+        public List<ProjectInfo> ChangeTypeProjectInfo(DataTable dataTable)
+        {
+            List<ProjectInfo> list = new List<ProjectInfo>();
+            try
+            {
+                foreach (DataRow item in dataTable.Rows)
+                {
+                    var uInfo = new ProjectInfo();
+                    //uInfo.Account = item["Account"].ToString();
+                    //uInfo.Name = item["Name"].ToString();
+                    //uInfo.License = item["License"].ToString();
+                    list.Add(uInfo);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Response.Write($"請聯繫開發人員。錯誤訊息：{ex}");
+                return null;
+            }
+        }
+        /// <summary>
+        /// 將DataTable轉換至WorkInfo型別
+        /// </summary>
+        /// <param name="dataTable">DataTable型別的資料</param>
+        /// <returns></returns>
+        public List<WorkInfo> ChangeTypeWorkInfo(DataTable dataTable)
+        {
+            List<WorkInfo> list = new List<WorkInfo>();
+            try
+            {
+                foreach (DataRow item in dataTable.Rows)
+                {
+                    var uInfo = new WorkInfo();
+                    //uInfo.Account = item["Account"].ToString();
+                    //uInfo.Name = item["Name"].ToString();
+                    //uInfo.License = item["License"].ToString();
+                    list.Add(uInfo);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Response.Write($"請聯繫開發人員。錯誤訊息：{ex}");
+                return null;
+            }
+        }
+        /// <summary>
+        /// 將DataTable轉換至GradeInfo型別
+        /// </summary>
+        /// <param name="dataTable">DataTable型別的資料</param>
+        /// <returns></returns>
+        public List<GradeInfo> ChangeTypeGradeInfo(DataTable dataTable)
+        {
+            List<GradeInfo> list = new List<GradeInfo>();
+            try
+            {
+                foreach (DataRow item in dataTable.Rows)
+                {
+                    var uInfo = new GradeInfo();
+                    //uInfo.Account = item["Account"].ToString();
+                    //uInfo.Name = item["Name"].ToString();
+                    //uInfo.License = item["License"].ToString();
+                    list.Add(uInfo);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                HttpContext.Current.Response.Write($"請聯繫開發人員。錯誤訊息：{ex}");
+                return null;
+            }
+        }
+
+
         /// <summary>
         /// 往資料庫中插入新資料列
         /// INSERT INTO 資料表名稱 (欄位名稱) VALUES (@欄位名稱)
