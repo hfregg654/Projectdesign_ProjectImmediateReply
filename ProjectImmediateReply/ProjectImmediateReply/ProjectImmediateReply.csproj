@@ -79,6 +79,8 @@
     <Content Include="assets\js\util.js" />
     <Content Include="Global.asax" />
     <Content Include="HTML\login.html" />
+    <Content Include="HTML\vuetify-test.html" />
+    <Content Include="HTML\vuetify-test1.html" />
     <Content Include="images\002.jpg" />
     <Content Include="images\bg.jpg" />
     <Content Include="images\geoglo.png" />
@@ -91,11 +93,13 @@
     <Content Include="images\slide03.jpg" />
     <Content Include="images\slide04.jpg" />
     <Content Include="images\slide05.jpg" />
+    <Content Include="ucCrud.ascx" />
     <Content Include="ucForgetpassword.ascx" />
     <Content Include="ucRegistered.ascx" />
     <Content Include="Web.config" />
     <Content Include="Tooltest.aspx" />
     <Content Include="Index.aspx" />
+    <Content Include="WebFormHTMLTest.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Global.asax.cs">
@@ -108,7 +112,18 @@
     <Compile Include="ImmediateReplay.Master.designer.cs">
       <DependentUpon>ImmediateReplay.Master</DependentUpon>
     </Compile>
+    <Compile Include="Models\GradeInfo.cs" />
+    <Compile Include="Models\ProjectInfo.cs" />
+    <Compile Include="Models\UserInfo.cs" />
+    <Compile Include="Models\WorkInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ucCrud.ascx.cs">
+      <DependentUpon>ucCrud.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucCrud.ascx.designer.cs">
+      <DependentUpon>ucCrud.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ucForgetpassword.ascx.cs">
       <DependentUpon>ucForgetpassword.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -140,6 +155,13 @@
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="WebFormHTMLTest.aspx.cs">
+      <DependentUpon>WebFormHTMLTest.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebFormHTMLTest.aspx.designer.cs">
+      <DependentUpon>WebFormHTMLTest.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Content Include="assets\fonts\fontawesome-webfont.eot" />
@@ -157,8 +179,8 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="API\" />
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

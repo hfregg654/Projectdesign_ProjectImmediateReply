@@ -25,19 +25,27 @@
                     <div class="card-content">
                         <div class="form-field">
                             <label for="username">帳號</label>
-                            <input type="text" id="username" runat="server" style="color: white" />
+                            <input type="text" id="username" runat="server" style="color: white" onkeyup="value=value.replace(/[\W]/g,'') " />
                         </div>
                         <br>
                         <div class="form-field">
                             <label for="password">密碼</label>
-                            <input type="password" id="password" runat="server" style="color: white" />
+                            <div class="row">
+									<div class="col s10">
+										<input type="password" id="password" style="color: white" onkeyup="value=value.replace(/[\W]/g,'') "
+											onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
+									</div>
+									<div class="col s2">
+										<a href="#" id="showpassword"><i class="material-icons">remove_red_eye</i></a>
+									</div>
+								</div>
                         </div>
                         <br>
                         <div class="form-field center-align">
                             <button class="btn-large red">登入<i class="material-icons right">send</i></button>
                         </div>
                         <div class="card-content center-align">
-                            <a class="modal-trigger" href="#terms">註冊帳號</a><br>
+                            <a class="modal-trigger" href="#terms">註冊帳號</a><br><br>
                             <a class="modal-trigger" href="#terms1">忘記密碼</a>
                         </div>
                         <!--modal 外層用container包著 ------

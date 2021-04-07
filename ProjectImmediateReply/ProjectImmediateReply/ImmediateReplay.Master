@@ -70,6 +70,23 @@
                 $('select').formSelect();
             });
 			  // ----
+            // ----
+            // 增加密碼框顯示功能
+            let Password = document.getElementById('password')
+            let btn = document.getElementById('showpassword')
+            let flag = true; // 狀態控制
+            btn.onclick = function () {
+                if (flag) {
+                    btn.innerHTML = '<i class="material-icons">visibility_off</i>'
+                    Password.type = 'text'
+                    flag = false
+                } else {
+                    btn.innerHTML = '<i class="material-icons">visibility</i>'
+                    Password.type = 'password'
+                    flag = true
+                }
+            }
+			// ----
         </script>
     </form>
 </body>
