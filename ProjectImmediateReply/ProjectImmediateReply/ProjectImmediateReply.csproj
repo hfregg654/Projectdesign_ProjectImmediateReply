@@ -179,6 +179,7 @@
     </None>
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="API\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
