@@ -1,0 +1,79 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ImmediateReplayInSide.master.cs" Inherits="ProjectImmediateReply.ImmediateReplayInSide" %>
+
+<%@ Register Src="~/ucLeft.ascx" TagPrefix="uc1" TagName="ucLeft" %>
+
+
+<!DOCTYPE html>
+
+<html>
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--materialize-->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!--animate-->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+    <link href="assets/css/ImmediateReplaInSide.css" rel="stylesheet" />
+    <title></title>
+    <asp:ContentPlaceHolder ID="head" runat="server">
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header>
+            <nav class="black transparent z-depth-0">
+                <div class="nav wrapper">
+                    <div class="row">
+                        <div class="col l5"></div>
+                        <div class="col l4">
+                            <a href="#" class="brand-logo">
+                                <span style="color: #0069CE">u</span>
+                                <span style="color: #00A65A">B</span>
+                                <span style="color: #EEC803">A</span>
+                                <span style="color: #EC475A">Y</span>
+                                <span style="color: beige; font-size: xx-small">專案及時回覆系統</span>
+                            </a>
+                        </div>
+                        <div class="col l3"></div>
+                        <a href="#" data-target="slide-out" class="sidenav-trigger"><i
+                            class="material-icons">menu</i></a>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <uc1:ucLeft runat="server" ID="ucLeft" />
+        <div>
+            <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
+            </asp:ContentPlaceHolder>
+        </div>
+        <!-- footer -->
+        <footer class="page-footer black">
+            <div class="footer-copyright">
+                <div class="container">
+                    <p class="flow-text grey-text center">
+                        Copyright&copy;2021,
+                       <span style="color: #0069CE">u</span>
+                        <span style="color: #00A65A">B</span>
+                        <span style="color: #EEC803">A</span>
+                        <span style="color: #EC475A">Y</span>	All Rights Reserved
+                    </p>
+                </div>
+            </div>
+        </footer>
+        <!-- ---wrapper內外分線------ -->
+
+
+
+
+
+        <!--------------------->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script src="assets/js/ImmediataReplay.js"></script>
+    </form>
+</body>
+</html>

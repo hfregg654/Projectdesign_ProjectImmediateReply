@@ -69,22 +69,22 @@ namespace ProjectImmediateReply
         protected global::System.Web.UI.HtmlControls.HtmlInputText register_account;
 
         /// <summary>
-        /// register_password 控制項。
+        /// passwordregister 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword register_password;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword passwordregister;
 
         /// <summary>
-        /// register_confirm_password 控制項。
+        /// passwordregistercheck 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword register_confirm_password;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword passwordregistercheck;
 
         /// <summary>
         /// register_key 控制項。

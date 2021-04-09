@@ -15,6 +15,8 @@
 		<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
 			integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
 			crossorigin="anonymous" />
+		<!-- -----引入jqueryvalidate---- -->
+		<script defer src="https://cdn.jsdelivr.net/npm/jquery-validation@1.19.3/dist/jquery.validate.min.js"></script>
 	</head>
 	<body>
 		<!----------navbar---------------->
@@ -42,25 +44,35 @@
 							</div>
 						</div>
 						<div class="card-content">
-							<div class="form-field">
-								<label for="username">帳號</label>
-								<input type="text" id="username" onkeyup="value=value.replace(/[\W]/g,'') " />
-							</div><br>
-							<div class="form-field">
-								<label for="password">密碼</label>
-								<div class="row">
-									<div class="col s10">
-										<input type="password" id="password" onkeyup="value=value.replace(/[\W]/g,'') "
-											onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
+							<!-- 加入formA來使用validate -->
+							<form action="" id="formA">
+								<div class="form-field">
+									<label for="username">帳號</label>
+									<input type="text" id="username" name="username"
+										onkeyup="value=value.replace(/[\W]/g,'');" />
+								</div><br>
+								<div class="form-field">
+									<label for="password">密碼</label>
+									<div class="row">
+										<div class="col s12">
+											<input type="password" id="password" name="password"
+												onkeyup="value=value.replace(/[\W]/g,'') "
+												pattern="{0}{9}[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
+												onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
+										</div>
+										<div>
+											<a href="javascript:void(0)" onclick="btn.onclick()" id="showpassword"
+												style="margin-left: -3.25rem!important; margin-top: 2rem!important;"><i
+													class="material-icons">remove_red_eye</i></a>
+										</div>
 									</div>
-									<div class="col s2">
-										<a href="#" id="showpassword"><i class="material-icons">remove_red_eye</i></a>
-									</div>
+								</div><br>
+								<div class="form-field center-align">
+									<button class="btn-large red" type="submit">登入<i
+											class="material-icons right">send</i></button>
 								</div>
-							</div><br>
-							<div class="form-field center-align">
-								<button class="btn-large red">登入<i class="material-icons right">send</i></button>
-							</div>
+							</form>
+							<!-- formA結束 -->
 							<div class="card-content center-align">
 								<a class="modal-trigger" href="#terms">註冊帳號</a><br><br>
 								<a class="modal-trigger" href="#terms1">忘記密碼</a>
@@ -69,29 +81,38 @@
 							 -->
 							<div class="container">
 								<!-- 註冊帳號彈跳視窗內容 -->
-								<div id="terms" class="modal">
-									<div class="modal-content center-align">
-										<h4>帳號註冊</h4>
+								<form class="col s12" id="formB">
+									<!-- 加入formB來使用validate -->
+									<div id="terms" class="modal">
+										<div class="modal-content center-align">
+											<h4>帳號註冊</h4>
 
-										<div class="row">
-											<form class="col s12">
+											<div class="row">
+
 												<div class="row">
 													<div class="input-field col s6">
-														<input id="register_name" type="text" class="validate">
+														<input id="register_name" type="text" class="validate"
+															name="register_name">
 														<label for="register_name">姓名</label>
 													</div>
 													<div class="input-field col s6">
-														<input id="register_number" type="tel" class="validate">
-														<label for="register_number">電話號碼</label>
+														<input id="register_number" type="number" class="validate"
+															onkeyup="value=value.replace(/[\W]/g,'')"
+															name="register_number">
+														<label for="register_number">手機號碼</label>
 													</div>
 												</div>
 												<div class="row">
 													<div class="input-field col s6">
-														<input id="register_email" type="email" class="validate">
+														<input id="register_email" type="email" class="validate"
+															onkeyup="value=value.replace(/[^\w=@#]|_/ig,’’)"
+															name="register_email">
 														<label for="register_email">電子郵件</label>
 													</div>
 													<div class="input-field col s6">
-														<input id="register_lineid" type="text" class="validate">
+														<input id="register_lineid" type="text" class="validate"
+															name="register_lineid"
+															onkeyup="value=value.replace(/[^\w=@#]|_/ig,’’)">
 														<label for="register_lineid">LineID</label>
 													</div>
 												</div>
@@ -111,36 +132,46 @@
 													</div>
 													<!-- 增加班別選單結束 -->
 													<div class="input-field col s6">
-														<input id="register_account" type="text" class="validate">
+														<input id="register_account" type="text" class="validate"
+															name="register_account">
 														<label for="register_account">帳號</label>
 													</div>
 												</div>
 												<div class="row">
-													<div class="input-field col s6">
-														<input id="register_password" type="password" class="validate">
+													<div class="input-field col s5">
+														<input id="register_password" type="password" class="validate"
+															name="register_password">
 														<label for="register_password">密碼</label>
+													</div>
+													<div class="input-field col s1"
+														style="margin-left: -3.25rem!important; margin-top: 2rem!important;">
+														<a href="javascript:void(0)" onclick="btn.onclick1()"
+															id="showpassword1"><i
+																class="material-icons">remove_red_eye</i></a>
 													</div>
 													<div class="input-field col s6">
 														<input id="register_confirm_password" type="password"
-															class="validate">
+															class="validate" name="register_confirm_password">
 														<label for="register_confirm_password">密碼確認</label>
 													</div>
 												</div>
 												<div class="row">
 													<div class="input-field col s12">
-														<input id="register_key" type="text" class="validate">
+														<input id="register_key" type="text" class="validate"
+															name="register_key">
 														<label for="register_key">授權碼</label>
 													</div>
 												</div>
 
-											</form>
-										</div>
 
+											</div>
+
+										</div>
+										<div class="modal-footer">
+											<input class="modal-close btn orange btn-large" value="建立" type="submit">
+										</div>
 									</div>
-									<div class="modal-footer">
-										<a href="#!" class="modal-close btn orange btn-large">建立</a>
-									</div>
-								</div>
+								</form>
 								<!-- 註冊彈跳視窗內容結束 -->
 								<!-- 忘記密碼彈跳視窗開始 -->
 								<div class="container center-align">
@@ -149,12 +180,14 @@
 											<h4>忘記密碼</h4>
 
 											<div class="row">
-												<form class="col s12">
+												<form class="col s12" name="formC" id="formC">
+													<!-- 加入formC來使用validate -->
 													<div class="row">
 														<div class="col s12">
 															請輸入授權碼
 															<div class="input-field inline">
-																<input id="rescue_key" type="text" class="validate">
+																<input id="rescue_key" type="text" 
+																	name="rescue_key">
 																<label for="rescue_key">授權碼</label>
 															</div>
 														</div>
@@ -165,7 +198,7 @@
 
 										</div>
 										<div class="modal-footer">
-											<a href="#!" class="modal-close btn orange btn-large">搜尋</a>
+											<input class="modal-close btn orange btn-large" value="搜尋" type="submit">
 										</div>
 									</div>
 								</div>
@@ -218,6 +251,91 @@
 					flag = true
 				}
 			}
+			// ----
+			// 增加註冊帳號中密碼框顯示功能
+			let Password1 = document.getElementById('register_password')
+			let btn1 = document.getElementById('showpassword1')
+			let flag1 = true; // 狀態控制
+			btn1.onclick = function() {
+				if (flag1) {
+					btn1.innerHTML = '<i class="material-icons">visibility_off</i>'
+					Password1.type = 'text'
+					flag1 = false
+				} else {
+					btn1.innerHTML = '<i class="material-icons">visibility</i>'
+					Password1.type = 'password'
+					flag1 = true
+				}
+			};
+			// ----
+			// 驗證formA　
+			$(function() {
+				var $formA = $("#formA");
+				if ($formA.length) {
+					$formA.validate({
+						rules: {
+							username: {
+								required: true
+							},
+							password: {
+								required: true
+							}
+						},
+						messages: {
+							username: {
+								required: '帳號不可為空'
+							},
+							password: {
+								required: '密碼不可為空'
+							},
+						}
+					})
+				}
+			});
+			// ----
+			// 驗證formB
+			// $(function() {
+			// 	var $formB = $("#formB");
+			// 	if ($formB.length) {
+			// 		$formB.validate({
+			// 			rules: {
+			// 				register_name: {
+			// 					required: true
+			// 				},
+			// 				register_number: {
+			// 					required: true
+			// 				}
+			// 			},
+			// 			messages: {
+			// 				register_name: {
+			// 					required: '帳號不可為空'
+			// 				},
+			// 				register_number: {
+			// 					required: '密碼不可為空'
+			// 				},
+			// 			}
+			// 		})
+			// 	}
+			// });
+			// ----
+			// 驗證formC
+			$(function() {
+				var $formC = $("#formC");
+				if ($formC.length) {
+					$formC.validate({
+						rules: {
+							rescue_key: {
+								required: true
+							}
+						},
+						messages: {
+							rescue_key: {
+								required: '授權碼不可為空'
+							},
+						}
+					})
+				}
+			});
 			// ----
 		</script>
 
@@ -278,6 +396,34 @@
 			animation-duration: 1s !important;
 			animation-delay: 2s !important;
 		}
+
+		/* -----設定jquery validate錯誤訊息開始 */
+		.error {
+			color: red;
+			font-style: italic;
+		}
+
+		input.error {
+			border: 1px solid red;
+		}
+
+		label.error {
+
+			padding-left: 1.5625rem;
+
+			padding-bottom: 0.1875rem;
+
+			font-weight: bold;
+
+			color: #EA5200;
+		}
+
+		/* materialize封裝css form */
+		.invalid {
+			color: #EA5200;
+		}
+
+		/* -----設定validate錯誤訊息結束 */
 	</style>
 
 </html>

@@ -43,8 +43,41 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="form-field">
+                        <div class="row">
+                            <div class="input-field col s6">
+                                <input type="password" id="passwordregister"
+                                    class="validate" onkeyup="value=value.replace(/[\W]/g,'') " runat="server"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
+                                <label for="register_password">密碼</label>
+
+                            </div>
+                            <div>
+                                <a href="javascript:void(0)" id="showbtnregister"
+                                    style="margin-left: -3.25rem!important; margin-top: 2rem!important;">
+                                    <i class="material-icons">remove_red_eye</i></a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-field">
+                        <div class="row">
+                            <label for="register_confirm_password">密碼確認</label>
+                            <div class="input-field col s6">
+                                <input type="password" id="passwordregistercheck"
+                                    class="validate" onkeyup="value=value.replace(/[\W]/g,'') " runat="server"
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
+                            </div>
+                            <div>
+                                <a href="javascript:void(0)" id="showbtnregistercheck"
+                                    style="margin-left: -3.25rem!important; margin-top: 2rem!important;"><i
+                                        class="material-icons">remove_red_eye</i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <%--<div class="row">
                     <div class="input-field col s6">
-                        <input id="register_password" type="password" class="validate" runat="server">
+                        <input id="register_password" type="password" runat="server">
                         <label for="register_password">密碼</label>
                     </div>
                     <div class="input-field col s6">
@@ -52,7 +85,7 @@
                             class="validate" runat="server">
                         <label for="register_confirm_password">密碼確認</label>
                     </div>
-                </div>
+                </div>--%>
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="register_key" type="text" class="validate" runat="server">
