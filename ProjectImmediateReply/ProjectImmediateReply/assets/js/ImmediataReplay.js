@@ -5,7 +5,7 @@ $(document).ready(function () {
     //增加班別選單
     $('select').formSelect();
     // 登入頁密碼框顯示
-    $('#showbtnIndex').click(function () { ShowPassWord('passwordIndex','showbtnIndex'); });
+    $('#showbtnIndex').click(function () { ShowPassWord('ContentPlaceHolder1_passwordIndex','showbtnIndex'); });
     //左側選單
     $('.sidenav').sidenav();
     // 舊密碼框顯示

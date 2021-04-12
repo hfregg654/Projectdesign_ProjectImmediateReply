@@ -5,13 +5,12 @@
 <div id="app">
     <v-app>
 				<v-content>
-					<v-container></v-container>
 					<v-container>
 						<v-data-table :headers="headers" :items="CrudItem" sort-by="calories" class="elevation-1">
 							<template v-slot:top>
 								<v-toolbar flat>
 									<v-toolbar-title><asp:Literal ID="LiteralCrudName" runat="server" Text=""></asp:Literal></v-toolbar-title>
-									<v-divider class="mx-4" inset vertical></v-divider>
+									<%--<v-divider class="mx-4" inset vertical>DDDDDD</v-divider>--%>
 									<v-spacer></v-spacer>
 									<v-dialog v-model="dialog" max-width="500px">
 										<template v-slot:activator="{ on, attrs }">

@@ -9,21 +9,21 @@
                 <div class="row">
                     <div class="input-field col s6">
                         <input id="register_name" type="text" class="validate" runat="server">
-                        <label for="register_name">姓名</label>
+                        <label for="ContentPlaceHolder1_ucRegistered_register_name">姓名</label>
                     </div>
                     <div class="input-field col s6">
                         <input id="register_number" type="tel" class="validate" runat="server">
-                        <label for="register_number">電話號碼</label>
+                        <label for="ContentPlaceHolder1_ucRegistered_register_number">電話號碼</label>
                     </div>
                 </div>
                 <div class="row">
                     <div class="input-field col s6">
                         <input id="register_email" type="email" class="validate" runat="server">
-                        <label for="register_email">電子郵件</label>
+                        <label for="ContentPlaceHolder1_ucRegistered_register_email">電子郵件</label>
                     </div>
                     <div class="input-field col s6">
                         <input id="register_lineid" type="text" class="validate" runat="server">
-                        <label for="register_lineid">LineID</label>
+                        <label for="ContentPlaceHolder1_ucRegistered_register_lineid">LineID</label>
                     </div>
                 </div>
                 <!-- 增加班別選單開始 -->
@@ -39,7 +39,7 @@
                     <!-- 增加班別選單結束 -->
                     <div class="input-field col s6">
                         <input id="register_account" type="text" class="validate" runat="server">
-                        <label for="register_account">帳號</label>
+                        <label for="ContentPlaceHolder1_ucRegistered_register_account">帳號</label>
                     </div>
                 </div>
                 <div class="row">
@@ -49,7 +49,7 @@
                                 <input type="password" id="passwordregister"
                                     class="validate" onkeyup="value=value.replace(/[\W]/g,'') " runat="server"
                                     onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
-                                <label for="register_password">密碼</label>
+                                <label for="ContentPlaceHolder1_ucRegistered_passwordregister">密碼</label>
 
                             </div>
                             <div>
@@ -61,7 +61,7 @@
                     </div>
                     <div class="form-field">
                         <div class="row">
-                            <label for="register_confirm_password">密碼確認</label>
+                            <label for="ContentPlaceHolder1_ucRegistered_passwordregistercheck">密碼確認</label>
                             <div class="input-field col s6">
                                 <input type="password" id="passwordregistercheck"
                                     class="validate" onkeyup="value=value.replace(/[\W]/g,'') " runat="server"
@@ -89,7 +89,7 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="register_key" type="text" class="validate" runat="server">
-                        <label for="register_key">授權碼</label>
+                        <label for="ContentPlaceHolder1_ucRegistered_register_key">授權碼</label>
                     </div>
                 </div>
 

@@ -32,7 +32,7 @@
                             <label for="password">密碼</label>
                             <div class="row">
                                 <div class="col s12">
-                                    <input type="password" id="passwordIndex" name="password" style="color: white" onkeyup="value=value.replace(/[\W]/g,'') "
+                                    <input type="password" id="passwordIndex" name="password" style="color: white"  onkeyup="value=value.replace(/[\W]/g,'') " runat="server"
                                         onbeforepaste=
                                         "clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
                                 </div>
