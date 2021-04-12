@@ -24,12 +24,12 @@
                     </div>
                     <div class="card-content">
                         <div class="form-field">
-                            <label for="username">帳號</label>
+                            <label for="ContentPlaceHolder1_username">帳號</label>
                             <input type="text" id="username" runat="server" style="color: white" onkeyup="value=value.replace(/[\W]/g,'') " />
                         </div>
                         <br>
                         <div class="form-field">
-                            <label for="password">密碼</label>
+                            <label for="ContentPlaceHolder1_passwordIndex">密碼</label>
                             <div class="row">
                                 <div class="col s12">
                                     <input type="password" id="passwordIndex" name="password" style="color: white"  onkeyup="value=value.replace(/[\W]/g,'') " runat="server"

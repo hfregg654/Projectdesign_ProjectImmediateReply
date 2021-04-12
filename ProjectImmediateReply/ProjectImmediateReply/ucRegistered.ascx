@@ -44,35 +44,29 @@
                 </div>
                 <div class="row">
                     <div class="form-field">
-                        <div class="row">
                             <div class="input-field col s6">
                                 <input type="password" id="passwordregister"
                                     class="validate" onkeyup="value=value.replace(/[\W]/g,'') " runat="server"
-                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
+                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"  />
                                 <label for="ContentPlaceHolder1_ucRegistered_passwordregister">密碼</label>
 
                             </div>
-                            <div>
-                                <a href="javascript:void(0)" id="showbtnregister"
-                                    style="margin-left: -3.25rem!important; margin-top: 2rem!important;">
+                            <div class="input-field col s0" style="margin-left: -3.25rem!important; margin-top: 2rem!important;">
+                                <a href="javascript:void(0)" id="showbtnregister">
                                     <i class="material-icons">remove_red_eye</i></a>
                             </div>
-                        </div>
                     </div>
                     <div class="form-field">
-                        <div class="row">
-                            <label for="ContentPlaceHolder1_ucRegistered_passwordregistercheck">密碼確認</label>
                             <div class="input-field col s6">
                                 <input type="password" id="passwordregistercheck"
                                     class="validate" onkeyup="value=value.replace(/[\W]/g,'') " runat="server"
                                     onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
+                                <label for="ContentPlaceHolder1_ucRegistered_passwordregistercheck">密碼確認</label>
                             </div>
-                            <div>
-                                <a href="javascript:void(0)" id="showbtnregistercheck"
-                                    style="margin-left: -3.25rem!important; margin-top: 2rem!important;"><i
-                                        class="material-icons">remove_red_eye</i></a>
+                            <div class="input-field col s0" style="margin-left: -3.25rem!important; margin-top: 2rem!important;">
+                                <a href="javascript:void(0)" id="showbtnregistercheck" >
+                                    <i class="material-icons">remove_red_eye</i></a>
                             </div>
-                        </div>
                     </div>
                 </div>
                 <%--<div class="row">
