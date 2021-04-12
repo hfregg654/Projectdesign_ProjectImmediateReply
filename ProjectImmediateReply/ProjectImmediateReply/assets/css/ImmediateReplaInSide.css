@@ -1,0 +1,27 @@
+﻿body {
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+    background-image: url("https://img.technews.tw/wp-content/uploads/2020/02/12184255/universe.jpg");
+}
+
+main {
+    flex: 1 0 auto;
+}
+
+/* -----sidenav引入開始---- */
+header,
+main,
+footer {
+    padding-left: 300px;
+}
+
+@media only screen and (max-width : 992px) {
+
+    header,
+    main,
+    footer {
+        padding-left: 0;
+    }
+}
+/* -----sidenav引入結束---- */

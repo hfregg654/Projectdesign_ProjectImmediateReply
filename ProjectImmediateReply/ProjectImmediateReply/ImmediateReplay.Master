@@ -56,38 +56,10 @@
         </footer>
 
         <!--------------------->
-        <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+        <script src="assets/js/jquery-3.6.0.min.js"></script>
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
-        <script type="text/javascript">
-            // Modal trigger
-            $(document).ready(function () {
-                $('.modal').modal();
-            });
-            // ----
-            //增加班別選單
-            $(document).ready(function () {
-                $('select').formSelect();
-            });
-			  // ----
-            // ----
-            // 增加密碼框顯示功能
-            let Password = document.getElementById('password')
-            let btn = document.getElementById('showpassword')
-            let flag = true; // 狀態控制
-            btn.onclick = function () {
-                if (flag) {
-                    btn.innerHTML = '<i class="material-icons">visibility_off</i>'
-                    Password.type = 'text'
-                    flag = false
-                } else {
-                    btn.innerHTML = '<i class="material-icons">visibility</i>'
-                    Password.type = 'password'
-                    flag = true
-                }
-            }
-			// ----
-        </script>
+        <script src="assets/js/ImmediataReplay.js"></script>
     </form>
 </body>
 </html>

@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+		<!-- Compiled and minified CSS -->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+		<!--materialize-->
+		<link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+		<!--animate-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.7.2/animate.min.css">
+
+	</head>
+	<body>
+		<!-- ----header---- -->
+		<header>
+			<nav class="black transparent z-depth-0">
+				<div class="nav wrapper">
+					<div class="row">
+						<div class="col l5"></div>
+						<div class="col l4">
+							<a href="#" class="brand-logo">
+								<font color="#0069CE">u</font>
+								<font color="#00A65A">B</font>
+								<font color="#EEC803">A</font>
+								<font color="#EC475A">Y</font>
+							</a>
+						</div>
+						<div class="col l3"></div>
+						<a href="#" data-target="slide-out" class="sidenav-trigger"><i
+								class="material-icons">menu</i></a>
+					</div>
+				</div>
+			</nav>
+		</header>
+		<!-- ----header結束---- -->
+		<!-- sidebar -->
+		<main>
+			<ul id="slide-out" class="sidenav sidenav-fixed">
+				<li>
+					<div class="user-view">
+						<div class="background">
+							<img
+								src="https://www.morganstanley.com/pub/content/dam/msdotcom/ideas/rise-of-the-tech-super-platforms/tw-rise-of-tech.jpg">
+						</div>
+						<a href="#user"><img class="circle"
+								src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV-9p7LkFhpIsdRTn3uij6E50Nn-4SQZO3sA&usqp=CAU"></a>
+						<label for=""><span class="white-text name">歡迎您</span></label>
+						<label for=""><span class="white-text email">XXXXX</span></label>
+					</div>
+				</li>
+				<li><a href="#!" class="waves-effect"><i class="material-icons blue-text">face</i>個人資料維護</a></li>
+				<li>
+					<div class="divider"></div>
+				</li>
+				<li><a href="#!" class="waves-effect"><i class="material-icons blue-text">thumbs_up_down</i>專案評分</a>
+				</li>
+				<li>
+					<div class="divider"></div>
+				</li>
+				<li><a href="#!" class="waves-effect"><i class="material-icons blue-text">receipt</i>成績</a></li>
+			</ul>
+			<!-- sidebar 結束 -->
+			<!-- 輸入表單開始 -->
+			<div class="wrapper">
+				<!-- --------- -->
+				<div class="row login">
+					<div class="col s12 m10 l8 push-l2 push-m1">
+						<div class="card">
+							<div class="card-image">
+								<img src="https://doqvf81n9htmm.cloudfront.net/data/amanda_73/20180212/8_1920.jpg"
+									height="80px">
+								<span class="card-title">表單</span>
+							</div>
+							<form action="">
+								<div class="card-content">
+									<div class="form-field">
+										<label for="username">姓名</label>
+										<input type="text" id="username" onkeyup="value=value.replace(/[\W]/g,'');" />
+									</div><br>
+									<div class="form-field">
+										<label for="phone">電話號碼</label>
+										<input type="text" id="phone" onkeyup="value=value.replace(/[\W]/g,'');" />
+									</div><br>
+									<div class="form-field">
+										<label for="email">電子郵件</label>
+										<input type="text" id="email" onkeyup="value=value.replace(/[\W]/g,'');" />
+									</div><br>
+									<div class="form-field">
+										<label for="lineid">LineID</label>
+										<input type="text" id="lineid" onkeyup="value=value.replace(/[\W]/g,'');" />
+									</div><br>
+									<div class="form-field">
+										<label for="oldpassword">原密碼</label>
+										<div class="row">
+											<div class="col s12">
+												<input type="password" id="oldpassword"
+													onkeyup="value=value.replace(/[\W]/g,'') "
+													pattern="{0}{9}[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
+													onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
+											</div>
+											<div>
+												<a href="javascript:void(0)" onclick="btn1.onclick()" id="showpassword1"
+													style="margin-left: -3.25rem!important; margin-top: 2rem!important;"><i
+														class="material-icons">remove_red_eye</i></a>
+											</div>
+										</div>
+									</div><br>
+									<div class="form-field">
+										<label for="newpassword">新密碼</label>
+										<div class="row">
+											<div class="col s12">
+												<input type="password" id="newpassword"
+													onkeyup="value=value.replace(/[\W]/g,'') "
+													pattern="{0}{9}[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
+													onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
+											</div>
+											<div>
+												<a href="javascript:void(0)" onclick="btn.onclick()" id="showpassword"
+													style="margin-left: -3.25rem!important; margin-top: 2rem!important;"><i
+														class="material-icons">remove_red_eye</i></a>
+											</div>
+										</div>
+									</div>
+									<div class="form-field">
+										<label for="password">新密碼確認</label>
+										<div class="row">
+											<div class="col s12">
+												<input type="password" id="password"
+													onkeyup="value=value.replace(/[\W]/g,'') "
+													pattern="{0}{9}[0-9][0-9][0-9][0-9][0-9][0-9][0-9][0-9]"
+													onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
+											</div>
+										</div>
+									</div>
+									<div class="form-field center-align">
+										<button class="btn-large black" type="submit">儲存<i
+												class="material-icons right">vertical_align_top</i></button>
+									</div>
+								</div><br>
+							</form>
+							<label for="register_key">授權碼 XXXXX</label>
+
+						</div>
+					</div>
+				</div>
+			</div>
+		</main>
+		<!-- footer -->
+		<footer class="page-footer black">
+			<div class="footer-copyright">
+				<div class="container">
+					<p class="flow-text grey-text center">Copyright&copy;2021, <font color="#0069CE">u</font>
+						<font color="#00A65A">B</font>
+						<font color="#EEC803">A</font>
+						<font color="#EC475A">Y</font> All Rights Reserved
+					</p>
+				</div>
+			</div>
+		</footer>
+		<!-- ---wrapper內外分線------ -->
+
+		<!-- 輸入表單結束 -->
+
+
+
+		<!--------------------->
+		<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+		<!-- Compiled and minified JavaScript -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
+				$('.sidenav').sidenav();
+			});
+			// 增加原密碼密碼框顯示功能
+			let Password1 = document.getElementById('oldpassword')
+			let btn1 = document.getElementById('showpassword1')
+			let flag1 = true; // 狀態控制
+			btn1.onclick = function() {
+				if (flag1) {
+					btn1.innerHTML = '<i class="material-icons">visibility_off</i>'
+					Password1.type = 'text'
+					flag1 = false
+				} else {
+					btn1.innerHTML = '<i class="material-icons">visibility</i>'
+					Password1.type = 'password'
+					flag1 = true
+				}
+			};
+
+			// 增加新密碼密碼框顯示功能
+			let Password = document.getElementById('newpassword')
+			let btn = document.getElementById('showpassword')
+			let flag = true; // 狀態控制
+			btn.onclick = function() {
+				if (flag) {
+					btn.innerHTML = '<i class="material-icons">visibility_off</i>'
+					Password.type = 'text'
+					flag = false
+				} else {
+					btn.innerHTML = '<i class="material-icons">visibility</i>'
+					Password.type = 'password'
+					flag = true
+				}
+			}
+		</script>
+	</body>
+	<style type="text/css">
+		body {
+			display: flex;
+			min-height: 100vh;
+			flex-direction: column;
+			background-image: url("https://img.technews.tw/wp-content/uploads/2020/02/12184255/universe.jpg");
+		}
+
+		main {
+			flex: 1 0 auto;
+		}
+
+		/* -----sidenav引入開始---- */
+		header,
+		main,
+		footer {
+			padding-left: 300px;
+		}
+
+		@media only screen and (max-width : 992px) {
+
+			header,
+			main,
+			footer {
+				padding-left: 0;
+			}
+		}
+
+		/* -----sidenav引入結束---- */
+	</style>
+</html>
