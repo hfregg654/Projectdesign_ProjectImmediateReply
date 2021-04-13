@@ -12,9 +12,7 @@ namespace ProjectImmediateReply
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //abc.Value = "5";
-
-            Response.Write(abc.Value);
+          
 
         }
         protected void Page_PreRander(object sender, EventArgs e)

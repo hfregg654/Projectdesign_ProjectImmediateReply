@@ -8,21 +8,22 @@ using System.Data;
 
 namespace ProjectImmediateReply.Utility
 {
+
     public class LoginHelper
-    {   //定義三個常數分別儲存"登入狀態","登入者名稱"及"登入者權限"的Session名稱
-        private const string _sessionislogin = "IsLogined";
-        private const string _sessionUserName = "UserName";
-        private const string _sessionUserPri = "UserPri";
+    {
+        //定義常數儲存登入者資訊的Session名稱
+        private const string _sessionKey = "IsLogined";
         /// <summary>
         /// 確認登入狀態,回傳值為true or false
         /// </summary>
         /// <returns></returns>
         public bool HasLogIned()
         {
-            //定義布林值取得登入狀態的Session
-            bool? val = HttpContext.Current.Session[_sessionislogin] as bool?;
+            //定義變數取得登入狀態的Session
+            var val = HttpContext.Current.Session[_sessionKey] as Models.LogInfo;
+
             //檢查變數內有值且為true回傳true,否則回傳false
-            if (val.HasValue && val.Value)
+            if (val != null)
                 return true;
             else
                 return false;
@@ -55,9 +56,7 @@ namespace ProjectImmediateReply.Utility
             //若密碼正確將資料放進Session並回傳true,否則回傳false
             if (isPasswordRight)
             {
-                HttpContext.Current.Session[_sessionislogin] = true;
-                HttpContext.Current.Session[_sessionUserName] = dbName;
-                HttpContext.Current.Session[_sessionUserPri] = dbPri;
+                
                 return true;
             }
             else
@@ -71,9 +70,7 @@ namespace ProjectImmediateReply.Utility
             //若為非登入狀態直接回傳
             if (!HasLogIned())
                 return;
-            HttpContext.Current.Session.Remove(_sessionislogin);
-            HttpContext.Current.Session.Remove(_sessionUserName);
-            HttpContext.Current.Session.Remove(_sessionUserPri);
+          
         }
 
         /// <summary>
@@ -84,7 +81,7 @@ namespace ProjectImmediateReply.Utility
         {
             if (!HasLogIned())
                 return string.Empty;
-            return HttpContext.Current.Session[_sessionUserName] as string;
+            return "";
 
         }
 

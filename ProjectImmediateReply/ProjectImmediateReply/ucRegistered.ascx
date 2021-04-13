@@ -51,7 +51,7 @@
                                 <label for="ContentPlaceHolder1_ucRegistered_passwordregister">密碼</label>
 
                             </div>
-                            <div class="input-field col s0" style="margin-left: -3.25rem!important; margin-top: 2rem!important;">
+                            <div class="input-field col" style="margin-left: -3.25rem!important; margin-top: 2rem!important;">
                                 <a href="javascript:void(0)" id="showbtnregister">
                                     <i class="material-icons">remove_red_eye</i></a>
                             </div>
@@ -63,7 +63,7 @@
                                     onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
                                 <label for="ContentPlaceHolder1_ucRegistered_passwordregistercheck">密碼確認</label>
                             </div>
-                            <div class="input-field col s0" style="margin-left: -3.25rem!important; margin-top: 2rem!important;">
+                            <div class="input-field col" style="margin-left: -3.25rem!important; margin-top: 2rem!important;">
                                 <a href="javascript:void(0)" id="showbtnregistercheck" >
                                     <i class="material-icons">remove_red_eye</i></a>
                             </div>

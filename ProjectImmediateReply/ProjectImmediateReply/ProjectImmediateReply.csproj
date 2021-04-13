@@ -82,6 +82,8 @@
     <Content Include="assets\js\util.js" />
     <Content Include="Global.asax" />
     <Content Include="HTML\A-1.html" />
+    <Content Include="HTML\A-2.html" />
+    <Content Include="HTML\C.html" />
     <Content Include="HTML\login.html" />
     <Content Include="HTML\vuetify-test.html" />
     <Content Include="HTML\vuetify-test1.html" />
@@ -105,6 +107,8 @@
     <Content Include="Index.aspx" />
     <Content Include="WebForm2.aspx" />
     <Content Include="WebForm3.aspx" />
+    <Content Include="WebForm4.aspx" />
+    <Content Include="WebForm5.aspx" />
     <Content Include="WebFormHTMLTest.aspx" />
     <Content Include="ucLeft.ascx" />
   </ItemGroup>
@@ -127,6 +131,7 @@
       <DependentUpon>ImmediateReplayInSide.Master</DependentUpon>
     </Compile>
     <Compile Include="Models\GradeInfo.cs" />
+    <Compile Include="Models\LogInfo.cs" />
     <Compile Include="Models\ProjectInfo.cs" />
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Models\WorkInfo.cs" />
@@ -182,6 +187,20 @@
     </Compile>
     <Compile Include="WebForm3.aspx.designer.cs">
       <DependentUpon>WebForm3.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm4.aspx.cs">
+      <DependentUpon>WebForm4.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm4.aspx.designer.cs">
+      <DependentUpon>WebForm4.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm5.aspx.cs">
+      <DependentUpon>WebForm5.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm5.aspx.designer.cs">
+      <DependentUpon>WebForm5.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebFormHTMLTest.aspx.cs">
       <DependentUpon>WebFormHTMLTest.aspx</DependentUpon>
