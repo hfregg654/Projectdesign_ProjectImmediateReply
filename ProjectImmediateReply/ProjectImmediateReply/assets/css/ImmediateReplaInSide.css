@@ -1,27 +1,47 @@
-﻿body {
-    display: flex;
-    min-height: 100vh;
-    flex-direction: column;
-    background-image: url("https://img.technews.tw/wp-content/uploads/2020/02/12184255/universe.jpg");
+﻿#keep .v-navigation-drawer__border {
+    display: none
 }
 
-main {
-    flex: 1 0 auto;
+.ubay {
+    font-family: 'Anton', sans-serif;
+    font-family: 'Shadows Into Light', cursive;
+    font-weight: 900;
+    font-size: 3.125rem;
+    padding-left: 0.9375rem;
+    margin-left: -0.3125rem;
 }
 
-/* -----sidenav引入開始---- */
-header,
-main,
-footer {
-    padding-left: 300px;
+.navfont {
+    font-family: 'ZCOOL KuaiLe', cursive;
+    font-weight: bold;
 }
 
-@media only screen and (max-width : 992px) {
+.footer-ubay {
+    font-family: 'Anton', sans-serif;
+    font-family: 'Shadows Into Light', cursive;
+    font-size: 1.875rem;
+}
 
-    header,
-    main,
-    footer {
-        padding-left: 0;
+/* .top {
+				background: rgba(0, 0, 0, .6) !important;
+			} */
+
+.chinese {
+    font-family: 'Noto Sans TC', sans-serif;
+    padding-right: 2.375rem;
+}
+
+
+
+@media (max-width:600px), print {
+    .ubay {
+        font-size: 2.125rem;
+        padding: 0.125rem
+    }
+
+    .footer-ubay {
+        font-family: 'Anton', sans-serif;
+        font-family: 'Shadows Into Light', cursive;
+        font-size: 1rem;
     }
 }
-/* -----sidenav引入結束---- */
