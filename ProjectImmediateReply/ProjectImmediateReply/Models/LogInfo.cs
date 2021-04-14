@@ -30,6 +30,6 @@ namespace ProjectImmediateReply.Models
     {
         public int UserID { get; set; }
         public string Name { get; set; }
-        UserLevel Privilege { get; set; }
+        public string Privilege { get; set; }
     }
 }

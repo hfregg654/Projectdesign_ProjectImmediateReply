@@ -20,6 +20,7 @@
         integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
         crossorigin="anonymous" />
     <title></title>
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -56,7 +57,7 @@
         </footer>
 
         <!--------------------->
-        <script src="assets/js/jquery-3.6.0.min.js"></script>
+        
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
         <script src="assets/js/ImmediataReplay.js"></script>

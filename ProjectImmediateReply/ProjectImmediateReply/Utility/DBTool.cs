@@ -5,6 +5,7 @@ using System.Web;
 using System.Data.SqlClient;
 using System.Data;
 using ProjectImmediateReply.Models;
+using ProjectImmediateReply.Log;
 
 namespace ProjectImmediateReply.Utility
 {
@@ -37,7 +38,8 @@ namespace ProjectImmediateReply.Utility
                     break;
                 default:
                     {
-                        HttpContext.Current.Response.Write("請輸入正確資料表名稱");
+                        txtLog logtool = new txtLog();
+                        logtool.WriteLog("請輸入正確資料表名稱");
                         return null;
                     }
             }
@@ -77,8 +79,9 @@ namespace ProjectImmediateReply.Utility
                 //拋錯誤訊息
                 catch (Exception ex)
                 {
-                    HttpContext.Current.Response.Write($"請聯繫開發人員。錯誤訊息：{ex}");
-                    return null;
+                    txtLog logtool = new txtLog();
+                    logtool.WriteLog(ex.ToString());
+                    throw;
                 }
             }
         }
@@ -128,8 +131,9 @@ namespace ProjectImmediateReply.Utility
                 }
                 catch (Exception ex)
                 {
-                    HttpContext.Current.Response.Write($"請聯繫開發人員。錯誤訊息：{ex}");
-                    return null;
+                    txtLog logtool = new txtLog();
+                    logtool.WriteLog(ex.ToString());
+                    throw;
                 }
             }
         }
@@ -188,8 +192,9 @@ namespace ProjectImmediateReply.Utility
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Response.Write($"請聯繫開發人員。錯誤訊息：{ex}");
-                return null;
+                txtLog logtool = new txtLog();
+                logtool.WriteLog(ex.ToString());
+                throw;
             }
         }
         /// <summary>
@@ -233,8 +238,9 @@ namespace ProjectImmediateReply.Utility
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Response.Write($"請聯繫開發人員。錯誤訊息：{ex}");
-                return null;
+                txtLog logtool = new txtLog();
+                logtool.WriteLog(ex.ToString());
+                throw;
             }
         }
         /// <summary>
@@ -280,8 +286,9 @@ namespace ProjectImmediateReply.Utility
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Response.Write($"請聯繫開發人員。錯誤訊息：{ex}");
-                return null;
+                txtLog logtool = new txtLog();
+                logtool.WriteLog(ex.ToString());
+                throw;
             }
         }
         /// <summary>
@@ -327,8 +334,9 @@ namespace ProjectImmediateReply.Utility
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Response.Write($"請聯繫開發人員。錯誤訊息：{ex}");
-                return null;
+                txtLog logtool = new txtLog();
+                logtool.WriteLog(ex.ToString());
+                throw;
             }
         }
 
@@ -372,7 +380,9 @@ namespace ProjectImmediateReply.Utility
                 }
                 catch (Exception ex)
                 {
-                    HttpContext.Current.Response.Write($"請聯繫開發人員。錯誤訊息：{ex}");
+                    txtLog logtool = new txtLog();
+                    logtool.WriteLog(ex.ToString());
+                    throw;
                 }
             }
         }
@@ -416,7 +426,9 @@ namespace ProjectImmediateReply.Utility
                 }
                 catch (Exception ex)
                 {
-                    HttpContext.Current.Response.Write($"請聯繫開發人員。錯誤訊息：{ex}");
+                    txtLog logtool = new txtLog();
+                    logtool.WriteLog(ex.ToString());
+                    throw;
                 }
             }
         }
@@ -445,7 +457,9 @@ namespace ProjectImmediateReply.Utility
                 }
                 catch (Exception ex)
                 {
-                    HttpContext.Current.Response.Write($"請聯繫開發人員。錯誤訊息：{ex}");
+                    txtLog logtool = new txtLog();
+                    logtool.WriteLog(ex.ToString());
+                    throw;
                 }
             }
         }

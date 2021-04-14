@@ -99,12 +99,13 @@
     <Content Include="images\slide03.jpg" />
     <Content Include="images\slide04.jpg" />
     <Content Include="images\slide05.jpg" />
+    <Content Include="Index.aspx" />
     <Content Include="ucCrud.ascx" />
     <Content Include="ucForgetpassword.ascx" />
     <Content Include="ucRegistered.ascx" />
     <Content Include="Web.config" />
     <Content Include="Tooltest.aspx" />
-    <Content Include="Index.aspx" />
+    <Content Include="LogIn.aspx" />
     <Content Include="WebForm2.aspx" />
     <Content Include="WebForm3.aspx" />
     <Content Include="WebForm4.aspx" />
@@ -130,6 +131,14 @@
     <Compile Include="ImmediateReplayInSide.Master.designer.cs">
       <DependentUpon>ImmediateReplayInSide.Master</DependentUpon>
     </Compile>
+    <Compile Include="Index.aspx.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Index.aspx.designer.cs">
+      <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Log\txtLog.cs" />
     <Compile Include="Models\GradeInfo.cs" />
     <Compile Include="Models\LogInfo.cs" />
     <Compile Include="Models\ProjectInfo.cs" />
@@ -167,12 +176,12 @@
     <Compile Include="Tooltest.aspx.designer.cs">
       <DependentUpon>Tooltest.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Index.aspx.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="LogIn.aspx.cs">
+      <DependentUpon>LogIn.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="Index.aspx.designer.cs">
-      <DependentUpon>Index.aspx</DependentUpon>
+    <Compile Include="LogIn.aspx.designer.cs">
+      <DependentUpon>LogIn.aspx</DependentUpon>
     </Compile>
     <Compile Include="WebForm2.aspx.cs">
       <DependentUpon>WebForm2.aspx</DependentUpon>
