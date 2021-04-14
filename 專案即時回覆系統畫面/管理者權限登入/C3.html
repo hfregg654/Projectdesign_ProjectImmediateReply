@@ -137,27 +137,28 @@
 					<v-main>
 						<!-- 主要內容開始 -->
 						<!-- -----card start -->
-						<v-form v-model="valid" ref="form" lazy-validation>
-							<v-card class="mx-auto mt-6 pa-8" max-width="1100">
+						<v-form>
+							<v-card class="mx-auto mt-6 pa-8" max-width="1100" height="500">
 								<v-card-text>
-									<v-text-field 
-									:rules="classrules" 
-									class="mt-6" 
-									label="班別"
-									type="number"
-									v-model="ClassNumber" 
-									required></v-text-field>
-									
-									<v-text-field 
-									:rules="numberrules" 
-									class="mt-6" 
-									label="人數"
-									type="number"
-									v-model="License" 
-									required></v-text-field>
+									<v-text-field :rules="rules1" class="mt-6" label="專案名" v-model="C3projectname">
+									</v-text-field>
+									<v-text-field :rules="rules2" class="mt-6" label="小組名稱" v-model="C3teamname">
+									</v-text-field>
+									<!-- data picker start -->
+									<v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
+										transition="scale-transition" offset-y min-width="auto" class="mt-6">
+										<template v-slot:activator="{ on, attrs }">
+											<v-text-field v-model="date" label="時程期限" prepend-icon="mdi-calendar"
+												readonly v-bind="attrs" v-on="on">
+											</v-text-field>
+										</template>
+										<v-date-picker v-model="date" @input="menu2 = false" locale="zh-cn">
+										</v-date-picker>
+									</v-menu>
+									<!-- data picker over -->
 								</v-card-text>
 								<v-card-actions class="justify-center">
-									<v-btn depressed color="primary" type="submit" @click="submit" :disabled="!valid"
+									<v-btn depressed color="primary" type="submit" @click=""
 										class="justify-center h1 font-weight-black">
 										建立
 									</v-btn>
@@ -202,42 +203,25 @@
 				data: () => ({
 					drawer: null,
 					// 班級選擇框
-					ClassNumber: "",
 					// -------
-					// -------輸入框規則開始					
-					// 輸入框值拿空值接
-					valid: true,
-					License: "",
-					numberrules: [
-						value => !!value || '此輸入框需輸入數字且不可為空白',
-						value => (value || '').length <= 5 || '請輸入5個字元以內',
-						// // value => {
-						// // 	const pattern =
-						// // 		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-						// // 	return pattern.test(value) || '請輸入正確數字'
-						// },
-					],
-					classrules: [
+					// -------
+					//------input規則
+					rules1: [
 						value => !!value || '此輸入框不可為空白',
+						value => (value || '').length <= 20 || '請輸入20個字元以內',
 					],
-				}),
-				// submit事件開始
-				methods: {
-					submit() {
-						if (this.$refs.form.validate()) {
-							axios.post('/api/submit', {
-								ClassNumber: this.ClassNumber,
-								License: this.License,
-							})
-						}
-					}
-				},
-				// submit事件結束
+					rules2: [
+						value => !!value || '此輸入框不可為空白',
+						value => (value || '').length <= 20 || '請輸入20個字元以內',
+					],
+					// 加入data picker
+					date: new Date().toISOString().substr(0, 10),
 
+				}),
 			})
 		</script>
 		<style type="text/css">
-		#keep .v-navigation-drawer__border {
+			#keep .v-navigation-drawer__border {
 				display: none
 			}
 
@@ -267,6 +251,15 @@
 				padding-right: 2.375rem;
 			}
 
+			/* card start */
+			.v-card--reveal {
+				bottom: 0;
+				opacity: 1 !important;
+				position: absolute;
+				width: 100%;
+			}
+
+			/* card over */
 
 			@media (max-width:600px),
 			print {
@@ -281,15 +274,6 @@
 					font-size: 1rem;
 				}
 			}
-		
-			/* card start */
-			.v-card--reveal {
-				bottom: 0;
-				opacity: 1 !important;
-				position: absolute;
-				width: 100%;
-			}
-			/* card over */
 		</style>
 	</body>
 </html>
