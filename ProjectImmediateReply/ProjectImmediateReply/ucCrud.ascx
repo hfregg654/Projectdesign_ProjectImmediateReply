@@ -1,27 +1,33 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ucCrud.ascx.cs" Inherits="ProjectImmediateReply.ucCRUD" %>
-<v-row>
-	<v-col>
-	</v-col>
-	<v-col sm="6" xs="12">
-		<v-select :items="chooseclass" label="選擇班級" solo outlined></v-select>
-	</v-col>
-	<v-col>
-	</v-col>
-</v-row>
-<v-row>
-	<v-spacer></v-spacer>
-	<div class="chinese mb-5 mr-15">專案</div>
-	<v-spacer></v-spacer>
-</v-row>
-<v-flex md12 class="grey lighten-4 fill-height justify-center ">
-	<v-data-table :headers="headers" :items="inneritem" :sort-by="['projectname']" :sort-desc="[false, true]" multi-sort class="elevation-1">
+<v-main class="grey lighten-4" id="main">
+    <v-row>
+	    <v-col>
+	    </v-col>
+	    <v-col sm="6" xs="12">
+	    	<v-select :items="chooseclass" label="選擇班級" solo outlined></v-select>
+	    </v-col>
+	    <v-col>
+	    </v-col>
+    </v-row>
+    <v-row>
+    	<v-spacer></v-spacer>
+    	<div class="chinese mb-5 mr-15">專案</div>
+    	<v-spacer></v-spacer>
+    </v-row>
+    <v-flex md12 class="grey lighten-4 fill-height justify-center ">
+     <v-data-table :headers="headers" :items="inneritem" :sort-by="['projectname']" :sort-desc="[false, true]" multi-sort class="elevation-1">
 <!-- 增加查看事件開始-->
-		<template v-slot:item.btn="{item}">
-			<v-icon small @click="">person_search</v-icon>
+	 	<template v-slot:item.btn="{item}">
+	 		<v-icon small @click="">person_search</v-icon>
 		</template>
 <!-- 增加查看事件結束 -->
 	</v-data-table>
-</v-flex>
+    </v-flex>
+</v-main>
+
+
+
+ 
 
 
 
@@ -46,7 +52,7 @@
 								<v-toolbar flat>
 									<v-toolbar-title><asp:Literal ID="LiteralCrudName" runat="server" Text=""></asp:Literal></v-toolbar-title>
 									<%--<v-divider class="mx-4" inset vertical>DDDDDD</v-divider>--%>
-								<%--	<v-spacer></v-spacer>
+<%--	<v-spacer></v-spacer>
 									<v-dialog v-model="dialog" max-width="500px">
 										<template v-slot:activator="{ on, attrs }">
 											<v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">
