@@ -1,10 +1,10 @@
-﻿#keep .v-navigation-drawer__border {
+﻿
+#keep .v-navigation-drawer__border {
     display: none
 }
 
 .ubay {
-    font-family: 'Anton', sans-serif;
-    font-family: 'Shadows Into Light', cursive;
+    font-family: 'Lemonada', cursive;
     font-weight: 900;
     font-size: 3.125rem;
     padding-left: 0.9375rem;
@@ -17,20 +17,17 @@
 }
 
 .footer-ubay {
-    font-family: 'Anton', sans-serif;
-    font-family: 'Shadows Into Light', cursive;
-    font-size: 1.875rem;
+    font-family: 'Lemonada', cursive !important;
 }
 
-/* .top {
-				background: rgba(0, 0, 0, .6) !important;
-			} */
+.top {
+    background: rgba(0, 0, 0, .6) !important;
+}
 
 .chinese {
     font-family: 'Noto Sans TC', sans-serif;
     padding-right: 2.375rem;
 }
-
 
 
 @media (max-width:600px), print {
@@ -45,3 +42,5 @@
         font-size: 1rem;
     }
 }
+
+

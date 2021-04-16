@@ -84,6 +84,8 @@
     <Content Include="HTML\A-1.html" />
     <Content Include="HTML\A-2.html" />
     <Content Include="HTML\C.html" />
+    <Content Include="HTML\C2.html" />
+    <Content Include="HTML\C3.html" />
     <Content Include="HTML\login.html" />
     <Content Include="HTML\vuetify-test.html" />
     <Content Include="HTML\vuetify-test1.html" />
@@ -100,9 +102,11 @@
     <Content Include="images\slide04.jpg" />
     <Content Include="images\slide05.jpg" />
     <Content Include="Index.aspx" />
+    <Content Include="ucCreateClass.ascx" />
     <Content Include="ucCrud.ascx" />
     <Content Include="ucForgetpassword.ascx" />
     <Content Include="ucRegistered.ascx" />
+    <Content Include="ucUpdateInfo.ascx" />
     <Content Include="Web.config" />
     <Content Include="Tooltest.aspx" />
     <Content Include="LogIn.aspx" />
@@ -145,6 +149,13 @@
     <Compile Include="Models\UserInfo.cs" />
     <Compile Include="Models\WorkInfo.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ucCreateClass.ascx.cs">
+      <DependentUpon>ucCreateClass.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucCreateClass.ascx.designer.cs">
+      <DependentUpon>ucCreateClass.ascx</DependentUpon>
+    </Compile>
     <Compile Include="ucCrud.ascx.cs">
       <DependentUpon>ucCrud.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -165,6 +176,13 @@
     </Compile>
     <Compile Include="ucRegistered.ascx.designer.cs">
       <DependentUpon>ucRegistered.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="ucUpdateInfo.ascx.cs">
+      <DependentUpon>ucUpdateInfo.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucUpdateInfo.ascx.designer.cs">
+      <DependentUpon>ucUpdateInfo.ascx</DependentUpon>
     </Compile>
     <Compile Include="Utility\DBTool.cs" />
     <Compile Include="Utility\LoginHelper.cs" />

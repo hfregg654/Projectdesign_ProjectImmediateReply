@@ -7,8 +7,15 @@
 
 <html>
 <head runat="server">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title></title>
+    <!-- meta引入 -->
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <meta charset="UTF-8">
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta http-equiv="content-language" content="zh-tw">
+    <meta name="viewport"
+        content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <!-- ---------- -->
     <link rel="stylesheet" type="text/css"
         href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" />
     <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
@@ -17,9 +24,19 @@
     <!-- 導入中文字體 -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap" rel="stylesheet">
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+    <!-- 導入英文字體 -->
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@700&display=swap" rel="stylesheet">
     <link href="assets/css/ImmediateReplaInSide.css" rel="stylesheet" />
+
+
+    <title></title>
+        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/babel-polyfill/dist/polyfill.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/vuetify@2.3.10/dist/vuetify.min.js"></script>
+
+
+
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
@@ -47,11 +64,11 @@
 					<!-- 導航欄結束 -->
 
 
-					<v-main class="grey lighten-4" id="main">
 					 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                      </asp:ContentPlaceHolder>
-					</v-main>
-					<!-- footer -->
+					
+                    
+                    <!-- footer -->
 					<v-footer dark padless>
 						<v-card class="flex" flat tile>
 
@@ -69,109 +86,9 @@
 			</v-app>
         </div>
 
-        <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/babel-polyfill/dist/polyfill.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/vuetify@2.3.10/dist/vuetify.min.js"></script>
-        <script>
-            new Vue({
-                el: '#app',
-                vuetify: new Vuetify(),
-                data: () => ({
-                    drawer: null,
-                   
-                    // -------datatable
-                    // 班級選擇開始
-                    chooseclass: ['班級A', '班級B', '班級C', '班級D'],
-                    // 班級選擇結束
-                    // datatable開始
-                    headers: [{
-                        text: '專案名稱',
-                        align: 'start',
-                        sortable: true,
-                        value: 'projectname',
-                    },
-                    {
-                        text: '組長',
-                        value: 'teamleader'
-                    },
-                    {
-                        text: '組員',
-                        value: 'teammember'
-                    },
-                    {
-                        text: '組名',
-                        value: 'teamname'
-                    },
-                    {
-                        text: '',
-                        value: 'btn',
-                        sortable: false
-                    },
-                    ],
-                    inneritem: [{
-                        projectname: 'A計畫',
-                        teamleader: '毛豆',
-                        teammember: '一二三四五六七',
-                        teamname: '第一組',
-                    }, {
-                        projectname: 'B計畫',
-                        teamleader: '毛豆',
-                        teammember: '一二三四五六七',
-                        teamname: '第一組',
-                    }, {
-                        projectname: 'C計畫',
-                        teamleader: '毛豆',
-                        teammember: '一二三四五六七',
-                        teamname: '第一組',
-                        btn: '1%',
-                    }, {
-                        projectname: 'D計畫',
-                        teamleader: '毛豆',
-                        teammember: '一二三四五六七',
-                        teamname: '第一組',
-                        btn: '1%',
-                    }, {
-                        projectname: 'A計畫',
-                        teamleader: '毛豆',
-                        teammember: '一二三四五六七',
-                        teamname: '第一組',
-                        btn: '1%',
-                    }, {
-                        projectname: 'A計畫',
-                        teamleader: '毛豆',
-                        teammember: '一二三四五六七',
-                        teamname: '第一組',
-                        btn: '1%',
-                    }, {
-                        projectname: 'A計畫',
-                        teamleader: '毛豆',
-                        teammember: '一二三四五六七',
-                        teamname: '第一組',
-                        btn: '1%',
-                    }, {
-                        projectname: 'A計畫',
-                        teamleader: '毛豆',
-                        teammember: '一二三四五六七',
-                        teamname: '第一組',
-                        btn: '1%',
-                    }, {
-                        projectname: 'A計畫',
-                        teamleader: '毛豆',
-                        teammember: '一二三四五六七',
-                        teamname: '第一組',
-                        btn: '1%',
-                    }, {
-                        projectname: 'A計畫',
-                        teamleader: '毛豆',
-                        teammember: '一二三四五六七',
-                        teamname: '第一組',
-                        btn: '1%',
-                    },],
-                    // datatable結束
-                }),
-            })
-        </script>
-      
+
+        <asp:ContentPlaceHolder ID="ContentPlaceHolder2" runat="server">
+        </asp:ContentPlaceHolder>
     </form>
 </body>
 </html>

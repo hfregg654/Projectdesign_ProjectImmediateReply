@@ -135,18 +135,51 @@
 					</v-navigation-drawer>
 					<!-- 導航欄結束 -->
 					<v-main>
+						<!-- 主要內容開始 -->
+						<!-- -----card start -->
+						<v-form v-model="valid" ref="form" lazy-validation>
+							<v-card class="mx-auto mt-6 pa-8" max-width="1100">
+								<v-card-text>
+									<v-text-field 
+									:rules="classrules" 
+									class="mt-6" 
+									label="班別"
+									type="number"
+									v-model="ClassNumber" 
+									required></v-text-field>
+									
+									<v-text-field 
+									:rules="numberrules" 
+									class="mt-6" 
+									label="人數"
+									type="number"
+									v-model="License" 
+									required></v-text-field>
+								</v-card-text>
+								<v-card-actions class="justify-center">
+									<v-btn depressed color="primary" type="submit" @click="submit" :disabled="!valid"
+										class="justify-center h1 font-weight-black">
+										建立
+									</v-btn>
+								</v-card-actions>
+								<v-card-actions class="justify-end">
+									<v-btn color="blue lighten-2" text>
+										專案修改
+									</v-btn>
+								</v-card-actions>
 
+							</v-card>
+						</v-form>
 
-
-
-
+						<!-- -----card over-->
+						<!-- 主要內容結束 -->
 					</v-main>
 					<!-- footer -->
 					<v-footer dark padless>
 						<v-card class="flex" flat tile>
 
 							<v-card-text class="py-2 white--text text-center">
-								<p class="flow-text grey-text center footer-ubay h6">Copyright&copy;2021,
+								<p class="flow-text grey-text center footer-ubay">Copyright&copy;2021,
 									<font color="#0069CE">u
 									</font>
 									<font color="#00A65A">B</font>
@@ -168,11 +201,43 @@
 				vuetify: new Vuetify(),
 				data: () => ({
 					drawer: null,
+					// 班級選擇框
+					ClassNumber: "",
+					// -------
+					// -------輸入框規則開始					
+					// 輸入框值拿空值接
+					valid: true,
+					License: "",
+					numberrules: [
+						value => !!value || '此輸入框需輸入數字且不可為空白',
+						value => (value || '').length <= 5 || '請輸入5個字元以內',
+						// // value => {
+						// // 	const pattern =
+						// // 		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+						// // 	return pattern.test(value) || '請輸入正確數字'
+						// },
+					],
+					classrules: [
+						value => !!value || '此輸入框不可為空白',
+					],
 				}),
+				// submit事件開始
+				methods: {
+					submit() {
+						if (this.$refs.form.validate()) {
+							axios.post('/api/submit', {
+								ClassNumber: this.ClassNumber,
+								License: this.License,
+							})
+						}
+					}
+				},
+				// submit事件結束
+
 			})
 		</script>
 		<style type="text/css">
-			#keep .v-navigation-drawer__border {
+		#keep .v-navigation-drawer__border {
 				display: none
 			}
 
@@ -216,6 +281,15 @@
 					font-size: 1rem;
 				}
 			}
+		
+			/* card start */
+			.v-card--reveal {
+				bottom: 0;
+				opacity: 1 !important;
+				position: absolute;
+				width: 100%;
+			}
+			/* card over */
 		</style>
 	</body>
 </html>

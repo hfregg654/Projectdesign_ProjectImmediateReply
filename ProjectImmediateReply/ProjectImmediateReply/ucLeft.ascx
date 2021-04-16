@@ -30,47 +30,15 @@
 								</v-row>
 							</v-img>
 
-							<v-list two-line>
-								<v-list-item @click="" href="#1">
-									<v-list-item-icon>
-										<v-icon color="primary">face</v-icon>
-									</v-list-item-icon>
-
-									<v-list-item-content>
-										<v-list-item-title class="chinese h4 primary--text">個人資料維護</v-list-item-title>
-										<v-list-item-subtitle>Mobile</v-list-item-subtitle>
-									</v-list-item-content>
-
-								</v-list-item>
 
 
-								<v-divider inset></v-divider>
+							<div runat="server" id="divLeftTitle">
 
-								<v-list-item @click="" href="#2">
-									<v-list-item-icon>
-										<v-icon color="primary">thumbs_up_down</v-icon>
-									</v-list-item-icon>
+							
 
-									<v-list-item-content>
-										<v-list-item-title class="chinese h4 primary--text">專案評分</v-list-item-title>
-										<v-list-item-subtitle>Personal</v-list-item-subtitle>
-									</v-list-item-content>
-								</v-list-item>
+							</div>
 
-								<v-list-item @click="" href="#3">
-									<v-list-item-icon>
-										<v-icon color="primary">receipt</v-icon>
-									</v-list-item-icon>
 
-									<v-list-item-content>
-										<v-list-item-title class="chinese h4 primary--text">成績</v-list-item-title>
-										<v-list-item-subtitle>Work</v-list-item-subtitle>
-									</v-list-item-content>
-								</v-list-item>
-
-								<v-divider inset></v-divider>
-
-							</v-list>
 						</v-card>
 					</v-navigation-drawer>
 <!-- 導航欄結束 -->
