@@ -137,28 +137,29 @@
 					<v-main>
 						<!-- 主要內容開始 -->
 						<!-- -----card start -->
-						<v-form>
+						<v-form method="post" novalidate="true" ref="form">
 							<v-card class="mx-auto mt-6 pa-8" max-width="1100" height="500">
 								<v-card-text>
-									<v-text-field :rules="rules1" class="mt-6" label="專案名" v-model="C3projectname">
+									<v-text-field :rules="rules1" class="mt-6" label="專案名" v-model="C3projectname" required>
 									</v-text-field>
-									<v-text-field :rules="rules2" class="mt-6" label="小組名稱" v-model="C3teamname">
+									<v-text-field :rules="rules2" class="mt-6" label="小組名稱" v-model="C3teamname" required>
 									</v-text-field>
 									<!-- data picker start -->
 									<v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
-										transition="scale-transition" offset-y min-width="auto" class="mt-6">
+										transition="scale-transition" offset-y min-width="auto" class="mt-6 justify-center">
 										<template v-slot:activator="{ on, attrs }">
 											<v-text-field v-model="date" label="時程期限" prepend-icon="mdi-calendar"
 												readonly v-bind="attrs" v-on="on">
 											</v-text-field>
 										</template>
-										<v-date-picker v-model="date" @input="menu2 = false" locale="zh-cn">
+					<!-- datepicker傳值處 -->
+										<v-date-picker v-model="datepicker" @input="menu2 = false" locale="zh-cn">
 										</v-date-picker>
 									</v-menu>
 									<!-- data picker over -->
 								</v-card-text>
 								<v-card-actions class="justify-center">
-									<v-btn depressed color="primary" type="submit" @click=""
+									<v-btn depressed color="primary" type="button" :disabled="!valid" @click="validate"
 										class="justify-center h1 font-weight-black">
 										建立
 									</v-btn>
@@ -216,8 +217,18 @@
 					],
 					// 加入data picker
 					date: new Date().toISOString().substr(0, 10),
-
+					// 加入C3projectname C3teamname
+					C3projectname:"",
+					C3teamname:"",
+					// valid
+					valid:true,
 				}),
+				methods:{
+					// vuetify驗證寫法
+					validate () {
+					        this.$refs.form.validate()
+					      },
+				}
 			})
 		</script>
 		<style type="text/css">
