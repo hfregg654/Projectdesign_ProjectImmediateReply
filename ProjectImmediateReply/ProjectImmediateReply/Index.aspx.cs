@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectImmediateReply.Utility;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -39,16 +40,7 @@ namespace ProjectImmediateReply
                                             ],
                                             }),
                                      
-                                            methods: {
-                                                    submit() {
-                                                        if (this.$refs.form.validate()) {
-                                                             axios.post('/api/submit', {
-                                                             ClassNumber: this.ClassNumber,
-                                                             License: this.License,
-                                                            })
-                                                        }
-                                                    }
-                                            },
+                                           
                                      })
                               </script>";
         private const string JSstringCrud = @"
@@ -151,12 +143,19 @@ namespace ProjectImmediateReply
         private const string _sessionKey = "PageInnerType";
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["IsLogined"] != null)
+            {
+                Models.LogInfo logInfo = new Models.LogInfo();
+                logInfo=(Models.LogInfo)Session["IsLogined"];
+                Label1.Text = logInfo.Privilege.ToString();
+            }
+
             string PageInnerType = null;
             if (Request.QueryString[_sessionKey] != null)
             {
                 PageInnerType = Request.QueryString[_sessionKey].ToString();
             }
-            if (PageInnerType=="Crud")
+            if (PageInnerType == "Crud")
             {
                 ucCrud.Visible = true;
                 divJS.InnerHtml = JSstringCrud;
@@ -176,12 +175,12 @@ namespace ProjectImmediateReply
                 divinnerplace.InnerHtml = "<v-main></v-main>";
                 divJS.InnerHtml = JSstringDefault;
             }
-            
+
             Utility.LoginHelper logtool = new Utility.LoginHelper();
             if (!logtool.HasLogIned())
                 Response.Redirect("~/LogIn.aspx");
 
-            
+
         }
     }
 }

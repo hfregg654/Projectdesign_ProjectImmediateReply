@@ -11,7 +11,7 @@
 									label="班別"
 									type="text"
 									v-model="ClassNumber" 
-									required></v-text-field>
+									required id="ClassNumberTbox"></v-text-field>
 									
 									<v-text-field 
 									:rules="numberrules" 
@@ -19,13 +19,13 @@
 									label="人數"
 									type="number"
 									v-model="License" 
-									required></v-text-field>
+									required id="PeopleNumTbox"></v-text-field>
 								</v-card-text>
 								<v-card-actions class="justify-center">
-									<v-btn depressed color="primary" type="submit" @click="submit" :disabled="!valid"
+									<v-btn id="CreatClassbtn" depressed color="primary" type="submit"  :disabled="!valid"
 										class="justify-center h1 font-weight-black">
 										建立
-									</v-btn>
+									</v-btn><div id="divCCContainer"></div>
 								</v-card-actions>
 								<v-card-actions class="justify-end">
 									<v-btn color="blue lighten-2" text>

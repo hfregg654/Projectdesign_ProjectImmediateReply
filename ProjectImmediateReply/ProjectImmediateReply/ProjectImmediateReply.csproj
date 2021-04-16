@@ -74,6 +74,7 @@
     <Content Include="assets\css\W3HWStyle.css" />
     <Content Include="assets\fonts\fontawesome-webfont.svg" />
     <Content Include="assets\js\ImmediataReplay.js" />
+    <Content Include="assets\js\ImmediateReplayAJAX.js" />
     <Content Include="assets\js\jquery-3.6.0.min.js" />
     <Content Include="assets\js\jquery.min.js" />
     <Content Include="assets\js\jquery.scrollex.min.js" />
@@ -118,6 +119,9 @@
     <Content Include="ucLeft.ascx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="API\CreateClassHandler.ashx.cs">
+      <DependentUpon>CreateClassHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -142,7 +146,7 @@
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
-    <Compile Include="Log\txtLog.cs" />
+    <Compile Include="WriteLog\txtLog.cs" />
     <Compile Include="Models\GradeInfo.cs" />
     <Compile Include="Models\LogInfo.cs" />
     <Compile Include="Models\ProjectInfo.cs" />
@@ -252,6 +256,7 @@
     <Content Include="assets\fonts\FontAwesome.otf" />
     <Content Include="ImmediateReplay.Master" />
     <Content Include="ImmediateReplayInSide.Master" />
+    <Content Include="API\CreateClassHandler.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -261,7 +266,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="API\" />
     <Folder Include="App_Data\" />
   </ItemGroup>
   <PropertyGroup>
