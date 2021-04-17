@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectImmediateReply.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -19,7 +20,7 @@ namespace ProjectImmediateReply
             Utility.LoginHelper tool = new Utility.LoginHelper();
             if (tool.TryLogIn(username.Value, passwordIndex.Value))
             {
-                Response.Redirect("~/Index.aspx");
+                Response.Redirect($"~/Index.aspx");
             }
         }
     }

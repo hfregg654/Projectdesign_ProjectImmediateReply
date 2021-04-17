@@ -8,7 +8,7 @@ namespace ProjectImmediateReply.Log
 {
     public class txtLog
     {
-        private static String logPath = "\\Log"; //Log目錄
+        private static String logPath = "\\WriteLog"; //Log目錄
 
 
         public void WriteLog(String logMsg)

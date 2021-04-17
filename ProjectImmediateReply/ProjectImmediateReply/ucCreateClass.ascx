@@ -1,4 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ucCreateClass.ascx.cs" Inherits="ProjectImmediateReply.ucCreateClass" %>
+<asp:HiddenField ID="HiddenFieldSessionPri" runat="server" />
 <v-main>
 						<!-- 主要內容開始 -->
 						<!-- -----card start -->
@@ -22,10 +23,16 @@
 									required id="PeopleNumTbox"></v-text-field>
 								</v-card-text>
 								<v-card-actions class="justify-center">
-									<v-btn id="CreatClassbtn" depressed color="primary" type="submit"  :disabled="!valid"
+									<v-btn id="CreatClassbtn" depressed color="primary" type="button"  :disabled="!valid"
 										class="justify-center h1 font-weight-black">
 										建立
-									</v-btn><div id="divCCContainer"></div>
+									</v-btn>
+
+									<%--<div class="text-center">
+										<v-btn dark color="indigo" @click="snackbar = true">open</v-btn>
+										<v-snackbar v-model="snackbar" :vertical="vertical">{{text}}</v-snackbar>
+									</div>--%>
+
 								</v-card-actions>
 								<v-card-actions class="justify-end">
 									<v-btn color="blue lighten-2" text>

@@ -27,8 +27,10 @@
     $("#CreatClassbtn").click(function () {
         var ClassNumber = $("#ClassNumberTbox").val();
         var PeopleNum = $("#PeopleNumTbox").val();
-        var Privilege = "<%=%>";
-        
+        var Privilege = $("#ContentPlaceHolder1_ucCreateClass_HiddenFieldSessionPri").val();
+        var snackbar = Boolean;
+
+
         $.ajax({
             url: "API/CreateClassHandler.ashx",
             data: {
@@ -39,15 +41,9 @@
             type: 'POST',
             dataType: 'json',
         })
-            .done(function (item) {
-
-            })
-            .fail(function (xhr, status, errorThrown) {
-
-            })
+            
             .always(function (xhr, status) {
-                $("#divCreateClassContainer").empty();
-                $("#divCreateClassContainer").append("插入完成");
+                
             });
     })
 

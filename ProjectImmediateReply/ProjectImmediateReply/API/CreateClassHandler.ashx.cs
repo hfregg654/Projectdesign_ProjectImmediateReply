@@ -31,13 +31,14 @@ namespace ProjectImmediateReply.API
             foreach (string item in License)
             {
                 string newPrivilege = "User";
-                string CreateDate = DateTime.Now.ToString();
+                string CreateDate = DateTime.Now.ToString("yyyy/MM/dd");
                 string WhoCreate = "Manager";
 
                 DBTool Dbtool = new DBTool();
-                string[] colname = { "License", "Privilege", "CreateDate", "WhoCreate" };
-                string[] colnamep = { "@License", "@Privilege", "@CreateDate", "@WhoCreate" };
+                string[] colname = { "ClassNumber","License", "Privilege", "CreateDate", "WhoCreate" };
+                string[] colnamep = { "@ClassNumber", "@License", "@Privilege", "@CreateDate", "@WhoCreate" };
                 List<string> p = new List<string>();
+                p.Add(ClassNumber);
                 p.Add(item);
                 p.Add(newPrivilege);
                 p.Add(CreateDate);

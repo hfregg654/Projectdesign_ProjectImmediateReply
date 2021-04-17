@@ -38,9 +38,8 @@ namespace ProjectImmediateReply
                                             classrules: [
                                                    value => !!value || '此輸入框不可為空白',
                                             ],
-                                            }),
-                                     
                                            
+                                            }),
                                      })
                               </script>";
         private const string JSstringCrud = @"
@@ -143,12 +142,7 @@ namespace ProjectImmediateReply
         private const string _sessionKey = "PageInnerType";
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["IsLogined"] != null)
-            {
-                Models.LogInfo logInfo = new Models.LogInfo();
-                logInfo=(Models.LogInfo)Session["IsLogined"];
-                Label1.Text = logInfo.Privilege.ToString();
-            }
+           
 
             string PageInnerType = null;
             if (Request.QueryString[_sessionKey] != null)

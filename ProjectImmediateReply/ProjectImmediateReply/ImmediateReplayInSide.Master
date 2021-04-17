@@ -68,7 +68,7 @@
 					
                     
                     <!-- footer -->
-					<v-footer dark padless>
+					<v-footer dark padless fixed>
 						<v-card class="flex" flat tile>
 
 							<v-card-text class="py-2 white--text text-center">

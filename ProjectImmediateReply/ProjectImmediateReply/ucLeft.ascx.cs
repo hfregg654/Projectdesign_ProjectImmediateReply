@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectImmediateReply.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,20 +10,20 @@ namespace ProjectImmediateReply
 {
     public partial class WebUserControl1 : System.Web.UI.UserControl
     {
-        private const string _sessionKey = "PageType";
         protected void Page_Init(object sender, EventArgs e)
         {
             string PageType = null;
-            if (Request.QueryString[_sessionKey] != null)
+			if (Session["IsLogined"] != null)
             {
-                PageType = Request.QueryString[_sessionKey].ToString();
+				LogInfo Info = (LogInfo)Session["IsLogined"];
+				PageType = Info.Privilege.ToString();
             }
 
 
             if (PageType == "Manager")
             {
 				divLeftTitle.InnerHtml = @"<v-list two-line>
-								<v-list-item @click="""" href =""#1"" >
+								<v-list-item @click="""" href =""/Index.aspx?PageInnerType=UpdateInfo"" >
 									<v-list-item-icon >
 										<v-icon color = ""primary"" > face </v-icon >
    
