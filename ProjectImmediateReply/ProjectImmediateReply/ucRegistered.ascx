@@ -86,13 +86,15 @@
                         <label for="ContentPlaceHolder1_ucRegistered_register_key">授權碼</label>
                     </div>
                 </div>
-
+                <span style="color:red">
+                <asp:Literal ID="Message" runat="server"></asp:Literal>
+                </span>
             </div>
         </div>
 
     </div>
     <div class="modal-footer">
-        <a href="#!" id="registeredbutton" class="modal-close btn orange btn-large" runat="server">建立</a>
+        <a href="#!" id="registeredbutton" class="modal-close btn orange btn-large" onserverclick="Btn_Create" runat="server">建立</a>
     </div>
 </div>
 <!-- 註冊彈跳視窗內容結束 -->
