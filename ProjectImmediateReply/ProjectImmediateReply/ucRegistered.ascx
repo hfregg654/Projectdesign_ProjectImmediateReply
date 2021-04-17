@@ -88,7 +88,7 @@
                 </div>
                 <span style="color: red">
                     <asp:Literal ID="Message" runat="server"></asp:Literal>
-                    <label id="messagelabel" style="color:red"></label>
+                    <literal id="messagelabel"></literal>
                 </span>
                 
             </div>
@@ -109,8 +109,5 @@
             $("#messagelabel").empty();
             $("#messagelabel").append("<%=CheckCanUpdate()%>");
         })
-
-
     })
-
 </script>
