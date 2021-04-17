@@ -44,29 +44,29 @@
                 </div>
                 <div class="row">
                     <div class="form-field">
-                            <div class="input-field col s6">
-                                <input type="password" id="passwordregister"
-                                    class="validate" onkeyup="value=value.replace(/[\W]/g,'') " runat="server"
-                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))"  />
-                                <label for="ContentPlaceHolder1_ucRegistered_passwordregister">密碼</label>
+                        <div class="input-field col s6">
+                            <input type="password" id="passwordregister"
+                                class="validate" onkeyup="value=value.replace(/[\W]/g,'') " runat="server"
+                                onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
+                            <label for="ContentPlaceHolder1_ucRegistered_passwordregister">密碼</label>
 
-                            </div>
-                            <div class="input-field col" style="margin-left: -3.25rem!important; margin-top: 2rem!important;">
-                                <a href="javascript:void(0)" id="showbtnregister">
-                                    <i class="material-icons">remove_red_eye</i></a>
-                            </div>
+                        </div>
+                        <div class="input-field col" style="margin-left: -3.25rem!important; margin-top: 2rem!important;">
+                            <a href="javascript:void(0)" id="showbtnregister">
+                                <i class="material-icons">remove_red_eye</i></a>
+                        </div>
                     </div>
                     <div class="form-field">
-                            <div class="input-field col s6">
-                                <input type="password" id="passwordregistercheck"
-                                    class="validate" onkeyup="value=value.replace(/[\W]/g,'') " runat="server"
-                                    onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
-                                <label for="ContentPlaceHolder1_ucRegistered_passwordregistercheck">密碼確認</label>
-                            </div>
-                            <div class="input-field col" style="margin-left: -3.25rem!important; margin-top: 2rem!important;">
-                                <a href="javascript:void(0)" id="showbtnregistercheck" >
-                                    <i class="material-icons">remove_red_eye</i></a>
-                            </div>
+                        <div class="input-field col s6">
+                            <input type="password" id="passwordregistercheck"
+                                class="validate" onkeyup="value=value.replace(/[\W]/g,'') " runat="server"
+                                onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
+                            <label for="ContentPlaceHolder1_ucRegistered_passwordregistercheck">密碼確認</label>
+                        </div>
+                        <div class="input-field col" style="margin-left: -3.25rem!important; margin-top: 2rem!important;">
+                            <a href="javascript:void(0)" id="showbtnregistercheck">
+                                <i class="material-icons">remove_red_eye</i></a>
+                        </div>
                     </div>
                 </div>
                 <%--<div class="row">
@@ -86,16 +86,31 @@
                         <label for="ContentPlaceHolder1_ucRegistered_register_key">授權碼</label>
                     </div>
                 </div>
-                <span style="color:red">
-                <asp:Literal ID="Message" runat="server"></asp:Literal>
+                <span style="color: red">
+                    <asp:Literal ID="Message" runat="server"></asp:Literal>
+                    <label id="messagelabel" style="color:red"></label>
                 </span>
+                
             </div>
         </div>
 
     </div>
     <div class="modal-footer">
         <a href="#!" id="registeredbutton" class="modal-close btn orange btn-large" onserverclick="Btn_Create" runat="server">建立</a>
+        <input type="button"  class="btn orange btn-large" id="regisbtn" />
     </div>
 </div>
 <!-- 註冊彈跳視窗內容結束 -->
-k
+
+
+<script>
+    $(document).ready(function () {
+        $("#regisbtn").click(function () {
+            $("#messagelabel").empty();
+            $("#messagelabel").append("<%=CheckCanUpdate()%>");
+        })
+
+
+    })
+
+</script>
