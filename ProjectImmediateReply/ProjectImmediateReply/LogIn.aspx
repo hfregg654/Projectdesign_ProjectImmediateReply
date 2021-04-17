@@ -45,7 +45,11 @@
                         </div>
                         <br>
                         <div class="form-field center-align">
-                            <button id="btnLogin" type="button" class="btn-large red" runat="server" onserverclick="btnLogin_ServerClick">登入<i class="material-icons right">send</i></button>
+                            <span style="color:red">
+                            <asp:Literal ID="ltMessage" runat="server"></asp:Literal>
+                            </span>
+                            <br/>
+                            <button id="Button1" type="button" class="btn-large red" runat="server" onserverclick="BtnLogin_Click">登入<i class="material-icons right">send</i></button>
                         </div>
                         <div class="card-content center-align">
                             <a class="modal-trigger" href="#terms">註冊帳號</a><br>

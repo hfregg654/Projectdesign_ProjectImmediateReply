@@ -33,13 +33,22 @@ namespace ProjectImmediateReply
         protected global::System.Web.UI.HtmlControls.HtmlInputPassword passwordIndex;
 
         /// <summary>
-        /// btnLogin 控制項。
+        /// ltMessage 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlButton btnLogin;
+        protected global::System.Web.UI.WebControls.Literal ltMessage;
+
+        /// <summary>
+        /// Button1 控制項。
+        /// </summary>
+        /// <remarks>
+        /// 自動產生的欄位。
+        /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
+        /// </remarks>
+        protected global::System.Web.UI.HtmlControls.HtmlButton Button1;
 
         /// <summary>
         /// ucRegistered 控制項。
