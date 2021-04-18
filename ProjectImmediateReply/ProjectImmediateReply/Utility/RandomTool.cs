@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectImmediateReply.Log;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -68,8 +69,9 @@ namespace ProjectImmediateReply.Utility
             }
             catch (Exception ex)
             {
-                HttpContext.Current.Response.Write($"請聯繫開發人員。錯誤訊息：{ex}");
-                return null;
+                txtLog logtool = new txtLog();
+                logtool.WriteLog(ex.ToString());
+                throw;
             }
 
         }

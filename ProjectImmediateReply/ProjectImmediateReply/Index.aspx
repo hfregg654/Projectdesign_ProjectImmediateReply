@@ -14,13 +14,16 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <div runat="server" id="divinnerplace">
+        
         <uc1:ucCrud runat="server" ID="ucCrud" Visible="false" />
         <uc1:ucCreateClass runat="server" ID="ucCreateClass" Visible="false" />
-        <uc1:ucUpdateInfo runat="server" id="ucUpdateInfo" Visible="false" />
+        <uc1:ucUpdateInfo runat="server" ID="ucUpdateInfo" Visible="false" />
     </div>
+   
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
+    <script src="assets/js/ImmediateReplayAJAX.js"></script>
     <div runat="server" id="divJS">
     </div>
-
 </asp:Content>

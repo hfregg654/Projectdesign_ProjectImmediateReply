@@ -11,25 +11,25 @@ namespace ProjectImmediateReply
 {
 
 
-    public partial class WebUserControl1
+    public partial class WebForm6
     {
 
         /// <summary>
-        /// LabelUserName 控制項。
+        /// form1 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Label LabelUserName;
+        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
 
         /// <summary>
-        /// divLeftTitle 控制項。
+        /// HiddenField1 控制項。
         /// </summary>
         /// <remarks>
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlGenericControl divLeftTitle;
+        protected global::System.Web.UI.WebControls.HiddenField HiddenField1;
     }
 }

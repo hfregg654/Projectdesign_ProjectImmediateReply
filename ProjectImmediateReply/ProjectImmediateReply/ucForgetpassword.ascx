@@ -11,9 +11,13 @@
                         <div class="col s12">
                             請輸入授權碼
 							<div class="input-field inline">
-                                <input id="rescue_key" type="text" class="validate">
+                                <input id="rescue_key" type="text" class="validate" runat="server">
                                 <label for="rescue_key">授權碼</label>
                             </div>
+                            <br />
+                            <span style="color:red">
+                            <asp:Literal ID="Message" runat="server"></asp:Literal>
+                            </span>
                         </div>
                     </div>
 
@@ -22,7 +26,7 @@
 
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-close btn orange btn-large">搜尋</a>
+            <a href="#!" class="modal-close btn orange btn-large" onserverclick="Btn_Forgot" runat="server">搜尋</a>
         </div>
     </div>
 </div>
