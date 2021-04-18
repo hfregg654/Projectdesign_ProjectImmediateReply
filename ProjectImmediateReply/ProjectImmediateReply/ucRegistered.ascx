@@ -96,8 +96,8 @@
 
     </div>
     <div class="modal-footer">
-        <a href="#!" id="registeredbutton" class="modal-close btn orange btn-large" onserverclick="Btn_Create" runat="server">建立</a>
-        <input type="button"  class="btn orange btn-large" id="regisbtn" />
+       <%-- <a href="#!" id="registeredbutton" class="modal-close btn orange btn-large" onserverclick="Btn_Create" runat="server">建立</a>--%>
+        <button type="button"  class="btn orange btn-large" id="regisbtn">建立</button>
     </div>
 </div>
 <!-- 註冊彈跳視窗內容結束 -->
