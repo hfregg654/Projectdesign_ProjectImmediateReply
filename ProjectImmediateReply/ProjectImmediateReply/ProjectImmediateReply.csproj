@@ -147,6 +147,7 @@
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Utility\PageTool.cs" />
     <Compile Include="WebForm6.aspx.cs">
       <DependentUpon>WebForm6.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

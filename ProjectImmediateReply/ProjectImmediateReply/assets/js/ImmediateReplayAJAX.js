@@ -28,7 +28,6 @@
         var ClassNumber = $("#ClassNumberTbox").val();
         var PeopleNum = $("#PeopleNumTbox").val();
         var Privilege = $("#ContentPlaceHolder1_ucCreateClass_HiddenFieldSessionPri").val();
-        var snackbar = Boolean;
 
 
         $.ajax({
