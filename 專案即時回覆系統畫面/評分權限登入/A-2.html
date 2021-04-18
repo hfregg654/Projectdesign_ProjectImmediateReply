@@ -1,6 +1,15 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<!-- meta引入 -->
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+		<meta charset="UTF-8">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta http-equiv="content-language" content="zh-tw">
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- ---------- -->
 		<link rel="stylesheet" type="text/css"
 			href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" />
 		<link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
@@ -9,8 +18,9 @@
 		<!-- 導入中文字體 -->
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap" rel="stylesheet">
-		<meta name="viewport"
-			content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+		<!-- 導入英文字體 -->
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@700&display=swap" rel="stylesheet">
 	</head>
 	<body>
 		<div id="app">
@@ -119,7 +129,7 @@
 						</v-row>
 						<v-flex md12 class="grey lighten-4 fill-height justify-center ">
 							<v-data-table :headers="headers" :items="desserts" :sort-by="['projectname']"
-								:sort-desc="[false, true]" multi-sort class="elevation-1">
+								:sort-desc="[false, true]" multi-sort class="elevation-1" height="550">
 								<!-- 增加查看事件開始-->
 								<template v-slot:item.btn="{item}">
 									<v-icon small @click="">person_search</v-icon>
@@ -130,7 +140,7 @@
 						</v-flex>
 					</v-main>
 					<!-- footer -->
-					<v-footer dark padless>
+					<v-footer dark padless fixed>
 						<v-card class="flex" flat tile>
 
 							<v-card-text class="py-2 white--text text-center">
@@ -155,26 +165,6 @@
 				vuetify: new Vuetify(),
 				data: () => ({
 					drawer: null,
-					// items: [{
-					// 		icon: 'face',
-					// 		text: 'Notes'
-					// 	},
-					// 	{
-					// 		divider: true
-					// 	},
-					// 	{
-					// 		icon: 'thumbs_up_down',
-					// 		text: 'Create new label'
-					// 	},
-					// 	{
-					// 		divider: true
-					// 	},
-					// 	{
-					// 		icon: 'receipt',
-					// 		text: 'Archive'
-					// 	},
-					// ],
-					// -------datatable
 					// 班級選擇開始
 					chooseclass: ['班級A', '班級B', '班級C', '班級D'],
 					// 班級選擇結束
@@ -204,111 +194,64 @@
 						},
 					],
 					desserts: [{
-						projectname: 'A計畫',
-						teamleader: '毛豆',
-						teammember: '一二三四五六七',
-						teamname: '第一組',
-					}, {
-						projectname: 'B計畫',
-						teamleader: '毛豆',
-						teammember: '一二三四五六七',
-						teamname: '第一組',
-					}, {
-						projectname: 'C計畫',
-						teamleader: '毛豆',
-						teammember: '一二三四五六七',
-						teamname: '第一組',
-						btn: '1%',
-					}, {
-						projectname: 'D計畫',
-						teamleader: '毛豆',
-						teammember: '一二三四五六七',
-						teamname: '第一組',
-						btn: '1%',
-					}, {
-						projectname: 'A計畫',
-						teamleader: '毛豆',
-						teammember: '一二三四五六七',
-						teamname: '第一組',
-						btn: '1%',
-					}, {
-						projectname: 'A計畫',
-						teamleader: '毛豆',
-						teammember: '一二三四五六七',
-						teamname: '第一組',
-						btn: '1%',
-					}, {
-						projectname: 'A計畫',
-						teamleader: '毛豆',
-						teammember: '一二三四五六七',
-						teamname: '第一組',
-						btn: '1%',
-					}, {
-						projectname: 'A計畫',
-						teamleader: '毛豆',
-						teammember: '一二三四五六七',
-						teamname: '第一組',
-						btn: '1%',
-					}, {
-						projectname: 'A計畫',
-						teamleader: '毛豆',
-						teammember: '一二三四五六七',
-						teamname: '第一組',
-						btn: '1%',
-					}, {
-						projectname: 'A計畫',
-						teamleader: '毛豆',
-						teammember: '一二三四五六七',
-						teamname: '第一組',
-						btn: '1%',
-					}, ],
+						projectname: '',
+						teamleader: '',
+						teammember: '',
+						teamname: '',
+					} ],
 					// datatable結束
 				}),
-			})
+				// 撈資料method
+				mounted() {
+						axios
+						// 接json資料丟到desserts對象裡面解析
+							.get('')
+							.then(response => (this.desserts = response))
+							.catch(function(error) { 
+								console(error);
+							});
+					}
+				})
 		</script>
 		<style type="text/css">
 			#keep .v-navigation-drawer__border {
 				display: none
 			}
-
+		
 			.ubay {
-				font-family: 'Anton', sans-serif;
-				font-family: 'Shadows Into Light', cursive;
+				font-family: 'Lemonada', cursive;
 				font-weight: 900;
 				font-size: 3.125rem;
 				padding-left: 0.9375rem;
 				margin-left: -0.3125rem;
 			}
-
+		
 			.navfont {
 				font-family: 'ZCOOL KuaiLe', cursive;
 				font-weight: bold;
 			}
-
+		
 			.footer-ubay {
-				font-family: 'Anton', sans-serif;
-				font-family: 'Shadows Into Light', cursive;
-				font-size: 1.875rem;
+				font-family: 'Lemonada', cursive !important;
 			}
-
-			/* .top {
+		
+			.top {
 				background: rgba(0, 0, 0, .6) !important;
-			} */
-
+			}
+		
 			.chinese {
 				font-family: 'Noto Sans TC', sans-serif;
 				padding-right: 2.375rem;
 			}
-
-
-
+		
+		
 			@media (max-width:600px),
 			print {
 				.ubay {
 					font-size: 2.125rem;
 					padding: 0.125rem
 				}
-
+		
 				.footer-ubay {
 					font-family: 'Anton', sans-serif;
 					font-family: 'Shadows Into Light', cursive;
