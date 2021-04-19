@@ -40,7 +40,9 @@
             type: 'POST',
             dataType: 'json',
         })
-            
+            .done(function (item) {
+                alert(0);
+            })
             .always(function (xhr, status) {
                 
             });
