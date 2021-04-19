@@ -31,5 +31,6 @@ namespace ProjectImmediateReply.Models
         public int UserID { get; set; }
         public string Name { get; set; }
         public string Privilege { get; set; }
+        public string Mail { get; set; }
     }
 }
