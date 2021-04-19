@@ -18,10 +18,10 @@ namespace ProjectImmediateReply
             string[] readcolname = { "License", "PassWord" };
             string[] Pname = { "@License" };
             string[] P = { this.rescue_key.Value };
-            UserInfo Check = Forgot.ChangeTypeUserInfo(Forgot.readTable("Users", readcolname, "WHERE License=@License", Pname, P))[0]; //單筆時候的取值用法
-            if (Check != null)
+            List<UserInfo> Check = Forgot.ChangeTypeUserInfo(Forgot.readTable("Users", readcolname, "WHERE License=@License", Pname, P)); //單筆時候的取值用法
+            if (Check.Count != 0)
             {
-                Message.Text = "您的密碼為：" + Check.PassWord;
+                Message.Text = "您的密碼為：" + Check[0].PassWord;
             }
             else
             {
