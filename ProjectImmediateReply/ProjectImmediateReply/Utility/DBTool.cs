@@ -378,6 +378,7 @@ namespace ProjectImmediateReply.Utility
                     {
                         command.Parameters.AddWithValue($"{insertcolname_P[i]}", puserinsert[i]);
                     }
+                    command.ExecuteNonQuery();
                     sqlTransaction.Commit();
                 }
                 catch (Exception ex)
