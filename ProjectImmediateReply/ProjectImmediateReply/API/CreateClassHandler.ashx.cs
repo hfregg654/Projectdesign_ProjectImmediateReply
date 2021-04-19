@@ -50,7 +50,7 @@ namespace ProjectImmediateReply.API
                 }
                 MailTool mtool = new MailTool();
                 string licensemail = string.Join("<br/>", License);
-                mtool.SendMail(Mailaddress, Mailaddress,Privilege,"授權碼發送",licensemail,"wade19961122851122");
+                mtool.SendMail(Mailaddress, Mailaddress,Privilege,"授權碼發送",licensemail,"1qazxcvfr432wsde");
 
                 string success = "[{\"success\":\"true\"}]";
                 context.Response.ContentType = "text/json";
