@@ -368,6 +368,9 @@ namespace ProjectImmediateReply.Utility
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
+                connection.Open();
+                SqlTransaction sqlTransaction = connection.BeginTransaction();
+                command.Transaction = sqlTransaction;
                 try
                 {
                     //利用迴圈將參數一個一個放進@欄位
@@ -375,11 +378,12 @@ namespace ProjectImmediateReply.Utility
                     {
                         command.Parameters.AddWithValue($"{insertcolname_P[i]}", puserinsert[i]);
                     }
-                    connection.Open();
                     command.ExecuteNonQuery();
+                    sqlTransaction.Commit();
                 }
                 catch (Exception ex)
                 {
+                    sqlTransaction.Rollback();
                     txtLog logtool = new txtLog();
                     logtool.WriteLog(ex.ToString());
                     throw;

@@ -26,5 +26,15 @@ namespace ProjectImmediateReply
             divLeftTitle.InnerHtml = ptool.PageLeft(PageType);
 
         }
+
+        protected void Logoutbtn_ServerClick(object sender, EventArgs e)
+        {
+            LoginHelper helper = new LoginHelper();
+            if (helper.HasLogIned())
+            {
+                helper.Logout();
+                Response.Redirect("~/LogIn.aspx");
+            }
+        }
     }
 }

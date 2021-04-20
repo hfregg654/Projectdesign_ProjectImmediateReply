@@ -16,6 +16,7 @@ namespace ProjectImmediateReply
             {
                 LogInfo Info = (LogInfo)Session["IsLogined"];
                 HiddenFieldSessionPri.Value = Info.Privilege.ToString();
+                HiddenFieldSessionMail.Value = Info.Mail.ToString();
             }
         }
     }

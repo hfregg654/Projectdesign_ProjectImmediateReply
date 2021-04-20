@@ -41,15 +41,6 @@ namespace ProjectImmediateReply
             }
         }
 
-        protected void btnLogout_Click(object sender, EventArgs e)
-        {
-            Utility.LoginHelper helper = new Utility.LoginHelper();
-            if (helper.HasLogIned())
-            {
-                helper.Logout();
-
-                Response.Redirect(this._goToUrl);
-            }
-        }
+       
     }
 }
