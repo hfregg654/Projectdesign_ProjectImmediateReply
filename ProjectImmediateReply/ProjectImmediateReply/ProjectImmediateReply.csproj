@@ -73,8 +73,8 @@
     <Content Include="assets\css\main.css" />
     <Content Include="assets\css\W3HWStyle.css" />
     <Content Include="assets\fonts\fontawesome-webfont.svg" />
-    <Content Include="assets\js\ImmediataReplay.js" />
-    <Content Include="assets\js\ImmediateReplayAJAX.js" />
+    <Content Include="assets\js\ImmediataReply.js" />
+    <Content Include="assets\js\ImmediateReplyAJAX.js" />
     <Content Include="assets\js\jquery-3.6.0.min.js" />
     <Content Include="assets\js\jquery.min.js" />
     <Content Include="assets\js\jquery.scrollex.min.js" />
