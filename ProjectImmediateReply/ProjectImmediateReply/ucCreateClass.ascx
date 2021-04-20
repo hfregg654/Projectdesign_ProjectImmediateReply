@@ -29,15 +29,10 @@
 										建立
 									</v-btn>
 
-									<%--<div class="text-center">
-										<v-btn dark color="indigo" @click="snackbar = true">open</v-btn>
-										<v-snackbar v-model="snackbar" :vertical="vertical">{{text}}</v-snackbar>
-									</div>--%>
-
 								</v-card-actions>
 								<v-card-actions class="justify-end">
 									<v-btn color="blue lighten-2" text>
-										專案修改
+										班級修改
 									</v-btn>
 								</v-card-actions>
 
