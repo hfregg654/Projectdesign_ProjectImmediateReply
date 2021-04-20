@@ -14,7 +14,7 @@ namespace ProjectImmediateReply.Utility
                 return @"<v-list two-line>
 								<v-list-item @click="""" href =""/Index.aspx?PageInnerType=UpdateInfo"" >
 									<v-list-item-icon >
-										<v-icon color = ""primary"" > face </v-icon >
+										<v-icon color = ""primary"" > account_circle </v-icon >
    
 									   </v-list-item-icon >
    
@@ -22,59 +22,57 @@ namespace ProjectImmediateReply.Utility
 									   <v-list-item-content >
    
 										   <v-list-item-title class=""chinese h4 primary--text"">個人資料維護</v-list-item-title>
-										<v-list-item-subtitle>Mobile</v-list-item-subtitle>
+										<v-list-item-subtitle>UpdateInformation</v-list-item-subtitle>
 									</v-list-item-content>
 
 								</v-list-item>
 
 
-								<v-divider inset></v-divider>
 								
 								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=CreateClass"" >
 									<v-list-item-icon>
-										<v-icon color = ""primary"" > assignment_ind </v-icon >
+										<v-icon color = ""primary"" > build_circle </v-icon >
 									</v-list-item-icon >
 
 									<v-list-item-content >
 										<v-list-item-title class=""chinese h4 primary--text"">建立班級及修改</v-list-item-title>
-										<v-list-item-subtitle>Personal</v-list-item-subtitle>
+										<v-list-item-subtitle>CreateClass</v-list-item-subtitle>
 									</v-list-item-content>
 								</v-list-item>
 
 								<v-list-item @click = """" href =""/Index.aspx?PageInnerType="" >
 									<v-list-item-icon>
-										<v-icon color = ""primary"" > assignment_turned_in </v-icon >
+										<v-icon color = ""primary"" > build_circle </v-icon >
 									</v-list-item-icon >
 
 									<v-list-item-content >
 										<v-list-item-title class=""chinese h4 primary--text"">建立專案及修改</v-list-item-title>
-										<v-list-item-subtitle>Personal</v-list-item-subtitle>
+										<v-list-item-subtitle>CreateProject</v-list-item-subtitle>
 									</v-list-item-content>
 								</v-list-item>
 
 								<v-list-item @click = """" href =""/Index.aspx?PageInnerType="" >
 									<v-list-item-icon>
-										<v-icon color = ""primary"" > today </v-icon>
+										<v-icon color = ""primary"" > build_circle </v-icon>
 									</v-list-item-icon >
 
 									<v-list-item-content >
 										<v-list-item-title class=""chinese h4 primary--text"">小組分配及修改</v-list-item-title>
-										<v-list-item-subtitle>Personal</v-list-item-subtitle>
+										<v-list-item-subtitle>TeamAssign</v-list-item-subtitle>
 									</v-list-item-content>
 								</v-list-item>
 								
 								<v-list-item @click = """" href =""/Index.aspx?PageInnerType="" >
 									<v-list-item-icon>
-										<v-icon color = ""primary"" > receipt </v-icon >
+										<v-icon color = ""primary"" > preview </v-icon >
 									</v-list-item-icon >
 
 									<v-list-item-content >
 										<v-list-item-title class=""chinese h4 primary--text"">成績</v-list-item-title>
-										<v-list-item-subtitle>Work</v-list-item-subtitle>
+										<v-list-item-subtitle>Grade</v-list-item-subtitle>
 									</v-list-item-content>
 								</v-list-item>
 
-								<v-divider inset></v-divider>
 
 							</v-list>";
             }
@@ -83,7 +81,7 @@ namespace ProjectImmediateReply.Utility
                 return @"<v-list two-line>
 								<v-list-item @click="""" href=""/Index.aspx?PageInnerType=UpdateInfo"" >
 									<v-list-item-icon >
-										<v-icon color=""primary"" > face </v-icon >
+										<v-icon color=""primary"" > account_circle </v-icon >
    
 									   </v-list-item-icon >
    
@@ -91,37 +89,35 @@ namespace ProjectImmediateReply.Utility
 									   <v-list-item-content >
    
 										   <v-list-item-title class=""chinese h4 primary--text"" > 個人資料維護</v-list-item-title>
-										<v-list-item-subtitle>Mobile</v-list-item-subtitle>
+										<v-list-item-subtitle>UpdateInformation</v-list-item-subtitle>
 									</v-list-item-content>
 
 								</v-list-item>
 
 
-								<v-divider inset></v-divider>
 
 								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=Crud"" >
 									<v-list-item-icon>
-										<v-icon color = ""primary"" > thumbs_up_down </v-icon >
+										<v-icon color = ""primary"" > check_circle_outline </v-icon >
 									</v-list-item-icon >
 
 									<v-list-item-content >
 										<v-list-item-title class=""chinese h4 primary--text"" > 專案評分</v-list-item-title>
-										<v-list-item-subtitle>Personal</v-list-item-subtitle>
+										<v-list-item-subtitle>Grades</v-list-item-subtitle>
 									</v-list-item-content>
 								</v-list-item>
 
 								<v-list-item @click = """" href =""/Index.aspx?PageInnerType="" >
 									<v-list-item-icon>
-										<v-icon color = ""primary"" > receipt </v-icon >
+										<v-icon color = ""primary"" > preview </v-icon >
 									</v-list-item-icon >
 
 									<v-list-item-content >
 										<v-list-item-title class=""chinese h4 primary--text"" > 成績</v-list-item-title>
-										<v-list-item-subtitle>Work</v-list-item-subtitle>
+										<v-list-item-subtitle>Grade</v-list-item-subtitle>
 									</v-list-item-content>
 								</v-list-item>
 
-								<v-divider inset></v-divider>
 
 							</v-list>";
             }
@@ -144,7 +140,6 @@ namespace ProjectImmediateReply.Utility
 								</v-list-item>
 
 
-								<v-divider inset></v-divider>
 
 								<v-list-item @click = """" href =""#2"" >
 									<v-list-item-icon>
@@ -168,7 +163,6 @@ namespace ProjectImmediateReply.Utility
 									</v-list-item-content>
 								</v-list-item>
 
-								<v-divider inset></v-divider>
 
 							</v-list>";
             }
