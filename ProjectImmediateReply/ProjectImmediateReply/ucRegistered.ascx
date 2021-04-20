@@ -87,6 +87,7 @@
                     </div>
                 </div>
                 <span style="color: red">
+                    <%--<asp:Literal ID="Message" runat="server"></asp:Literal>--%>
                     <literal id="messagelabel"></literal>
                 </span>
                 
