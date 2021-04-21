@@ -51,11 +51,13 @@
         })
             //當請求完成提醒使用者完成並顯示建立按鈕
             .done(function (Data) {
-                $("#GetPasswordMessage").empty;
+
                 if (Data.length != 0) {
-                    $("#GetPasswordMessage").append("您的密碼是:"+Data[0].PassWord.toString());
+                    $("#GetPasswordMessage").empty();
+                    $("#GetPasswordMessage").append("您的密碼是:" + Data[0].PassWord.toString());
                 }
                 else {
+                    $("#GetPasswordMessage").empty();
                     $("#GetPasswordMessage").append("授權碼輸入錯誤");
                 }
 
