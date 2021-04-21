@@ -16,14 +16,15 @@ namespace ProjectImmediateReply.API
         public void ProcessRequest(HttpContext context)
         {
             string License = context.Request.QueryString["License"];
+            string ClassNum= context.Request.QueryString["ClassNum"];
             Utility.DBTool Forgot = new Utility.DBTool();
-            string[] readcolname = { "License", "PassWord" };
-            string[] Pname = { "@License" };
-            string[] P = { License };
+            string[] readcolname = { "License", "PassWord", "ClassNumber" };
+            string[] Pname = { "@License", "@ClassNumber" };
+            string[] P = { License,ClassNum };
             List<UserInfo> Check = new List<UserInfo>();
             if (P[0] != null && P[0] != string.Empty && P[0] != "null")
             {
-                Check = Forgot.ChangeTypeUserInfo(Forgot.readTable("Users", readcolname, "WHERE License=@License", Pname, P)); //單筆時候的取值用法
+                Check = Forgot.ChangeTypeUserInfo(Forgot.readTable("Users", readcolname, "WHERE License=@License AND ClassNumber=@ClassNumber", Pname, P)); //單筆時候的取值用法
             }
 
             string ShowPassword = JsonConvert.SerializeObject(Check);
