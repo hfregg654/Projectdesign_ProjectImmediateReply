@@ -7,6 +7,7 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
+    <script src="assets/js/ImmediataReply.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- -wrapper包容器 不可刪---- -->
@@ -32,12 +33,11 @@
                             <label for="ContentPlaceHolder1_passwordIndex">密碼</label>
                             <div class="row">
                                 <div class="col s12">
-                                    <input type="password" id="passwordIndex" name="password" style="color: white"  onkeyup="value=value.replace(/[\W]/g,'') " runat="server"
-                                        onbeforepaste=
-                                        "clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
+                                    <input type="password" id="passwordIndex" name="password" style="color: white" onkeyup="value=value.replace(/[\W]/g,'') " runat="server"
+                                        onbeforepaste="clipboardData.setData('text',clipboardData.getData('text').replace(/[^\d]/g,''))" />
                                 </div>
                                 <div>
-                                    <a href="javascript:void(0)" id="showbtnIndex" 
+                                    <a href="javascript:void(0)" id="showbtnIndex"
                                         style="margin-left: -3.25rem!important; margin-top: 2rem!important;">
                                         <i class="material-icons">remove_red_eye</i></a>
                                 </div>
@@ -45,10 +45,10 @@
                         </div>
                         <br>
                         <div class="form-field center-align">
-                            <span style="color:red">
-                            <asp:Literal ID="ltMessage" runat="server"></asp:Literal>
+                            <span style="color: red">
+                                <asp:Literal ID="ltMessage" runat="server"></asp:Literal>
                             </span>
-                            <br/>
+                            <br />
                             <button id="Button1" type="button" class="btn-large red" runat="server" onserverclick="BtnLogin_Click">登入<i class="material-icons right">send</i></button>
                         </div>
                         <div class="card-content center-align">
@@ -68,7 +68,7 @@
         </div>
     </div>
 
-   
+
 
 
 </asp:Content>

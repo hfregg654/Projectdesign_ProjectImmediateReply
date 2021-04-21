@@ -118,6 +118,9 @@
     <Compile Include="API\CreateClassHandler.ashx.cs">
       <DependentUpon>CreateClassHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="API\RegisteredHandler.ashx.cs">
+      <DependentUpon>RegisteredHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -227,6 +230,7 @@
     <Content Include="ImmediateReply.Master" />
     <Content Include="ImmediateReplyInSide.Master" />
     <Content Include="API\CreateClassHandler.ashx" />
+    <Content Include="API\RegisteredHandler.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
