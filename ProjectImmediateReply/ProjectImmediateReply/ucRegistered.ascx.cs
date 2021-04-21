@@ -17,7 +17,6 @@ namespace ProjectImmediateReply
             Utility.DBTool dbtool = new Utility.DBTool();
             string[] colname = { "ClassNumber" };
             DataTable classnumber = dbtool.readTable("Users", colname, "GROUP BY ClassNumber", null, null);
-            dbtool.ChangeTypeUserInfo(classnumber);
             List<string> classnum = new List<string>();
             foreach (DataRow item in classnumber.Rows)
             {
