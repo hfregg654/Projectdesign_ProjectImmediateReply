@@ -18,10 +18,7 @@ $(document).ready(function () {
     $('#showbtnregister').click(function () { ShowPassWord('ContentPlaceHolder1_ucRegistered_passwordregister', 'showbtnregister'); });
     // 註冊確認密碼框顯示
     $('#showbtnregistercheck').click(function () { ShowPassWord('ContentPlaceHolder1_ucRegistered_passwordregistercheck','showbtnregistercheck'); });
-    $("#Fgbtn").click(function () {
-        $("#Message").empty(); //先清空一次字串 以免造成疊加
-        $("#Message").("Btn_Forgot()") //觸發按鈕內的方法
-    })
+    
 });
 // ----
 // 增加密碼框顯示功能

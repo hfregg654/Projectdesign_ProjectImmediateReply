@@ -14,6 +14,7 @@ namespace ProjectImmediateReply
     {
         protected void Page_Load(object sender, EventArgs e)  //protected表此方法只能於該頁面(檔案)使用，後面()內語法為使用後代表為該物件，拿掉後會出錯。
         {
+
             Utility.DBTool dbtool = new Utility.DBTool();
             string[] colname = { "ClassNumber" };
             DataTable classnumber = dbtool.readTable("Users", colname, "GROUP BY ClassNumber", null, null);
@@ -30,9 +31,10 @@ namespace ProjectImmediateReply
             register_class.DataBind();
         }
 
-        protected string CheckCanUpdate()
+        public string CheckCanUpdate()
         {
-           
+
+
             string[] CheckItem = { this.register_name.Value, this.register_number.Value, this.register_email.Value,
                 this.register_lineid.Value, this.register_class.Value, this.register_account.Value, this.passwordregister.Value,
                 this.passwordregistercheck.Value, this.register_key.Value };
@@ -74,7 +76,7 @@ namespace ProjectImmediateReply
                 return "欄位不可為空";
             }
         }
-        
+
 
         //protected void Btn_Create(object sender, EventArgs e)
         //{

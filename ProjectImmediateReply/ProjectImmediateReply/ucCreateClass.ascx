@@ -12,7 +12,7 @@
 									class="mt-6" 
 									label="班別"
 									type="text"
-									v-model="ClassNumber" 
+									v-model="ClassNumber"
 									required id="ClassNumberTbox"></v-text-field>
 									
 									<v-text-field 

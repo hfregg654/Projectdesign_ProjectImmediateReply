@@ -242,11 +242,12 @@ namespace ProjectImmediateReply.Utility
 								     valid: true,
                                      License: """",
                                      numberrules: [
-                                           value => !!value || '此輸入框需輸入數字且不可為空白',
-                                           value => (value || '').length <= 5 || '請輸入5個字元以內',
+                                           value => !!value || '此輸入框需輸入2位數以內數字且不可為空白',
+                                           value => (value || '').length <= 2 || '請輸入2位數以內',
                                      ],
                                      classrules: [
                                            value => !!value || '此輸入框不可為空白',
+                                           value => (value || '').indexOf(' ') < 0 || '此輸入框不可輸入空白',
                                      ],
                                            
                                      }),

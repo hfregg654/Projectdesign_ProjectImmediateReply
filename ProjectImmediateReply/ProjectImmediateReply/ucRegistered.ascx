@@ -69,17 +69,7 @@
                         </div>
                     </div>
                 </div>
-                <%--<div class="row">
-                    <div class="input-field col s6">
-                        <input id="register_password" type="password" runat="server">
-                        <label for="register_password">密碼</label>
-                    </div>
-                    <div class="input-field col s6">
-                        <input id="register_confirm_password" type="password"
-                            class="validate" runat="server">
-                        <label for="register_confirm_password">密碼確認</label>
-                    </div>
-                </div>--%>
+               
                 <div class="row">
                     <div class="input-field col s12">
                         <input id="register_key" type="text" class="validate" runat="server">
@@ -87,29 +77,26 @@
                     </div>
                 </div>
                 <span style="color: red">
-                    <%--<asp:Literal ID="Message" runat="server"></asp:Literal>--%>
                     <literal id="messagelabel"></literal>
                 </span>
-                
+
             </div>
         </div>
 
     </div>
     <div class="modal-footer">
-       <%-- <a href="#!" id="registeredbutton" class="modal-close btn orange btn-large" onserverclick="Btn_Create" runat="server">建立</a>--%>
-        <button type="button"  class="btn orange btn-large" id="regisbtn">建立</button>
+        <button type="button" class="btn orange btn-large" id="regisbtn" >建立</button>
     </div>
 </div>
 <!-- 註冊彈跳視窗內容結束 -->
 
 
-<script>
-
+<%--<script>
     $(document).ready(function () {
         $("#regisbtn").click(function () {
+
             $("#messagelabel").empty();
-            $("#messagelabel").append("<%=CheckCanUpdate()%>");
+            $("#messagelabel").append(<%=CheckCanUpdate()%>);
         })
     })
-
-</script>
+</script>--%>
