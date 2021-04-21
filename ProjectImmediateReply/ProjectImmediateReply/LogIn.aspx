@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ImmediateReplay.Master" AutoEventWireup="true" CodeBehind="LogIn.aspx.cs" Inherits="ProjectImmediateReply.Index" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ImmediateReply.Master" AutoEventWireup="true" CodeBehind="LogIn.aspx.cs" Inherits="ProjectImmediateReply.Index" %>
 
 <%@ Register Src="~/ucRegistered.ascx" TagPrefix="uc1" TagName="ucRegistered" %>
 <%@ Register Src="~/ucForgetpassword.ascx" TagPrefix="uc1" TagName="ucForgetpassword" %>

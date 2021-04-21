@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ImmediateReplay.master.cs" Inherits="ProjectImmediateReply.ImmediateReplay" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ImmediateReply.Master.cs" Inherits="ProjectImmediateReply.ImmediateReplay" %>
 
 <!DOCTYPE html>
 
