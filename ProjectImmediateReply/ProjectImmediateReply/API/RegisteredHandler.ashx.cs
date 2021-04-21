@@ -5,6 +5,7 @@ using System.Web;
 using System.Data;
 using ProjectImmediateReply.Models;
 using ProjectImmediateReply.Utility;
+using Newtonsoft.Json;
 
 namespace ProjectImmediateReply.API
 {
@@ -26,6 +27,10 @@ namespace ProjectImmediateReply.API
             string PassWordCheck = context.Request.Form["PassWordCheck"];
             string License = context.Request.Form["License"];
 
+            List<UserInfo> Check_Acc = new List<UserInfo>();
+            List<UserInfo> Check_Acc_Lic = new List<UserInfo>();
+            string ShowMessage = string.Empty;
+            string ShowMessage2 = string.Empty;
             if (Name != string.Empty && Phone != string.Empty && Mail != string.Empty && LineID != string.Empty && ClassNumber != string.Empty
                 && Account != string.Empty && PassWord != string.Empty && PassWordCheck != string.Empty && License != string.Empty)
             {
@@ -36,34 +41,42 @@ namespace ProjectImmediateReply.API
                     string[] Pname = { "@Account" };
                     string[] P = { Account };
                     //DataTable Check = Create.readTable("Users", readcolname, "WHERE Account=@Account", Pname, P) //如上面寫一個字串，只會找一格，已經在核對帳號找出有的那一格，P表網頁輸出欄位，以帳號為條件搜尋，如為空則傳空。
-                    List<UserInfo> Check_Acc = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname, "WHERE Account=@Account", Pname, P));
+                    Check_Acc = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname, "WHERE Account=@Account", Pname, P));
                     string[] readcolname2 = { "Account", "License" };
                     string[] Pname2 = { "@Account", "@License" };
-                    string[] P2 = { Account , License };
-                    List<UserInfo> Check_Acc_Lic = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname2, "WHERE License=@License AND Account=@Account", Pname2, P2));
+                    string[] P2 = { Account, License };
+                    Check_Acc_Lic = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname2, "WHERE License=@License AND Account=@Account", Pname2, P2));
                     if (Check_Acc_Lic.Count != 0) //資料表型式的變數都是存在，非空值。
                     {
-                        return "授權碼已使用";
+                        context.Response.ContentType = "text/json";
+                        context.Response.Write("[{\"success\":\"license\"}]");
                     }
                     else if (Check_Acc.Count != 0)
                     {
-                        return "帳號已存在，請使用其他帳號";
+                        context.Response.ContentType = "text/json";
+                        context.Response.Write("[{\"success\":\"account\"}]");
                     }
                     else
                     {
-                        return "註冊成功，請至註冊信箱收取驗證信";
+                        context.Response.ContentType = "text/json";
+                        context.Response.Write("[{\"success\":\"true\"}]");
                     }
                 }
                 else
                 {
-                    return "密碼確認輸入錯誤";
+                    context.Response.ContentType = "text/json";
+                    context.Response.Write("[{\"success\":\"PassWordWrong\"}]");
                 }
             }
             else
             {
-                return "欄位不可為空";
+                context.Response.ContentType = "text/json";
+                context.Response.Write("[{\"success\":\"Empty\"}]");
             }
+
         }
+
+
 
         public bool IsReusable
         {

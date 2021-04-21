@@ -80,19 +80,37 @@
                 "Account": Account,
                 "PassWord": PassWord,
                 "PassWordCheck": PassWordCheck,
-                "License": License,
+                "License": License
             },
             type: 'POST',
             dataType: 'json',
         })
             //當請求完成提醒使用者完成並顯示建立按鈕
             .done(function (responseData) {
-                alert("註冊成功，請至註冊信箱收取驗證信");
-                $("#regisbtn").show(100);
+                $("#messagelabel").empty();
+                if (responseData[0].success == "Empty") {
+                    $("#messagelabel").append("欄位不可為空");
+                }
+                else if (responseData[0].success == "PassWordWrong") {
+                    $("#messagelabel").append("密碼確認輸入錯誤");
+                }
+                else if (responseData[0].success == "license") {
+                    $("#messagelabel").append("授權碼已使用");
+                }
+                else if (responseData[0].success == "account") {
+                    $("#messagelabel").append("帳號已存在，請使用其他帳號")
+                }
+                else {
+                    $("#messagelabel").append("註冊成功，請至註冊信箱收取驗證信")
+                }
+                //console.log(responseData[0].success);
+                //$("#regisbtn").show(100);
             })
             //當請求失敗提醒使用者失敗並顯示建立按鈕
             .fail(function (xhr, status, errorThrown) {
                 alert("欄位不可為空");
+            })
+            .always(function () {
                 $("#regisbtn").show(100);
             });
     })
