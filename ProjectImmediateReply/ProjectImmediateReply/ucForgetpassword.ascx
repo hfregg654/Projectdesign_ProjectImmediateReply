@@ -7,6 +7,12 @@
 
             <div class="row">
                 <div class="col s12">
+                     <div class="input-field inline">
+                        <select class="icons" runat="server" id="forgetpwd_class">
+                            <option disabled selected>班別</option>
+                        </select>
+                        <label>請選擇班別</label>
+                    </div>
                     <div class="row">
                         <div class="col s12">
                             請輸入授權碼
@@ -39,12 +45,13 @@
     $("#Fgbtn").click(function () {
         $("#Fgbtn").hide(100);//將按鈕隱藏
         var License = $("#rescue_key").val();
-
+        var ClassNum = $("#ContentPlaceHolder1_ucForgetpassword_forgetpwd_class").val();
         //發送ajax請求,呼叫班級建立的API並將參數送進去
         $.ajax({
             url: "API/ForgetPasswordHandeler.ashx",
             data: {
-                "License": License
+                "License": License,
+                "ClassNum": ClassNum
             },
             type: 'GET',
             dataType: 'json',
@@ -58,7 +65,7 @@
                 }
                 else {
                     $("#GetPasswordMessage").empty();
-                    $("#GetPasswordMessage").append("授權碼輸入錯誤");
+                    $("#GetPasswordMessage").append("查無資料");
                 }
 
             })
