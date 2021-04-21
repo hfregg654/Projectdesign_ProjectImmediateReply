@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ImmediateReplayInSide.master.cs" Inherits="ProjectImmediateReply.ImmediateReplayInSide" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="ImmediateReplyInSide.Master.cs" Inherits="ProjectImmediateReply.ImmediateReplayInSide" %>
 
 <%@ Register Src="~/ucLeft.ascx" TagPrefix="uc1" TagName="ucLeft" %>
 

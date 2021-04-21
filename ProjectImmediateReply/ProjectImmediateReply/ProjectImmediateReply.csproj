@@ -120,19 +120,19 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="ImmediateReplay.Master.cs">
-      <DependentUpon>ImmediateReplay.Master</DependentUpon>
+    <Compile Include="ImmediateReply.Master.cs">
+      <DependentUpon>ImmediateReply.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ImmediateReplay.Master.designer.cs">
-      <DependentUpon>ImmediateReplay.Master</DependentUpon>
+    <Compile Include="ImmediateReply.Master.designer.cs">
+      <DependentUpon>ImmediateReply.Master</DependentUpon>
     </Compile>
-    <Compile Include="ImmediateReplayInSide.Master.cs">
-      <DependentUpon>ImmediateReplayInSide.Master</DependentUpon>
+    <Compile Include="ImmediateReplyInSide.Master.cs">
+      <DependentUpon>ImmediateReplyInSide.Master</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="ImmediateReplayInSide.Master.designer.cs">
-      <DependentUpon>ImmediateReplayInSide.Master</DependentUpon>
+    <Compile Include="ImmediateReplyInSide.Master.designer.cs">
+      <DependentUpon>ImmediateReplyInSide.Master</DependentUpon>
     </Compile>
     <Compile Include="Index.aspx.cs">
       <DependentUpon>Index.aspx</DependentUpon>
@@ -216,8 +216,8 @@
     <Content Include="assets\fonts\fontawesome-webfont.woff" />
     <Content Include="assets\fonts\fontawesome-webfont.woff2" />
     <Content Include="assets\fonts\FontAwesome.otf" />
-    <Content Include="ImmediateReplay.Master" />
-    <Content Include="ImmediateReplayInSide.Master" />
+    <Content Include="ImmediateReply.Master" />
+    <Content Include="ImmediateReplyInSide.Master" />
     <Content Include="API\CreateClassHandler.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
