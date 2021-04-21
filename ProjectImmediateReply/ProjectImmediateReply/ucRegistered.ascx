@@ -104,10 +104,12 @@
 
 
 <script>
+
     $(document).ready(function () {
         $("#regisbtn").click(function () {
             $("#messagelabel").empty();
             $("#messagelabel").append("<%=CheckCanUpdate()%>");
         })
     })
+
 </script>

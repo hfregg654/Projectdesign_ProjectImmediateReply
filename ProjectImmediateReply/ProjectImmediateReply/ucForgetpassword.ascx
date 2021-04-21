@@ -8,15 +8,23 @@
             <div class="row">
                 <div class="col s12">
                     <div class="row">
+<%--                        <div class="input-field inline">
+                            <select class="icons" runat="server" id="register_class">
+                                <option disabled selected>班別</option>
+                            </select>
+                            <label>請選擇班別</label>
+                        </div>--%>
                         <div class="col s12">
                             請輸入授權碼
 							<div class="input-field inline">
                                 <input id="rescue_key" type="text" class="validate" runat="server">
-                                <label for="ContentPlaceHolder1_ucForgetpassword_rescue_key">授權碼</label>  <%--利用F12網頁找授權碼標籤 會是ID--%>
+                                <label for="ContentPlaceHolder1_ucForgetpassword_rescue_key">授權碼</label>
+                                <%--利用F12網頁找授權碼標籤 會是ID--%>
                             </div>
                             <br />
-                            <span style="color:red">
-                            <literal ID="Message"></literal> <%--使用asp的話必須參照上面label用法抓網頁ID--%>
+                            <span style="color: red">
+                                <literal id="Message"></literal>
+                                <%--使用asp的話必須參照上面label用法抓網頁ID--%>
                             </span>
                         </div>
                     </div>

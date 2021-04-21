@@ -18,7 +18,7 @@ namespace ProjectImmediateReply
             string[] colname = { "ClassNumber" };
             DataTable classnumber = dbtool.readTable("Users", colname, "GROUP BY ClassNumber", null, null);
             List<string> classnum = new List<string>();
-            foreach (DataRow item in classnumber.Rows)
+            foreach (DataRow item in classnumber.Rows) //Rows表一列
             {
                 if (item != null && item[0].ToString() != "")
                 {
@@ -46,16 +46,16 @@ namespace ProjectImmediateReply
                     string[] Pname = { "@Account" };
                     string[] P = { this.register_account.Value };
                     //DataTable Check = Create.readTable("Users", readcolname, "WHERE Account=@Account", Pname, P) //如上面寫一個字串，只會找一格，已經在核對帳號找出有的那一格，P表網頁輸出欄位，以帳號為條件搜尋，如為空則傳空。
-                    List<UserInfo> Check = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname, "WHERE Account=@Account", Pname, P));
+                    List<UserInfo> Check_Acc = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname, "WHERE Account=@Account", Pname, P));
                     string[] readcolname2 = { "Account", "License" };
                     string[] Pname2 = { "@Account", "@License" };
                     string[] P2 = { this.register_account.Value, this.register_key.Value };
-                    List<UserInfo> Check2 = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname2, "WHERE License=@License AND Account=@Account", Pname2, P2));
-                    if (Check2.Count != 0) //資料表型式的變數都是存在，非空值。
+                    List<UserInfo> Check_Acc_Lic = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname2, "WHERE License=@License AND Account=@Account", Pname2, P2));
+                    if (Check_Acc_Lic.Count != 0) //資料表型式的變數都是存在，非空值。
                     {
                         return "授權碼已使用";
                     }
-                    else if (Check.Count != 0)
+                    else if (Check_Acc.Count != 0)
                     {
                         return "帳號已存在，請使用其他帳號";
                     }
