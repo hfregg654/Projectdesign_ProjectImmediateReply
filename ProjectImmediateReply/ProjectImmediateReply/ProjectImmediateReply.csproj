@@ -118,6 +118,9 @@
     <Compile Include="API\CreateClassHandler.ashx.cs">
       <DependentUpon>CreateClassHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="API\ForgetPasswordHandeler.ashx.cs">
+      <DependentUpon>ForgetPasswordHandeler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="API\RegisteredHandler.ashx.cs">
       <DependentUpon>RegisteredHandler.ashx</DependentUpon>
     </Compile>
@@ -231,6 +234,7 @@
     <Content Include="ImmediateReplyInSide.Master" />
     <Content Include="API\CreateClassHandler.ashx" />
     <Content Include="API\RegisteredHandler.ashx" />
+    <Content Include="API\ForgetPasswordHandeler.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
