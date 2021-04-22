@@ -13,10 +13,11 @@ namespace ProjectImmediateReply
         private const string _sessionKey = "PageInnerType";
         protected void Page_Load(object sender, EventArgs e)
         {
+            //確認登入狀態
             LoginHelper logtool = new LoginHelper();
             if (!logtool.HasLogIned())
                 Response.Redirect("~/LogIn.aspx");
-
+            //確認當前頁面,取得頁面QueryString判斷當前頁面應顯示的畫面以及使用的JS並插入DOM中
             string PageInner = string.Empty;
             if (Request.QueryString[_sessionKey] != null)
             {
@@ -28,17 +29,17 @@ namespace ProjectImmediateReply
                 ucCrud.Visible = true;
                 divJS.InnerHtml = ptool.PageRight(PageInner);
             }
-            else if (PageInner == "CreateClass")
+            else if (PageInner == "CreateClass")//班級建立
             {
                 ucCreateClass.Visible = true;
                 divJS.InnerHtml = ptool.PageRight(PageInner); ;
             }
-            else if (PageInner == "UpdateInfo")
+            else if (PageInner == "UpdateInfo")//個人資料更新
             {
                 ucUpdateInfo.Visible = true;
                 divJS.InnerHtml = ptool.PageRight(PageInner); ;
             }
-            else
+            else//普通狀態
             {
                 divinnerplace.InnerHtml = "<v-main></v-main>";
                 divJS.InnerHtml = ptool.PageRight(PageInner); ;

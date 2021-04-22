@@ -59,6 +59,20 @@ namespace ProjectImmediateReply.API
                     else
                     {
                         context.Response.ContentType = "text/json";
+                        string[] updatecol_Logic = { "Name=@Name", "Phone=@Phone", "Mail=@Mail", "LineID=@LineID", "ClassNumber=@ClassNumber", "Account=@Account", "PassWord=@PassWord", "License=@License" };
+                        string Where_Logic = "License=@License";
+                        string[] updatecolname_P = { "@Name", "@Phone", "@Mail", "@LineID", "@ClassNumber", "@Account", "@PassWord", "@License" };
+                        List<string> update_P = new List<string>();
+                        update_P.Add(Name);
+                        update_P.Add(Phone);
+                        update_P.Add(Mail);
+                        update_P.Add(LineID);
+                        update_P.Add(ClassNumber);
+                        update_P.Add(Account);
+                        update_P.Add(PassWord);
+                        //update_P.Add(passwordregistercheck.Value);
+                        update_P.Add(License);
+                        Create.UpdateTable("Users", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
                         context.Response.Write("[{\"success\":\"true\"}]");
                     }
                 }
