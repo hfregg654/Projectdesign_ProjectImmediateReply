@@ -137,34 +137,26 @@
 					<v-main>
 						<!-- 主要內容開始 -->
 						<!-- -----card start -->
-						<v-form v-model="valid" ref="form" lazy-validation>
-							<v-card class="mx-auto mt-6 pa-8" max-width="1100">
+						<v-form method="post" novalidate="true" ref="form">
+							<v-card class="mx-auto mt-6 pa-8 mb-10" max-width="1100">
 								<v-card-text>
-									<v-text-field 
-									:rules="classrules" 
-									class="mt-6" 
-									label="班別"
-									type="number"
-									v-model="ClassNumber" 
-									required></v-text-field>
-									
-									<v-text-field 
-									:rules="numberrules" 
-									class="mt-6" 
-									label="人數"
-									type="number"
-									v-model="License" 
-									required></v-text-field>
+
+									<v-text-field :rules="classrules" class="mt-6" label="班別" type="text"
+										v-model="classchoice" required></v-text-field>
+
+									<v-text-field :rules="peoplerules" class="mt-6" label="人數" type="number"
+										v-model="people" required></v-text-field>
+
 								</v-card-text>
 								<v-card-actions class="justify-center">
-									<v-btn depressed color="primary" type="submit" @click="submit" :disabled="!valid"
+									<v-btn depressed color="primary" @click="submit" :disabled="!valid"
 										class="justify-center h1 font-weight-black">
 										建立
 									</v-btn>
 								</v-card-actions>
 								<v-card-actions class="justify-end">
-									<v-btn color="blue lighten-2" text>
-										專案修改
+									<v-btn color="blue lighten-2" text href="/abcde" target="_blank">
+										班級修改
 									</v-btn>
 								</v-card-actions>
 
@@ -195,6 +187,8 @@
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/babel-polyfill/dist/polyfill.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vuetify@2.3.10/dist/vuetify.min.js"></script>
+		<!-- 導入AXIOS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 		<script>
 			new Vue({
 				el: '#app',
@@ -202,42 +196,50 @@
 				data: () => ({
 					drawer: null,
 					// 班級選擇框
-					ClassNumber: "",
+					classchoice: "",
 					// -------
 					// -------輸入框規則開始					
 					// 輸入框值拿空值接
 					valid: true,
-					License: "",
-					numberrules: [
+					people: "",
+					peoplerules: [
 						value => !!value || '此輸入框需輸入數字且不可為空白',
 						value => (value || '').length <= 5 || '請輸入5個字元以內',
-						// // value => {
-						// // 	const pattern =
-						// // 		/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-						// // 	return pattern.test(value) || '請輸入正確數字'
-						// },
 					],
 					classrules: [
 						value => !!value || '此輸入框不可為空白',
+						value => (value || '').indexOf(' ') < 0 ||
+						'此輸入框不可輸入空白',
 					],
 				}),
 				// submit事件開始
-				methods: {
-					submit() {
-						if (this.$refs.form.validate()) {
-							axios.post('/api/submit', {
-								ClassNumber: this.ClassNumber,
-								License: this.License,
-							})
-						}
-					}
+				methods:{
+					submit () {
+						// 如果驗證成功
+						// vuetify驗證寫法 refs
+					        if (this.$refs.form.validate()) {
+								// 表單提交
+					               axios.post('/user', {
+					                   classchoice:this.classchoice,
+									   people:this.people,
+					                 })
+					                 .then(response => {
+					                   console.log(response);
+									   alert("發送成功");
+					                 })
+					                 .catch(error => {
+					                   console.log(error);
+									   alert("發送失敗可能是ＰＯＳＴ路徑問題");
+					                 });
+					             }
+					      },
 				},
 				// submit事件結束
 
 			})
 		</script>
 		<style type="text/css">
-		#keep .v-navigation-drawer__border {
+			#keep .v-navigation-drawer__border {
 				display: none
 			}
 
@@ -281,7 +283,7 @@
 					font-size: 1rem;
 				}
 			}
-		
+
 			/* card start */
 			.v-card--reveal {
 				bottom: 0;
@@ -289,6 +291,7 @@
 				position: absolute;
 				width: 100%;
 			}
+
 			/* card over */
 		</style>
 	</body>
