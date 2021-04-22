@@ -5,7 +5,7 @@ using System.Web;
 
 namespace ProjectImmediateReply.Models
 {
-    public class UserInfo
+    public class UserInfo　//很多屬性的類別
     {
         public int UserID { get; set; }
         public string Account { get; set; }

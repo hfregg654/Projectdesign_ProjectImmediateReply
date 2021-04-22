@@ -18,7 +18,7 @@ $(document).ready(function () {
     $('#showbtnregister').click(function () { ShowPassWord('ContentPlaceHolder1_ucRegistered_passwordregister', 'showbtnregister'); });
     // 註冊確認密碼框顯示
     $('#showbtnregistercheck').click(function () { ShowPassWord('ContentPlaceHolder1_ucRegistered_passwordregistercheck','showbtnregistercheck'); });
-
+    
 });
 // ----
 // 增加密碼框顯示功能
