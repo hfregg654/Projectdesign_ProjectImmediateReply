@@ -348,3 +348,5 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
+.DS_Store
+專案即時回覆系統畫面/.DS_Store

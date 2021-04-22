@@ -137,8 +137,8 @@
 					<v-main>
 						<!-- 主要內容開始 -->
 						<!-- -----card start -->
-						<v-form v-model="valid" ref="form" lazy-validation action="/newpage" method="post">
-							<v-card class="mx-auto my-6 mb-15" max-width="1100">
+						<v-form method="post" novalidate="true" ref="form">
+							<v-card class="mx-auto mt-6 pa-8 mb-15" max-width="1100">
 								<v-card-text>
 									<v-text-field :rules="[v => !!v || '此輸入框不可為空白']" label="姓名" type="text"
 										v-model="C1name" required></v-text-field>
@@ -165,7 +165,7 @@
 								</v-card-text>
 				<!-- 儲存按鈕	 -->
 								<v-card-actions class="justify-center">
-									<v-btn depressed color="primary" type="submit" @click="validate()"
+									<v-btn depressed color="primary" @click="validate()"
 										:disabled="!valid" class="justify-center h1 font-weight-black" large>
 										儲 存
 									</v-btn>
@@ -205,6 +205,8 @@
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/babel-polyfill/dist/polyfill.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vuetify@2.3.10/dist/vuetify.min.js"></script>
+		<!-- 導入AXIOS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 		<script>
 			new Vue({
 				el: '#app',
@@ -227,10 +229,25 @@
 					show3:false,				
 				}),
 				methods: {
-					// 建立按鈕邏輯: 先驗證輸入框是否合法，合法後跳v-form標籤裡的 action
-					validate() {
-						this.$refs.form.validate()
-					},
+					validate () {
+						// 如果驗證成功
+						// vuetify驗證寫法 refs
+					        if (this.$refs.form.validate()) {
+								// 表單提交
+					               axios.post('/123', {
+					                   classchoice:this.classchoice,
+									   people:this.people,
+					                 })
+					                 .then(response => {
+					                   console.log(response);
+									   alert("發送成功");
+					                 })
+					                 .catch(error => {
+					                   console.log(error);
+									   alert("發送失敗可能是ＰＯＳＴ路徑問題");
+					                 });
+					             }
+					      },
 				}
 			})
 		</script>
