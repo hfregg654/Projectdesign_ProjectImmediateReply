@@ -55,7 +55,7 @@
                 $("#CreatClassbtn").show(100);
             });
     })
-    //當按下班級建立按鈕時觸發事件
+    //當按下建立按鈕時觸發事件
     $("#regisbtn").click(function () {
         $("#regisbtn").hide(100);//將建立按鈕隱藏
         //取得輸入框上的名字,電話,Mail,LineID,班級名稱,帳號,密碼,密碼再確認,授權碼
