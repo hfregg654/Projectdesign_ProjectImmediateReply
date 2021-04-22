@@ -58,16 +58,16 @@
     //當按下班級建立按鈕時觸發事件
     $("#regisbtn").click(function () {
         $("#regisbtn").hide(100);//將建立按鈕隱藏
-        //取得輸入框上的班級名稱,班級人數,當前登入者的權限以及信箱
+        //取得輸入框上的名字,電話,Mail,LineID,班級名稱,帳號,密碼,密碼再確認,授權碼
         var Name = $("#register_name").val();
         var Phone = $("#register_number").val();
         var Mail = $("#register_email").val();
         var LineID = $("#register_lineid").val();
-        var ClassNumber = $("#register_class").val();
+        var ClassNumber = $("#ContentPlaceHolder1_ucRegistered_register_class").val();
         var Account = $("#register_account").val();
         var PassWord = $("#register_password").val();
         var PassWordCheck = $("#register_passwordcheck").val();
-        var License = $("register_key").val();
+        var License = $("#register_key").val();
         //發送ajax請求,呼叫班級建立的API並將參數送進去
         $.ajax({
             url: "API/RegisteredHandler.ashx",
