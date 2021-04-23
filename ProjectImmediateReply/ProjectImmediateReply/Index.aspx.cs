@@ -39,6 +39,11 @@ namespace ProjectImmediateReply
                 ucUpdateInfo.Visible = true;
                 divJS.InnerHtml = ptool.PageRight(PageInner); ;
             }
+            else if (PageInner == "CreateProject")//建立專案
+            {
+                ucCreateProject.Visible = true;
+                divJS.InnerHtml = ptool.PageRight(PageInner);
+            }
             else//普通狀態
             {
                 divinnerplace.InnerHtml = "<v-main></v-main>";

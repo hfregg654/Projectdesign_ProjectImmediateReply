@@ -115,11 +115,17 @@
             })
             //當請求失敗提醒使用者失敗並顯示建立按鈕
             .fail(function (xhr, status, errorThrown) {
-                alert("欄位不可為空");
+                alert("註冊失敗，請確認輸入資訊或是資料庫狀況");
             })
             .always(function () {
                 $("#regisbtn").show(100);
             });
+    })
+    //當按下建立按鈕時觸發事件
+    $("CreateProjectbtn").click(function () {
+        $("#CreateProjectbtn").hide(100);//將建立按鈕隱藏
+        //取得輸入框上的名字,電話,Mail,LineID,班級名稱,帳號,密碼,密碼再確認,授權碼
+        var 
     })
 
 

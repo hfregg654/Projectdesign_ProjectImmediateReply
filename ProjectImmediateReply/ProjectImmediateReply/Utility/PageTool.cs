@@ -40,7 +40,7 @@ namespace ProjectImmediateReply.Utility
 									</v-list-item-content>
 								</v-list-item>
 
-								<v-list-item @click = """" href =""/Index.aspx?PageInnerType="" >
+								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=CreateProject"" >
 									<v-list-item-icon>
 										<v-icon color = ""primary"" > build_circle </v-icon >
 									</v-list-item-icon >
@@ -250,6 +250,28 @@ namespace ProjectImmediateReply.Utility
                                            value => (value || '').indexOf(' ') < 0 || '此輸入框不可輸入空白',
                                      ],
                                            
+                                     }),
+                               })
+                         </script>";
+            }
+            else if (PageInner == "CreateProject")
+            {
+                return @"
+						 <script>
+                              new Vue({
+                                     el: '#app',
+                                     vuetify: new Vuetify(),
+                                     data: () => ({
+                                     drawer: null,
+                                     rules1: [
+                                     value => !!value || '此輸入框不可為空白',
+                                     value => (value || '').length <= 20 || '請輸入20個字元以內',
+                                     ],
+                                     rules2: [
+                                     value => !!value || '此輸入框不可為空白',
+                                     value => (value || '').length <= 20 || '請輸入20個字元以內',
+                                     ],
+                                     date: new Date().toISOString().substr(0, 10),
                                      }),
                                })
                          </script>";

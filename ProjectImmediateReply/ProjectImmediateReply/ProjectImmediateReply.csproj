@@ -104,6 +104,7 @@
     <Content Include="images\slide05.jpg" />
     <Content Include="Index.aspx" />
     <Content Include="ucCreateClass.ascx" />
+    <Content Include="ucCreateProject.ascx" />
     <Content Include="ucCrud.ascx" />
     <Content Include="ucForgetpassword.ascx" />
     <Content Include="ucRegistered.ascx" />
@@ -113,10 +114,14 @@
     <Content Include="ucLeft.ascx" />
     <Content Include="WebForm1.aspx" />
     <Content Include="WebForm2.aspx" />
+    <Content Include="WebForm3.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\CreateClassHandler.ashx.cs">
       <DependentUpon>CreateClassHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="API\CreateProjectHandler.ashx.cs">
+      <DependentUpon>CreateProjectHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="API\ForgetPasswordHandeler.ashx.cs">
       <DependentUpon>ForgetPasswordHandeler.ashx</DependentUpon>
@@ -148,6 +153,13 @@
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ucCreateProject.ascx.cs">
+      <DependentUpon>ucCreateProject.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucCreateProject.ascx.designer.cs">
+      <DependentUpon>ucCreateProject.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Utility\MailTool.cs" />
     <Compile Include="Utility\PageTool.cs" />
     <Compile Include="WebForm1.aspx.cs">
@@ -163,6 +175,13 @@
     </Compile>
     <Compile Include="WebForm2.aspx.designer.cs">
       <DependentUpon>WebForm2.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm3.aspx.cs">
+      <DependentUpon>WebForm3.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm3.aspx.designer.cs">
+      <DependentUpon>WebForm3.aspx</DependentUpon>
     </Compile>
     <Compile Include="WriteLog\txtLog.cs" />
     <Compile Include="Models\GradeInfo.cs" />
@@ -235,6 +254,7 @@
     <Content Include="API\CreateClassHandler.ashx" />
     <Content Include="API\RegisteredHandler.ashx" />
     <Content Include="API\ForgetPasswordHandeler.ashx" />
+    <Content Include="API\CreateProjectHandler.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
