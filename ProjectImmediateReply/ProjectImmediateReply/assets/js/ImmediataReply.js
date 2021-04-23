@@ -25,6 +25,7 @@ $(document).ready(function () {
 function ShowPassWord(txtboxname,btnname) {
     var password = document.getElementById(txtboxname);
     var btn = document.getElementById(btnname);
+    
     if (password.type == 'password') {
         btn.innerHTML = '<i class="material-icons">visibility_off</i>';
         password.type = 'text';
@@ -32,6 +33,11 @@ function ShowPassWord(txtboxname,btnname) {
     else {
         btn.innerHTML = '<i class="material-icons">visibility</i>';
         password.type = 'password';
+    }
+};
+function EnterLogin() {
+    if (event.keyCode === 13) {
+        document.getElementById("ContentPlaceHolder1_ButtonLogin").click();
     }
 };
 
