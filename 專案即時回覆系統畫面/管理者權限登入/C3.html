@@ -140,18 +140,17 @@
 						<v-form method="post" novalidate="true" ref="form">
 							<v-card class="mx-auto mt-6 pa-8" max-width="1100">
 								<v-card-text>
-									<v-select :items="chooseclass" v-model="classchoice" label="班別" :rules="classrules" solo required></v-select>
+									<v-select :items="chooseclass" v-model="classchoice" label="班別" :rules="classrules"
+										solo required></v-select>
 									<v-text-field :rules="rules1" label="專案名" v-model="C3projectname" required>
 									</v-text-field>
-					<!-- data picker start 時程期限 -->
-									<v-menu  :close-on-content-click="false" :nudge-right="40"
-										transition="scale-transition" offset-y min-width="auto" class="mt-6 justify-center">
+									<!-- data picker start 時程期限 -->
+									<v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
+										transition="scale-transition" offset-y min-width="290px">
 										<template v-slot:activator="{ on, attrs }">
-											<v-text-field v-model="date" label="時程期限" prepend-icon="mdi-calendar"
-												readonly v-bind="attrs" v-on="on">
-											</v-text-field>
+											<v-text-field v-model="date" label="時程期限" prepend-icon="event" readonly
+												v-bind="attrs" v-on="on"></v-text-field>
 										</template>
-					<!-- datepicker傳值處 -->
 										<v-date-picker v-model="date" @input="menu2 = false" locale="zh-cn">
 										</v-date-picker>
 									</v-menu>
@@ -218,38 +217,38 @@
 					],
 					// 加入data picker
 					date: new Date().toISOString().substr(0, 10),
-					menu2:false,
+					menu2: false,
 					// 加入C3projectname C3teamname datepicker classchoice
 					// 班別
-					classchoice:"",  
+					classchoice: "",
 					// 專案名
-					C3projectname:"",
+					C3projectname: "",
 					// 時程期限
-					date:"",
+					date: "",
 					// 驗證valid
-					valid:true,
+					valid: true,
 				}),
-				methods:{
-					submit () {
+				methods: {
+					submit() {
 						// 如果驗證成功
 						// vuetify驗證寫法 refs
-					        if (this.$refs.form.validate()) {
-								// 表單提交
-					               axios.post('/user', {
-					                   classchoice:this.classchoice,
-									   C3projectname:this.C3projectname,
-									   date:this.date,
-					                 })
-					                 .then(response => {
-					                   console.log(response);
-									   alert("發送成功");
-					                 })
-					                 .catch(error => {
-					                   console.log(error);
-									   alert("發送失敗可能是ＰＯＳＴ路徑問題");
-					                 });
-					             }
-					      },
+						if (this.$refs.form.validate()) {
+							// 表單提交
+							axios.post('/user', {
+									classchoice: this.classchoice,
+									C3projectname: this.C3projectname,
+									date: this.date,
+								})
+								.then(response => {
+									console.log(response);
+									alert("發送成功");
+								})
+								.catch(error => {
+									console.log(error);
+									alert("發送失敗可能是ＰＯＳＴ路徑問題");
+								});
+						}
+					},
 				}
 			})
 		</script>

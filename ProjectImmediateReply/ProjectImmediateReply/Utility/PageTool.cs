@@ -173,60 +173,32 @@ namespace ProjectImmediateReply.Utility
         {
             if (PageInner == "Crud")
             {
-                return @"
+                
+				string headeritem = " {text: '姓名',align: 'start',sortable: true,value: 'Name'},{text: '授權碼',value: 'License'},{text: '班別',value: 'ClassNumber'},{text: '',value: 'btn',sortable: false}";
+				string chooseitem = "'1','2','3'";
+				string inneritem = "{ Name: '',  License: '', ClassNumber: ''}";
+                return $@"
                         <script>
-                              new Vue({
+                              new Vue({{
                                     el: '#app',
                                     vuetify: new Vuetify(),
-                                    data: () => ({
-                                    drawer: null,
+                                    data: () => ({{
+										drawer: null,
                     
-                                    chooseclass: ['班級A', '班級B', '班級C', '班級D'],
+									    chooseitem: [{chooseitem}],
                     
-                                    headers: [{
-                                          text: '專案名稱',
-                                          align: 'start',
-                                          sortable: true,
-                                          value: 'projectname',
-                                     },
-                                     {
-                                          text: '組長',
-                                          value: 'teamleader'
-                                     },
-                                     {
-                                          text: '組員',
-                                          value: 'teammember'
-                                     },
-                                     {
-                                          text: '組名',
-                                          value: 'teamname'
-                                     },
-                                     {
-                                           text: '',
-                                           value: 'btn',
-                                           sortable: false
-                                     },
-                                     ],
-                                     inneritem: [{
-                                           projectname: 'A計畫',
-                                           teamleader: '毛豆',
-                                           teammember: '一二三四五六七',
-                                           teamname: '第一組',
-                                     }, {
-                                           projectname: 'B計畫',
-                                           teamleader: '毛豆',
-                                           teammember: '一二三四五六七',
-                                           teamname: '第一組',
-									 }, {
-										   projectname: 'A計畫',
-									       teamleader: '毛豆',
-										   teammember: '一二三四五六七',
-									       teamname: '第一組',
-										   btn: '1%',
-									 },],
-                    
-									 }),
-							    })
+										headers: [{headeritem}],
+										inneritem: [{inneritem}],
+									 }}),
+									 mounted() {{
+											axios
+											  .get('API/GetCrudHandler.ashx')
+											  .then(response => (this.inneritem = response.data))
+										      .catch(function(error) {{ 
+											  alert(error);
+											  }});
+								}}
+							 }})
 						 </script>";
             }
             else if (PageInner == "CreateClass")
