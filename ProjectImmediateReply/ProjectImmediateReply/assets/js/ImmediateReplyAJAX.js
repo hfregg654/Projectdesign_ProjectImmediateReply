@@ -46,12 +46,21 @@
         })
             //當請求完成提醒使用者完成並顯示建立按鈕
             .done(function (responseData) {
-                alert("已建立" + PeopleNum + "組授權碼並發送至您的信箱");
-                $("#CreatClassbtn").show(100);
+                $("#CreateClassMessage").empty();
+                if (responseData[0].success == "true") {
+                    $("#CreateClassMessage").append("已建立" + PeopleNum + "組授權碼並發送至您的信箱");
+                } else if (responseData[0].success == "NumWrong") {
+                    $("#CreateClassMessage").append("建立途中發生錯誤,請將此班級刪除以重新建立");
+                } else {
+                    $("#CreateClassMessage").append("建立失敗,請確認輸入資訊或是資料庫狀況");
+                }
+
             })
             //當請求失敗提醒使用者失敗並顯示建立按鈕
             .fail(function (xhr, status, errorThrown) {
                 alert("建立失敗,請確認輸入資訊或是資料庫狀況");
+            })
+            .always(function () {
                 $("#CreatClassbtn").show(100);
             });
     })
@@ -103,8 +112,6 @@
                 else {
                     $("#messagelabel").append("註冊成功，請至註冊信箱收取驗證信")
                 }
-                //console.log(responseData[0].success);
-                //$("#regisbtn").show(100);
             })
             //當請求失敗提醒使用者失敗並顯示建立按鈕
             .fail(function (xhr, status, errorThrown) {

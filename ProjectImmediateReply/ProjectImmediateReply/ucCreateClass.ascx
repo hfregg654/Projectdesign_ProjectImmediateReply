@@ -28,7 +28,10 @@
 										class="justify-center h1 font-weight-black">
 										建立
 									</v-btn>
-
+									<br />
+									<span style="color: red">
+										<literal id="CreateClassMessage"></literal>
+									</span>
 								</v-card-actions>
 								<v-card-actions class="justify-end">
 									<v-btn color="blue lighten-2" text>
