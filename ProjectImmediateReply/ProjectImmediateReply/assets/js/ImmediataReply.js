@@ -35,6 +35,7 @@ function ShowPassWord(txtboxname,btnname) {
         password.type = 'password';
     }
 };
+//按Enter觸發登入按鈕
 function EnterLogin() {
     if (event.keyCode === 13) {
         document.getElementById("ContentPlaceHolder1_ButtonLogin").click();
