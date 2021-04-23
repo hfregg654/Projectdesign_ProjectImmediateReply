@@ -25,6 +25,7 @@ $(document).ready(function () {
 function ShowPassWord(txtboxname,btnname) {
     var password = document.getElementById(txtboxname);
     var btn = document.getElementById(btnname);
+    
     if (password.type == 'password') {
         btn.innerHTML = '<i class="material-icons">visibility_off</i>';
         password.type = 'text';
@@ -34,6 +35,13 @@ function ShowPassWord(txtboxname,btnname) {
         password.type = 'password';
     }
 };
+//按Enter觸發登入按鈕
+function EnterLogin() {
+    if (event.keyCode === 13) {
+        document.getElementById("ContentPlaceHolder1_ButtonLogin").click();
+    }
+};
+
 
 
 
