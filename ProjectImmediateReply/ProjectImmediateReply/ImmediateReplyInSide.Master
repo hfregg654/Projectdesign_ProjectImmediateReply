@@ -42,6 +42,8 @@
 </head>
 <body>
     <form id="form1" runat="server">
+        <asp:HiddenField ID="HiddenFieldSessionPri" runat="server" />
+        <asp:HiddenField ID="HiddenFieldSessionMail" runat="server" />
         <div id="app">
             <v-app id="inspire">
 				<v-app id="keep">
