@@ -1,6 +1,4 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ucCreateProject.ascx.cs" Inherits="ProjectImmediateReply.ucCreateProject" %>
-<asp:HiddenField ID="HiddenFieldSessionPri" runat="server" />
-<asp:HiddenField ID="HiddenFieldSessionMail" runat="server" />
 					<v-main>
 						<!-- 主要內容開始 -->
 						<!-- -----card start -->

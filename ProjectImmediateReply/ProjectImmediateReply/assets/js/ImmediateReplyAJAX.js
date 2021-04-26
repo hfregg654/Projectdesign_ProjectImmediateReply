@@ -30,8 +30,8 @@
         //取得輸入框上的班級名稱,班級人數,當前登入者的權限以及信箱
         var ClassNumber = $("#ClassNumberTbox").val();
         var PeopleNum = $("#PeopleNumTbox").val();
-        var Privilege = $("#ContentPlaceHolder1_ucCreateClass_HiddenFieldSessionPri").val();
-        var Mail = $("#ContentPlaceHolder1_ucCreateClass_HiddenFieldSessionMail").val();
+        var Privilege = $("#HiddenFieldSessionPri").val();
+        var Mail = $("#HiddenFieldSessionMail").val();
         //發送ajax請求,呼叫班級建立的API並將參數送進去
         $.ajax({
             url: "API/CreateClassHandler.ashx",
