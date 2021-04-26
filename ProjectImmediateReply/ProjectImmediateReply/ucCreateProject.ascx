@@ -43,18 +43,21 @@
 										<v-date-picker v-model="date" @input="menu2 = false" locale="zh-cn">
 										</v-date-picker>
 									</v-menu>
-									<literal id="CreateProjectMessage"></literal>
 									<!-- data picker over -->
 								</v-card-text>
 								<v-card-actions class="justify-center">
 									<v-btn 
 										depressed color="primary" 
-										type="submit" 
+										type="button" 
 										@click=""
 										class="justify-center h1 font-weight-black"
 										id = "CreateProjectbtn">
 										建立
 									</v-btn>
+									<br />
+									<span style="color: red">
+										<literal id="CreateProjectMessage"></literal>
+									</span>
 								</v-card-actions>
 								<v-card-actions class="justify-end">
 									<v-btn color="blue lighten-2" text href="" target="_blank">

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -7,7 +8,24 @@ namespace ProjectImmediateReply.Utility
 {
     public class PageTool
     {
-        public string PageLeft(string PageType)
+		public List<string> GetClassNumber()
+        {
+			Utility.DBTool dbtool = new Utility.DBTool();
+			string[] colname = { "ClassNumber" };
+			DataTable classnumber = dbtool.readTable("Users", colname, "GROUP BY ClassNumber", null, null);
+			List<string> classnum = new List<string>();
+			foreach (DataRow item in classnumber.Rows) //Rows表一列
+			{
+				if (item != null && item[0].ToString() != "")
+				{
+					classnum.Add(item[0].ToString());
+				}
+
+			}
+			return classnum;
+		}
+
+		public string PageLeft(string PageType)
         {
             if (PageType == "Manager")
             {
@@ -229,25 +247,58 @@ namespace ProjectImmediateReply.Utility
             }
             else if (PageInner == "CreateProject")
             {
-                return @"
-						 <script>
-                              new Vue({
+				List<string> getclass = GetClassNumber();
+				List<string> getchooseitem = new List<string>();
+                foreach (string item in getclass) //每個item分別是班別100-1,100-2
+                {
+					string newitem = $"'{item}'"; // item => '100-1','100-2'
+					getchooseitem.Add(newitem);
+                }
+				
+				string chooseitem = string.Join(",", getchooseitem); // chooseitem =>  「'100-1','100-2'」
+				return $@"
+						<script>
+                            var vm = new Vue({{
                                      el: '#app',
                                      vuetify: new Vuetify(),
-                                     data: () => ({
-                                     drawer: null,
-                                     rules1: [
-                                     value => !!value || '此輸入框不可為空白',
-                                     value => (value || '').length <= 20 || '請輸入20個字元以內',
-                                     ],
-                                     rules2: [
-                                     value => !!value || '此輸入框不可為空白',
-                                     value => (value || '').length <= 20 || '請輸入20個字元以內',
-                                     ],
-                                     date: new Date().toISOString().substr(0, 10),
-                                     }),
-                               })
-                         </script>";
+                                     data: () => ({{
+										drawer: null,
+										chooseclass: [{chooseitem}],
+										rules1: [
+											value => !!value || '此輸入框不可為空白',
+											value => (value || '').length <= 20 || '請輸入20個字元以內',
+										],
+										classrules: [
+											value => !!value || '此輸入框不可為空白',
+										],
+										date: new Date().toISOString().substr(0, 10),
+										menu2: false,
+										classchoice: """",
+										C3projectname: """",
+										date: """",
+										valid: true,
+                                     }}),
+									methods: {{
+										submit() {{
+											if (this.$refs.form.validate()) {{
+												axios.post('/user', {{
+													classchoice: this.classchoice,
+													C3projectname: this.C3projectname,
+													date: this.date,
+												}})
+												.then(response => {{
+													console.log(response);
+													alert(""發送成功"");
+												}})
+												.catch (error => {{
+													console.log(error);
+													alert(""發送失敗可能是ＰＯＳＴ路徑問題"");
+												}});
+											}}
+										}},
+									}}
+                              }})
+						</script >";
             }
             else
             {
