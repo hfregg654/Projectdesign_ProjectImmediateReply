@@ -19,7 +19,6 @@ namespace ProjectImmediateReply.API
             string DeadLine = context.Request.Form["DeadLine"];
             //先檢查傳過來的值有沒有問題並先定義回傳的訊息
             string success = "";
-            if (ClassNumber)
         }
 
         public bool IsReusable
