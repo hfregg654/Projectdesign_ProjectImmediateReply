@@ -77,7 +77,7 @@
         var PassWord = $("#register_password").val();
         var PassWordCheck = $("#register_passwordcheck").val();
         var License = $("#register_key").val();
-        //發送ajax請求,呼叫班級建立的API並將參數送進去
+        //發送ajax請求,呼叫註冊的API並將參數送進去
         $.ajax({
             url: "API/RegisteredHandler.ashx",
             data: {
@@ -97,11 +97,14 @@
             //當請求完成提醒使用者完成並顯示建立按鈕
             .done(function (responseData) {
                 $("#messagelabel").empty();
-                if (responseData[0].success == "Empty") {
+                if (responseData[0].success == "Empty") {  //傳回第一筆(第一列)資料
                     $("#messagelabel").append("欄位不可為空");
                 }
                 else if (responseData[0].success == "PassWordWrong") {
                     $("#messagelabel").append("密碼確認輸入錯誤");
+                }
+                else if (responseData[0].success == "licensewrong") {
+                    $("#messagelabel").append("查無此授權碼")
                 }
                 else if (responseData[0].success == "license") {
                     $("#messagelabel").append("授權碼已使用");
@@ -114,17 +117,50 @@
                 }
             })
             //當請求失敗提醒使用者失敗並顯示建立按鈕
-            .fail(function (xhr, status, errorThrown) {
+            .fail(function (xhr, status, errorThrown) { //  Status是錯誤類型 errorThrown是錯誤訊息
                 alert("註冊失敗，請確認輸入資訊或是資料庫狀況");
             })
-            .always(function () {
+            .always(function () { //無論成功與否一定會做
                 $("#regisbtn").show(100);
             });
     })
-    //當按下建立按鈕時觸發事件
+    當按下建立按鈕時觸發事件
     $("CreateProjectbtn").click(function () {
         $("#CreateProjectbtn").hide(100);//將建立按鈕隱藏
-        //取得輸入框上的名字,電話,Mail,LineID,班級名稱,帳號,密碼,密碼再確認,授權碼
+        //取得輸入框上的班別、專案名、時程期限
+        var ClassNumber = $("#ClassNumber").val();
+        var ProjectName = $("#ProjectNameTbox").val();
+        var DeadLine = $("#DeadLine").val();
+        //發送ajax請求,呼叫班級建立的API並將參數送進去
+        $.ajax({
+            url: "API/CreateProjectHandler.ashx",
+            data: {
+                "ClassNumber": ClassNumber,
+                "ProjectName": ProjectName,
+                "DeadLine": DeadLine
+            },
+            type:"POST",
+            dataType:"json",
+        })
+
+         //當請求完成提醒使用者完成並顯示建立專案按鈕
+            .done(function (responsedata)
+            {
+                $("#CreateProjectMessage").empty();
+                if (responsedata[0].success == "true") {
+                    $("#CreateProjectMessage").append("專案建立成功");
+                }
+                else { 
+                    $("#CreateProjectMessage").append("專案建立失敗，請重新建立");
+                }
+            })
+            //當請求失敗提醒使用者失敗並顯示建立按鈕
+            .fail(function (xhr, status, errThrown) {
+                alert("專案建立失敗，請重新建立");
+            })
+            .always(function () {
+                $("#CreateProjectbtn").show(100);
+            })
     })
 
 

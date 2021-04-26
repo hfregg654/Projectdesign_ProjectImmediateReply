@@ -26,8 +26,8 @@
     <!-- 導入英文字體 -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@700&display=swap" rel="stylesheet">
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
     <link href="assets/css/ImmediateReplaInSide.css" rel="stylesheet" />
+    <script src="assets/js/jquery-3.6.0.min.js"></script>
     <script src="assets/js/ImmediataReply.js"></script>
     <script src="assets/js/ImmediateReplyAJAX.js"></script>
     <title></title>

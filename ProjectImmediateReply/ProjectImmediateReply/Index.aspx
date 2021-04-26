@@ -24,7 +24,6 @@
    
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
- 
     <div runat="server" id="divJS">  <%--插入JS用--%>
     </div>
 </asp:Content>

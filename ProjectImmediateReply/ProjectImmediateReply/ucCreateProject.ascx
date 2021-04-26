@@ -7,6 +7,14 @@
 						<v-form>
 							<v-card class="mx-auto mt-6 pa-8" max-width="1100" height="500">
 								<v-card-text>
+									<v-select 
+										:items="chooseclass" 
+										v-model="classchoice" 
+										label="班別" 
+										:rules="classrules"
+										solo required
+										id ="ClassNumber">
+									</v-select>
 									<v-text-field 
 										:rules="rules1" 
 										class="mt-6" 
@@ -14,13 +22,13 @@
 										v-model="C3projectname"
 										id ="ProjectNameTbox">
 									</v-text-field>
-									<v-text-field 
+<%--									<v-text-field 
 										:rules="rules2" 
 										class="mt-6" 
 										label="小組名稱" 
 										v-model="C3teamname"
 										id ="TeamNameTbox">
-									</v-text-field>
+									</v-text-field>--%>
 									<!-- data picker start -->
 									<v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
 										transition="scale-transition" offset-y min-width="auto" class="mt-6">
@@ -37,6 +45,7 @@
 										<v-date-picker v-model="date" @input="menu2 = false" locale="zh-cn">
 										</v-date-picker>
 									</v-menu>
+									<literal id="CreateProjectMessage"></literal>
 									<!-- data picker over -->
 								</v-card-text>
 								<v-card-actions class="justify-center">
@@ -50,7 +59,7 @@
 									</v-btn>
 								</v-card-actions>
 								<v-card-actions class="justify-end">
-									<v-btn color="blue lighten-2" text>
+									<v-btn color="blue lighten-2" text href="" target="_blank">
 										專案修改
 									</v-btn>
 								</v-card-actions>

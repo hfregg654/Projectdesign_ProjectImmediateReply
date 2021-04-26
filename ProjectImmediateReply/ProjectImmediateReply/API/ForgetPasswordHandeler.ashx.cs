@@ -15,7 +15,7 @@ namespace ProjectImmediateReply.API
 
         public void ProcessRequest(HttpContext context)
         {
-            string License = context.Request.QueryString["License"];
+            string License = context.Request.QueryString["License"]; //GET取值
             string ClassNum= context.Request.QueryString["ClassNum"];
             Utility.DBTool Forgot = new Utility.DBTool();
             string[] readcolname = { "License", "PassWord", "ClassNumber" };

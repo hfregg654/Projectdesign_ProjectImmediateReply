@@ -7,14 +7,13 @@
 
 
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
-   
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <!-- -wrapper包容器 不可刪---- -->
     <div class="wrapper">
         <!-- ------Login Form---------
 				 -->
-        <div class="row login">
+        <div class="row login" >
             <div class="col s12 l4 offset-l4">
                 <div class="card">
 
