@@ -139,6 +139,9 @@
 						<!-- -----card start -->
 						<v-form method="post" novalidate="true" ref="form">
 							<v-card class="mx-5 my-3 px-4 pb-0 pt-4" max-width="1100">
+								<v-card-title class="justify-center">
+								      成績
+								    </v-card-title>
 								<v-card-text>
 									<v-select height="30" :items="chooseclass" v-model="classchoice" label="班別" :rules="classrules"
 										solo required></v-select>
@@ -196,12 +199,7 @@
 								<!-- 隱藏第二區結束 -->
 
 								</v-card-text>
-								<v-card-actions class="justify-center">
-									<v-btn depressed color="primary" :disabled="!valid" @click="submit"
-										class="justify-center h1 font-weight-black">
-										建立
-									</v-btn>
-								</v-card-actions>
+								
 								<v-card-actions class="justify-end">
 									<v-btn color="blue lighten-2" text　href="/abcde" target="_blank">
 										分數修改
@@ -254,7 +252,6 @@
 					//------專案名規則
 					rules1: [
 						value => !!value || '此輸入框不可為空白',
-						value => (value || '').length <= 20 || '請輸入20個字元以內',
 					],
 					classrules: [
 						value => !!value || '此輸入框不可為空白',
@@ -279,26 +276,7 @@
 					//
 				}),
 				methods: {
-					submit() {
-						// 如果驗證成功
-						// vuetify驗證寫法 refs
-						if (this.$refs.form.validate()) {
-							// 表單提交
-							axios.post('/user', {
-									classchoice: this.classchoice,
-									C3projectname: this.C3projectname,
-									date: this.date,
-								})
-								.then(response => {
-									console.log(response);
-									alert("發送成功");
-								})
-								.catch(error => {
-									console.log(error);
-									alert("發送失敗可能是ＰＯＳＴ路徑問題");
-								});
-						}
-					},
+					
 				}
 			})
 		</script>
