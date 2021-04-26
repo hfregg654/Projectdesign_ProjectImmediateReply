@@ -13,9 +13,13 @@ namespace ProjectImmediateReply.API
 
         public void ProcessRequest(HttpContext context)
         {
+            //取得傳過來的資料
             string ClassNumber = context.Request.Form["ClassNumber"];
             string ProjectName = context.Request.Form["ProjectName"];
             string DeadLine = context.Request.Form["DeadLine"];
+            //先檢查傳過來的值有沒有問題並先定義回傳的訊息
+            string success = "";
+            if (ClassNumber)
         }
 
         public bool IsReusable
