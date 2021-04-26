@@ -17,12 +17,13 @@ namespace ProjectImmediateReply.API
         public void ProcessRequest(HttpContext context)
         {
             //取得傳過來的資料
+            string Privilege = context.Request.Form["Privilege"];
             string ClassNumber = context.Request.Form["ClassNumber"];
             string ProjectName = context.Request.Form["ProjectName"];
             string DeadLine = context.Request.Form["DeadLine"];
             //先檢查傳過來的值有沒有問題並先定義回傳的訊息
             string success = "";
-            if (string.IsNullOrWhiteSpace(ClassNumber) || string.IsNullOrWhiteSpace(ProjectName) || string.IsNullOrWhiteSpace(DeadLine || Privilege != "Manager")
+            if (string.IsNullOrWhiteSpace(ClassNumber) || string.IsNullOrWhiteSpace(ProjectName) || string.IsNullOrWhiteSpace(DeadLine) || Privilege != "Manager")
             {
 
             }
