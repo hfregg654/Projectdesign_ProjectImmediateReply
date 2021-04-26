@@ -1,5 +1,8 @@
-﻿using System;
+﻿using ProjectImmediateReply.Log;
+using ProjectImmediateReply.Utility;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 
@@ -19,7 +22,10 @@ namespace ProjectImmediateReply.API
             string DeadLine = context.Request.Form["DeadLine"];
             //先檢查傳過來的值有沒有問題並先定義回傳的訊息
             string success = "";
-            if (ClassNumber)
+            if (string.IsNullOrWhiteSpace(ClassNumber) || string.IsNullOrWhiteSpace(ProjectName) || string.IsNullOrWhiteSpace(DeadLine || Privilege != "Manager")
+            {
+
+            }
         }
 
         public bool IsReusable
