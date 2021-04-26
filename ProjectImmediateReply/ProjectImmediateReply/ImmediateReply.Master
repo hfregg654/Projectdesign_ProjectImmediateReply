@@ -29,7 +29,7 @@
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form id="form1" runat="server" >
+    <form id="form1" runat="server">
         <!----------navbar---------------->
         <nav class="light-blue">
             <div class="nav-wrapper row">
@@ -61,9 +61,9 @@
         </footer>
 
         <!--------------------->
-        
+
         <!-- Compiled and minified JavaScript -->
-        
+
     </form>
 </body>
 </html>
