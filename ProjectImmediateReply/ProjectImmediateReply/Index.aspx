@@ -24,8 +24,6 @@
    
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <script src="assets/js/jquery-3.6.0.min.js"></script>
-    <script src="assets/js/ImmediateReplyAJAX.js"></script>  
     <div runat="server" id="divJS">  <%--插入JS用--%>
     </div>
 </asp:Content>

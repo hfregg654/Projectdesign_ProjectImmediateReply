@@ -9,6 +9,7 @@ namespace ProjectImmediateReply.Models
     {
         public int ProjectID { get; set; }
         public string ProjectName { get; set; }
+        public string ClassNumber { get; set; }
         public int TeamID { get; set; }
         public string TeamName { get; set; }
         public string WorkID { get; set; }

@@ -13,7 +13,9 @@ namespace ProjectImmediateReply.API
 
         public void ProcessRequest(HttpContext context)
         {
-
+            string ClassNumber = context.Request.Form["ClassNumber"];
+            string ProjectName = context.Request.Form["ProjectName"];
+            string DeadLine = context.Request.Form["DeadLine"];
         }
 
         public bool IsReusable

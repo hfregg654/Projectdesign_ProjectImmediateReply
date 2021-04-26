@@ -15,9 +15,9 @@ $(document).ready(function () {
     // 確認密碼框顯示
     $('#showbtncheck').click(function () { ShowPassWord('passwordcheck', 'showbtncheck'); });
     // 註冊密碼框顯示
-    $('#showbtnregister').click(function () { ShowPassWord('ContentPlaceHolder1_ucRegistered_passwordregister', 'showbtnregister'); });
+    $('#showbtnregister').click(function () { ShowPassWord('register_password', 'showbtnregister'); });
     // 註冊確認密碼框顯示
-    $('#showbtnregistercheck').click(function () { ShowPassWord('ContentPlaceHolder1_ucRegistered_passwordregistercheck','showbtnregistercheck'); });
+    $('#showbtnregistercheck').click(function () { ShowPassWord('register_passwordcheck','showbtnregistercheck'); });
     
 });
 // ----
