@@ -1,29 +1,25 @@
 ﻿$(document).ready(function () {
-    //$("#btn1").click(function () {
-    //    var Account = $("#inpName").val();
-    //    $.ajax({
-    //        url: "API/QueryUser.ashx",
-    //        data: { "Account": Account },
-    //        type: 'GET',
-    //        dataType: 'json',
-    //    })
-    //        .done(function (item) {
-    //            $("#divContainer").empty();
-    //            for (var i = 0; i < item.length; i++) {
-    //                var html = "<p><span>" +
-    //                    item[i].Account + "</span><span>" +
-    //                    item[i].Name + "</span><span>" +
-    //                    item[i].License + "</span></p>";
-    //                $("#divContainer").append(html);
-    //            }
-    //        })
-    //        .fail(function (xhr, status, errorThrown) {
-    //            console.log("傳輸失敗");
-    //        })
-    //        .always(function (xhr, status) {
+        //$.ajax({
+        //    url: "API/GetClassNumberHandler.ashx",
+        //    data: { "ClassNumber": ClassNumber },
+        //    type: 'GET',
+        //    dataType: 'json',
+        //})
+        //    .done(function (item) {
+        //        for (var i = 0; i < item.length; i++) {
+        //            var html = "<p><span>" +
+        //                item[i].Account + "</span><span>" +
+        //                item[i].Name + "</span><span>" +
+        //                item[i].License + "</span></p>";
+        //            $("#divContainer").append(html);
+        //        }
+        //    })
+        //    .fail(function (xhr, status, errorThrown) {
+        //        console.log("傳輸失敗");
+        //    })
+        //    .always(function (xhr, status) {
 
-    //        });
-    //})
+        //    });
     //當按下班級建立按鈕時觸發事件
     $("#CreatClassbtn").click(function () {
         $("#CreatClassbtn").hide(100);//將建立按鈕隱藏
@@ -124,20 +120,22 @@
                 $("#regisbtn").show(100);
             });
     })
-    當按下建立按鈕時觸發事件
-    $("CreateProjectbtn").click(function () {
+    //當按下建立按鈕時觸發事件
+    $("#CreateProjectbtn").click(function () {
         $("#CreateProjectbtn").hide(100);//將建立按鈕隱藏
         //取得輸入框上的班別、專案名、時程期限
-        var ClassNumber = $("#ClassNumber").val();
+        var ClassNumber = vm.classchoice;
         var ProjectName = $("#ProjectNameTbox").val();
         var DeadLine = $("#DeadLine").val();
+        var Privilege = $("#HiddenFieldSessionPri").val();
         //發送ajax請求,呼叫班級建立的API並將參數送進去
         $.ajax({
             url: "API/CreateProjectHandler.ashx",
             data: {
                 "ClassNumber": ClassNumber,
                 "ProjectName": ProjectName,
-                "DeadLine": DeadLine
+                "DeadLine": DeadLine,
+                "Privilege": Privilege
             },
             type:"POST",
             dataType:"json",
@@ -149,6 +147,10 @@
                 $("#CreateProjectMessage").empty();
                 if (responsedata[0].success == "true") {
                     $("#CreateProjectMessage").append("專案建立成功");
+                }
+                else if (responsedata[0].success == "DateWrong")
+                {
+                    $("#CreateProjectMessage").append("日期錯誤，請重新選擇日期");
                 }
                 else { 
                     $("#CreateProjectMessage").append("專案建立失敗，請重新建立");

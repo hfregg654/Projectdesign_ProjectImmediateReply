@@ -59,7 +59,7 @@ namespace ProjectImmediateReply.API
                 {
                     string newPrivilege = "User";
                     string CreateDate = DateTime.Now.ToString("yyyy/MM/dd");
-                    string WhoCreate = "Manager";
+                    string WhoCreate = Privilege;
 
                     string[] colname = { "ClassNumber", "License", "Privilege", "CreateDate", "WhoCreate" };
                     string[] colnamep = { "@ClassNumber", "@License", "@Privilege", "@CreateDate", "@WhoCreate" };

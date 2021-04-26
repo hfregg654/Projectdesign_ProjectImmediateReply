@@ -14,19 +14,8 @@ namespace ProjectImmediateReply
     {
         protected void Page_Load(object sender, EventArgs e)  //protected表此方法只能於該頁面(檔案)使用，後面()內語法為使用後代表為該物件，拿掉後會出錯。
         {
-
-            Utility.DBTool dbtool = new Utility.DBTool();
-            string[] colname = { "ClassNumber" };
-            DataTable classnumber = dbtool.readTable("Users", colname, "GROUP BY ClassNumber", null, null);
-            List<string> classnum = new List<string>();
-            foreach (DataRow item in classnumber.Rows) //Rows表一列
-            {
-                if (item != null && item[0].ToString() != "")
-                {
-                    classnum.Add(item[0].ToString());
-                }
-
-            }
+            Utility.PageTool ptool = new Utility.PageTool();
+            List<string> classnum = ptool.GetClassNumber();
             register_class.DataSource = classnum;
             register_class.DataBind();
         }
