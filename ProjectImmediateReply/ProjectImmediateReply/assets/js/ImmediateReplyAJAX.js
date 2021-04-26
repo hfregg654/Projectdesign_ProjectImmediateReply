@@ -125,7 +125,6 @@
     $("CreateProjectbtn").click(function () {
         $("#CreateProjectbtn").hide(100);//將建立按鈕隱藏
         //取得輸入框上的名字,電話,Mail,LineID,班級名稱,帳號,密碼,密碼再確認,授權碼
-        var 
     })
 
 

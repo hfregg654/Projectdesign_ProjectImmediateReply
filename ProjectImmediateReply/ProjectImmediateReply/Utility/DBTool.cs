@@ -214,6 +214,8 @@ namespace ProjectImmediateReply.Utility
                         uInfo.ProjectID = Convert.ToInt32(item["ProjectID"]);
                     if (dataTable.Columns["ProjectName"] != null && item["ProjectName"] != null)
                         uInfo.ProjectName = item["ProjectName"].ToString();
+                    if (dataTable.Columns["ClassNumber"] != null && item["ClassNumber"] != null)
+                        uInfo.ClassNumber = item["ClassNumber"].ToString();
                     if (dataTable.Columns["TeamID"] != null && item["TeamID"] != null)
                         uInfo.TeamID = Convert.ToInt32(item["TeamID"]);
                     if (dataTable.Columns["TeamName"] != null && item["TeamName"] != null)

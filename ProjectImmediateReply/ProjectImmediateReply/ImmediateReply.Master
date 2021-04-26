@@ -23,12 +23,13 @@
     <script src="assets/js/jquery-3.6.0.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
     <script src="assets/js/ImmediataReply.js"></script>
+    <script src="assets/js/ImmediateReplyAJAX.js"></script>
     <!--將AJAX放入MASTER引用 讓JS不在前端-->
     <asp:ContentPlaceHolder ID="head" runat="server">
     </asp:ContentPlaceHolder>
 </head>
 <body>
-    <form id="form1" runat="server" >
+    <form id="form1" runat="server">
         <!----------navbar---------------->
         <nav class="light-blue">
             <div class="nav-wrapper row">
@@ -60,9 +61,9 @@
         </footer>
 
         <!--------------------->
-        
+
         <!-- Compiled and minified JavaScript -->
-        
+
     </form>
 </body>
 </html>
