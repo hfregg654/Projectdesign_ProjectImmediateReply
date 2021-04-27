@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ProjectImmediateReply.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -8,24 +9,36 @@ namespace ProjectImmediateReply.Utility
 {
     public class PageTool
     {
-		public List<string> GetClassNumber()
+        public List<string> GetClassNumber()
         {
-			Utility.DBTool dbtool = new Utility.DBTool();
-			string[] colname = { "ClassNumber" };
-			DataTable classnumber = dbtool.readTable("Users", colname, "GROUP BY ClassNumber", null, null);
-			List<string> classnum = new List<string>();
-			foreach (DataRow item in classnumber.Rows) //Rows表一列
-			{
-				if (item != null && item[0].ToString() != "")
-				{
-					classnum.Add(item[0].ToString());
-				}
+            DBTool dbtool = new DBTool();
+            string[] colname = { "ClassNumber" };
+            DataTable classnumber = dbtool.readTable("Users", colname, "GROUP BY ClassNumber", null, null);
+            List<string> classnum = new List<string>();
+            foreach (DataRow item in classnumber.Rows) //Rows表一列
+            {
+                if (item != null && item[0].ToString() != "")
+                {
+                    classnum.Add(item[0].ToString());
+                }
 
-			}
-			return classnum;
-		}
+            }
+            return classnum;
+        }
+        public string GetClassNumberJS(List<string> classnumstring)
+        {
+            List<string> getchooseitem = new List<string>();
+            foreach (string item in classnumstring) //每個item分別是班別100-1,100-2...
+            {
+                string newitem = $"'{item}'"; // item => '100-1','100-2',...
+                getchooseitem.Add(newitem);
+            }
+            string chooseitem = string.Join(",", getchooseitem); // chooseitem =>  「'100-1','100-2',...」
 
-		public string PageLeft(string PageType)
+			return chooseitem;
+        }
+
+        public string PageLeft(string PageType)
         {
             if (PageType == "Manager")
             {
@@ -114,7 +127,7 @@ namespace ProjectImmediateReply.Utility
 
 
 
-								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=Crud"" >
+								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=GradesCrud"" >
 									<v-list-item-icon>
 										<v-icon color = ""primary"" > check_circle_outline </v-icon >
 									</v-list-item-icon >
@@ -189,33 +202,33 @@ namespace ProjectImmediateReply.Utility
         }
         public string PageRight(string PageInner)
         {
-            if (PageInner == "Crud")
+            if (PageInner == "GradesCrud")
             {
-                
-				string headeritem = " {text: '姓名',align: 'start',sortable: true,value: 'Name'},{text: '授權碼',value: 'License'},{text: '班別',value: 'ClassNumber'},{text: '',value: 'btn',sortable: false}";
-				string chooseitem = "'1','2','3'";
-				string inneritem = "{ Name: '',  License: '', ClassNumber: ''}";
+				string headeritem = " {text: '專案名',align: 'start',sortable: true,value: 'ProjectName'},{text: '組長',value: 'LeaderName'},{text: '組員',value: 'MemberName'},{text: '組名',value: 'TeamName'},{text: '',value: 'btn',sortable: false}";
+                string chooseitem = GetClassNumberJS(GetClassNumber());
+				string otherdata = " classchoice: \"\",";
                 return $@"
                         <script>
-                              new Vue({{
+                             var vm = new Vue({{
                                     el: '#app',
                                     vuetify: new Vuetify(),
                                     data: () => ({{
 										drawer: null,
-                    
 									    chooseitem: [{chooseitem}],
-                    
 										headers: [{headeritem}],
-										inneritem: [{inneritem}],
+										inneritem: [],
+										{otherdata}
 									 }}),
-									 mounted() {{
+									 methods: {{
+										changeRoute() {{
 											axios
-											  .get('API/GetCrudHandler.ashx')
-											  .then(response => (this.inneritem = response.data))
-										      .catch(function(error) {{ 
-											  alert(error);
-											  }});
-								}}
+												.post('API/GetCrudHandler.ashx',{{classchoice:vm.classchoice,innertype:'GradesCrud'}})
+												.then(response => (this.inneritem = response.data))
+												.catch(function(error) {{ 
+												alert(error);
+												}});
+										}}
+									 }},
 							 }})
 						 </script>";
             }
@@ -247,23 +260,15 @@ namespace ProjectImmediateReply.Utility
             }
             else if (PageInner == "CreateProject")
             {
-				List<string> getclass = GetClassNumber();
-				List<string> getchooseitem = new List<string>();
-                foreach (string item in getclass) //每個item分別是班別100-1,100-2
-                {
-					string newitem = $"'{item}'"; // item => '100-1','100-2'
-					getchooseitem.Add(newitem);
-                }
-				
-				string chooseitem = string.Join(",", getchooseitem); // chooseitem =>  「'100-1','100-2'」
-				return $@"
+                string getclass =GetClassNumberJS(GetClassNumber());
+                return $@"
 						<script>
                             var vm = new Vue({{
                                      el: '#app',
                                      vuetify: new Vuetify(),
                                      data: () => ({{
 										drawer: null,
-										chooseclass: [{chooseitem}],
+										chooseclass: [{getclass}],
 										rules1: [
 											value => !!value || '此輸入框不可為空白',
 											value => (value || '').length <= 20 || '請輸入20個字元以內',
@@ -299,6 +304,60 @@ namespace ProjectImmediateReply.Utility
 									}}
                               }})
 						</script >";
+            }
+            else if (PageInner == "UpdateInfo")
+            {
+                DBTool Dbtool = new DBTool();
+                string[] colcheckname = { "Name", "Phone", "Mail", "LineID", "License" };
+                string[] colchecknamep = { "@UserID" };
+                LogInfo info = (LogInfo)HttpContext.Current.Session["IsLogined"];
+                string[] checkp = { info.UserID.ToString() };
+                List<UserInfo> checkdata = Dbtool.ChangeTypeUserInfo(Dbtool.readTable("Users", colcheckname, "WHERE UserID=@UserID", colchecknamep, checkp));
+                UserInfo userdata = new UserInfo();
+                if (checkdata.Count != 0)
+                {
+                    userdata = checkdata[0];
+                }
+                return $@"
+						<script>
+                            new Vue({{
+                                     el: '#app',
+                                     vuetify: new Vuetify(),
+                                     data: () => ({{
+										drawer: null,
+										valid: true, 
+										C1name: ""{userdata.Name}"",
+										C1phone: ""{userdata.Phone}"",
+										C1email: ""{userdata.Mail}"",
+										C1lineid: ""{userdata.LineID}"",
+										C1password: """",
+										C1newpassword: """",
+										C1newpasswordconfirm: """",
+										show1:false,
+										show2:false,
+										show3:false,				
+                                     }}),
+                                     methods: {{
+										validate () {{
+											if (this.$refs.form.validate()) {{
+												axios.post('/123', {{
+													classchoice:this.classchoice,
+													people:this.people,
+												}})
+												.then(response => {{
+													console.log(response);
+													alert(""發送成功"");
+												}})
+												.catch (error => {{
+													console.log(error);
+													alert(""發送失敗可能是ＰＯＳＴ路徑問題"");
+												}});
+											}}
+										}},
+                                      
+                                     }}
+                            }})
+						</script > ";
             }
             else
             {

@@ -6,6 +6,7 @@ using System.Data.SqlClient;
 using System.Data;
 using ProjectImmediateReply.Models;
 using ProjectImmediateReply.Log;
+using ProjectImmediateReply.ViewModels;
 
 namespace ProjectImmediateReply.Utility
 {
@@ -467,6 +468,36 @@ namespace ProjectImmediateReply.Utility
                     logtool.WriteLog(ex.ToString());
                     throw;
                 }
+            }
+        }
+
+        public List<ForGradesShow> ChangeTypeForGradesShow(DataTable dataTable)
+        {
+            List<ForGradesShow> list = new List<ForGradesShow>();
+            try
+            {
+                foreach (DataRow item in dataTable.Rows)
+                {
+                    var uInfo = new ForGradesShow();
+
+                    if (dataTable.Columns["ProjectName"] != null && item["ProjectName"] != null)
+                        uInfo.ProjectName =item["ProjectName"].ToString();
+                    if (dataTable.Columns["LeaderName"] != null && item["LeaderName"] != null)
+                        uInfo.LeaderName = item["LeaderName"].ToString();
+                    if (dataTable.Columns["MemberName"] != null && item["MemberName"] != null)
+                        uInfo.MemberName = item["MemberName"].ToString();
+                    if (dataTable.Columns["TeamName"] != null && item["TeamName"] != null)
+                        uInfo.TeamName = item["TeamName"].ToString();
+                    
+                    list.Add(uInfo);
+                }
+                return list;
+            }
+            catch (Exception ex)
+            {
+                txtLog logtool = new txtLog();
+                logtool.WriteLog(ex.ToString());
+                throw;
             }
         }
     }

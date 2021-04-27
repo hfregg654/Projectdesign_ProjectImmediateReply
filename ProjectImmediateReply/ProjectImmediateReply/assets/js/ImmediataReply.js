@@ -27,11 +27,11 @@ function ShowPassWord(txtboxname,btnname) {
     var btn = document.getElementById(btnname);
     
     if (password.type == 'password') {
-        btn.innerHTML = '<i class="material-icons">visibility_off</i>';
+        btn.innerHTML = '<i class="material-icons">visibility</i>';
         password.type = 'text';
     }
     else {
-        btn.innerHTML = '<i class="material-icons">visibility</i>';
+        btn.innerHTML = '<i class="material-icons">visibility_off</i>';
         password.type = 'password';
     }
 };

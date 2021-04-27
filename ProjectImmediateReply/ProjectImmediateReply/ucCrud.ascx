@@ -4,7 +4,7 @@
 	    <v-col>
 	    </v-col>
 	    <v-col sm="6" xs="12">
-	    	<v-select :items="chooseitem" label="選擇班級" solo outlined></v-select>
+	    	<v-select :items="chooseitem"  @change="changeRoute"  v-model="classchoice"  label="選擇班級" solo outlined></v-select>
 	    </v-col>
 	    <v-col>
 	    </v-col>
@@ -22,12 +22,13 @@
 		</template>
 <!-- 增加查看事件結束 -->
 	</v-data-table>
+       
     </v-flex>
 </v-main>
 
 
 
- 
+
 
 
 
