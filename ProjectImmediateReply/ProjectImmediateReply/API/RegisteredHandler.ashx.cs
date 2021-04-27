@@ -68,6 +68,8 @@ namespace ProjectImmediateReply.API
                     }
                     else
                     {
+                        MailTool mtool = new MailTool();
+                        mtool.SendMail("god73101879@gmail.com", Mail, "Manager", "驗證信", $"http://localhost:8787/LogIn.aspx?license={License}&classnumber={ClassNumber}", "4lkureasdcv2");
                         string[] updatecol_Logic = { "Name=@Name", "Phone=@Phone", "Mail=@Mail", "LineID=@LineID", "ClassNumber=@ClassNumber", "Account=@Account", "PassWord=@PassWord", };
                         string Where_Logic = "License=@License";
                         string[] updatecolname_P = { "@Name", "@Phone", "@Mail", "@LineID", "@ClassNumber", "@Account", "@PassWord","@License" };
@@ -81,8 +83,6 @@ namespace ProjectImmediateReply.API
                         update_P.Add(PassWord);
                         update_P.Add(License);
                         Create.UpdateTable("Users", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
-                        MailTool mtool = new MailTool();
-                        mtool.SendMail("god73101879@gmail.com", Mail, "Manager", "驗證信", $"http://localhost:8787/LogIn.aspx?license={License}&classnumber={ClassNumber}", "4lkureasdcv2");
                         context.Response.ContentType = "text/json";
                         context.Response.Write("[{\"success\":\"true\"}]");
                     }
