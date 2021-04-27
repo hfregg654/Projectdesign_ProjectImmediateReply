@@ -40,7 +40,8 @@ namespace ProjectImmediateReply.Utility
 
         public string PageLeft(string PageType)
         {
-            if (PageType == "Manager")
+			//轉跳的網頁網址 => href = "" / Index.aspx ? PageInnerType = UpdateInfo"" >
+			if (PageType == "Manager")
             {
                 return @"<v-list two-line>
 								<v-list-item @click="""" href =""/Index.aspx?PageInnerType=UpdateInfo"" >
@@ -200,6 +201,8 @@ namespace ProjectImmediateReply.Utility
             else
                 return string.Empty;
         }
+		//then 等同於ajax的done
+		//catch 等同於ajax的fail
         public string PageRight(string PageInner)
         {
             if (PageInner == "GradesCrud")
@@ -305,6 +308,7 @@ namespace ProjectImmediateReply.Utility
                               }})
 						</script >";
             }
+			//沒動到後端資料庫的話，可將方法寫在PageTool.cs
             else if (PageInner == "UpdateInfo")
             {
                 DBTool Dbtool = new DBTool();

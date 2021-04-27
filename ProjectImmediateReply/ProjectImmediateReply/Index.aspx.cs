@@ -10,6 +10,7 @@ namespace ProjectImmediateReply
 {
     public partial class Index1 : System.Web.UI.Page
     {
+        // 網頁?後面接的字串
         private const string _sessionKey = "PageInnerType";
         protected void Page_Load(object sender, EventArgs e)
         {

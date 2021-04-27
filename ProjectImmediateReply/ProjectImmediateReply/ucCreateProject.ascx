@@ -2,6 +2,7 @@
 					<v-main>
 						<!-- 主要內容開始 -->
 						<!-- -----card start -->
+						<%--v-model=語法  "classchoice"=屬性--%>
 						<v-form>
 							<v-card class="mx-auto mt-6 pa-8" max-width="1100" height="500">
 								<v-card-text>

@@ -124,6 +124,7 @@
     $("#CreateProjectbtn").click(function () {
         $("#CreateProjectbtn").hide(100);//將建立按鈕隱藏
         //取得輸入框上的班別、專案名、時程期限
+        //vm變數裡的classchoice屬性 =>在PageTool
         var ClassNumber = vm.classchoice;
         var ProjectName = $("#ProjectNameTbox").val();
         var DeadLine = $("#DeadLine").val();
@@ -198,33 +199,5 @@
             .always(function (xhr, status) {
                 $("#Fgbtn").show(100);
             });
-
     })
-    $("#testcrudbtn").click(function () {
-        $("#testcrudbtn").hide(100);//將按鈕隱藏
-        var ClassNum = vm.classchoice;
-        //發送ajax請求,呼叫班級建立的API並將參數送進去
-        $.ajax({
-            url: "API/GetCrudHandler.ashx",
-            data: {
-                "ClassNum": ClassNum
-            },
-            type: 'GET',
-            dataType: 'json',
-        })
-            //當請求完成提醒使用者完成並顯示建立按鈕
-            .done(function (Data)
-            {
-
-            })
-            //當請求失敗提醒使用者失敗並顯示建立按鈕
-            .fail(function (xhr, status, errorThrown) {
-                alert("錯誤發生失敗,請確認輸入資訊或是資料庫狀況");
-            })
-            .always(function (xhr, status) {
-                $("#Fgbtn").show(100);
-            });
-
-    })
-
 })

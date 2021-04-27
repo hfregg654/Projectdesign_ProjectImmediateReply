@@ -57,7 +57,7 @@ namespace ProjectImmediateReply.API
                 //將創建的授權碼一個一個加進資料庫
                 foreach (string item in License)
                 {
-                    string newPrivilege = "User";
+                    string newPrivilege = "Visitor";
                     string CreateDate = DateTime.Now.ToString("yyyy/MM/dd");
                     string WhoCreate = Privilege;
 
@@ -78,7 +78,6 @@ namespace ProjectImmediateReply.API
                 DataTable checkdata = Dbtool.readTable("Users", colcheckname, "WHERE ClassNumber=@ClassNumber", colchecknamep, checkp);
                 if (checkdata.Rows.Count == License.Count)
                 {
-
                     MailTool mtool = new MailTool();
                     string licensemail = string.Join("<br/>", License);
                     mtool.SendMail(Mailaddress, Mailaddress, Privilege, "授權碼發送", licensemail, "1qazxcvfr432wsde");

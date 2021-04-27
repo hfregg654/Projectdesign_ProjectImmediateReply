@@ -21,6 +21,25 @@ namespace ProjectImmediateReply
                 Response.Redirect(this._goToUrl);
                 //自動轉到下一個頁面
             }
+            //找到license 後 判斷 = 後面是否有值
+            if (Request.QueryString["license"] != null && Request.QueryString["classnumber"] != null)
+            {
+                DBTool Create = new DBTool();
+                string[] readcolname = { "ClassNumber", "License" };
+                string[] Pname = { "@ClassNumber", "@License" };
+                string[] P = { Request.QueryString["classnumber"], Request.QueryString["license"] };
+                List<UserInfo> Check = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname, "WHERE License=@License AND ClassNumber=@ClassNumber", Pname, P));
+                if (Check.Count != 0)
+                {
+                    string[] updatecol_Logic = { "Privilege=@Privilege" };
+                    string Where_Logic = "License=@License";
+                    string[] updatecolname_P = { "@Privilege", "@License" };
+                    List<string> update_P = new List<string>();
+                    update_P.Add("User");
+                    update_P.Add(Request.QueryString["license"]);
+                    Create.UpdateTable("Users", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
+                }
+            }
         }
 
         protected void BtnLogin_Click(object sender, EventArgs e)
