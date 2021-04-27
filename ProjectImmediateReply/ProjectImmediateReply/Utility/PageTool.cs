@@ -222,7 +222,7 @@ namespace ProjectImmediateReply.Utility
 									 methods: {{
 										changeRoute() {{
 											axios
-												.post('API/GetCrudHandler.ashx',{{classchoice:vm.classchoice,innertype:'GradesCrud'}})
+												.post('API/GetCrudHandler.ashx',{{innertype:'GradesCrud',classchoice:vm.classchoice}})
 												.then(response => (this.inneritem = response.data))
 												.catch(function(error) {{ 
 												alert(error);
