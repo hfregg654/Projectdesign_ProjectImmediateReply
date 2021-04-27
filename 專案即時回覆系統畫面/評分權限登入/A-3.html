@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<!-- meta引入 -->
@@ -138,42 +138,72 @@
 						<!-- 主要內容開始 -->
 						<!-- -----card start -->
 						<v-form method="post" novalidate="true" ref="form">
-							<v-card class="mx-auto mt-6 pa-8 mb-15" max-width="1100">
+							<v-card class="mx-5 my-3 px-4 pb-0 pt-4" max-width="1100">
+								<v-card-title class="justify-center">
+								      成績
+								    </v-card-title>
 								<v-card-text>
-									<v-text-field :rules="[v => !!v || '此輸入框不可為空白']" label="姓名" type="text"
-										v-model="C1name" required></v-text-field>
-
-									<v-text-field :rules="[v => !!v || '此輸入框不可為空白',v => /^\d+$/.test(v)||'請輸入純數字',
-									v => (v && v.length === 10) || '請輸入十位數字',]" class="mt-6" label="電話號碼"
-										type="text" v-model="C1phone" required></v-text-field>
-
-									<v-text-field :rules="[v => !!v || '此輸入框不可為空白',
-        　　　　　　　　　　　　　　　　　v => /.+@.+\..+/.test(v) || '不符合email格式',]" class="mt-6" label="電子郵件" type="email" v-model="C1email"
-										required></v-text-field>
-
-									<v-text-field :rules="[v => !!v || '此輸入框不可為空白']" class="mt-6" label="LineID"
-										type="text" v-model="C1lineid" required></v-text-field>
-
-									<v-text-field :rules="[v => !!v || '此輸入框不可為空白']" class="mt-6" label="原密碼"
-										type="password" v-model="C1password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'" @click:append="show1 = !show1" required></v-text-field>
-
-									<v-text-field :rules="[[v => !!v || '此輸入框不可為空白'],(this.C1newpassword != this.C1password || '新密碼需與原密碼不相符')]" class="mt-6" label="新密碼"
-										type="password" v-model="C1newpassword" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'" :type="show2 ? 'text' : 'password'" @click:append="show2 = !show2" required></v-text-field>
-
-									<v-text-field :rules="[[v => !!v || '此輸入框不可為空白'],(this.C1newpasswordconfirm === this.C1newpassword || '新密碼與原密碼不相符')]" class="mt-6" label="新密碼確認"
-										type="password" v-model="C1newpasswordconfirm" :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'" :type="show3 ? 'text' : 'password'" @click:append="show3 = !show3" required></v-text-field>
-								</v-card-text>
-				<!-- 儲存按鈕	 -->
-								<v-card-actions class="justify-center">
-									<v-btn depressed color="primary" @click="validate()"
-										:disabled="!valid" class="justify-center h1 font-weight-black" large>
-										儲 存
-									</v-btn>
-								</v-card-actions>
-								<v-card-actions class="justify-start">
-									<label for="" class="blue--text">授權碼 XXXXXX</label>
+									<v-select height="30" :items="chooseclass" v-model="classchoice" label="班別" :rules="classrules"
+										solo required></v-select>
+								<!-- 隱藏第一區，需等班別有值再顯示 -->
+								<div id="showarea1" v-if="classchoice.length">
+									<v-select height="30" :items="choosegroup" v-model="group" label="小組" :rules="classrules" solo
+										required></v-select>
+									<v-select height="30" :items="choosename" v-model="name" label="姓名" :rules="classrules" solo
+										required></v-select>
+								</div>
+								<!-- 隱藏第一區結束 -->
+								<!-- 隱藏第二區開始 -->
+								<div id="showarea2" v-if="group.length && name.length">
+								<v-row>
+										<v-spacer></v-spacer>
+										<span class="h3">電子郵件</span>
+										<v-spacer></v-spacer>
+								</v-row>
+								<v-row>
 									<v-spacer></v-spacer>
-									
+										<p class="subtitle-2" v-model="email">{{email}}</p>
+									<v-spacer></v-spacer>
+								</v-row>
+								<v-row>
+									<v-spacer></v-spacer>
+										<span>成績</span>
+										<span class="subtitle-2 mx-2" style="font-size: 2rem!important;" v-model="score">{{score}}</span>
+										<span>分</span>
+									<v-spacer></v-spacer>
+								</v-row>
+									<v-flex xs12 md12>
+										<span　class="pa=0">評語</span>
+										<v-expansion-panels v-model="panel" multiple>
+											<v-expansion-panel class="mb-2">
+												<v-expansion-panel-header>社長評語</v-expansion-panel-header>
+												<v-expansion-panel-content>
+													<p class="font-weight-medium text-justify">
+												           {{boss}}
+													</p>	
+												</v-expansion-panel-content>
+											</v-expansion-panel>
+
+											<v-expansion-panel>
+												<v-expansion-panel-header>PM評語</v-expansion-panel-header>
+												<v-expansion-panel-content>
+													<p class="font-weight-medium text-justify">
+													       {{pm}}
+													</p>
+												</v-expansion-panel-content>
+											</v-expansion-panel>
+
+										</v-expansion-panels>
+									</v-flex>
+								</div>
+								<!-- 隱藏第二區結束 -->
+
+								</v-card-text>
+								
+								<v-card-actions class="justify-end">
+									<v-btn color="blue lighten-2" text　href="/abcde" target="_blank">
+										分數修改
+									</v-btn>
 								</v-card-actions>
 
 							</v-card>
@@ -183,7 +213,7 @@
 						<!-- 主要內容結束 -->
 					</v-main>
 					<!-- footer -->
-					<v-footer dark padless fixed>
+					<v-footer dark padless fiexd>
 						<v-card class="flex" flat tile>
 
 							<v-card-text class="py-2 white--text text-center">
@@ -211,44 +241,59 @@
 				vuetify: new Vuetify(),
 				data: () => ({
 					drawer: null,
-					// 資料宣告 街輸入者資料框資料
-					valid: true,  //v-form驗證
-					License: "",
-					C1name: "",
-					C1phone: "",
-					C1email: "",
-					C1lineid: "",
-					C1password: "",
-					C1newpassword: "",
-					C1newpasswordconfirm: "",
-					// 控制密碼眼睛
-					show1:false,
-					show2:false,
-					show3:false,				
+					// 驗證valid
+					valid: true,
+					// 班級選擇框
+					chooseclass: ['班級A', '班級B', '班級C', '班級D'],
+					// 小組選擇框
+					choosegroup: ['小組A', '小組B', '小組C', '小組D'],
+					// 姓名選擇框
+					choosename: ['A', 'B', 'C', 'D'],
+					//------專案名規則
+					rules1: [
+						value => !!value || '此輸入框不可為空白',
+					],
+					classrules: [
+						value => !!value || '此輸入框不可為空白',
+					],
+					// 加入C3projectname C3teamname datepicker classchoice
+					// 班別
+					classchoice: "",
+					// 小組
+					group: "",
+					// 姓名
+					name: "",
+					// 電子郵件
+					email:"yes123yes123yes123@yahoo.com.tw",
+					// 成績
+					score:"82",
+					// 評語
+					boss:"社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語",
+					pm:"PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語",
+					// panel
+					// panel: [0, 1],第0項跟第1項可預設開啟 這裡先注釋掉
+					panel:[],
+					//
 				}),
 				methods: {
-					validate () {
-						// 如果驗證成功
-						// vuetify驗證寫法 refs
-					        if (this.$refs.form.validate()) {
-								// 表單提交
-					               axios.post('/123', {
-					                   classchoice:this.classchoice,
-									   people:this.people,
-					                 })
-					                 .then(response => {
-					                   console.log(response);
-									   alert("發送成功");
-					                 })
-					                 .catch(error => {
-					                   console.log(error);
-									   alert("發送失敗可能是ＰＯＳＴ路徑問題");
-					                 });
-					             }
-					      },
+					
 				}
 			})
 		</script>
+		<style type="text/css" scoped>
+			/* //複寫v-select規則開始 */
+			.v-text-field.v-text-field--enclosed .v-text-field__details, 
+			.v-text-field.v-text-field--enclosed > .v-input__control > .v-input__slot {
+			        margin: 0;
+			        max-height: 50px;
+			        min-height: auto !important;
+			       display: flex!important;
+			       align-items: center!important
+			}
+			/* //複寫v-select規則結束 */
+		</style>
+<!--@@@@@@@@@@@ 上面style scope區需要使用在這份頁面上 請記得引入 -->
+		<!-- ------------以下為共用區--------------- -->
 		<style type="text/css">
 			#keep .v-navigation-drawer__border {
 				display: none
@@ -280,6 +325,15 @@
 				padding-right: 2.375rem;
 			}
 
+			/* card start */
+			.v-card--reveal {
+				bottom: 0;
+				opacity: 1 !important;
+				position: absolute;
+				width: 100%;
+			}
+
+			/* card over */
 
 			@media (max-width:600px),
 			print {
@@ -294,16 +348,6 @@
 					font-size: 1rem;
 				}
 			}
-
-			/* card start */
-			.v-card--reveal {
-				bottom: 0;
-				opacity: 1 !important;
-				position: absolute;
-				width: 100%;
-			}
-
-			/* card over */
 		</style>
 	</body>
 </html>

@@ -32,5 +32,6 @@ namespace ProjectImmediateReply.Models
         public string Name { get; set; }
         public string Privilege { get; set; }
         public string Mail { get; set; }
+        public string License { get; set; }
     }
 }

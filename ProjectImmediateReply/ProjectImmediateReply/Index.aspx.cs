@@ -24,7 +24,7 @@ namespace ProjectImmediateReply
                 PageInner = Request.QueryString[_sessionKey].ToString();
             }
             PageTool ptool = new PageTool();
-            if (PageInner == "Crud")
+            if (PageInner == "GradesCrud")//查看專案及評分
             {
                 ucCrud.Visible = true;
                 divJS.InnerHtml = ptool.PageRight(PageInner);

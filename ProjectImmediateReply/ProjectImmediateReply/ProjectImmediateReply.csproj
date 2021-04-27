@@ -179,6 +179,7 @@
     <Compile Include="Utility\DBModelTool.cs" />
     <Compile Include="Utility\MailTool.cs" />
     <Compile Include="Utility\PageTool.cs" />
+    <Compile Include="ViewModels\ForGradesShow.cs" />
     <Compile Include="WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>

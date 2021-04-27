@@ -39,7 +39,7 @@
                                 <div>
                                     <a href="javascript:void(0)" id="showbtnIndex"
                                         style="margin-left: -3.25rem!important; margin-top: 2rem!important;">
-                                        <i class="material-icons">remove_red_eye</i></a>
+                                        <i class="material-icons">visibility_off</i></a>
                                 </div>
                             </div>
                         </div>

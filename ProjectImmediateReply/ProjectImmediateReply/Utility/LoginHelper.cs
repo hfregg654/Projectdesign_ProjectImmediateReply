@@ -40,7 +40,7 @@ namespace ProjectImmediateReply.Utility
             if (HasLogIned())
                 return true;
             //從資料庫裡撈出符合帳號的資料,若沒有則回傳FALSE
-            string[] readcol = { "UserID", "Account", "PassWord", "Name", "Privilege", "Mail" };
+            string[] readcol = { "UserID", "Account", "PassWord", "Name", "Privilege", "Mail", "License" };
             string[] Pname = { "@Account" };
             string[] P = { Account };
             var getaccount = new DBTool();
@@ -56,7 +56,8 @@ namespace ProjectImmediateReply.Utility
                 UserID = userAccount.UserID,
                 Name = userAccount.Name,
                 Privilege = userAccount.Privilege,
-                Mail = userAccount.Mail
+                Mail = userAccount.Mail,
+                License = userAccount.License
             };
             return true;
 
