@@ -38,20 +38,20 @@ namespace ProjectImmediateReply.API
                 if (PassWord == PassWordCheck)
                 {
                     Utility.DBTool Create = new Utility.DBTool();
-                    string[] readcolname = { "Account" };  //輸入幾個為條件就找幾格。
+                    string[] readcolname = { "Account","Privilege" };  //輸入幾個為條件就找幾格。
                     string[] Pname = { "@Account" };
                     string[] P = { Account };
                     //DataTable Check = Create.readTable("Users", readcolname, "WHERE Account=@Account", Pname, P) //如上面寫一個字串，只會找一格，已經在核對帳號找出有的那一格，P表網頁輸出欄位，以帳號為條件搜尋，如為空則傳空。
-                    Check_Acc = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname, "WHERE Account=@Account", Pname, P));
+                    Check_Acc = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname, "WHERE Account=@Account AND Privilege!='Visitor'", Pname, P));
                     string[] readcolname2 = { "ClassNumber", "License" };
                     string[] Pname2 = { "@ClassNumber", "@License" };
                     string[] P2 = { ClassNumber, License };
                     Check_Lic = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname2, "WHERE License=@License AND ClassNumber=@ClassNumber", Pname2, P2));
-                    string[] readcolname3 = { "Account", "License" };
+                    string[] readcolname3 = { "Account", "License", "Privilege" };
                     string[] Pname3 = { "@Account", "@License" };
                     string[] P3 = { Account, License };
-                    Check_Acc_Lic = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname3, "WHERE License=@License AND Account=@Account", Pname3, P3));
-                    if (Check_Lic.Count == 0)
+                    Check_Acc_Lic = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname3, "WHERE License=@License AND Account=@Account AND Privilege!='Visitor'", Pname3, P3));
+                   if (Check_Lic.Count == 0)
                     {
                         context.Response.ContentType = "text/json";
                         context.Response.Write("[{\"success\":\"licensewrong\"}]"); // \"當成字串的雙引號
