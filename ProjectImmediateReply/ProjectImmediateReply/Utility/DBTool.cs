@@ -74,7 +74,6 @@ namespace ProjectImmediateReply.Utility
                     dt.Load(reader);
                     reader.Close();
                     return dt;
-
                 }
                 //拋錯誤訊息
                 catch (Exception ex)
