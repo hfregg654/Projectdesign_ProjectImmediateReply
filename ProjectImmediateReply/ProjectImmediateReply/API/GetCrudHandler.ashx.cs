@@ -37,7 +37,7 @@ namespace ProjectImmediateReply.API
             //若沒有接到頁面檢查的參數則直接回傳
             if (string.IsNullOrWhiteSpace(innertype))
                 return;
-            
+
             //宣告最後回傳的字串
             string ShowTable = string.Empty;
 
@@ -52,27 +52,34 @@ namespace ProjectImmediateReply.API
                 //將1~4組的資料丟進變數中
                 for (int i = 1; i < 5; i++)
                 {
-                    string[] colname = { "Projects.ProjectName", "Users.[Name] as LeaderName", "Users.TeamName" };
-                    string[] colnamep = { "@ClassNumber", "@Privilege", "@TeamID" };
-                    string[] pl = { ClassNumber, "Leader", i.ToString() };
-                    string[] pm = { ClassNumber, "User", i.ToString() };
+                    string[] colname = { "Projects.ProjectName", "Users.[Name]", "Users.TeamName", "Users.Privilege" };
+                    string[] colnamep = { "@ClassNumber", "@TeamID" };
+                    string[] p = { ClassNumber, i.ToString() };
                     string logic = @"
                                 INNER JOIN Users ON Projects.ProjectID=Users.ProjectID
-                                WHERE Users.ClassNumber=@ClassNumber AND Users.Privilege=@Privilege AND Users.TeamID=@TeamID
+                                WHERE Users.ClassNumber=@ClassNumber AND Users.TeamID=@TeamID
                                 ";
-                    List<ForGradesShow> datal = Dbtool.ChangeTypeForGradesShow(Dbtool.readTable("Projects", colname, logic, colnamep, pl));//查組長
-                    List<ForGradesShow> datam = Dbtool.ChangeTypeForGradesShow(Dbtool.readTable("Projects", colname, logic, colnamep, pm));//查組員
-                    //一開始查回來的資料大家都會在LeaderName上,將組員資料放入MemberName
+                    DataTable data = Dbtool.readTable("Projects", colname, logic, colnamep, p);//查小組的所有人
+                    //整理小組資料
                     List<string> member = new List<string>();
-                    foreach (var item in datam)
+                    ForGradesShow ProjectTeam = new ForGradesShow();
+                    if (data.Rows.Count != 0)
                     {
-                        member.Add(item.LeaderName);
-                    }
-                    if (datal.Count != 0 || datam.Count != 0)
-                    {
-                        ProjectAll.Add(datal[0]);
-                        int count = ProjectAll.Count;
-                        ProjectAll[count - 1].MemberName = string.Join(",", member);
+                        foreach (DataRow item in data.Rows)
+                        {
+                            if (item["Privilege"].ToString() == "Leader")
+                            {
+                                ProjectTeam.ProjectName = item["ProjectName"].ToString();
+                                ProjectTeam.LeaderName = item["Name"].ToString();
+                                ProjectTeam.TeamName = item["TeamName"].ToString();
+                            }
+                            else
+                            {
+                                member.Add(item["Name"].ToString());
+                            }
+                        }
+                        ProjectTeam.MemberName=string.Join(",", member);
+                        ProjectAll.Add(ProjectTeam);
                     }
                 }
                 //將最後結果以JSON形式放進回傳字串
