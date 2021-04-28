@@ -49,37 +49,61 @@ namespace ProjectImmediateReply.API
                     return;
                 //宣告評分頁面顯示型別的變數
                 List<ForGradesShow> ProjectAll = new List<ForGradesShow>();
-                //將1~4組的資料丟進變數中
-                for (int i = 1; i < 5; i++)
-                {
-                    string[] colname = { "Projects.ProjectName", "Users.[Name]", "Users.TeamName", "Users.Privilege" };
-                    string[] colnamep = { "@ClassNumber", "@TeamID" };
-                    string[] p = { ClassNumber, i.ToString() };
-                    string logic = @"
+                //準備查詢語法
+                string[] colname = { "Projects.ProjectName", "Users.[Name]", "Users.TeamName", "Users.Privilege", "Users.TeamID" };
+                string[] colnamep = { "@ClassNumber" };
+                string[] p = { ClassNumber };
+                string logic = @"
                                 INNER JOIN Users ON Projects.ProjectID=Users.ProjectID
-                                WHERE Users.ClassNumber=@ClassNumber AND Users.TeamID=@TeamID
+                                WHERE Users.ClassNumber=@ClassNumber
+                                ORDER BY Users.TeamID
                                 ";
-                    DataTable data = Dbtool.readTable("Projects", colname, logic, colnamep, p);//查小組的所有人
-                    //整理小組資料
-                    List<string> member = new List<string>();
-                    ForGradesShow ProjectTeam = new ForGradesShow();
-                    if (data.Rows.Count != 0)
+                DataTable data = Dbtool.readTable("Projects", colname, logic, colnamep, p);//查班級的所有人
+                //整理小組資料,宣告小組以及組員的Dictionary,以組別分別做排序
+                Dictionary<int, ForGradesShow> ProjectTeam = new Dictionary<int, ForGradesShow>();
+                Dictionary<int, List<string>> member = new Dictionary<int, List<string>>();
+                SortTool stool = new SortTool();
+                if (data.Rows.Count != 0)//如果根本沒有查回資料則將空資料回傳,有的話才開始整理
+                {
+                    foreach (DataRow item in data.Rows)
                     {
-                        foreach (DataRow item in data.Rows)
+                        //以小組組別分別整理,判斷是否為組長來分別作排序處理
+                        switch (item["TeamID"].ToString())
                         {
-                            if (item["Privilege"].ToString() == "Leader")
-                            {
-                                ProjectTeam.ProjectName = item["ProjectName"].ToString();
-                                ProjectTeam.LeaderName = item["Name"].ToString();
-                                ProjectTeam.TeamName = item["TeamName"].ToString();
-                            }
-                            else
-                            {
-                                member.Add(item["Name"].ToString());
-                            }
+                            case "1":
+                                if (item["Privilege"].ToString() == "Leader")
+                                    ProjectTeam = stool.SortTeamLeader(item, ProjectTeam, 1);//組長進組長排序
+                                else
+                                    member = stool.SortTeamMember(item, member, 1);//組員進組員排序
+                                break;
+                            case "2":
+                                if (item["Privilege"].ToString() == "Leader")
+                                    ProjectTeam = stool.SortTeamLeader(item, ProjectTeam, 2);
+                                else
+                                    member = stool.SortTeamMember(item, member, 2);
+                                break;
+                            case "3":
+                                if (item["Privilege"].ToString() == "Leader")
+                                    ProjectTeam = stool.SortTeamLeader(item, ProjectTeam, 3);
+                                else
+                                    member = stool.SortTeamMember(item, member, 3);
+                                break;
+                            case "4":
+                                if (item["Privilege"].ToString() == "Leader")
+                                    ProjectTeam = stool.SortTeamLeader(item, ProjectTeam, 4);
+                                else
+                                    member = stool.SortTeamMember(item, member, 4);
+                                break;
+                            default:
+                                break;
                         }
-                        ProjectTeam.MemberName=string.Join(",", member);
-                        ProjectAll.Add(ProjectTeam);
+                    }
+                    //將整理完成後的小組Dictionary加入整理後的組員,最後加入回傳字串中
+                    foreach (var item in ProjectTeam)
+                    {
+                        ForGradesShow newitem = item.Value;
+                        newitem.MemberName = string.Join(",", member[item.Key]);
+                        ProjectAll.Add(newitem);
                     }
                 }
                 //將最後結果以JSON形式放進回傳字串
