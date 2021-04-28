@@ -28,7 +28,7 @@ namespace ProjectImmediateReply
                 string[] readcolname = { "ClassNumber", "License" };
                 string[] Pname = { "@ClassNumber", "@License" };
                 string[] P = { Request.QueryString["classnumber"], Request.QueryString["license"] };
-                List<UserInfo> Check = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname, "WHERE License=@License AND ClassNumber=@ClassNumber", Pname, P));
+                List<UserInfo> Check = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname, "WHERE License=@License AND ClassNumber=@ClassNumber AND Privilege='Visitor'", Pname, P));
                 if (Check.Count != 0)
                 {
                     string[] updatecol_Logic = { "Privilege=@Privilege" };
@@ -38,6 +38,7 @@ namespace ProjectImmediateReply
                     update_P.Add("User");
                     update_P.Add(Request.QueryString["license"]);
                     Create.UpdateTable("Users", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
+                    this.ltMessage.Text = $"授權碼{Check[0].License}之帳號註冊完成，請輸入帳號密碼以登入";
                 }
             }
         }
