@@ -67,7 +67,7 @@ namespace ProjectImmediateReply.API
                 {
                     foreach (DataRow item in data.Rows)
                     {
-                        //以小組組別分別整理,判斷是否為組長來分別作排序處理
+                        //以小組組別分別整理,判斷是否為組長來分別做排序處理
                         switch (item["TeamID"].ToString())
                         {
                             case "1":
