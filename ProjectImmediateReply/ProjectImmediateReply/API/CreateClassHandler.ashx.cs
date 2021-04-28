@@ -58,7 +58,7 @@ namespace ProjectImmediateReply.API
                 foreach (string item in License)
                 {
                     string newPrivilege = "Visitor";
-                    string CreateDate = DateTime.Now.ToString("yyyy/MM/dd");
+                    string CreateDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
                     string WhoCreate = Privilege;
 
                     string[] colname = { "ClassNumber", "License", "Privilege", "CreateDate", "WhoCreate" };
