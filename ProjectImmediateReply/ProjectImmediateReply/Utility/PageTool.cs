@@ -120,7 +120,7 @@ namespace ProjectImmediateReply.Utility
 
 									   <v-list-item-content >
    
-										   <v-list-item-title class=""chinese h4 primary--text"" > 個人資料維護</v-list-item-title>
+										   <v-list-item-title class=""chinese h4 primary--text"" >個人資料維護</v-list-item-title>
 										<v-list-item-subtitle>UpdateInformation</v-list-item-subtitle>
 									</v-list-item-content>
 
@@ -134,7 +134,7 @@ namespace ProjectImmediateReply.Utility
 									</v-list-item-icon >
 
 									<v-list-item-content >
-										<v-list-item-title class=""chinese h4 primary--text"" > 專案評分</v-list-item-title>
+										<v-list-item-title class=""chinese h4 primary--text"" >專案評分</v-list-item-title>
 										<v-list-item-subtitle>Grades</v-list-item-subtitle>
 									</v-list-item-content>
 								</v-list-item>
@@ -145,7 +145,7 @@ namespace ProjectImmediateReply.Utility
 									</v-list-item-icon >
 
 									<v-list-item-content >
-										<v-list-item-title class=""chinese h4 primary--text"" > 成績</v-list-item-title>
+										<v-list-item-title class=""chinese h4 primary--text"" >成績</v-list-item-title>
 										<v-list-item-subtitle>Grade</v-list-item-subtitle>
 									</v-list-item-content>
 								</v-list-item>
@@ -156,42 +156,49 @@ namespace ProjectImmediateReply.Utility
             else if (PageType == "User" || PageType == "Leader")
             {
                 return @"<v-list two-line>
-								<v-list-item @click="""" href=""#1"" >
+								<v-list-item @click="""" href=""/Index.aspx?PageInnerType=UpdateInfo"" >
 									<v-list-item-icon >
-										<v-icon color=""primary"" > face </v-icon >
-   
-									   </v-list-item-icon >
-   
-
-									   <v-list-item-content >
-   
-										   <v-list-item-title class=""chinese h4 primary--text"" > 個人資料維護</v-list-item-title>
+										<v-icon color=""primary"" > account_circle </v-icon >
+									</v-list-item-icon >
+									<v-list-item-content >
+										<v-list-item-title class=""chinese h4 primary--text"" > 個人資料維護</v-list-item-title>
 										<v-list-item-subtitle>Mobile</v-list-item-subtitle>
 									</v-list-item-content>
-
 								</v-list-item>
 
 
 
 								<v-list-item @click = """" href =""#2"" >
 									<v-list-item-icon>
-										<v-icon color = ""primary"" > thumbs_up_down </v-icon >
+										<v-icon color = ""primary"" > build_circle </v-icon >
 									</v-list-item-icon >
-
 									<v-list-item-content >
-										<v-list-item-title class=""chinese h4 primary--text"" > 專案評分</v-list-item-title>
-										<v-list-item-subtitle>Personal</v-list-item-subtitle>
+										<v-list-item-title class=""chinese h4 primary--text"" >專案建置</v-list-item-title>
+										<v-list-item-subtitle>Project</v-list-item-subtitle>
 									</v-list-item-content>
 								</v-list-item>
+
+
+
+								<v-list-item @click = """" href =""#2"" >
+									<v-list-item-icon>
+										<v-icon color = ""primary"" > build_circle </v-icon >
+									</v-list-item-icon >
+									<v-list-item-content >
+										<v-list-item-title class=""chinese h4 primary--text"" >專案管理</v-list-item-title>
+										<v-list-item-subtitle>Project</v-list-item-subtitle>
+									</v-list-item-content>
+								</v-list-item>
+
+
 
 								<v-list-item @click = """" href =""#3"" >
 									<v-list-item-icon>
 										<v-icon color = ""primary"" > receipt </v-icon >
 									</v-list-item-icon >
-
 									<v-list-item-content >
 										<v-list-item-title class=""chinese h4 primary--text"" > 成績</v-list-item-title>
-										<v-list-item-subtitle>Work</v-list-item-subtitle>
+										<v-list-item-subtitle>Grade</v-list-item-subtitle>
 									</v-list-item-content>
 								</v-list-item>
 

@@ -80,7 +80,7 @@ namespace ProjectImmediateReply.API
                 {
                     MailTool mtool = new MailTool();
                     string licensemail = string.Join("<br/>", License);
-                    mtool.SendMail(Mailaddress, Mailaddress, Privilege, "授權碼發送", licensemail, "1qazxcvfr432wsde");
+                    mtool.SendMail("shiyuance989898@gmail.com", Mailaddress, Privilege, "授權碼發送", $"{ClassNumber}班的授權碼<br/>{licensemail}", "1qazxcvfr432wsde");
                     success = "[{\"success\":\"true\"}]";
                     context.Response.ContentType = "text/json";
                     context.Response.Write(success);
