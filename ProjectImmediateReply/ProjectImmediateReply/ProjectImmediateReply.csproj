@@ -188,7 +188,6 @@
     <Compile Include="Utility\DBModelTool.cs" />
     <Compile Include="Utility\MailTool.cs" />
     <Compile Include="Utility\PageTool.cs" />
-    <Compile Include="Utility\SortTool.cs" />
     <Compile Include="ViewModels\ForGradesShow.cs" />
     <Compile Include="WriteLog\txtLog.cs" />
     <Compile Include="Models\GradeInfo.cs" />
