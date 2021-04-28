@@ -45,6 +45,11 @@ namespace ProjectImmediateReply
                 ucCreateProject.Visible = true;
                 divJS.InnerHtml = ptool.PageRight(PageInner);
             }
+            else if (PageInner == "SeeGrade")//查看成績
+            {
+                ucSeeGrade.Visible = true;
+                divJS.InnerHtml = ptool.PageRight(PageInner);
+            }
             else//普通狀態
             {
                 divinnerplace.InnerHtml = "<v-main></v-main>";

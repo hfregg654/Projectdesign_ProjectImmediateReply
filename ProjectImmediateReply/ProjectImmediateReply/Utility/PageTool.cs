@@ -94,7 +94,7 @@ namespace ProjectImmediateReply.Utility
 									</v-list-item-content>
 								</v-list-item>
 								
-								<v-list-item @click = """" href =""/Index.aspx?PageInnerType="" >
+								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=SeeGrade"" >
 									<v-list-item-icon>
 										<v-icon color = ""primary"" > preview </v-icon >
 									</v-list-item-icon >
@@ -139,7 +139,7 @@ namespace ProjectImmediateReply.Utility
 									</v-list-item-content>
 								</v-list-item>
 
-								<v-list-item @click = """" href =""/Index.aspx?PageInnerType="" >
+								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=SeeGrade"" >
 									<v-list-item-icon>
 										<v-icon color = ""primary"" > preview </v-icon >
 									</v-list-item-icon >
@@ -192,7 +192,7 @@ namespace ProjectImmediateReply.Utility
 
 
 
-								<v-list-item @click = """" href =""#3"" >
+								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=SeeGrade"" >
 									<v-list-item-icon>
 										<v-icon color = ""primary"" > preview </v-icon >
 									</v-list-item-icon >
@@ -369,6 +369,48 @@ namespace ProjectImmediateReply.Utility
                                      }}
                             }})
 						</script > ";
+            }
+            else if (PageInner == "SeeGrade")
+            {
+                return @"
+						<script>
+                            new Vue({
+                                     el: '#app',
+                                     vuetify: new Vuetify(),
+                                     data: () => ({
+										drawer: null,
+										valid: true,
+										chooseclass: ['班級A', '班級B', '班級C', '班級D'],
+										choosegroup: ['小組A', '小組B', '小組C', '小組D'],
+										choosename: ['A', 'B', 'C', 'D'],
+										rules1: [
+											value => !!value || '此輸入框不可為空白',
+										],
+										classrules: [
+											value => !!value || '此輸入框不可為空白',
+										],
+										classchoice: """",
+										group: """",
+										name: """",
+										email:""yes123yes123yes123 @yahoo.com.tw"",
+										score: ""82"",
+										boss: ""社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語"",
+										pm: ""PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語"",
+										panel:[],
+                                     }),
+                                    
+                            })
+						</script>
+						<style type=""text/css"" scoped>
+							.v-text-field.v-text-field--enclosed.v-text-field__details, 
+							.v-text-field.v-text-field--enclosed > .v-input__control > .v-input__slot {
+								margin: 0;
+								max-height: 50px;
+								min-height: auto!important;
+								display: flex!important;
+								align-items: center!important
+							}
+						</style > ";
             }
             else
             {
