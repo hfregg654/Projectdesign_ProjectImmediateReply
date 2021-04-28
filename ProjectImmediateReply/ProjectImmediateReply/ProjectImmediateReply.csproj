@@ -92,6 +92,7 @@
     <Content Include="Global.asax" />
     <Content Include="HTML\A-1.html" />
     <Content Include="HTML\A-2.html" />
+    <Content Include="HTML\A-3.html" />
     <Content Include="HTML\B-1.html" />
     <Content Include="HTML\B3-1.html" />
     <Content Include="HTML\B3-2.html" />
