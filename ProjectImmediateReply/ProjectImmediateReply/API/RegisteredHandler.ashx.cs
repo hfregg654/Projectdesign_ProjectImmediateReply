@@ -69,7 +69,7 @@ namespace ProjectImmediateReply.API
                     else
                     {
                         MailTool mtool = new MailTool();
-                        mtool.SendMail("shiyuance989898@gmail.com", Mail, "Manager", "驗證信", $"http://localhost:8085/LogIn.aspx?license={License}&classnumber={ClassNumber}", "1qazxcvfr432wsde");
+                        mtool.SendMail("shiyuance989898@gmail.com", Mail, "Manager", "驗證信", $"請點擊網址以完成註冊<br/>http://localhost:8085/LogIn.aspx?license={License}&classnumber={ClassNumber}", "1qazxcvfr432wsde");
                         string[] updatecol_Logic = { "Name=@Name", "Phone=@Phone", "Mail=@Mail", "LineID=@LineID", "ClassNumber=@ClassNumber", "Account=@Account", "PassWord=@PassWord", };
                         string Where_Logic = "License=@License";
                         string[] updatecolname_P = { "@Name", "@Phone", "@Mail", "@LineID", "@ClassNumber", "@Account", "@PassWord","@License" };
