@@ -194,10 +194,10 @@ namespace ProjectImmediateReply.Utility
 
 								<v-list-item @click = """" href =""#3"" >
 									<v-list-item-icon>
-										<v-icon color = ""primary"" > receipt </v-icon >
+										<v-icon color = ""primary"" > preview </v-icon >
 									</v-list-item-icon >
 									<v-list-item-content >
-										<v-list-item-title class=""chinese h4 primary--text"" > 成績</v-list-item-title>
+										<v-list-item-title class=""chinese h4 primary--text"" >成績</v-list-item-title>
 										<v-list-item-subtitle>Grade</v-list-item-subtitle>
 									</v-list-item-content>
 								</v-list-item>
