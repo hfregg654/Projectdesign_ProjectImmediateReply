@@ -102,8 +102,6 @@ namespace ProjectImmediateReply.Utility
         {
             //將接過來的目標欄位名稱陣列用「,」連接成一個字串
             string readcoladd = string.Join(",", readcolname);
-            //判斷接過來的readtablename來決定那個表的排序方式
-            string ordername = OrderName(readtablename);
             //SQL語法參數化"SELECT 欄位名稱 FROM 資料表名稱 條件"
             string queryString =
                 $@" SELECT {readcoladd} FROM {readtablename}

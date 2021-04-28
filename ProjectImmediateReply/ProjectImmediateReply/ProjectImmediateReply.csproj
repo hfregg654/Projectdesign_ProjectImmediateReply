@@ -92,6 +92,10 @@
     <Content Include="Global.asax" />
     <Content Include="HTML\A-1.html" />
     <Content Include="HTML\A-2.html" />
+    <Content Include="HTML\A-3.html" />
+    <Content Include="HTML\B-1.html" />
+    <Content Include="HTML\B3-1.html" />
+    <Content Include="HTML\B3-2.html" />
     <Content Include="HTML\C.html" />
     <Content Include="HTML\C2.html" />
     <Content Include="HTML\C3.html" />
@@ -116,13 +120,11 @@
     <Content Include="ucCrud.ascx" />
     <Content Include="ucForgetpassword.ascx" />
     <Content Include="ucRegistered.ascx" />
+    <Content Include="ucSeeGrade.ascx" />
     <Content Include="ucUpdateInfo.ascx" />
     <Content Include="Web.config" />
     <Content Include="LogIn.aspx" />
     <Content Include="ucLeft.ascx" />
-    <Content Include="WebForm1.aspx" />
-    <Content Include="WebForm2.aspx" />
-    <Content Include="WebForm3.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\CreateClassHandler.ashx.cs">
@@ -176,31 +178,17 @@
     <Compile Include="ucCreateProject.ascx.designer.cs">
       <DependentUpon>ucCreateProject.ascx</DependentUpon>
     </Compile>
+    <Compile Include="ucSeeGrade.ascx.cs">
+      <DependentUpon>ucSeeGrade.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucSeeGrade.ascx.designer.cs">
+      <DependentUpon>ucSeeGrade.ascx</DependentUpon>
+    </Compile>
     <Compile Include="Utility\DBModelTool.cs" />
     <Compile Include="Utility\MailTool.cs" />
     <Compile Include="Utility\PageTool.cs" />
     <Compile Include="ViewModels\ForGradesShow.cs" />
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebForm2.aspx.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm2.aspx.designer.cs">
-      <DependentUpon>WebForm2.aspx</DependentUpon>
-    </Compile>
-    <Compile Include="WebForm3.aspx.cs">
-      <DependentUpon>WebForm3.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm3.aspx.designer.cs">
-      <DependentUpon>WebForm3.aspx</DependentUpon>
-    </Compile>
     <Compile Include="WriteLog\txtLog.cs" />
     <Compile Include="Models\GradeInfo.cs" />
     <Compile Include="Models\LogInfo.cs" />

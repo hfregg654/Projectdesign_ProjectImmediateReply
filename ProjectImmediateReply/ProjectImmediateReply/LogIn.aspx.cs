@@ -21,24 +21,33 @@ namespace ProjectImmediateReply
                 Response.Redirect(this._goToUrl);
                 //自動轉到下一個頁面
             }
-            //找到license 後 判斷 = 後面是否有值
-            if (Request.QueryString["license"] != null && Request.QueryString["classnumber"] != null)
+            if (!IsPostBack)
             {
-                DBTool Create = new DBTool();
-                string[] readcolname = { "ClassNumber", "License" };
-                string[] Pname = { "@ClassNumber", "@License" };
-                string[] P = { Request.QueryString["classnumber"], Request.QueryString["license"] };
-                List<UserInfo> Check = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname, "WHERE License=@License AND ClassNumber=@ClassNumber", Pname, P));
-                if (Check.Count != 0)
+                //找到license 後 判斷 = 後面是否有值
+                if (Request.QueryString["license"] != null && Request.QueryString["classnumber"] != null)
                 {
-                    string[] updatecol_Logic = { "Privilege=@Privilege" };
-                    string Where_Logic = "License=@License";
-                    string[] updatecolname_P = { "@Privilege", "@License" };
-                    List<string> update_P = new List<string>();
-                    update_P.Add("User");
-                    update_P.Add(Request.QueryString["license"]);
-                    Create.UpdateTable("Users", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
+                    DBTool Create = new DBTool();
+                    string[] readcolname = { "ClassNumber", "License","Account" };
+                    string[] Pname = { "@ClassNumber", "@License" };
+                    string[] P = { Request.QueryString["classnumber"], Request.QueryString["license"] };
+                    List<UserInfo> Check = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname, "WHERE License=@License AND ClassNumber=@ClassNumber AND Privilege='Visitor' AND Account!='NULL'", Pname, P));
+                    if (Check.Count != 0)
+                    {
+                        string[] updatecol_Logic = { "Privilege=@Privilege" };
+                        string Where_Logic = "License=@License";
+                        string[] updatecolname_P = { "@Privilege", "@License" };
+                        List<string> update_P = new List<string>();
+                        update_P.Add("User");
+                        update_P.Add(Request.QueryString["license"]);
+                        Create.UpdateTable("Users", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
+                        Response.Write($"<script>alert('授權碼{Check[0].License}之帳號{Check[0].Account}註冊完成，請輸入帳號密碼以登入');</script>");
+                    }
+                    else
+                    {
+                        Response.Write($"<script>alert('授權碼{Request.QueryString["license"]}之帳號註冊失敗，有可能已經或尚未註冊亦或是連結錯誤');</script>");
+                    }
                 }
+
             }
         }
 
@@ -60,7 +69,7 @@ namespace ProjectImmediateReply
             }
         }
 
-        
+
 
 
     }

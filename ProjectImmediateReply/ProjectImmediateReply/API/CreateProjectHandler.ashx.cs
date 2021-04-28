@@ -32,7 +32,7 @@ namespace ProjectImmediateReply.API
             }
             try
             {
-                string CreateDate = DateTime.Now.ToString("yyyy/MM/dd");
+                string CreateDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
                 string WhoCreate = Privilege;
 
                 if (Convert.ToDateTime(DeadLine) > Convert.ToDateTime(CreateDate))

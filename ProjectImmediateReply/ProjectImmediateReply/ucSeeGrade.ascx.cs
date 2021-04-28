@@ -7,7 +7,7 @@ using System.Web.UI.WebControls;
 
 namespace ProjectImmediateReply
 {
-    public partial class WebForm3 : System.Web.UI.Page
+    public partial class ucSeeGrade : System.Web.UI.UserControl
     {
         protected void Page_Load(object sender, EventArgs e)
         {

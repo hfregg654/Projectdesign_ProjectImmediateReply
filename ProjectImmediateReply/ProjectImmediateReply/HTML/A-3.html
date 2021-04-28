@@ -1,8 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeBehind="WebForm3.aspx.cs" Inherits="ProjectImmediateReply.WebForm3" %>
-
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
-<%--	<head>
+	<head>
 		<!-- meta引入 -->
 		<meta name="viewport"
 			content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
@@ -23,8 +21,8 @@
 		<!-- 導入英文字體 -->
 		<link rel="preconnect" href="https://fonts.gstatic.com">
 		<link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@700&display=swap" rel="stylesheet">
-	</head>--%>
-<%--	<body>
+	</head>
+	<body>
 		<div id="app">
 			<v-app id="inspire">
 				<v-app id="keep">
@@ -134,40 +132,77 @@
 
 							</v-list>
 						</v-card>
-					</v-navigation-drawer>--%>
+					</v-navigation-drawer>
 					<!-- 導航欄結束 -->
-<%--					<v-main>
+					<v-main>
 						<!-- 主要內容開始 -->
 						<!-- -----card start -->
-						<v-form>
-							<v-card class="mx-auto mt-6 pa-8" max-width="1100" height="500">
+						<v-form method="post" novalidate="true" ref="form">
+							<v-card class="mx-5 my-3 px-4 pb-0 pt-4" max-width="1100">
+								<v-card-title class="justify-center">
+								      成績
+								    </v-card-title>
 								<v-card-text>
-									<v-text-field :rules="rules1" class="mt-6" label="專案名" v-model="C3projectname">
-									</v-text-field>
-									<v-text-field :rules="rules2" class="mt-6" label="小組名稱" v-model="C3teamname">
-									</v-text-field>
-									<!-- data picker start -->
-									<v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
-										transition="scale-transition" offset-y min-width="auto" class="mt-6">
-										<template v-slot:activator="{ on, attrs }">
-											<v-text-field v-model="date" label="時程期限" prepend-icon="mdi-calendar"
-												readonly v-bind="attrs" v-on="on">
-											</v-text-field>
-										</template>
-										<v-date-picker v-model="date" @input="menu2 = false" locale="zh-cn">
-										</v-date-picker>
-									</v-menu>
-									<!-- data picker over -->
+									<v-select height="30" :items="chooseclass" v-model="classchoice" label="班別" :rules="classrules"
+										solo required></v-select>
+								<!-- 隱藏第一區，需等班別有值再顯示 -->
+								<div id="showarea1" v-if="classchoice.length">
+									<v-select height="30" :items="choosegroup" v-model="group" label="小組" :rules="classrules" solo
+										required></v-select>
+									<v-select height="30" :items="choosename" v-model="name" label="姓名" :rules="classrules" solo
+										required></v-select>
+								</div>
+								<!-- 隱藏第一區結束 -->
+								<!-- 隱藏第二區開始 -->
+								<div id="showarea2" v-if="group.length && name.length">
+								<v-row>
+										<v-spacer></v-spacer>
+										<span class="h3">電子郵件</span>
+										<v-spacer></v-spacer>
+								</v-row>
+								<v-row>
+									<v-spacer></v-spacer>
+										<p class="subtitle-2" v-model="email">{{email}}</p>
+									<v-spacer></v-spacer>
+								</v-row>
+								<v-row>
+									<v-spacer></v-spacer>
+										<span>成績</span>
+										<span class="subtitle-2 mx-2" style="font-size: 2rem!important;" v-model="score">{{score}}</span>
+										<span>分</span>
+									<v-spacer></v-spacer>
+								</v-row>
+									<v-flex xs12 md12>
+										<span　class="pa=0">評語</span>
+										<v-expansion-panels v-model="panel" multiple>
+											<v-expansion-panel class="mb-2">
+												<v-expansion-panel-header>社長評語</v-expansion-panel-header>
+												<v-expansion-panel-content>
+													<p class="font-weight-medium text-justify">
+												           {{boss}}
+													</p>	
+												</v-expansion-panel-content>
+											</v-expansion-panel>
+
+											<v-expansion-panel>
+												<v-expansion-panel-header>PM評語</v-expansion-panel-header>
+												<v-expansion-panel-content>
+													<p class="font-weight-medium text-justify">
+													       {{pm}}
+													</p>
+												</v-expansion-panel-content>
+											</v-expansion-panel>
+
+										</v-expansion-panels>
+									</v-flex>
+								</div>
+								<!-- 隱藏第二區結束 -->
+
 								</v-card-text>
-								<v-card-actions class="justify-center">
-									<v-btn depressed color="primary" type="submit" @click=""
-										class="justify-center h1 font-weight-black">
-										建立
-									</v-btn>
-								</v-card-actions>
+								
 								<v-card-actions class="justify-end">
-									<v-btn color="blue lighten-2" text>
-										專案修改
+									<v-btn color="blue lighten-2" text　href="/abcde" target="_blank">
+										分數修改
 									</v-btn>
 								</v-card-actions>
 
@@ -176,9 +211,9 @@
 
 						<!-- -----card over-->
 						<!-- 主要內容結束 -->
-					</v-main>--%>
+					</v-main>
 					<!-- footer -->
-<%--					<v-footer dark padless>
+					<v-footer dark padless fiexd>
 						<v-card class="flex" flat tile>
 
 							<v-card-text class="py-2 white--text text-center">
@@ -191,38 +226,75 @@
 								</p>
 							</v-card-text>
 						</v-card>
-					</v-footer>--%>
-<%--				</v-app>
+					</v-footer>
+				</v-app>
 			</v-app>
-		</div>--%>
+		</div>
 		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/babel-polyfill/dist/polyfill.min.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
 		<script src="https://cdn.jsdelivr.net/npm/vuetify@2.3.10/dist/vuetify.min.js"></script>
+		<!-- 導入AXIOS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
 		<script>
-            new Vue({
-                el: '#app',
-                vuetify: new Vuetify(),
-                data: () => ({
-                    drawer: null,
-                    // 班級選擇框
-                    // -------
-                    // -------
-                    //------input規則
-                    rules1: [
-                        value => !!value || '此輸入框不可為空白',
-                        value => (value || '').length <= 20 || '請輸入20個字元以內',
-                    ],
-                    rules2: [
-                        value => !!value || '此輸入框不可為空白',
-                        value => (value || '').length <= 20 || '請輸入20個字元以內',
-                    ],
-                    // 加入data picker
-                    date: new Date().toISOString().substr(0, 10),
-
-                }),
-            })
-        </script>
-<%--		<style type="text/css">
+			new Vue({
+				el: '#app',
+				vuetify: new Vuetify(),
+				data: () => ({
+					drawer: null,
+					// 驗證valid
+					valid: true,
+					// 班級選擇框
+					chooseclass: ['班級A', '班級B', '班級C', '班級D'],
+					// 小組選擇框
+					choosegroup: ['小組A', '小組B', '小組C', '小組D'],
+					// 姓名選擇框
+					choosename: ['A', 'B', 'C', 'D'],
+					//------專案名規則
+					rules1: [
+						value => !!value || '此輸入框不可為空白',
+					],
+					classrules: [
+						value => !!value || '此輸入框不可為空白',
+					],
+					// 加入C3projectname C3teamname datepicker classchoice
+					// 班別
+					classchoice: "",
+					// 小組
+					group: "",
+					// 姓名
+					name: "",
+					// 電子郵件
+					email:"yes123yes123yes123@yahoo.com.tw",
+					// 成績
+					score:"82",
+					// 評語
+					boss:"社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語",
+					pm:"PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語",
+					// panel
+					// panel: [0, 1],第0項跟第1項可預設開啟 這裡先注釋掉
+					panel:[],
+					//
+				}),
+				methods: {
+					
+				}
+			})
+		</script>
+		<style type="text/css" scoped>
+			/* //複寫v-select規則開始 */
+			.v-text-field.v-text-field--enclosed .v-text-field__details, 
+			.v-text-field.v-text-field--enclosed > .v-input__control > .v-input__slot {
+			        margin: 0;
+			        max-height: 50px;
+			        min-height: auto !important;
+			       display: flex!important;
+			       align-items: center!important
+			}
+			/* //複寫v-select規則結束 */
+		</style>
+<!--@@@@@@@@@@@ 上面style scope區需要使用在這份頁面上 請記得引入 -->
+		<!-- ------------以下為共用區--------------- -->
+		<style type="text/css">
 			#keep .v-navigation-drawer__border {
 				display: none
 			}
@@ -276,8 +348,6 @@
 					font-size: 1rem;
 				}
 			}
-		</style>--%>
+		</style>
 	</body>
 </html>
-
-
