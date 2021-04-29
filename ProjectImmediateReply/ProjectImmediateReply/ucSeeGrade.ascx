@@ -13,13 +13,13 @@
           solo required></v-select>
         <!-- 隱藏第一區，需等班別有值再顯示 -->
         <div id="showarea1" v-if="classchoice.length">
-         <v-select height="30" :items="obj.choosegroup" v-model="group" label="小組" :rules="classrules" solo
+         <v-select height="30" :items="choosegroup" v-model="group" label="小組" :rules="classrules" solo
           required></v-select>
         </div>
         <!-- 隱藏第一區結束 -->
         <!-- 隱藏第二區開始 -->
         <div id="showarea2" v-if="group.length">
-         <v-select height="30" :items="obj.choosename" v-model="name" label="姓名" :rules="classrules" solo
+         <v-select height="30" :items="choosename" v-model="name" label="姓名" :rules="classrules" solo
           required></v-select>
         </div>
         <!-- 隱藏第二區結束 -->

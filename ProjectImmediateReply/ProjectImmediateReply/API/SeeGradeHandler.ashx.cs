@@ -82,7 +82,7 @@ namespace ProjectImmediateReply.API
                     }
                     string TeamChooseItem = string.Join(",", GetTeamItem);
                     context.Response.ContentType = "text/json";
-                    context.Response.Write($"[{{\"choosegroup\":\"[{TeamChooseItem}]\"}}]");
+                    context.Response.Write($"[{{\"choosegroup\":\"{TeamChooseItem}\"}}]");
                 }
 
                 string[] Namecolname = { "Name" };

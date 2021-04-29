@@ -379,7 +379,7 @@ namespace ProjectImmediateReply.Utility
 										valid: true,
 										chooseclass: [{chooseitem}],
 										choosegroup: [],
-										choosename: ['A', 'B', 'C', 'D'],
+										choosename: ['BBB', 'a', 'C', 'D'],
 										rules1: [
 											value => !!value || '此輸入框不可為空白',
 										],
@@ -399,7 +399,7 @@ namespace ProjectImmediateReply.Utility
 										changeRoute() {{
 											axios
 												.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
-												.then(response => (vm.choosegroup =response.data[0].choosegroup))
+												.then(response => (vm.choosegroup = response.data[0].choosegroup))
 												.catch(function(error) {{ 
 												alert(error);
 												}});
