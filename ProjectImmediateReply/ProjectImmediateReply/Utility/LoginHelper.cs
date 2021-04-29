@@ -19,9 +19,8 @@ namespace ProjectImmediateReply.Utility
         /// <returns></returns>
         public bool HasLogIned()
         {
-            //定義變數取得登入狀態的Session
-            var val = HttpContext.Current.Session[_sessionKey] as Models.LogInfo;
-
+            //定義變數取得登入狀態的Session，後面接as LogInfo 前面var判斷型別才不會出錯。 
+            var val = HttpContext.Current.Session[_sessionKey] as LogInfo;
             //檢查變數內有值且為true回傳true,否則回傳false
             if (val != null)
                 return true;

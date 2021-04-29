@@ -14,18 +14,6 @@ namespace ProjectImmediateReply
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Utility.DBTool dbTool = new Utility.DBTool();
-            string[] readcolname = { "ClassNumber" };
-            DataTable classnumber = dbTool.readTable("Users", readcolname, "GROUP BY ClassNumber", null, null);
-            List<string> classnum = new List<string>();
-            foreach (DataRow item in classnumber.Rows)
-            {
-                if (string.IsNullOrWhiteSpace(item[0].ToString()))
-                {
-                    classnum.Add(item[0].ToString());
-                }
-                
-            }
         }
     }
 }

@@ -310,6 +310,7 @@ namespace ProjectImmediateReply.Utility
                 {
                     userdata = checkdata[0];
                 }
+				//一格一格的值""{userdata.Name}"" 一列一列[{ chooseitem}]
                 return $@"
 						<script>
                             var vm = new Vue({{
@@ -365,17 +366,19 @@ namespace ProjectImmediateReply.Utility
 						</script > ";
             }
             else if (PageInner == "SeeGrade")
-            {
-                return @"
+			{// changeRoute方法名稱 修改
+				string chooseitem = GetClassNumberJS(GetClassNumber());
+				LogInfo info = (LogInfo)HttpContext.Current.Session["IsLogined"];
+				return $@"
 						<script>
-                            new Vue({
+                           var vm = new Vue({{
                                      el: '#app',
                                      vuetify: new Vuetify(),
-                                     data: () => ({
+                                     data: () => ({{
 										drawer: null,
 										valid: true,
-										chooseclass: ['班級A', '班級B', '班級C', '班級D'],
-										choosegroup: ['小組A', '小組B', '小組C', '小組D'],
+										chooseclass: [{chooseitem}],
+										choosegroup: [],
 										choosename: ['A', 'B', 'C', 'D'],
 										rules1: [
 											value => !!value || '此輸入框不可為空白',
@@ -386,24 +389,33 @@ namespace ProjectImmediateReply.Utility
 										classchoice: """",
 										group: """",
 										name: """",
-										email:""yes123yes123yes123 @yahoo.com.tw"",
+										email:""yes123yes123yes123@yahoo.com.tw"",
 										score: ""82"",
 										boss: ""社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語"",
 										pm: ""PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語"",
 										panel:[],
-                                     }),
-                                    
-                            })
+                                     }}),
+                                     methods: {{
+										changeRoute() {{
+											axios
+												.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
+												.then(response => (vm.choosegroup =response.data[0].choosegroup))
+												.catch(function(error) {{ 
+												alert(error);
+												}});
+										}}
+									 }},
+                            }})
 						</script>
 						<style type=""text/css"" scoped>
 							.v-text-field.v-text-field--enclosed.v-text-field__details, 
-							.v-text-field.v-text-field--enclosed > .v-input__control > .v-input__slot {
+							.v-text-field.v-text-field--enclosed > .v-input__control > .v-input__slot {{
 								margin: 0;
 								max-height: 50px;
 								min-height: auto!important;
 								display: flex!important;
 								align-items: center!important
-							}
+							}}
 						</style > ";
             }
             else
