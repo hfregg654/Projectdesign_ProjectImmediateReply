@@ -59,7 +59,7 @@ namespace ProjectImmediateReply.API
                                 ORDER BY Users.TeamID
                                 ";
                 DataTable data = Dbtool.readTable("Projects", colname, logic, colnamep, p);//查班級的所有人
-                //整理小組資料,宣告小組以及組員的Dictionary,以組別分別做排序
+                //整理小組資料,宣告小組以及組員的Dictionary,以組別分別做排序，字典裡面放表。
                 Dictionary<int, ForGradesShow> ProjectTeam = new Dictionary<int, ForGradesShow>();
                 Dictionary<int, List<string>> member = new Dictionary<int, List<string>>();
                 SortTool stool = new SortTool();
