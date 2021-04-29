@@ -331,7 +331,7 @@ namespace ProjectImmediateReply.Utility
                 }
                 return $@"
 						<script>
-                            new Vue({{
+                            var vm = new Vue({{
                                      el: '#app',
                                      vuetify: new Vuetify(),
                                      data: () => ({{
@@ -344,6 +344,7 @@ namespace ProjectImmediateReply.Utility
 										C1password: """",
 										C1newpassword: """",
 										C1newpasswordconfirm: """",
+										license: ""{userdata.License}"",
 										show1:false,
 										show2:false,
 										show3:false,				
@@ -351,13 +352,25 @@ namespace ProjectImmediateReply.Utility
                                      methods: {{
 										validate () {{
 											if (this.$refs.form.validate()) {{
-												axios.post('/123', {{
-													classchoice:this.classchoice,
-													people:this.people,
+												axios.post('API/UpdateInfoHandler.ashx', {{
+													C1name:vm.C1name,
+													C1phone:vm.C1phone,
+													C1email:vm.C1email,
+													C1lineid:vm.C1lineid,
+													C1password:vm.C1password,
+													C1newpassword:vm.C1newpassword,
+													C1newpasswordconfirm:vm.C1newpasswordconfirm,
+													license:vm.license,
 												}})
 												.then(response => {{
-													console.log(response);
-													alert(""發送成功"");
+													if(response.data[0].success== ""success""){{
+														console.log(response);
+														alert(""更新完成"");
+													}}
+													else{{
+														console.log(response);
+														alert(""更新失敗,請檢查輸入資訊"");
+													}}
 												}})
 												.catch (error => {{
 													console.log(error);
