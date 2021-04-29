@@ -36,7 +36,7 @@
 									</v-btn>
 								</v-card-actions>
 								<v-card-actions class="justify-start">
-									<label for="" class="blue--text">授權碼 </label>
+									<p class="blue--text" v-model="license">授權碼：{{license}}</p>
 									<v-spacer></v-spacer>
 									
 								</v-card-actions>

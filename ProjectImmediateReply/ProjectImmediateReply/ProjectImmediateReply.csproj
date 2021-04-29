@@ -142,8 +142,8 @@
     <Compile Include="API\RegisteredHandler.ashx.cs">
       <DependentUpon>RegisteredHandler.ashx</DependentUpon>
     </Compile>
-    <Compile Include="API\SeeGradeHandler.ashx.cs">
-      <DependentUpon>SeeGradeHandler.ashx</DependentUpon>
+    <Compile Include="API\UpdateInfoHandler.ashx.cs">
+      <DependentUpon>UpdateInfoHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="DBModels\Grade.cs" />
     <Compile Include="DBModels\Project.cs" />
@@ -193,7 +193,6 @@
     <Compile Include="Utility\PageTool.cs" />
     <Compile Include="Utility\SortTool.cs" />
     <Compile Include="ViewModels\ForGradesShow.cs" />
-    <Compile Include="ViewModels\ForSeeGrade.cs" />
     <Compile Include="WriteLog\txtLog.cs" />
     <Compile Include="Models\GradeInfo.cs" />
     <Compile Include="Models\LogInfo.cs" />
@@ -267,7 +266,7 @@
     <Content Include="API\ForgetPasswordHandeler.ashx" />
     <Content Include="API\GetCrudHandler.ashx" />
     <Content Include="API\CreateProjectHandler.ashx" />
-    <Content Include="API\SeeGradeHandler.ashx" />
+    <Content Include="API\UpdateInfoHandler.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

@@ -50,7 +50,6 @@
 									<v-btn 
 										depressed color="primary" 
 										type="button" 
-										@click=""
 										class="justify-center h1 font-weight-black"
 										id = "CreateProjectbtn">
 										建立

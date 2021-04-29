@@ -26,7 +26,6 @@
 										class="justify-center h1 font-weight-black">
 										建立
 									</v-btn>
-									<br />
 									<span style="color: red">
 										<literal id="CreateClassMessage"></literal>
 									</span>
