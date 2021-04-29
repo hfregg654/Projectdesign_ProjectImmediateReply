@@ -293,25 +293,6 @@ namespace ProjectImmediateReply.Utility
 										date: """",
 										valid: true,
                                      }}),
-									methods: {{
-										submit() {{
-											if (this.$refs.form.validate()) {{
-												axios.post('/user', {{
-													classchoice: this.classchoice,
-													C3projectname: this.C3projectname,
-													date: this.date,
-												}})
-												.then(response => {{
-													console.log(response);
-													alert(""發送成功"");
-												}})
-												.catch (error => {{
-													console.log(error);
-													alert(""發送失敗可能是ＰＯＳＴ路徑問題"");
-												}});
-											}}
-										}},
-									}}
                               }})
 						</script >";
             }
