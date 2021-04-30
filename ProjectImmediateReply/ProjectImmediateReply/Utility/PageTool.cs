@@ -35,13 +35,13 @@ namespace ProjectImmediateReply.Utility
             }
             string chooseitem = string.Join(",", getchooseitem); // chooseitem =>  「'100-1','100-2',...」
 
-			return chooseitem;
+            return chooseitem;
         }
 
         public string PageLeft(string PageType)
         {
-			//轉跳的網頁網址 => href = "" / Index.aspx ? PageInnerType = UpdateInfo"" >
-			if (PageType == "Manager")
+            //轉跳的網頁網址 => href = "" / Index.aspx ? PageInnerType = UpdateInfo"" >
+            if (PageType == "Manager")
             {
                 return @"<v-list two-line>
 								<v-list-item @click="""" href =""/Index.aspx?PageInnerType=UpdateInfo"" >
@@ -208,15 +208,15 @@ namespace ProjectImmediateReply.Utility
             else
                 return string.Empty;
         }
-		//then 等同於ajax的done
-		//catch 等同於ajax的fail
+        //then 等同於ajax的done
+        //catch 等同於ajax的fail
         public string PageRight(string PageInner)
         {
             if (PageInner == "GradesCrud")
             {
-				string headeritem = " {text: '專案名',align: 'start',sortable: true,value: 'ProjectName'},{text: '組長',value: 'LeaderName'},{text: '組員',value: 'MemberName'},{text: '組名',value: 'TeamName'},{text: '',value: 'btn',sortable: false}";
+                string headeritem = " {text: '專案名',align: 'start',sortable: true,value: 'ProjectName'},{text: '組長',value: 'LeaderName'},{text: '組員',value: 'MemberName'},{text: '組名',value: 'TeamName'},{text: '',value: 'btn',sortable: false}";
                 string chooseitem = GetClassNumberJS(GetClassNumber());
-				string otherdata = " classchoice: \"\",";
+                string otherdata = " classchoice: \"\",";
                 return $@"
                         <script>
                              var vm = new Vue({{
@@ -270,7 +270,7 @@ namespace ProjectImmediateReply.Utility
             }
             else if (PageInner == "CreateProject")
             {
-                string getclass =GetClassNumberJS(GetClassNumber());
+                string getclass = GetClassNumberJS(GetClassNumber());
                 return $@"
 						<script>
                             var vm = new Vue({{
@@ -296,7 +296,7 @@ namespace ProjectImmediateReply.Utility
                               }})
 						</script >";
             }
-			//沒動到後端資料庫的話，可將方法寫在PageTool.cs
+            //沒動到後端資料庫的話，可將方法寫在PageTool.cs
             else if (PageInner == "UpdateInfo")
             {
                 DBTool Dbtool = new DBTool();
@@ -310,7 +310,7 @@ namespace ProjectImmediateReply.Utility
                 {
                     userdata = checkdata[0];
                 }
-				//一格一格的值""{userdata.Name}"" 一列一列[{ chooseitem}]
+                //一格一格的值""{userdata.Name}"" 一列一列[{ chooseitem}]
                 return $@"
 						<script>
                             var vm = new Vue({{
@@ -366,10 +366,10 @@ namespace ProjectImmediateReply.Utility
 						</script > ";
             }
             else if (PageInner == "SeeGrade")
-			{// changeRoute方法名稱 修改
-				string chooseitem = GetClassNumberJS(GetClassNumber());
-				LogInfo info = (LogInfo)HttpContext.Current.Session["IsLogined"];
-				return $@"
+            {// changeRoute方法名稱 修改
+                string chooseitem = GetClassNumberJS(GetClassNumber());
+                LogInfo info = (LogInfo)HttpContext.Current.Session["IsLogined"];
+                return $@"
 						<script>
                            var vm = new Vue({{
                                      el: '#app',
@@ -379,7 +379,7 @@ namespace ProjectImmediateReply.Utility
 										valid: true,
 										chooseclass: [{chooseitem}],
 										choosegroup: [],
-										choosename: ['BBB', 'a', 'C', 'D'],
+										choosename: [],
 										rules1: [
 											value => !!value || '此輸入框不可為空白',
 										],
@@ -389,19 +389,66 @@ namespace ProjectImmediateReply.Utility
 										classchoice: """",
 										group: """",
 										name: """",
-										email:""yes123yes123yes123@yahoo.com.tw"",
-										score: ""82"",
-										boss: ""社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語社長評語"",
-										pm: ""PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語PM評語"",
+										email:"""",
+										score: """",
+										boss: """",
+										pm: """",
 										panel:[],
                                      }}),
                                      methods: {{
-										changeRoute() {{
+										changeRoutechooseclass() {{
+											vm.group="""";
+											vm.name="""";
 											axios
 												.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
-												.then(response => (vm.choosegroup = response.data[0].choosegroup))
+												.then(response => {{
+													if(response.data[0].choosegroup){{
+														vm.choosegroup=response.data[0].choosegroup.split(',');
+													}}
+													else{{
+														vm.choosegroup=[];
+													}}
+
+												}})
 												.catch(function(error) {{ 
-												alert(error);
+													alert(error);
+												}})
+										}},
+										changeRoutechoosegroup() {{
+											vm.name="""";
+											axios
+												.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
+												.then(response => {{
+													if(response.data[0].choosename){{
+														vm.choosename=response.data[0].choosename.split(',');
+													}}
+													else{{
+														vm.choosename=[];
+													}}
+												}})
+												.catch(function(error) {{ 
+													alert(error);
+												}})
+										}},
+										changeRoutechoosename() {{
+											axios
+												.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
+												.then(response => {{
+													if(response.data.Grade!=0){{
+														vm.email=response.data.Mail;
+														vm.score=response.data.Grade+""分"";
+														vm.boss=response.data.PresidentComments;
+														vm.pm=response.data.PMComments;
+													}}
+													else{{
+														vm.email=response.data.Mail;
+														vm.score=""無"";
+														vm.boss=""未評分"";
+														vm.pm=""未評分"";
+													}}
+												}})
+												.catch(function(error) {{ 
+													alert(error);
 												}});
 										}}
 									 }},

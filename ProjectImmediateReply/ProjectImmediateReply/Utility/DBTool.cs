@@ -304,29 +304,29 @@ namespace ProjectImmediateReply.Utility
                 foreach (DataRow item in dataTable.Rows)
                 {
                     var uInfo = new GradeInfo();
-                    if (dataTable.Columns["GradeID"] != null && item["GradeID"] != null)
+                    if (dataTable.Columns["GradeID"] != null && !Convert.IsDBNull(item["GradeID"]))
                         uInfo.GradeID = Convert.ToInt32(item["GradeID"]);
-                    if (dataTable.Columns["UserID"] != null && item["UserID"] != null)
+                    if (dataTable.Columns["UserID"] != null && !Convert.IsDBNull(item["UserID"]))
                         uInfo.UserID = Convert.ToInt32(item["UserID"]);
-                    if (dataTable.Columns["PresidentProjectGrade"] != null && item["PresidentProjectGrade"] != null)
+                    if (dataTable.Columns["PresidentProjectGrade"] != null && !Convert.IsDBNull(item["PresidentProjectGrade"]))
                         uInfo.PresidentProjectGrade = Convert.ToByte(item["PresidentProjectGrade"]);
-                    if (dataTable.Columns["PresidentInterviewGrade"] != null && item["TeaPresidentInterviewGrademID"] != null)
+                    if (dataTable.Columns["PresidentInterviewGrade"] != null && !Convert.IsDBNull(item["PresidentInterviewGrade"]))
                         uInfo.PresidentInterviewGrade = Convert.ToByte(item["PresidentInterviewGrade"]);
-                    if (dataTable.Columns["PresidentComments"] != null && item["PresidentComments"] != null)
+                    if (dataTable.Columns["PresidentComments"] != null && !Convert.IsDBNull(item["PresidentComments"]))
                         uInfo.PresidentComments = item["PresidentComments"].ToString();
-                    if (dataTable.Columns["PMProjectGrade"] != null && item["PMProjectGrade"] != null)
+                    if (dataTable.Columns["PMProjectGrade"] != null && !Convert.IsDBNull(item["PMProjectGrade"]))
                         uInfo.PMProjectGrade = Convert.ToByte(item["PMProjectGrade"]);
-                    if (dataTable.Columns["PMInterviewGrade"] != null && item["PMInterviewGrade"] != null)
+                    if (dataTable.Columns["PMInterviewGrade"] != null && !Convert.IsDBNull(item["PMInterviewGrade"]))
                         uInfo.PMInterviewGrade = Convert.ToByte(item["PMInterviewGrade"]);
-                    if (dataTable.Columns["PMComments"] != null && item["PMComments"] != null)
+                    if (dataTable.Columns["PMComments"] != null && !Convert.IsDBNull(item["PMComments"]))
                         uInfo.PMComments = item["PMComments"].ToString();
-                    if (dataTable.Columns["CreateDate"] != null && item["CreateDate"] != null)
+                    if (dataTable.Columns["CreateDate"] != null && !Convert.IsDBNull(item["CreateDate"]))
                         uInfo.CreateDate = Convert.ToDateTime(item["CreateDate"]);
-                    if (dataTable.Columns["WhoCreate"] != null && item["WhoCreate"] != null)
+                    if (dataTable.Columns["WhoCreate"] != null && !Convert.IsDBNull(item["WhoCreate"]))
                         uInfo.WhoCreate = item["WhoCreate"].ToString();
-                    if (dataTable.Columns["DeleteDate"] != null && item["DeleteDate"] != null)
+                    if (dataTable.Columns["DeleteDate"] != null && !Convert.IsDBNull(item["DeleteDate"]))
                         uInfo.DeleteDate = Convert.ToDateTime(item["DeleteDate"]);
-                    if (dataTable.Columns["WhoDelete"] != null && item["WhoDelete"] != null)
+                    if (dataTable.Columns["WhoDelete"] != null && !Convert.IsDBNull(item["WhoDelete"]))
                         uInfo.WhoDelete = item["WhoDelete"].ToString();
                     list.Add(uInfo);
                 }
@@ -467,28 +467,39 @@ namespace ProjectImmediateReply.Utility
                 }
             }
         }
-
-        public List<ForGradesShow> ChangeTypeForGradesShow(DataTable dataTable)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="dataTable"></param>
+        /// <returns></returns>
+        public ForSeeGrade GetForSeeGrade(DataTable dataTable)
         {
-            List<ForGradesShow> list = new List<ForGradesShow>();
+            ForSeeGrade Data = new ForSeeGrade();
             try
             {
-                foreach (DataRow item in dataTable.Rows)
-                {
-                    var uInfo = new ForGradesShow();
+                double presidentprojectgrade = 0;
+                double presidentinterviewgrade = 0;
+                double pmprojectgrade = 0;
+                double pminterviewgrade = 0;
+                if (dataTable.Columns["Mail"] != null && dataTable.Rows[0]["Mail"] != null)
+                    Data.Mail = dataTable.Rows[0]["Mail"].ToString();
+                if (!Convert.IsDBNull(dataTable.Rows[0]["PresidentProjectGrade"]))
+                    presidentprojectgrade = Convert.ToDouble(dataTable.Rows[0]["PresidentProjectGrade"]);
+                if (!Convert.IsDBNull(dataTable.Rows[0]["PresidentInterviewGrade"]))
+                    presidentinterviewgrade = Convert.ToDouble(dataTable.Rows[0]["PresidentInterviewGrade"]);
+                if (!Convert.IsDBNull(dataTable.Rows[0]["PMProjectGrade"]))
+                    pmprojectgrade = Convert.ToDouble(dataTable.Rows[0]["PMProjectGrade"]);
+                if (!Convert.IsDBNull(dataTable.Rows[0]["PMInterviewGrade"]))
+                    pminterviewgrade = Convert.ToDouble(dataTable.Rows[0]["PMInterviewGrade"]);
+                double gradecal = (((presidentprojectgrade + presidentinterviewgrade) * 0.5) * 0.7)
+                + (((pmprojectgrade + pminterviewgrade) * 0.5) * 0.3);
+                Data.Grade = (byte)gradecal;
+                if (!Convert.IsDBNull(dataTable.Rows[0]["PresidentComments"]))
+                    Data.PresidentComments = dataTable.Rows[0]["PresidentComments"].ToString();
+                if (!Convert.IsDBNull(dataTable.Rows[0]["PMComments"]))
+                    Data.PMComments = dataTable.Rows[0]["PMComments"].ToString();
 
-                    if (dataTable.Columns["ProjectName"] != null && item["ProjectName"] != null)
-                        uInfo.ProjectName =item["ProjectName"].ToString();
-                    if (dataTable.Columns["LeaderName"] != null && item["LeaderName"] != null)
-                        uInfo.LeaderName = item["LeaderName"].ToString();
-                    if (dataTable.Columns["MemberName"] != null && item["MemberName"] != null)
-                        uInfo.MemberName = item["MemberName"].ToString();
-                    if (dataTable.Columns["TeamName"] != null && item["TeamName"] != null)
-                        uInfo.TeamName = item["TeamName"].ToString();
-                    
-                    list.Add(uInfo);
-                }
-                return list;
+                return Data;
             }
             catch (Exception ex)
             {
