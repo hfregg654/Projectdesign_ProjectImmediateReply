@@ -16,7 +16,11 @@ namespace ProjectImmediateReply.API
     /// </summary>
     public class SeeGradeHandler : IHttpHandler
     {
-
+        private class Nameselect
+        {
+            public string nameval { get; set; }
+            public string nameitem { get; set; }
+        }
         public void ProcessRequest(HttpContext context)
         {
             //準備DB工具以及宣告頁面檢查,班級檢查,接到的JSON字串
@@ -27,7 +31,6 @@ namespace ProjectImmediateReply.API
             string ClassNumber = string.Empty;
             string TeamName = string.Empty;
             string Name = string.Empty;
-            string Acc = string.Empty;
             string json = string.Empty;
             //先處理接到的JSON放進字串中
             using (StreamReader reader = new StreamReader(context.Request.InputStream))
@@ -42,8 +45,6 @@ namespace ProjectImmediateReply.API
                 ClassNumber = json.Split('"')[11];
                 TeamName = json.Split('"')[15];
                 Name = json.Split('"')[19];
-                if (!string.IsNullOrWhiteSpace(Name))
-                    Acc = Name.Split('/')[0].Split(':')[1];
             }
             //若沒有接到頁面檢查的參數則直接回傳
             if (string.IsNullOrWhiteSpace(innerType))
@@ -64,7 +65,7 @@ namespace ProjectImmediateReply.API
                 {
                     string[] colname = { "Users.Mail", "Grades.PresidentProjectGrade", "Grades.PresidentInterviewGrade", "Grades.PresidentComments", "Grades.PMProjectGrade", "Grades.PMInterviewGrade", "Grades.PMComments" };
                     string[] colnamep = { "@ClassNumber", "@TeamName", "@Account" };
-                    string[] p = { ClassNumber, TeamName, Acc };
+                    string[] p = { ClassNumber, TeamName, Name };
                     string logic = @"
                                         LEFT JOIN Grades ON Users.UserID=Grades.UserID
                                         WHERE Users.ClassNumber=@ClassNumber AND Users.TeamName=@TeamName AND Users.Account=@Account
@@ -100,13 +101,25 @@ namespace ProjectImmediateReply.API
                             NameNum.Add(item["Account"].ToString(), item["Name"].ToString());
                         }
                     }
-                    List<string> GetNameItem = new List<string>();
-                    foreach (var item in NameNum)
-                        GetNameItem.Add($"帳號:{item.Key}/姓名:{item.Value}");
+                    //List<string> GetNameItem = new List<string>();
+                    //foreach (var item in NameNum)
+                    //    GetNameItem.Add($"\"val\":\"{item.Key}\",\"item\":\"{item.Value}\"");
 
-                    string NameChooseItem = string.Join(",", GetNameItem);
+                    //string NameChooseItem = string.Join(",", GetNameItem);
+
+                    List<Nameselect> GetNameItem = new List<Nameselect>();
+
+                    foreach (var item in NameNum)
+                    {
+                        Nameselect additem = new Nameselect();
+                        additem.nameval = item.Key;
+                        additem.nameitem = item.Value;
+                        GetNameItem.Add(additem);
+                    }
+                    string ShowTable = JsonConvert.SerializeObject(GetNameItem);
+
                     context.Response.ContentType = "text/json";
-                    context.Response.Write($"[{{\"choosename\":\"{NameChooseItem}\"}}]");
+                    context.Response.Write(ShowTable);
                     return;
                 }
                 else if (!string.IsNullOrWhiteSpace(ClassNumber))
