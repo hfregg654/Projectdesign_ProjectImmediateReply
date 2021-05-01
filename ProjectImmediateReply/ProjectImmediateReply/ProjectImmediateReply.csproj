@@ -99,6 +99,7 @@
     <Content Include="HTML\C.html" />
     <Content Include="HTML\C2.html" />
     <Content Include="HTML\C3.html" />
+    <Content Include="HTML\C4.html" />
     <Content Include="HTML\login.html" />
     <Content Include="HTML\vuetify-test.html" />
     <Content Include="HTML\vuetify-test1.html" />

@@ -43,7 +43,7 @@ namespace ProjectImmediateReply.API
                 C1newpasswordconfirm = splitjson[27];
                 license = splitjson[31];
             }
-            if (!(string.IsNullOrWhiteSpace(C1password) && string.IsNullOrWhiteSpace(C1newpassword) && string.IsNullOrWhiteSpace(C1newpasswordconfirm)))
+            if (!string.IsNullOrWhiteSpace(C1password) && !string.IsNullOrWhiteSpace(C1newpassword) && !string.IsNullOrWhiteSpace(C1newpasswordconfirm))
             {
                 string[] colname = { "Name" };
                 string[] colnamep = { "@License", "@PassWord" };

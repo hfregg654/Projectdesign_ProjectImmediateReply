@@ -419,8 +419,8 @@ namespace ProjectImmediateReply.Utility
 											axios
 												.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
 												.then(response => {{
-													if(response.data[0].choosename){{
-														vm.choosename=response.data[0].choosename.split(',');
+													if(response.data){{
+														vm.choosename=response.data;
 													}}
 													else{{
 														vm.choosename=[];
@@ -435,6 +435,7 @@ namespace ProjectImmediateReply.Utility
 												.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
 												.then(response => {{
 													if(response.data.Grade!=0){{
+
 														vm.email=response.data.Mail;
 														vm.score=response.data.Grade+""分"";
 														vm.boss=response.data.PresidentComments;
