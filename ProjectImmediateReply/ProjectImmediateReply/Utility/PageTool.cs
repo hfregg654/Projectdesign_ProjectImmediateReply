@@ -270,14 +270,15 @@ namespace ProjectImmediateReply.Utility
             }
 			else if (PageInner == "AssignTeam")
             {
-				return @"
+				string chooseclass = GetClassNumberJS(GetClassNumber());
+				return $@"
 						<script>
-                              new Vue({
+                              new Vue({{
                                      el: '#app',
                                      vuetify: new Vuetify(),
-                                     data: () => ({
+                                     data: () => ({{
 										drawer: null,
-										chooseclass: ['班級A', '班級B', '班級C', '班級D'],
+										chooseclass: [{chooseclass}],
 										choosegroup:['group A', 'group B', 'group C', 'group D'],
 										page: 1,
 										pageCount: 0,
@@ -285,67 +286,67 @@ namespace ProjectImmediateReply.Utility
 										dialog: false,
 										inneritem: [],
 										editedIndex: -1,
-										headers: [{
+										headers: [{{
 												text: '姓名',
 												align: 'start',
 												value: 'name',
-										},
-										{
+										}},
+										{{
 												text: '組別',
 												value: 'team'
-										},
-										{
+										}},
+										{{
 												text: '專案名',
 												value: 'project'
-										},
-										{
+										}},
+										{{
 												text: '小組名',
 												value: 'choosegroup',
 												sortable: false
-										},
+										}},
 										],
 
-									}),
-									watch: {
-										dialog(val) {
+									}}),
+									watch: {{
+										dialog(val) {{
 											val || this.close()
-										},
-									},
-									created() {
+										}},
+									}},
+									created() {{
 										this.initialize()
-									},
-									methods: {
+									}},
+									methods: {{
 									
-											randam(){
+											randam(){{
 												axios.get('/kkkk')
-												  .then(response => {alert(response.data);})
-												  .catch(error => {
+												  .then(response => {{alert(response.data);}})
+												  .catch(error => {{
 												    alert('小組亂數分配失敗');
-												  });
-											},
-											store(){
-												axios.post('', {
+												  }});
+											}},
+											store(){{
+												axios.post('', {{
 													inneritem:this.inneritem
-												  })
-												  .then(response =>{
+												  }})
+												  .then(response =>{{
 													  alert('儲存發送成功');
-												  })
-												  .catch(error => {
+												  }})
+												  .catch(error => {{
 												    alert('儲存發送失敗');
-												  });
-											},
-										initialize() {
+												  }});
+											}},
+										initialize() {{
 											this.inneritem = [
-												{
+												{{
 													name: 'Frozen Yogurt',
 													team:'',
 													project: '',
 													teamname:'',
-												},
+												}},
 											];
-										},
-									},
-								})
+										}},
+									}},
+								}})
 						</script>";
             }
 			else if (PageInner == "CreateProject")
