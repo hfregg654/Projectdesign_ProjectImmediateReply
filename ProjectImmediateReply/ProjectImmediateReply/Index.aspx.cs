@@ -50,6 +50,11 @@ namespace ProjectImmediateReply
                 ucSeeGrade.Visible = true;
                 divJS.InnerHtml = ptool.PageRight(PageInner);
             }
+            else if (PageInner == "AssignTeam")//查看成績
+            {
+                ucAssignTeam.Visible = true;
+                divJS.InnerHtml = ptool.PageRight(PageInner);
+            }
             else//普通狀態
             {
                 divinnerplace.InnerHtml = "<v-main></v-main>";
