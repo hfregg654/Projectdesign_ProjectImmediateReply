@@ -59,7 +59,7 @@ namespace ProjectImmediateReply.API
                 string[] colname = { "Name" };
                 string[] colnamep = { "@License", "@PassWord" };
                 string[] p = { license, C1password };
-                DataTable check_pwd = Dbtool.readTable("users", colname, "WHERE License=@License AND PassWord=@PassWord", colnamep, p);
+                DataTable check_pwd = Dbtool.readTable("users", colname, "WHERE License=@License AND PassWord=@PassWord AND DeleteDate IS NULL AND WhoDelete IS NULL", colnamep, p);
                 if (check_pwd.Rows.Count != 0)
                 {
                     if (C1newpassword == C1newpasswordconfirm) /*Name欄位名、@Name欄位名的參數 程式中的參數*/
@@ -95,7 +95,7 @@ namespace ProjectImmediateReply.API
                 string[] colname = { "PassWord" };
                 string[] colnamep = { "@License", "@Name" };
                 string[] p = { license, C1name };
-                DataTable check_acc = Dbtool.readTable("users", colname, "WHERE License=@License AND Name=@Name", colnamep, p);
+                DataTable check_acc = Dbtool.readTable("users", colname, "WHERE License=@License AND Name=@Name AND DeleteDate IS NULL AND WhoDelete IS NULL", colnamep, p);
                 if (check_acc.Rows.Count != 0)
                 {
                     string[] updatecol_Logic = { "Name=@Name", "Phone=@Phone", "Mail=@Mail", "LineID=@LineID" };
