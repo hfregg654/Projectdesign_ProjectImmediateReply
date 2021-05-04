@@ -15,6 +15,7 @@ namespace ProjectImmediateReply.Models
         public string FilePath { get; set; }
         public DateTime UpdateTime { get; set; }
         public DateTime SpendTime { get; set; }
+        public bool Complete { get; set; }
         public DateTime CreateDate { get; set; }
         public string WhoCreate { get; set; }
         public DateTime DeleteDate { get; set; }
