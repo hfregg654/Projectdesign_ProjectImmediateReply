@@ -50,7 +50,7 @@ namespace ProjectImmediateReply.API
                 //宣告評分頁面顯示型別的變數
                 List<ForGradesShow> ProjectAll = new List<ForGradesShow>();
                 //準備查詢語法
-                string[] colname = { "Projects.ProjectName", "Users.[Name]", "Users.TeamName", "Users.Privilege", "Users.TeamID" };
+                string[] colname = { "Projects.ProjectID","Projects.ProjectName", "Users.[Name]", "Users.TeamName", "Users.Privilege", "Users.TeamID" };
                 string[] colnamep = { "@ClassNumber" };
                 string[] p = { ClassNumber };
                 string logic = @"

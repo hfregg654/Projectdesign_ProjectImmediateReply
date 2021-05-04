@@ -226,9 +226,38 @@ namespace ProjectImmediateReply.Utility
 										drawer: null,
 									    chooseitem: [{chooseitem}],
 										headers: [{headeritem}],
+										page: 1,
+										pageCount: 0,
+										itemsPerPage: 10,
 										inneritem: [],
 										{otherdata}
+										headers: [{{
+											text: '專案',
+											align: 'start',
+											value: 'ProjectName',
+										}},
+										{{
+											text: '組長',
+											value: 'LeaderName'
+										}},
+										{{
+											text: '組員',
+											value: 'MemberName'
+										}},
+										{{
+											text: '組名',
+											value: 'TeamName',
+										}},
+										{{
+											text: '',
+											value: 'ProjectID',
+											sortable: false
+										}},
+									 ],
 									 }}),
+									 created() {{
+									 	this.initialize()
+									 }},
 									 methods: {{
 										changeRoute() {{
 											axios
@@ -237,7 +266,13 @@ namespace ProjectImmediateReply.Utility
 												.catch(function(error) {{ 
 												alert(error);
 												}});
-										}}
+										}},
+										onButtonClick(item) {{
+											alert('按下了第' + item.ProjectID + '個')
+										}},
+										initialize() {{
+											this.inneritem = [];
+										}},
 									 }},
 							 }})
 						 </script>";

@@ -1,262 +1,400 @@
 ﻿<!DOCTYPE html>
 <html>
-<head>
-    <!-- meta引入 -->
-    <meta name="viewport"
-          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
-    <meta charset="UTF-8">
-    <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <meta http-equiv="content-language" content="zh-tw">
-    <meta name="viewport"
-          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
-    <!-- ---------- -->
-    <link rel="stylesheet" type="text/css"
-          href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" />
-    <link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.3.10/dist/vuetify.min.css" rel="stylesheet">
-    <!-- 導入中文字體 -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap" rel="stylesheet">
-    <!-- 導入英文字體 -->
-    <link rel="preconnect" href="https://fonts.gstatic.com">
-    <link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@700&display=swap" rel="stylesheet">
-</head>
-<body>
-    <div id="app">
-        <v-app id="inspire">
-            <v-app id="keep">
-                <v-app-bar app clipped-left color="black">
-                    <v-app-bar-nav-icon @click="drawer = !drawer" color="white"></v-app-bar-nav-icon>
-                    <v-spacer></v-spacer>
-                    <span class="title mr-5">
-                        <font color="#0069CE" class="ubay">u</font>
-                        <font color="#00A65A" class="ubay">B</font>
-                        <font color="#EEC803" class="ubay">A</font>
-                        <font color="#EC475A" class="ubay">Y</font>
-                    </span>
-                    <v-spacer></v-spacer>
-                </v-app-bar>
-                <!-- 導航欄開始 -->
-                <v-navigation-drawer v-model="drawer" app clipped color="grey lighten-4">
-                    <v-card max-width="375" class="mx-auto" height="100%">
-                        <v-img src="https://www.morganstanley.com/pub/content/dam/msdotcom/ideas/rise-of-the-tech-super-platforms/tw-rise-of-tech.jpg"
-                               height="250px" dark>
-                            <v-row class="fill-height">
-                                <v-card-title>
-                                    <!-- <v-btn dark icon>
-                                      <v-icon>mdi-chevron-left</v-icon>
-                                    </v-btn> -->
+	<head>
+		<!-- meta引入 -->
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+		<meta charset="UTF-8">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta http-equiv="content-language" content="zh-tw">
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- ---------- -->
+		<link rel="stylesheet" type="text/css"
+			href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" />
+		<link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/npm/vuetify@2.3.10/dist/vuetify.min.css" rel="stylesheet">
+		<!-- 導入中文字體 -->
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap" rel="stylesheet">
+		<!-- 導入英文字體 -->
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@700&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<div id="app">
+			<v-app id="inspire">
+				<v-app id="keep">
+					<v-app-bar app clipped-left color="black">
+						<v-app-bar-nav-icon @click="drawer = !drawer" color="white"></v-app-bar-nav-icon>
+						<v-spacer></v-spacer>
+						<span class="title mr-5">
+							<font color="#0069CE" class="ubay">u</font>
+							<font color="#00A65A" class="ubay">B</font>
+							<font color="#EEC803" class="ubay">A</font>
+							<font color="#EC475A" class="ubay">Y</font>
+						</span>
+						<v-spacer></v-spacer>
+					</v-app-bar>
+					<!-- 導航欄開始 -->
+					<v-navigation-drawer v-model="drawer" app clipped color="grey lighten-4">
+						<v-card max-width="375" class="mx-auto" height="100%">
+							<v-img
+								src="https://www.morganstanley.com/pub/content/dam/msdotcom/ideas/rise-of-the-tech-super-platforms/tw-rise-of-tech.jpg"
+								height="250px" dark>
+								<v-row class="fill-height">
+									<v-card-title>
+										<!-- <v-btn dark icon>
+						            <v-icon>mdi-chevron-left</v-icon>
+						          </v-btn> -->
 
-                                    <v-spacer></v-spacer>
+										<v-spacer></v-spacer>
 
-                                </v-card-title>
+									</v-card-title>
 
-                                <v-spacer></v-spacer>
+									<v-spacer></v-spacer>
 
-                                <v-card-content class="white--text mb-3 pr-8 mt-7">
-                                    <v-list-item-avatar size="90" class="ml-6">
-                                        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV-9p7LkFhpIsdRTn3uij6E50Nn-4SQZO3sA&usqp=CAU">
-                                    </v-list-item-avatar>
-                                    <v-list-item class="mr-7 mt-5">
-                                        <div class="h1 navfont pr-4">歡迎您</div><br>
-                                        <div class="h1 navfont pr-4">XXXX</div>
-                                    </v-list-item>
-                                </v-card-content>
-                            </v-row>
-                        </v-img>
+									<v-card-content class="white--text mb-3 pr-8 mt-7">
+										<v-list-item-avatar size="90" class="ml-6">
+											<img
+												src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV-9p7LkFhpIsdRTn3uij6E50Nn-4SQZO3sA&usqp=CAU">
+										</v-list-item-avatar>
+										<v-list-item class="mr-7 mt-5">
+											<div class="h1 navfont pr-4">歡迎您</div><br>
+											<div class="h1 navfont pr-4">XXXX</div>
+										</v-list-item>
+									</v-card-content>
+								</v-row>
+							</v-img>
 
-                        <v-list two-line>
-                            <v-list-item @click="" href="#1">
-                                <v-list-item-icon>
-                                    <v-icon color="primary">face</v-icon>
-                                </v-list-item-icon>
+							<v-list two-line>
+								<v-list-item @click="" href="#1">
+									<v-list-item-icon>
+										<v-icon color="primary">face</v-icon>
+									</v-list-item-icon>
 
-                                <v-list-item-content>
-                                    <v-list-item-title class="chinese h4 primary--text">個人資料維護</v-list-item-title>
-                                    <v-list-item-subtitle>Mobile</v-list-item-subtitle>
-                                </v-list-item-content>
+									<v-list-item-content>
+										<v-list-item-title class="chinese h4 primary--text">個人資料維護</v-list-item-title>
+										<v-list-item-subtitle>Mobile</v-list-item-subtitle>
+									</v-list-item-content>
 
-                            </v-list-item>
-
-
-                            <v-divider inset></v-divider>
-
-                            <v-list-item @click="" href="#2">
-                                <v-list-item-icon>
-                                    <v-icon color="primary">thumbs_up_down</v-icon>
-                                </v-list-item-icon>
-
-                                <v-list-item-content>
-                                    <v-list-item-title class="chinese h4 primary--text">專案評分</v-list-item-title>
-                                    <v-list-item-subtitle>Personal</v-list-item-subtitle>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-list-item @click="" href="#3">
-                                <v-list-item-icon>
-                                    <v-icon color="primary">receipt</v-icon>
-                                </v-list-item-icon>
-
-                                <v-list-item-content>
-                                    <v-list-item-title class="chinese h4 primary--text">成績</v-list-item-title>
-                                    <v-list-item-subtitle>Work</v-list-item-subtitle>
-                                </v-list-item-content>
-                            </v-list-item>
-
-                            <v-divider inset></v-divider>
-
-                        </v-list>
-                    </v-card>
-                </v-navigation-drawer>
-                <!-- 導航欄結束 -->
-                <v-main class="grey lighten-4" id="main">
-                    <v-row>
-                        <v-col>
-                        </v-col>
-                        <v-col sm="6" xs="12">
-                            <v-select :items="chooseclass" label="選擇班級" solo outlined></v-select>
-                        </v-col>
-                        <v-col>
-                        </v-col>
-                    </v-row>
-                    <v-row>
-                        <v-spacer></v-spacer>
-                        <div class="chinese mb-5 mr-15">專案</div>
-                        <v-spacer></v-spacer>
-                    </v-row>
-                    <v-flex md12 class="grey lighten-4 fill-height justify-center ">
-                        <v-data-table :headers="headers" :items="desserts" :sort-by="['projectname']"
-                                      :sort-desc="[false, true]" multi-sort class="elevation-1" height="550">
-                            <!-- 增加查看事件開始-->
-                            <template v-slot:item.btn="{item}">
-                                <v-icon small @click="">person_search</v-icon>
-                            </template>
-                            <!-- 增加查看事件結束 -->
-                        </v-data-table>
-
-                    </v-flex>
-                </v-main>
-                <!-- footer -->
-                <v-footer dark padless fixed>
-                    <v-card class="flex" flat tile>
-
-                        <v-card-text class="py-2 white--text text-center">
-                            <p class="flow-text grey-text center footer-ubay">
-                                Copyright&copy;2021,
-                                <font color="#0069CE">u</font>
-                                <font color="#00A65A">B</font>
-                                <font color="#EEC803">A</font>
-                                <font color="#EC475A">Y</font> All Rights Reserved
-                            </p>
-                        </v-card-text>
-                    </v-card>
-                </v-footer>
-            </v-app>
-        </v-app>
-    </div>
-    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/babel-polyfill/dist/polyfill.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.3.10/dist/vuetify.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
-    <script>
-        new Vue({
-            el: '#app',
-            vuetify: new Vuetify(),
-            data: () => ({
-                drawer: null,
-                // 班級選擇開始
-                chooseclass: ['班級A', '班級B', '班級C', '班級D'],
-                // 班級選擇結束
-                // datatable開始
-                headers: [{
-                    text: '專案名稱',
-                    align: 'start',
-                    sortable: true,
-                    value: 'projectname',
-                },
-                {
-                    text: '組長',
-                    value: 'teamleader'
-                },
-                {
-                    text: '組員',
-                    value: 'teammember'
-                },
-                {
-                    text: '組名',
-                    value: 'teamname'
-                },
-                {
-                    text: '',
-                    value: 'btn',
-                    sortable: false
-                },
-                ],
-                desserts: [{
-                    projectname: '',
-                    teamleader: '',
-                    teammember: '',
-                    teamname: '',
-                }],
-                // datatable結束
-            }),
-            // 撈資料method
-            mounted() {
-                axios
-                    // 接json資料丟到desserts對象裡面解析
-                    .get('')
-                    .then(response => (this.desserts = response))
-                    .catch(function (error) {
-                        console(error);
-                    });
-            }
-        })
-    </script>
-    <style type="text/css">
-        #keep .v-navigation-drawer__border {
-            display: none
-        }
-
-        .ubay {
-            font-family: 'Lemonada', cursive;
-            font-weight: 900;
-            font-size: 3.125rem;
-            padding-left: 0.9375rem;
-            margin-left: -0.3125rem;
-        }
-
-        .navfont {
-            font-family: 'ZCOOL KuaiLe', cursive;
-            font-weight: bold;
-        }
-
-        .footer-ubay {
-            font-family: 'Lemonada', cursive !important;
-        }
-
-        .top {
-            background: rgba(0, 0, 0, .6) !important;
-        }
-
-        .chinese {
-            font-family: 'Noto Sans TC', sans-serif;
-            padding-right: 2.375rem;
-        }
+								</v-list-item>
 
 
-        @media (max-width:600px), print {
-            .ubay {
-                font-size: 2.125rem;
-                padding: 0.125rem
-            }
+								<v-divider inset></v-divider>
+								<!-- 專案選單開始 -->
+								<v-list-item @click="" href="#2">
+									<v-list-item-icon>
+										<v-icon color="primary">assignment_ind</v-icon>
+									</v-list-item-icon>
 
-            .footer-ubay {
-                font-family: 'Anton', sans-serif;
-                font-family: 'Shadows Into Light', cursive;
-                font-size: 1rem;
-            }
-        }
-    </style>
-</body>
+									<v-list-item-content>
+										<v-list-item-title class="chinese h4 primary--text">建立班級及修改</v-list-item-title>
+										<v-list-item-subtitle>Personal</v-list-item-subtitle>
+									</v-list-item-content>
+								</v-list-item>
+
+								<v-list-item @click="" href="#2">
+									<v-list-item-icon>
+										<v-icon color="primary">assignment_turned_in</v-icon>
+									</v-list-item-icon>
+
+									<v-list-item-content>
+										<v-list-item-title class="chinese h4 primary--text">建立專案及修改</v-list-item-title>
+										<v-list-item-subtitle>Personal</v-list-item-subtitle>
+									</v-list-item-content>
+								</v-list-item>
+
+								<v-list-item @click="" href="#2">
+									<v-list-item-icon>
+										<v-icon color="primary">today</v-icon>
+									</v-list-item-icon>
+
+									<v-list-item-content>
+										<v-list-item-title class="chinese h4 primary--text">小組分配及修改</v-list-item-title>
+										<v-list-item-subtitle>Personal</v-list-item-subtitle>
+									</v-list-item-content>
+								</v-list-item>
+								<!-- 專案選單結束 -->
+								<v-list-item @click="" href="#3">
+									<v-list-item-icon>
+										<v-icon color="primary">receipt</v-icon>
+									</v-list-item-icon>
+
+									<v-list-item-content>
+										<v-list-item-title class="chinese h4 primary--text">成績</v-list-item-title>
+										<v-list-item-subtitle>Work</v-list-item-subtitle>
+									</v-list-item-content>
+								</v-list-item>
+
+								<v-divider inset></v-divider>
+
+							</v-list>
+						</v-card>
+					</v-navigation-drawer>
+					<!-- 導航欄結束 -->
+					<v-main>
+						<v-row>
+							<v-col>
+							</v-col>
+							<v-col sm="6" xs="12">
+								<v-select :items="chooseclass" label="選擇班級" solo outlined></v-select>
+							</v-col>
+							<v-col>
+							</v-col>
+						</v-row>
+						<!-- 下面是table標題和table -->
+						<template>
+							<v-data-table @page-count="pageCount = $event" :page.sync="page"
+								:items-per-page="itemsPerPage" hide-default-footer :headers="headers" :items="inneritem" 
+								sort-by="calories" class="elevation-1">
+								<!-- v-slot 開始							 -->
+								<template v-slot:top>
+									<v-toolbar flat color="white">
+										<v-spacer></v-spacer>
+										專案
+										<v-spacer></v-spacer>
+									</v-toolbar>
+								</template>
+								<!-- ----->
+								<!-- ROW是TABLE裡面一橫排內容的意思 封裝好的 -->
+								<template v-slot:item="row">
+								    <tr>
+								      <td>{{row.item.專案}}</td>
+								      <td>{{row.item.組長}}</td>
+									  <td>{{row.item.組員}}</td>
+									  <td>{{row.item.組名}}</td>
+								      <td>
+										  <!-- click後面給他唯一值去抓 --> <!-- 每個都是唯一的 -->
+								          <v-btn class="mx-2" text dark small color="green" @click="onButtonClick(row.item)">
+											  查看
+								          </v-btn>
+								      </td>
+								    </tr>
+								</template>
+								<!-- v-slot 結束							 -->
+								<!-- 小組名插槽1 -->
+								<!-- <template v-slot:item.查看="{ item }">
+									<p>1</p>
+								</template> -->
+								
+								
+							</v-data-table>
+
+							<v-pagination v-model="page" :length="pageCount"></v-pagination>
+								<v-row>
+									<v-spacer></v-spacer>
+							<v-btn color="primary" dark class="mb-2 mr-10"　@click="store">
+								儲存</v-btn>
+								</v-row>
+						</template>
+
+					</v-main>
+					<!-- footer -->
+					<v-footer dark padless>
+						<v-card class="flex" flat tile>
+
+							<v-card-text class="py-2 white--text text-center">
+								<p class="flow-text grey-text center footer-ubay h6">Copyright&copy;2021,
+									<font color="#0069CE">u
+									</font>
+									<font color="#00A65A">B</font>
+									<font color="#EEC803">A</font>
+									<font color="#EC475A">Y</font> All Rights Reserved
+								</p>
+							</v-card-text>
+						</v-card>
+					</v-footer>
+				</v-app>
+			</v-app>
+		</div>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/babel-polyfill/dist/polyfill.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vuetify@2.3.10/dist/vuetify.min.js"></script>
+		<!-- 導入AXIOS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+		<script>
+			// 下面ＴＡＢＬＥ的作法是,頁面加載時獲取一次,按下小組亂數分配刷新獲取一次,儲存時ＰＯＳＴ回去小組亂數結果
+			// 組別和專案名一開始先給空值 不會顯示 （inneritem.project  inneritem.teamname）
+			new Vue({
+				el: '#app',
+				vuetify: new Vuetify(),
+				data: () => ({
+					drawer: null,
+// -----
+// 上方班級選擇開始
+					chooseclass: ['班級A', '班級B', '班級C', '班級D'],
+// 表格內小組選擇開始
+					choosegroup:['group A', 'group B', 'group C', 'group D'],
+					// 查看變數測試
+// 變數開始
+// 管理分頁變數開始
+					page: 1,
+					pageCount: 0,
+					itemsPerPage: 10,
+// 管理分頁變數結束
+// 彈跳視窗開始
+					dialog: false,
+// 彈跳視窗結束					
+// jsony資料格式 					
+							// [{
+							// 	name: 'Frozen Yogurt',
+							// 	calories: 159,
+							// 	fat: 6.0,
+							// 	carbs: 24,
+							// 	protein: 4.0,
+							// },
+							// {
+							// 	name: 'Ice cream sandwich',
+							// 	calories: 237,
+							// 	fat: 9.0,
+							// 	carbs: 37,
+							// 	protein: 4.3,
+							// }]
+					inneritem: [],
+// json資料結束
+
+// 變數結束
+					headers: [{
+							text: '專案',
+							align: 'start',
+							value: '專案',
+						},
+						{
+							text: '組長',
+							value: '組長'
+						},
+						{
+							text: '組員',
+							value: '組員'
+						},
+						{
+							text: '組名',
+							value: '組名',
+						},
+						{
+							text: '',
+							value: '查看',
+							sortable: false
+						},
+					],
+
+				}),
+
+				watch: {
+					dialog(val) {
+						val || this.close()
+					},
+				},
+
+				created() {
+					this.initialize()
+				},
+
+				methods: {
+					
+// 儲存按鍵	按下後把整個inneritem傳過去					
+						store(){
+							axios.post('', {
+								inneritem:this.inneritem
+							  })
+							  .then(response =>{
+								  alert('儲存發送成功');
+							  })
+							  .catch(error => {
+							    alert('儲存發送失敗');
+							  });
+						},
+						// 查看按鍵邏輯
+						onButtonClick(item) {
+							alert('按下了第' + item.id + '個')
+						},
+					// 初始化資料
+					// 二擇一 initialize上面靜態 下面動態get取得資料
+					initialize() {
+						// 組別專案名一開始給空的 之後去接值
+						this.inneritem = [
+							{
+								id:"1",
+								專案: '專案管理',
+								組長:'陳彥瑋',
+								組員: '學武 學武 學武 學武 學武 學武 學武',
+								組名:'專案管理組',
+							},
+							{
+								id:"2",
+								專案: '無人機',
+								組長:'陳彥瑋',
+								組員: '學武',
+								組名:'專案管理組',
+							},
+							{
+								id:"3",
+								專案: '進出貨',
+								組長:'陳彥瑋',
+								組員: '學武',
+								組名:'專案管理組',
+							},
+							
+						];
+					},
+					// initialize(){
+					// axios.get('')
+					//   .then(response => {this.inneritem = response.data;})
+					//   .catch(error => {
+					//     console.log(error);
+					//   });	
+					// },
+				},
+
+			})
+		</script>
+		<style type="text/css">
+			#keep .v-navigation-drawer__border {
+				display: none
+			}
+
+			.ubay {
+				font-family: 'Lemonada', cursive;
+				font-weight: 900;
+				font-size: 3.125rem;
+				padding-left: 0.9375rem;
+				margin-left: -0.3125rem;
+			}
+
+			.navfont {
+				font-family: 'ZCOOL KuaiLe', cursive;
+				font-weight: bold;
+			}
+
+			.footer-ubay {
+				font-family: 'Lemonada', cursive !important;
+			}
+
+			.top {
+				background: rgba(0, 0, 0, .6) !important;
+			}
+
+			.chinese {
+				font-family: 'Noto Sans TC', sans-serif;
+				padding-right: 2.375rem;
+			}
+
+
+			@media (max-width:600px),
+			print {
+				.ubay {
+					font-size: 2.125rem;
+					padding: 0.125rem
+				}
+
+				.footer-ubay {
+					font-family: 'Anton', sans-serif;
+					font-family: 'Shadows Into Light', cursive;
+					font-size: 1rem;
+				}
+			}
+		</style>
+	</body>
 </html>
