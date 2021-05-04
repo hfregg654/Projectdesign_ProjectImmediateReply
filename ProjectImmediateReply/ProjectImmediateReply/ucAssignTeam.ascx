@@ -4,7 +4,7 @@
 							<v-col>
 							</v-col>
 							<v-col sm="6" xs="12">
-								<v-select :items="chooseclass" label="選擇班級" solo outlined></v-select>
+								<v-select :items="chooseclass"　@change="changeRoute" label="選擇班級" solo outlined></v-select>
 							</v-col>
 							<v-col>
 							</v-col>
