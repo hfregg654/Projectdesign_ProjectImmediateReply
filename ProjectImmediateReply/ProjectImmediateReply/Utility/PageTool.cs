@@ -310,8 +310,9 @@ namespace ProjectImmediateReply.Utility
                 {
                     userdata = checkdata[0];
                 }
-                //一格一格的值""{userdata.Name}"" 一列一列[{ chooseitem}]
-                return $@"
+				//一格一格的值""{userdata.Name}"" 一列一列[{ chooseitem}]
+				//console.log(response); 顯示傳回來的值 確認到哪一個判斷狀態 於網頁上 F12  
+				return $@"
 						<script>
                             var vm = new Vue({{
                                      el: '#app',
@@ -346,12 +347,17 @@ namespace ProjectImmediateReply.Utility
 												}})
 												.then(response => {{
 													if(response.data[0].success== ""success""){{
-														console.log(response);
+														console.log(response); 
 														alert(""更新完成"");
 													}}
+													else if(response.data[0].success== ""pwdwrong""){{
+														alert(""原密碼輸入錯誤"");
+													}}
+													else if(response.data[0].success== ""pwdmiss""){{
+														alert(""請將密碼欄位填寫完整"");
+													}}
 													else{{
-														console.log(response);
-														alert(""更新失敗,請檢查輸入資訊"");
+														alert(""更新失敗,請檢查新密碼輸入欄位"");
 													}}
 												}})
 												.catch (error => {{

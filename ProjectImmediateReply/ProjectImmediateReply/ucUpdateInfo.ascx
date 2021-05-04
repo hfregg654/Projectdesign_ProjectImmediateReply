@@ -7,7 +7,7 @@
 								<v-card-text>
 									<v-text-field :rules="[v => !!v || '此輸入框不可為空白']" label="姓名" type="text"
 										v-model="C1name" required></v-text-field>
-
+<%--				vue的判斷式 前端	V=輸入框當下值 v=> object(型態) (!!v 等於 ifv = null) ||就輸出後面的值 --%> 
 									<v-text-field :rules="[v => !!v || '此輸入框不可為空白',v => /^\d+$/.test(v)||'請輸入純數字',
 									v => (v && v.length === 10) || '請輸入十位數字',]" class="mt-6" label="電話號碼"
 										type="text" v-model="C1phone" required></v-text-field>

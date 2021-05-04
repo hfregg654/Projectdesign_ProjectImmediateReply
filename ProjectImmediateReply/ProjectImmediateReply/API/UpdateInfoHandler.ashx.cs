@@ -27,6 +27,7 @@ namespace ProjectImmediateReply.API
             string license = string.Empty;
             string json = string.Empty;
             //先處理接到的JSON放進字串中
+            //從 PageTool  axios.post('API/UpdateInfoHandler.ashx' POST過來 放入json
             using (StreamReader reader = new StreamReader(context.Request.InputStream))
             {
                 json = reader.ReadToEnd();
@@ -43,6 +44,7 @@ namespace ProjectImmediateReply.API
                 C1newpasswordconfirm = splitjson[27];
                 license = splitjson[31];
             }
+            // 密碼皆不為空 只是要更改個人資料
             if (!string.IsNullOrWhiteSpace(C1password) && !string.IsNullOrWhiteSpace(C1newpassword) && !string.IsNullOrWhiteSpace(C1newpasswordconfirm))
             {
                 string[] colname = { "Name" };
@@ -51,11 +53,11 @@ namespace ProjectImmediateReply.API
                 DataTable check_pwd = Dbtool.readTable("users", colname, "WHERE License=@License AND PassWord=@PassWord", colnamep, p);
                 if (check_pwd.Rows.Count != 0)
                 {
-                    if (C1newpassword== C1newpasswordconfirm)
+                    if (C1newpassword == C1newpasswordconfirm) /*Name欄位名、@Name欄位名的參數 程式中的參數*/
                     {
-                        string[] updatecol_Logic = { "Name=@Name", "Phone=@Phone", "Mail=@Mail", "LineID=@LineID", "PassWord=@NEWPassWord", };
+                        string[] updatecol_Logic = { "Name=@Name", "Phone=@Phone", "Mail=@Mail", "LineID=@LineID", "PassWord=@NEWPassWord", }; /*  要更新的欄位*/
                         string Where_Logic = "License=@License AND PassWord=@PassWord";
-                        string[] updatecolname_P = { "@Name", "@Phone", "@Mail", "@LineID", "@NEWPassWord", "@License", "@PassWord" };
+                        string[] updatecolname_P = { "@Name", "@Phone", "@Mail", "@LineID", "@NEWPassWord", "@License", "@PassWord" }; /*要帶入的參數格子*/
                         List<string> update_P = new List<string>();
                         update_P.Add(C1name);
                         update_P.Add(C1phone);
@@ -76,16 +78,16 @@ namespace ProjectImmediateReply.API
                 else
                 {
                     context.Response.ContentType = "text/json";
-                    context.Response.Write("[{\"success\":\"wrong\"}]");
+                    context.Response.Write("[{\"success\":\"pwdwrong\"}]");
                 }
             }
-            else
+            else if (string.IsNullOrWhiteSpace(C1password) && string.IsNullOrWhiteSpace(C1newpassword) && string.IsNullOrWhiteSpace(C1newpasswordconfirm))
             {
                 string[] colname = { "PassWord" };
                 string[] colnamep = { "@License", "@Name" };
                 string[] p = { license, C1name };
                 DataTable check_acc = Dbtool.readTable("users", colname, "WHERE License=@License AND Name=@Name", colnamep, p);
-                if (check_acc.Rows.Count!=0)
+                if (check_acc.Rows.Count != 0)
                 {
                     string[] updatecol_Logic = { "Name=@Name", "Phone=@Phone", "Mail=@Mail", "LineID=@LineID" };
                     string Where_Logic = "License=@License AND PassWord=@PassWord";
@@ -101,6 +103,11 @@ namespace ProjectImmediateReply.API
                     context.Response.ContentType = "text/json";
                     context.Response.Write("[{\"success\":\"success\"}]");
                 }
+            }
+            else
+            {
+                context.Response.ContentType = "text/json";
+                context.Response.Write("[{\"success\":\"pwdmiss"}]");
             }
         }
 
