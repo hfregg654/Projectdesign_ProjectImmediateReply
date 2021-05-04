@@ -42,15 +42,15 @@ namespace ProjectImmediateReply.API
                     string[] Pname = { "@Account" };
                     string[] P = { Account };
                     //DataTable Check = Create.readTable("Users", readcolname, "WHERE Account=@Account", Pname, P) //如上面寫一個字串，只會找一格，已經在核對帳號找出有的那一格，P表網頁輸出欄位，以帳號為條件搜尋，如為空則傳空。
-                    Check_Acc = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname, "WHERE Account=@Account AND Privilege!='Visitor'", Pname, P));
+                    Check_Acc = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname, "WHERE Account=@Account AND Privilege!='Visitor' AND DeleteDate IS NULL AND WhoDelete IS NULL", Pname, P));
                     string[] readcolname2 = { "ClassNumber", "License" };
                     string[] Pname2 = { "@ClassNumber", "@License" };
                     string[] P2 = { ClassNumber, License };
-                    Check_Lic = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname2, "WHERE License=@License AND ClassNumber=@ClassNumber", Pname2, P2));
+                    Check_Lic = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname2, "WHERE License=@License AND ClassNumber=@ClassNumber AND DeleteDate IS NULL AND WhoDelete IS NULL", Pname2, P2));
                     string[] readcolname3 = { "Account", "License", "Privilege" };
                     string[] Pname3 = { "@Account", "@License" };
                     string[] P3 = { Account, License };
-                    Check_Acc_Lic = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname3, "WHERE License=@License AND Account=@Account AND Privilege!='Visitor'", Pname3, P3));
+                    Check_Acc_Lic = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname3, "WHERE License=@License AND Account=@Account AND Privilege!='Visitor' AND DeleteDate IS NULL AND WhoDelete IS NULL", Pname3, P3));
                    if (Check_Lic.Count == 0)
                     {
                         context.Response.ContentType = "text/json";

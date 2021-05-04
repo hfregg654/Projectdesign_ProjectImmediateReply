@@ -75,7 +75,7 @@ namespace ProjectImmediateReply.API
                 string[] colcheckname = { "ClassNumber" };
                 string[] colchecknamep = { "@ClassNumber" };
                 string[] checkp = { ClassNumber };
-                DataTable checkdata = Dbtool.readTable("Users", colcheckname, "WHERE ClassNumber=@ClassNumber", colchecknamep, checkp);
+                DataTable checkdata = Dbtool.readTable("Users", colcheckname, "WHERE ClassNumber=@ClassNumber AND DeleteDate IS NULL AND WhoDelete IS NULL", colchecknamep, checkp);
                 if (checkdata.Rows.Count == License.Count)
                 {
                     MailTool mtool = new MailTool();

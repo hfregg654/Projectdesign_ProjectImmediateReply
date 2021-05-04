@@ -1,5 +1,5 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ucCrud.ascx.cs" Inherits="ProjectImmediateReply.ucCRUD" %>
-<v-main class="grey lighten-4" id="main">
+<v-main>
     <v-row>
 	    <v-col>
 	    </v-col>
@@ -43,6 +43,10 @@
 							</v-data-table>
 
 							<v-pagination v-model="page" :length="pageCount"></v-pagination>
-								
+								<v-row>
+									<v-spacer></v-spacer>
+							<v-btn color="primary" dark class="mb-2 mr-10"　@click="store">
+								儲存</v-btn>
+								</v-row>
 						</template>
 </v-main>

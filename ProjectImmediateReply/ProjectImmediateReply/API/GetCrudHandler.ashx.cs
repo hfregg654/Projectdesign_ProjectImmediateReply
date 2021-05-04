@@ -55,7 +55,7 @@ namespace ProjectImmediateReply.API
                 string[] p = { ClassNumber };
                 string logic = @"
                                 INNER JOIN Users ON Projects.ProjectID=Users.ProjectID
-                                WHERE Users.ClassNumber=@ClassNumber
+                                WHERE Users.ClassNumber=@ClassNumber AND Projects.DeleteDate IS NULL AND Users.WhoDelete IS NULL
                                 ORDER BY Users.TeamID
                                 ";
                 DataTable data = Dbtool.readTable("Projects", colname, logic, colnamep, p);//查班級的所有人
@@ -114,7 +114,7 @@ namespace ProjectImmediateReply.API
                 string[] colname = { "ClassNumber", "License", "Name" };
                 string[] colnamep = { "@ClassNumber" };
                 string[] p = { ClassNumber };
-                List<UserInfo> data = Dbtool.ChangeTypeUserInfo(Dbtool.readTable("Users", colname, "WHERE ClassNumber=@ClassNumber", colnamep, p));
+                List<UserInfo> data = Dbtool.ChangeTypeUserInfo(Dbtool.readTable("Users", colname, "WHERE ClassNumber=@ClassNumber AND DeleteDate IS NULL AND WhoDelete IS NULL", colnamep, p));
 
                 ShowTable = JsonConvert.SerializeObject(data);
             }
