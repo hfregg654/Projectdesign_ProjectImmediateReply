@@ -466,13 +466,20 @@ namespace ProjectImmediateReply.Utility
 														console.log(response); 
 														alert(""更新完成"");
 													}}
+													else if(response.data[0].success== ""Empty""){{
+														console.log(response); 
+														alert(""原資料不可輸入空白"");
+													}}
 													else if(response.data[0].success== ""pwdwrong""){{
+														console.log(response); 
 														alert(""原密碼輸入錯誤"");
 													}}
 													else if(response.data[0].success== ""pwdmiss""){{
+														console.log(response); 
 														alert(""請將密碼欄位填寫完整"");
 													}}
 													else{{
+														console.log(response); 
 														alert(""更新失敗,請檢查新密碼輸入欄位"");
 													}}
 												}})

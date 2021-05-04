@@ -44,6 +44,15 @@ namespace ProjectImmediateReply.API
                 C1newpasswordconfirm = splitjson[27];
                 license = splitjson[31];
             }
+            if (string.IsNullOrWhiteSpace(C1name) || string.IsNullOrWhiteSpace(C1phone) || string.IsNullOrWhiteSpace(C1email) || string.IsNullOrWhiteSpace(C1lineid))
+            {
+                context.Response.ContentType = "text/json";
+                context.Response.Write("[{\"success\":\"Empty\"}]");
+                return;
+            }
+
+
+
             // 密碼皆不為空 只是要更改個人資料
             if (!string.IsNullOrWhiteSpace(C1password) && !string.IsNullOrWhiteSpace(C1newpassword) && !string.IsNullOrWhiteSpace(C1newpasswordconfirm))
             {
@@ -107,7 +116,7 @@ namespace ProjectImmediateReply.API
             else
             {
                 context.Response.ContentType = "text/json";
-                context.Response.Write("[{\"success\":\"pwdmiss"}]");
+                context.Response.Write("[{\"success\":\"pwdmiss\"}]");
             }
         }
 
