@@ -20,7 +20,8 @@ namespace ProjectImmediateReply.Utility
         {
             if (!ProjectTeam.ContainsKey(key))  //檢查Key值存不存在,不存在則創建新的
                 ProjectTeam.Add(key, new ForGradesShow());
-            ProjectTeam[key].ProjectName = item["ProjectName"].ToString(); //存在則直接將資料放進該Key的值中
+            ProjectTeam[key].ProjectID = Convert.ToInt32(item["ProjectID"]); //存在則直接將資料放進該Key的值中
+            ProjectTeam[key].ProjectName = item["ProjectName"].ToString(); 
             ProjectTeam[key].LeaderName = item["Name"].ToString();
             ProjectTeam[key].TeamName = item["TeamName"].ToString();
 

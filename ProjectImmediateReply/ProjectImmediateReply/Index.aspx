@@ -5,6 +5,8 @@
 <%@ Register Src="~/ucUpdateInfo.ascx" TagPrefix="uc1" TagName="ucUpdateInfo" %>
 <%@ Register Src="~/ucCreateProject.ascx" TagPrefix="uc1" TagName="ucCreateProject" %>
 <%@ Register Src="~/ucSeeGrade.ascx" TagPrefix="uc1" TagName="ucSeeGrade" %>
+<%@ Register Src="~/ucAssignTeam.ascx" TagPrefix="uc1" TagName="ucAssignTeam" %>
+
 
 
 
@@ -22,6 +24,7 @@
         <uc1:ucUpdateInfo runat="server" ID="ucUpdateInfo" Visible="false" />
         <uc1:ucCreateProject runat="server" ID="ucCreateProject" Visible="false"/>
         <uc1:ucSeeGrade runat="server" ID="ucSeeGrade" Visible="false" />
+        <uc1:ucAssignTeam runat="server" ID="ucAssignTeam" Visible="false" />
     </div>
    
 </asp:Content>

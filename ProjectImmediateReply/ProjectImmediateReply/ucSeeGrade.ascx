@@ -19,7 +19,7 @@
         <!-- 隱藏第一區結束 -->
         <!-- 隱藏第二區開始 -->
         <div id="showarea2" v-if="group.length">
-         <v-select height="30" :items="choosename" item-text="nameitem" item-value="nameval" @change="changeRoutechoosename" v-model="name" label="姓名" :rules="classrules" solo
+         <v-select height="30" :items="choosename" item-text="UserName" item-value="Account" @change="changeRoutechoosename" v-model="name" label="姓名" :rules="classrules" solo
           required></v-select>
         </div>
         <!-- 隱藏第二區結束 -->

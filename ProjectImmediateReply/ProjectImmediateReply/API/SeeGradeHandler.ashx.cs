@@ -16,10 +16,11 @@ namespace ProjectImmediateReply.API
     /// </summary>
     public class SeeGradeHandler : IHttpHandler
     {
+        
         private class Nameselect
         {
-            public string nameval { get; set; }
-            public string nameitem { get; set; }
+            public string Account { get; set; }
+            public string UserName { get; set; }
         }
         public void ProcessRequest(HttpContext context)
         {
@@ -101,19 +102,14 @@ namespace ProjectImmediateReply.API
                             NameNum.Add(item["Account"].ToString(), item["Name"].ToString());
                         }
                     }
-                    //List<string> GetNameItem = new List<string>();
-                    //foreach (var item in NameNum)
-                    //    GetNameItem.Add($"\"val\":\"{item.Key}\",\"item\":\"{item.Value}\"");
-
-                    //string NameChooseItem = string.Join(",", GetNameItem);
 
                     List<Nameselect> GetNameItem = new List<Nameselect>();
 
                     foreach (var item in NameNum)
                     {
                         Nameselect additem = new Nameselect();
-                        additem.nameval = item.Key;
-                        additem.nameitem = item.Value;
+                        additem.Account = item.Key;
+                        additem.UserName = item.Value;
                         GetNameItem.Add(additem);
                     }
                     string ShowTable = JsonConvert.SerializeObject(GetNameItem);

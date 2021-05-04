@@ -116,6 +116,7 @@
     <Content Include="images\slide04.jpg" />
     <Content Include="images\slide05.jpg" />
     <Content Include="Index.aspx" />
+    <Content Include="ucAssignTeam.ascx" />
     <Content Include="ucCreateClass.ascx" />
     <Content Include="ucCreateProject.ascx" />
     <Content Include="ucCrud.ascx" />
@@ -177,6 +178,13 @@
     </Compile>
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ucAssignTeam.ascx.cs">
+      <DependentUpon>ucAssignTeam.ascx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ucAssignTeam.ascx.designer.cs">
+      <DependentUpon>ucAssignTeam.ascx</DependentUpon>
     </Compile>
     <Compile Include="ucCreateProject.ascx.cs">
       <DependentUpon>ucCreateProject.ascx</DependentUpon>

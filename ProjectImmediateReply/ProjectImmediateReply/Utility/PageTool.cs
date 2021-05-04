@@ -83,7 +83,7 @@ namespace ProjectImmediateReply.Utility
 									</v-list-item-content>
 								</v-list-item>
 
-								<v-list-item @click = """" href =""/Index.aspx?PageInnerType="" >
+								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=AssignTeam"" >
 									<v-list-item-icon>
 										<v-icon color = ""primary"" > build_circle </v-icon>
 									</v-list-item-icon >
@@ -162,7 +162,7 @@ namespace ProjectImmediateReply.Utility
 									</v-list-item-icon >
 									<v-list-item-content >
 										<v-list-item-title class=""chinese h4 primary--text"" > 個人資料維護</v-list-item-title>
-										<v-list-item-subtitle>Mobile</v-list-item-subtitle>
+										<v-list-item-subtitle>UpdateInformation</v-list-item-subtitle>
 									</v-list-item-content>
 								</v-list-item>
 
@@ -226,9 +226,38 @@ namespace ProjectImmediateReply.Utility
 										drawer: null,
 									    chooseitem: [{chooseitem}],
 										headers: [{headeritem}],
+										page: 1,
+										pageCount: 0,
+										itemsPerPage: 10,
 										inneritem: [],
 										{otherdata}
+										headers: [{{
+											text: '專案',
+											align: 'start',
+											value: 'ProjectName',
+										}},
+										{{
+											text: '組長',
+											value: 'LeaderName'
+										}},
+										{{
+											text: '組員',
+											value: 'MemberName'
+										}},
+										{{
+											text: '組名',
+											value: 'TeamName',
+										}},
+										{{
+											text: '',
+											value: 'ProjectID',
+											sortable: false
+										}},
+									 ],
 									 }}),
+									 created() {{
+									 	this.initialize()
+									 }},
 									 methods: {{
 										changeRoute() {{
 											axios
@@ -237,7 +266,13 @@ namespace ProjectImmediateReply.Utility
 												.catch(function(error) {{ 
 												alert(error);
 												}});
-										}}
+										}},
+										onButtonClick(item) {{
+											alert('按下了第' + item.ProjectID + '個')
+										}},
+										initialize() {{
+											this.inneritem = [];
+										}},
 									 }},
 							 }})
 						 </script>";
@@ -268,7 +303,88 @@ namespace ProjectImmediateReply.Utility
                                })
                          </script>";
             }
-            else if (PageInner == "CreateProject")
+			else if (PageInner == "AssignTeam")
+            {
+				string chooseclass = GetClassNumberJS(GetClassNumber());
+				return $@"
+						<script>
+                              new Vue({{
+                                     el: '#app',
+                                     vuetify: new Vuetify(),
+                                     data: () => ({{
+										drawer: null,
+										chooseclass: [{chooseclass}],
+										choosegroup:['group A', 'group B', 'group C', 'group D'],
+										page: 1,
+										pageCount: 0,
+										itemsPerPage: 10,
+										dialog: false,
+										inneritem: [],
+										editedIndex: -1,
+										headers: [{{
+												text: '姓名',
+												align: 'start',
+												value: 'name',
+										}},
+										{{
+												text: '組別',
+												value: 'team'
+										}},
+										{{
+												text: '專案名',
+												value: 'project'
+										}},
+										{{
+												text: '小組名',
+												value: 'choosegroup',
+												sortable: false
+										}},
+										],
+
+									}}),
+									watch: {{
+										dialog(val) {{
+											val || this.close()
+										}},
+									}},
+									created() {{
+										this.initialize()
+									}},
+									methods: {{
+									
+											randam(){{
+												axios.get('/kkkk')
+												  .then(response => {{alert(response.data);}})
+												  .catch(error => {{
+												    alert('小組亂數分配失敗');
+												  }});
+											}},
+											store(){{
+												axios.post('', {{
+													inneritem:this.inneritem
+												  }})
+												  .then(response =>{{
+													  alert('儲存發送成功');
+												  }})
+												  .catch(error => {{
+												    alert('儲存發送失敗');
+												  }});
+											}},
+										initialize() {{
+											this.inneritem = [
+												{{
+													name: 'Frozen Yogurt',
+													team:'',
+													project: '',
+													teamname:'',
+												}},
+											];
+										}},
+									}},
+								}})
+						</script>";
+            }
+			else if (PageInner == "CreateProject")
             {
                 string getclass = GetClassNumberJS(GetClassNumber());
                 return $@"
