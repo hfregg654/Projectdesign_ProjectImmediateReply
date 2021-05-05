@@ -3,11 +3,29 @@
 						<!-- 主要內容開始 -->
 						<!-- -----card start -->
 						<v-form method="post" novalidate="true" ref="form">
-       <v-card class="mx-5 my-3 px-4 pb-0 pt-4" max-width="1100">
+       <v-card class="mx-5 mb-15 px-4 pb-0 pt-4" max-width="1100">
         <v-card-title class="justify-center">
               成績
             </v-card-title>
         <v-card-text>
+  <div id="Showuserandleader">
+           	<v-select readonly height="30" :items="chooseclass" v-model="chooseclass" label="班別" :rules="classrules"
+									solo required></v-select>
+							<!-- 隱藏第一區，需等班別有值再顯示 -->
+			<v-select readonly height="30" :items="choosegroup" v-model="choosegroup" label="小組" :rules="classrules" solo
+									required></v-select>
+							<!-- 隱藏第一區結束 -->
+							<!-- 隱藏第二區開始 -->
+			<v-select readonly height="30" :items="choosename" v-model="choosename" label="姓名" :rules="classrules" solo
+									required></v-select>
+  </div>
+
+
+
+
+
+  <div id="Showgradesandmanager">
+
       <%--@change="changeRoute"引用--%>
          <v-select height="30" :items="chooseclass"  @change="changeRoutechooseclass" v-model="classchoice" label="班別" :rules="classrules"
           solo required></v-select>
@@ -22,6 +40,8 @@
          <v-select height="30" :items="choosename" item-text="UserName" item-value="Account" @change="changeRoutechoosename" v-model="name" label="姓名" :rules="classrules" solo
           required></v-select>
         </div>
+
+  </div>
         <!-- 隱藏第二區結束 -->
         <!-- 隱藏第三區開始 -->
         <div id="showarea3" v-if="classchoice.length && group.length && name.length">
@@ -68,13 +88,13 @@
         <!-- 隱藏第三區結束 -->
 
         </v-card-text>
-        
-        <v-card-actions class="justify-end">
+   <div id="chagegrade">
+        <v-card-actions class="justify-end mb-10">
          <v-btn color="blue lighten-2" text　href="/abcde" target="_blank">
           分數修改
          </v-btn>
         </v-card-actions>
-
+  </div>
        </v-card>
       </v-form>
 
