@@ -272,6 +272,8 @@ namespace ProjectImmediateReply.Utility
                         uInfo.UpdateTime = Convert.ToDateTime(item["UpdateTime"]);
                     if (dataTable.Columns["SpendTime"] != null && item["SpendTime"] != null)
                         uInfo.SpendTime = Convert.ToDateTime(item["SpendTime"]);
+                    if (dataTable.Columns["Complete"] != null && item["Complete"] != null)
+                        uInfo.Complete = Convert.ToBoolean(item["Complete"]);
                     if (dataTable.Columns["CreateDate"] != null && item["CreateDate"] != null)
                         uInfo.CreateDate = Convert.ToDateTime(item["CreateDate"]);
                     if (dataTable.Columns["WhoCreate"] != null && item["WhoCreate"] != null)

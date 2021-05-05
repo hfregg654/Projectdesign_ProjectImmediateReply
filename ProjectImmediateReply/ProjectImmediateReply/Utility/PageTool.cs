@@ -498,103 +498,310 @@ namespace ProjectImmediateReply.Utility
             {// changeRoute方法名稱 修改
                 string chooseitem = GetClassNumberJS(GetClassNumber());
                 LogInfo info = (LogInfo)HttpContext.Current.Session["IsLogined"];
-                return $@"
-						<script>
-                           var vm = new Vue({{
-                                     el: '#app',
-                                     vuetify: new Vuetify(),
-                                     data: () => ({{
-										drawer: null,
-										valid: true,
-										chooseclass: [{chooseitem}],
-										choosegroup: [],
-										choosename: [],
-										rules1: [
-											value => !!value || '此輸入框不可為空白',
-										],
-										classrules: [
-											value => !!value || '此輸入框不可為空白',
-										],
-										classchoice: """",
-										group: """",
-										name: """",
-										email:"""",
-										score: """",
-										boss: """",
-										pm: """",
-										panel:[],
-                                     }}),
-                                     methods: {{
-										changeRoutechooseclass() {{
-											vm.group="""";
-											vm.name="""";
-											axios
-												.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
-												.then(response => {{
-													if(response.data[0].choosegroup){{
-														vm.choosegroup=response.data[0].choosegroup.split(',');
-													}}
-													else{{
-														vm.choosegroup=[];
-													}}
+                if (info.Privilege=="Grades")
+                {
+		             return $@"
+								<script>
+								$(""#Showgradesandmanager"").show();
+								$(""#Showuserandleader"").hide();
+		                        var vm = new Vue({{
+		                                  el: '#app',
+		                                  vuetify: new Vuetify(),
+		                                  data: () => ({{
+												drawer: null,
+												valid: true,
+												chooseclass: [{chooseitem}],
+												choosegroup: [],
+												choosename: [],
+												rules1: [
+													value => !!value || '此輸入框不可為空白',
+												],
+												classrules: [
+													value => !!value || '此輸入框不可為空白',
+												],
+												classchoice: """",
+												group: """",
+												name: """",
+												email:"""",
+												score: """",
+												boss: """",
+												pm: """",
+												panel:[],
+		                                  }}),
+		                                  methods: {{
+												changeRoutechooseclass() {{
+													vm.group="""";
+													vm.name="""";
+													axios
+														.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
+														.then(response => {{
+															if(response.data[0].choosegroup){{
+																vm.choosegroup=response.data[0].choosegroup.split(',');
+															}}
+															else{{
+																vm.choosegroup=[];
+															}}
 
-												}})
-												.catch(function(error) {{ 
-													alert(error);
-												}})
-										}},
-										changeRoutechoosegroup() {{
-											vm.name="""";
-											axios
-												.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
-												.then(response => {{
-													if(response.data){{
-														vm.choosename=response.data;
-													}}
-													else{{
-														vm.choosename=[];
-													}}
-												}})
-												.catch(function(error) {{ 
-													alert(error);
-												}})
-										}},
-										changeRoutechoosename() {{
-											axios
-												.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
-												.then(response => {{
-													if(response.data.Grade!=0){{
+														}})
+														.catch(function(error) {{ 
+															alert(error);
+														}})
+												}},
+												changeRoutechoosegroup() {{
+													vm.name="""";
+													axios
+														.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
+														.then(response => {{
+															if(response.data){{
+																vm.choosename=response.data;
+															}}
+															else{{
+																vm.choosename=[];
+															}}
+														}})
+														.catch(function(error) {{ 
+															alert(error);
+														}})
+												}},
+												changeRoutechoosename() {{
+													axios
+														.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
+														.then(response => {{
+															if(response.data.Grade!=0){{
 
-														vm.email=response.data.Mail;
-														vm.score=response.data.Grade+""分"";
-														vm.boss=response.data.PresidentComments;
-														vm.pm=response.data.PMComments;
-													}}
-													else{{
-														vm.email=response.data.Mail;
-														vm.score=""無"";
-														vm.boss=""未評分"";
-														vm.pm=""未評分"";
-													}}
-												}})
-												.catch(function(error) {{ 
-													alert(error);
-												}});
-										}}
-									 }},
-                            }})
-						</script>
-						<style type=""text/css"" scoped>
-							.v-text-field.v-text-field--enclosed.v-text-field__details, 
-							.v-text-field.v-text-field--enclosed > .v-input__control > .v-input__slot {{
-								margin: 0;
-								max-height: 50px;
-								min-height: auto!important;
-								display: flex!important;
-								align-items: center!important
-							}}
-						</style > ";
-            }
+																vm.email=response.data.Mail;
+																vm.score=response.data.Grade+""分"";
+																vm.boss=response.data.PresidentComments;
+																vm.pm=response.data.PMComments;
+															}}
+															else{{
+																vm.email=response.data.Mail;
+																vm.score=""無"";
+																vm.boss=""未評分"";
+																vm.pm=""未評分"";
+															}}
+														}})
+														.catch(function(error) {{ 
+															alert(error);
+														}});
+												}}
+											 }},
+		                         }})
+								</script>
+								<style type=""text/css"" scoped>
+									.v-text-field.v-text-field--enclosed.v-text-field__details, 
+									.v-text-field.v-text-field--enclosed > .v-input__control > .v-input__slot {{
+										margin: 0;
+										max-height: 50px;
+										min-height: auto!important;
+										display: flex!important;
+										align-items: center!important
+									}}
+								</style > ";
+                }
+                else if (info.Privilege=="Manager")
+                {
+					return $@"
+								<script>
+								$(""#Showgradesandmanager"").show();
+								$(""#Showuserandleader"").hide();
+								$(""#chagegrade"").hide();
+		                        var vm = new Vue({{
+		                                  el: '#app',
+		                                  vuetify: new Vuetify(),
+		                                  data: () => ({{
+												drawer: null,
+												valid: true,
+												chooseclass: [{chooseitem}],
+												choosegroup: [],
+												choosename: [],
+												rules1: [
+													value => !!value || '此輸入框不可為空白',
+												],
+												classrules: [
+													value => !!value || '此輸入框不可為空白',
+												],
+												classchoice: """",
+												group: """",
+												name: """",
+												email:"""",
+												score: """",
+												boss: """",
+												pm: """",
+												panel:[],
+		                                  }}),
+		                                  methods: {{
+												changeRoutechooseclass() {{
+													vm.group="""";
+													vm.name="""";
+													axios
+														.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
+														.then(response => {{
+															if(response.data[0].choosegroup){{
+																vm.choosegroup=response.data[0].choosegroup.split(',');
+															}}
+															else{{
+																vm.choosegroup=[];
+															}}
+
+														}})
+														.catch(function(error) {{ 
+															alert(error);
+														}})
+												}},
+												changeRoutechoosegroup() {{
+													vm.name="""";
+													axios
+														.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
+														.then(response => {{
+															if(response.data){{
+																vm.choosename=response.data;
+															}}
+															else{{
+																vm.choosename=[];
+															}}
+														}})
+														.catch(function(error) {{ 
+															alert(error);
+														}})
+												}},
+												changeRoutechoosename() {{
+													axios
+														.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
+														.then(response => {{
+															if(response.data.Grade!=0){{
+
+																vm.email=response.data.Mail;
+																vm.score=response.data.Grade+""分"";
+																vm.boss=response.data.PresidentComments;
+																vm.pm=response.data.PMComments;
+															}}
+															else{{
+																vm.email=response.data.Mail;
+																vm.score=""無"";
+																vm.boss=""未評分"";
+																vm.pm=""未評分"";
+															}}
+														}})
+														.catch(function(error) {{ 
+															alert(error);
+														}});
+												}}
+											 }},
+		                         }})
+								</script>
+								<style type=""text/css"" scoped>
+									.v-text-field.v-text-field--enclosed.v-text-field__details, 
+									.v-text-field.v-text-field--enclosed > .v-input__control > .v-input__slot {{
+										margin: 0;
+										max-height: 50px;
+										min-height: auto!important;
+										display: flex!important;
+										align-items: center!important
+									}}
+								</style > ";
+				}
+                else if (info.Privilege=="Leader"||info.Privilege=="User")
+                {
+					DBTool dBTool = new DBTool();
+					string[] col = { "ClassNumber", "TeamName", "Account","Name" };
+					DataTable dt = dBTool.readTable("Users", col,$"WHERE UserID={info.UserID} AND DeleteDate IS NULL AND WhoDelete IS NULL",null,null);
+                    if (dt.Rows.Count==0)
+                    {
+						return @"
+							   <script>
+							        new Vue({
+							                 el: '#app',
+							                 vuetify: new Vuetify(),
+							                 data: () => ({
+							                  drawer: null,
+							                  }),
+							               })
+							    </script>";
+					}
+					return $@"
+								<script>
+								$(""#Showgradesandmanager"").hide();
+								$(""#Showuserandleader"").show();
+								$(""#chagegrade"").hide();
+		                        var vm = new Vue({{
+		                                  el: '#app',
+		                                  vuetify: new Vuetify(),
+		                                  data: () => ({{
+												drawer: null,
+												valid: true,
+												chooseclass: ""{dt.Rows[0]["ClassNumber"]}"",
+												choosegroup: ""{dt.Rows[0]["TeamName"]}"",
+												choosename: ""{dt.Rows[0]["Name"]}"",
+												rules1: [
+													value => !!value || '此輸入框不可為空白',
+												],
+												classrules: [
+													value => !!value || '此輸入框不可為空白',
+												],
+												classchoice: ""{dt.Rows[0]["ClassNumber"]}"",
+												group: ""{dt.Rows[0]["TeamName"]}"",
+												name: ""{dt.Rows[0]["Name"]}"",
+												email:"""",
+												score: """",
+												boss: """",
+												pm: """",
+												panel:[],
+		                                  }}),
+										  created() {{
+												this.initialize()
+										  }},
+										  methods: {{
+												initialize() {{
+													axios
+														.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:'{dt.Rows[0]["ClassNumber"]}', TeamName:'{dt.Rows[0]["TeamName"]}', Name:'{dt.Rows[0]["Account"]}'}})
+														.then(response => {{
+															if(response.data.Grade!=0){{
+																vm.email=response.data.Mail;
+																vm.score=response.data.Grade+""分"";
+																vm.boss=response.data.PresidentComments;
+																vm.pm=response.data.PMComments;
+															}}
+															else{{
+																vm.email=response.data.Mail;
+																vm.score=""無"";
+																vm.boss=""未評分"";
+																vm.pm=""未評分"";
+															}}
+														}})
+														.catch(function(error) {{ 
+															alert(error);
+														}});
+												}},
+										  }},
+		                         }})
+								</script>
+								<style type=""text/css"" scoped>
+									.v-text-field.v-text-field--enclosed.v-text-field__details, 
+									.v-text-field.v-text-field--enclosed > .v-input__control > .v-input__slot {{
+										margin: 0;
+										max-height: 50px;
+										min-height: auto!important;
+										display: flex!important;
+										align-items: center!important
+									}}
+								</style > ";
+
+                }
+                else
+                {
+					return @"
+                       <script>
+                            new Vue({
+				                     el: '#app',
+				                     vuetify: new Vuetify(),
+				                     data: () => ({
+					                  drawer: null,
+				                      }),
+			                       })
+                        </script>";
+				}
+			}
             else
             {
                 return @"

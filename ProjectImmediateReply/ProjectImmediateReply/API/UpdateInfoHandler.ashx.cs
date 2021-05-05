@@ -44,7 +44,8 @@ namespace ProjectImmediateReply.API
                 C1newpasswordconfirm = splitjson[27];
                 license = splitjson[31];
             }
-            if (string.IsNullOrWhiteSpace(C1name) || string.IsNullOrWhiteSpace(C1phone) || string.IsNullOrWhiteSpace(C1email) || string.IsNullOrWhiteSpace(C1lineid))
+            if (string.IsNullOrWhiteSpace(C1name) || string.IsNullOrWhiteSpace(C1phone) || string.IsNullOrWhiteSpace(C1email) || string.IsNullOrWhiteSpace(C1lineid)
+                ||!(C1name.LastIndexOf(" ")==-1)|| !(C1phone.LastIndexOf(" ") == -1)|| !(C1email.LastIndexOf(" ") == -1)|| !(C1lineid.LastIndexOf(" ") ==-1))
             {
                 context.Response.ContentType = "text/json";
                 context.Response.Write("[{\"success\":\"Empty\"}]");
@@ -59,7 +60,7 @@ namespace ProjectImmediateReply.API
                 string[] colname = { "Name" };
                 string[] colnamep = { "@License", "@PassWord" };
                 string[] p = { license, C1password };
-                DataTable check_pwd = Dbtool.readTable("users", colname, "WHERE License=@License AND PassWord=@PassWord", colnamep, p);
+                DataTable check_pwd = Dbtool.readTable("users", colname, "WHERE License=@License AND PassWord=@PassWord AND DeleteDate IS NULL AND WhoDelete IS NULL", colnamep, p);
                 if (check_pwd.Rows.Count != 0)
                 {
                     if (C1newpassword == C1newpasswordconfirm) /*Name欄位名、@Name欄位名的參數 程式中的參數*/
@@ -68,13 +69,13 @@ namespace ProjectImmediateReply.API
                         string Where_Logic = "License=@License AND PassWord=@PassWord";
                         string[] updatecolname_P = { "@Name", "@Phone", "@Mail", "@LineID", "@NEWPassWord", "@License", "@PassWord" }; /*要帶入的參數格子*/
                         List<string> update_P = new List<string>();
-                        update_P.Add(C1name);
-                        update_P.Add(C1phone);
-                        update_P.Add(C1email);
-                        update_P.Add(C1lineid);
-                        update_P.Add(C1newpassword);
-                        update_P.Add(license);
-                        update_P.Add(C1password);
+                        update_P.Add(C1name.Trim());
+                        update_P.Add(C1phone.Trim());
+                        update_P.Add(C1email.Trim());
+                        update_P.Add(C1lineid.Trim());
+                        update_P.Add(C1newpassword.Trim());
+                        update_P.Add(license.Trim());
+                        update_P.Add(C1password.Trim());
                         Dbtool.UpdateTable("Users", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
                         context.Response.Write("[{\"success\":\"success\"}]");
                     }
@@ -95,18 +96,18 @@ namespace ProjectImmediateReply.API
                 string[] colname = { "PassWord" };
                 string[] colnamep = { "@License", "@Name" };
                 string[] p = { license, C1name };
-                DataTable check_acc = Dbtool.readTable("users", colname, "WHERE License=@License AND Name=@Name", colnamep, p);
+                DataTable check_acc = Dbtool.readTable("users", colname, "WHERE License=@License AND Name=@Name AND DeleteDate IS NULL AND WhoDelete IS NULL", colnamep, p);
                 if (check_acc.Rows.Count != 0)
                 {
                     string[] updatecol_Logic = { "Name=@Name", "Phone=@Phone", "Mail=@Mail", "LineID=@LineID" };
                     string Where_Logic = "License=@License AND PassWord=@PassWord";
                     string[] updatecolname_P = { "@Name", "@Phone", "@Mail", "@LineID", "@License", "@PassWord" };
                     List<string> update_P = new List<string>();
-                    update_P.Add(C1name);
-                    update_P.Add(C1phone);
-                    update_P.Add(C1email);
-                    update_P.Add(C1lineid);
-                    update_P.Add(license);
+                    update_P.Add(C1name.Trim());
+                    update_P.Add(C1phone.Trim());
+                    update_P.Add(C1email.Trim());
+                    update_P.Add(C1lineid.Trim());
+                    update_P.Add(license.Trim());
                     update_P.Add(check_acc.Rows[0]["PassWord"].ToString());
                     Dbtool.UpdateTable("Users", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
                     context.Response.ContentType = "text/json";

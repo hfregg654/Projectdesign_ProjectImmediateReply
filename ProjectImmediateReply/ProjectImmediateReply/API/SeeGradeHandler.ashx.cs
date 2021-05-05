@@ -69,7 +69,7 @@ namespace ProjectImmediateReply.API
                     string[] p = { ClassNumber, TeamName, Name };
                     string logic = @"
                                         LEFT JOIN Grades ON Users.UserID=Grades.UserID
-                                        WHERE Users.ClassNumber=@ClassNumber AND Users.TeamName=@TeamName AND Users.Account=@Account
+                                        WHERE Users.ClassNumber=@ClassNumber AND Users.TeamName=@TeamName AND Users.Account=@Account AND Grades.DeleteDate IS NULL AND Grades.WhoDelete IS NULL
                                         ";
                     DataTable data = DbTool.readTable("Users", colname, logic, colnamep, p);//查人
                     ForSeeGrade seeGrade = new ForSeeGrade();
@@ -91,7 +91,7 @@ namespace ProjectImmediateReply.API
                     string[] Namep = { ClassNumber, TeamName };
                     string Namelogic = @"
                                 WHERE ClassNumber=@ClassNumber AND TeamName=@TeamName
-                                AND Name!='NULL'
+                                AND Name IS NOT NULL AND DeleteDate IS NULL AND WhoDelete IS NULL
                                 ";
                     DataTable NameData = DbTool.readTable("Users", Namecolname, Namelogic, Namecolnamep, Namep);//查小組的所有人
                     Dictionary<string, string> NameNum = new Dictionary<string, string>();
@@ -125,7 +125,7 @@ namespace ProjectImmediateReply.API
                     string[] Teamp = { ClassNumber };
                     string Teamlogic = @"
                                 WHERE ClassNumber=@ClassNumber
-                                AND TeamName!='NULL'
+                                AND TeamName IS NOT NULL AND DeleteDate IS NULL AND WhoDelete IS NULL
                                 GROUP BY TeamName
                                 ";
                     DataTable TeamData = DbTool.readTable("Users", Teamcolname, Teamlogic, Teamcolnamep, Teamp);//查班級的所有組別
