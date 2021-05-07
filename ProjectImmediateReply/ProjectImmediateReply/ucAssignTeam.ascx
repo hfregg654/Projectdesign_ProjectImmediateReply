@@ -4,7 +4,7 @@
 							<v-col>
 							</v-col>
 							<v-col sm="6" xs="12">
-								<v-select :items="chooseclass"　@change="changeRoute" label="選擇班級" solo outlined></v-select>
+								<v-select :items="chooseclass" v-model="classchoice"　@change="changeRoute" label="選擇班級" solo outlined></v-select>
 							</v-col>
 							<v-col>
 							</v-col>
@@ -30,7 +30,6 @@
 								<!-- 小組名插槽1 -->
 								<template v-slot:item.choosegroup="{ item }">
 									<v-select
-									          
 									          :items="choosegroup"
 									          prepend-icon="mdi-dialpad"
 									          menu-props="auto"

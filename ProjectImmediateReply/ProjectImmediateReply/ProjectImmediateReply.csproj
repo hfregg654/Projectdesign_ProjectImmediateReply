@@ -209,6 +209,7 @@
     <Compile Include="Utility\MailTool.cs" />
     <Compile Include="Utility\PageTool.cs" />
     <Compile Include="Utility\SortTool.cs" />
+    <Compile Include="ViewModels\ForAssignTeam.cs" />
     <Compile Include="ViewModels\ForGradesShow.cs" />
     <Compile Include="ViewModels\ForSeeGrade.cs" />
     <Compile Include="WebForm1.aspx.cs">

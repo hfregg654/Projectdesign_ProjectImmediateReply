@@ -308,12 +308,13 @@ namespace ProjectImmediateReply.Utility
 				string chooseclass = GetClassNumberJS(GetClassNumber());
 				return $@"
 						<script>
-                              new Vue({{
+                              var vm = new Vue({{
                                      el: '#app',
                                      vuetify: new Vuetify(),
                                      data: () => ({{
 										drawer: null,
 										chooseclass: [{chooseclass}],
+										classchoice:"""",
 										choosegroup:['group A', 'group B', 'group C', 'group D'],
 										page: 1,
 										pageCount: 0,
@@ -351,7 +352,14 @@ namespace ProjectImmediateReply.Utility
 										this.initialize()
 									}},
 									methods: {{
-									
+											changeRoute() {{
+												axios
+													.post('API/GetCrudHandler.ashx',{{innertype:'AssignTeam',classchoice:vm.classchoice}})
+													.then(response => (this.inneritem = response.data))
+													.catch(function(error) {{ 
+													alert(error);
+													}});
+											}},
 											randam(){{
 												axios.get('/kkkk')
 												  .then(response => {{alert(response.data);}})
