@@ -31,6 +31,7 @@
 								<template v-slot:item.choosegroup="{ item }">
 									<v-select
 									          :items="choosegroup"
+											  v-model="choosegroup"
 									          prepend-icon="mdi-dialpad"
 									          menu-props="auto"
 									          label="小組名"

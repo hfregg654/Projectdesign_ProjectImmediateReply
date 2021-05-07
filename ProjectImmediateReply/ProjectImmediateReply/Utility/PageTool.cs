@@ -315,7 +315,7 @@ namespace ProjectImmediateReply.Utility
 										drawer: null,
 										chooseclass: [{chooseclass}],
 										classchoice:"""",
-										choosegroup:['group A', 'group B', 'group C', 'group D'],
+										choosegroup:['TeamName'],
 										page: 1,
 										pageCount: 0,
 										itemsPerPage: 10,
@@ -325,15 +325,15 @@ namespace ProjectImmediateReply.Utility
 										headers: [{{
 												text: '姓名',
 												align: 'start',
-												value: 'name',
+												value: 'Name',
 										}},
 										{{
 												text: '組別',
-												value: 'team'
+												value: 'TeamID'
 										}},
 										{{
 												text: '專案名',
-												value: 'project'
+												value: 'ProjectName'
 										}},
 										{{
 												text: '小組名',
@@ -358,6 +358,7 @@ namespace ProjectImmediateReply.Utility
 													.then(response => {{
 															console.table(response.data); 
 															this.inneritem = response.data;
+															vm.choosegroup = response.data[0].TeamNameGroup;
 													}})
 													.catch(function(error) {{ 
 													alert(error);

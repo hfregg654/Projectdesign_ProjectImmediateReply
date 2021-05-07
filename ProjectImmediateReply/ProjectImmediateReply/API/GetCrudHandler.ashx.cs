@@ -158,8 +158,12 @@ namespace ProjectImmediateReply.API
                             ClassMember.TeamID = Convert.ToInt32(item["TeamID"]);
                         if (data.Columns["ProjectName"] != null && !Convert.IsDBNull(item["ProjectName"]))
                             ClassMember.ProjectName = item["ProjectName"].ToString();
+                        if (data.Columns["TeamName"] != null && !Convert.IsDBNull(item["TeamName"]))
+                            ClassMember.TeamName = item["TeamName"].ToString();
                         if (groupdata.Columns["TeamName"] != null)
                             ClassMember.TeamNameGroup = grouplist.ToArray();
+
+                        Array.Sort(ClassMember.Name.ToArray(), ClassMember.TeamNameGroup);
 
                         ProjectAll.Add(ClassMember);
                     }
