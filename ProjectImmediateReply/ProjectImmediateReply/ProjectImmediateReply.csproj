@@ -99,6 +99,7 @@
     <Content Include="HTML\B3-2.html" />
     <Content Include="HTML\C.html" />
     <Content Include="HTML\C2.html" />
+    <Content Include="HTML\C3-1.html" />
     <Content Include="HTML\C3.html" />
     <Content Include="HTML\C4.html" />
     <Content Include="HTML\login.html" />
@@ -117,6 +118,7 @@
     <Content Include="images\slide04.jpg" />
     <Content Include="images\slide05.jpg" />
     <Content Include="Index.aspx" />
+    <Content Include="ProjectDetail.aspx" />
     <Content Include="ucAssignTeam.ascx" />
     <Content Include="ucCreateClass.ascx" />
     <Content Include="ucCreateProject.ascx" />
@@ -148,6 +150,9 @@
     </Compile>
     <Compile Include="API\GetFileHandler.ashx.cs">
       <DependentUpon>GetFileHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="API\ProjectDetailHandler.ashx.cs">
+      <DependentUpon>ProjectDetailHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="API\RegisteredHandler.ashx.cs">
       <DependentUpon>RegisteredHandler.ashx</DependentUpon>
@@ -187,6 +192,13 @@
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="ProjectDetail.aspx.cs">
+      <DependentUpon>ProjectDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectDetail.aspx.designer.cs">
+      <DependentUpon>ProjectDetail.aspx</DependentUpon>
+    </Compile>
     <Compile Include="ucAssignTeam.ascx.cs">
       <DependentUpon>ucAssignTeam.ascx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -214,6 +226,7 @@
     <Compile Include="Utility\SortTool.cs" />
     <Compile Include="ViewModels\ForAssignTeam.cs" />
     <Compile Include="ViewModels\ForGradesShow.cs" />
+    <Compile Include="ViewModels\ForProjectDetail.cs" />
     <Compile Include="ViewModels\ForSeeGrade.cs" />
     <Compile Include="WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
@@ -299,6 +312,7 @@
     <Content Include="API\SeeGradeHandler.ashx" />
     <Content Include="API\GetFileHandler.ashx" />
     <Content Include="API\AssignTeamHandler.ashx" />
+    <Content Include="API\ProjectDetailHandler.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

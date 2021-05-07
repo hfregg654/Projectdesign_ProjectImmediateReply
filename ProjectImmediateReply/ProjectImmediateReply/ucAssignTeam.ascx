@@ -17,9 +17,6 @@
 								<!-- v-slot 開始							 -->
 								<template v-slot:top>
 									<v-toolbar flat color="white">
-										<!-- <v-toolbar-title>專案進度X%</v-toolbar-title>
-										<v-btn>結案</v-btn> -->
-										<!-- <v-divider class="mx-4" inset vertical></v-divider> -->
 										<v-spacer></v-spacer>
 										<!-- 彈跳視窗功能 (包含按鍵觸發)開始 -->
 										<v-btn color="primary" dark class="mb-2" @click="randam()">小組亂數分配</v-btn>

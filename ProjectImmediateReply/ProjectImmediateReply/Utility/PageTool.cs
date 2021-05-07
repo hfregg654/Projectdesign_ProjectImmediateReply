@@ -44,7 +44,7 @@ namespace ProjectImmediateReply.Utility
             if (PageType == "Manager")
             {
                 return @"<v-list two-line>
-								<v-list-item @click="""" href =""/Index.aspx?PageInnerType=UpdateInfo"" >
+								<v-list-item @click="""" href =""./Index.aspx?PageInnerType=UpdateInfo"" >
 									<v-list-item-icon >
 										<v-icon color = ""primary"" > account_circle </v-icon >
    
@@ -61,7 +61,7 @@ namespace ProjectImmediateReply.Utility
 
 
 								
-								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=CreateClass"" >
+								<v-list-item @click = """" href =""./Index.aspx?PageInnerType=CreateClass"" >
 									<v-list-item-icon>
 										<v-icon color = ""primary"" > build_circle </v-icon >
 									</v-list-item-icon >
@@ -72,7 +72,7 @@ namespace ProjectImmediateReply.Utility
 									</v-list-item-content>
 								</v-list-item>
 
-								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=CreateProject"" >
+								<v-list-item @click = """" href =""./Index.aspx?PageInnerType=CreateProject"" >
 									<v-list-item-icon>
 										<v-icon color = ""primary"" > build_circle </v-icon >
 									</v-list-item-icon >
@@ -83,7 +83,7 @@ namespace ProjectImmediateReply.Utility
 									</v-list-item-content>
 								</v-list-item>
 
-								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=AssignTeam"" >
+								<v-list-item @click = """" href =""./Index.aspx?PageInnerType=AssignTeam"" >
 									<v-list-item-icon>
 										<v-icon color = ""primary"" > build_circle </v-icon>
 									</v-list-item-icon >
@@ -94,7 +94,7 @@ namespace ProjectImmediateReply.Utility
 									</v-list-item-content>
 								</v-list-item>
 								
-								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=SeeGrade"" >
+								<v-list-item @click = """" href =""./Index.aspx?PageInnerType=SeeGrade"" >
 									<v-list-item-icon>
 										<v-icon color = ""primary"" > preview </v-icon >
 									</v-list-item-icon >
@@ -111,7 +111,7 @@ namespace ProjectImmediateReply.Utility
             else if (PageType == "Grades")
             {
                 return @"<v-list two-line>
-								<v-list-item @click="""" href=""/Index.aspx?PageInnerType=UpdateInfo"" >
+								<v-list-item @click="""" href=""./Index.aspx?PageInnerType=UpdateInfo"" >
 									<v-list-item-icon >
 										<v-icon color=""primary"" > account_circle </v-icon >
    
@@ -128,7 +128,7 @@ namespace ProjectImmediateReply.Utility
 
 
 
-								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=GradesCrud"" >
+								<v-list-item @click = """" href =""./Index.aspx?PageInnerType=GradesCrud"" >
 									<v-list-item-icon>
 										<v-icon color = ""primary"" > check_circle_outline </v-icon >
 									</v-list-item-icon >
@@ -139,7 +139,7 @@ namespace ProjectImmediateReply.Utility
 									</v-list-item-content>
 								</v-list-item>
 
-								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=SeeGrade"" >
+								<v-list-item @click = """" href =""./Index.aspx?PageInnerType=SeeGrade"" >
 									<v-list-item-icon>
 										<v-icon color = ""primary"" > preview </v-icon >
 									</v-list-item-icon >
@@ -156,7 +156,7 @@ namespace ProjectImmediateReply.Utility
             else if (PageType == "User" || PageType == "Leader")
             {
                 return @"<v-list two-line>
-								<v-list-item @click="""" href=""/Index.aspx?PageInnerType=UpdateInfo"" >
+								<v-list-item @click="""" href=""./Index.aspx?PageInnerType=UpdateInfo"" >
 									<v-list-item-icon >
 										<v-icon color=""primary"" > account_circle </v-icon >
 									</v-list-item-icon >
@@ -192,7 +192,7 @@ namespace ProjectImmediateReply.Utility
 
 
 
-								<v-list-item @click = """" href =""/Index.aspx?PageInnerType=SeeGrade"" >
+								<v-list-item @click = """" href =""./Index.aspx?PageInnerType=SeeGrade"" >
 									<v-list-item-icon>
 										<v-icon color = ""primary"" > preview </v-icon >
 									</v-list-item-icon >
@@ -315,7 +315,8 @@ namespace ProjectImmediateReply.Utility
 										drawer: null,
 										chooseclass: [{chooseclass}],
 										classchoice:"""",
-										choosegroup:['group A', 'group B', 'group C', 'group D'],
+										choosegroup:[],
+										TeamName:"""",
 										page: 1,
 										pageCount: 0,
 										itemsPerPage: 10,
@@ -325,15 +326,15 @@ namespace ProjectImmediateReply.Utility
 										headers: [{{
 												text: '姓名',
 												align: 'start',
-												value: 'name',
+												value: 'Name',
 										}},
 										{{
 												text: '組別',
-												value: 'team'
+												value: 'TeamID'
 										}},
 										{{
 												text: '專案名',
-												value: 'project'
+												value: 'ProjectName'
 										}},
 										{{
 												text: '小組名',
@@ -358,6 +359,7 @@ namespace ProjectImmediateReply.Utility
 													.then(response => {{
 															console.table(response.data); 
 															this.inneritem = response.data;
+															vm.choosegroup=response.data[0].TeamNameGroup;
 													}})
 													.catch(function(error) {{ 
 													alert(error);
@@ -384,10 +386,7 @@ namespace ProjectImmediateReply.Utility
 										initialize() {{
 											this.inneritem = [
 												{{
-													name: 'Frozen Yogurt',
-													team:'',
-													project: '',
-													teamname:'',
+													
 												}},
 											];
 										}},

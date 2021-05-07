@@ -146,7 +146,7 @@ namespace ProjectImmediateReply.API
                 }
                 if (data.Rows.Count != 0)
                 {
-                    
+
                     foreach (DataRow item in data.Rows)
                     {
                         ForAssignTeam ClassMember = new ForAssignTeam();
@@ -158,15 +158,54 @@ namespace ProjectImmediateReply.API
                             ClassMember.TeamID = Convert.ToInt32(item["TeamID"]);
                         if (data.Columns["ProjectName"] != null && !Convert.IsDBNull(item["ProjectName"]))
                             ClassMember.ProjectName = item["ProjectName"].ToString();
+                        if (data.Columns["TeamName"] != null && !Convert.IsDBNull(item["TeamName"]))
+                            ClassMember.TeamName = item["TeamName"].ToString();
                         if (groupdata.Columns["TeamName"] != null)
                             ClassMember.TeamNameGroup = grouplist.ToArray();
 
                         ProjectAll.Add(ClassMember);
                     }
-                    
+
                 }
                 //將最後結果以JSON形式放進回傳字串
                 ShowTable = JsonConvert.SerializeObject(ProjectAll);
+            }
+            else if (innertype == "ProjectDetail")
+            {
+                if (string.IsNullOrWhiteSpace(ClassNumber))
+                {
+                    PageTool ptool = new PageTool();
+                    List<string> classnumber = ptool.GetClassNumber();
+                    getClassnumber classnumberjson = new getClassnumber();
+                    classnumberjson.chooseclass = classnumber.ToArray();
+                    ShowTable = JsonConvert.SerializeObject(classnumberjson);
+                    context.Response.ContentType = "text/json";
+                    context.Response.Write(ShowTable);
+                    return;
+                }
+                else
+                {
+                    string[] colname = { "ProjectID", "ProjectName", "TeamName", "DeadLine" };
+                    string[] colnamep = { "@ClassNumber" };
+                    string[] p = { ClassNumber };
+                    string logic = @"
+                                WHERE ClassNumber=@ClassNumber AND DeleteDate IS NULL AND WhoDelete IS NULL
+                                ";
+                    DataTable data = Dbtool.readTable("Projects", colname, logic, colnamep, p);//查班級所有專案
+
+                    List<ForProjectDetail> detaildatalist = new List<ForProjectDetail>();
+
+                    foreach (DataRow item in data.Rows)
+                    {
+                        ForProjectDetail detail = new ForProjectDetail();
+                        detail.ProjectID = item["ProjectID"].ToString();
+                        detail.ProjectName = item["ProjectName"].ToString();
+                        detail.TeamName = item["TeamName"].ToString();
+                        detail.DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd");
+                        detaildatalist.Add(detail);
+                    }
+                    ShowTable = JsonConvert.SerializeObject(detaildatalist);
+                }
             }
             else
             {
@@ -178,7 +217,10 @@ namespace ProjectImmediateReply.API
             context.Response.ContentType = "text/json";
             context.Response.Write(ShowTable);
         }
-
+        private class getClassnumber
+        {
+            public string[] chooseclass { get; set; }
+        }
         public bool IsReusable
         {
             get
