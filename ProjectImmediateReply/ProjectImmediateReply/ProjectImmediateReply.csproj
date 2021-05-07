@@ -89,6 +89,7 @@
     <Content Include="assets\js\main.js" />
     <Content Include="assets\js\skel.min.js" />
     <Content Include="assets\js\util.js" />
+    <Content Include="ClassDetail.aspx" />
     <Content Include="Global.asax" />
     <Content Include="HTML\A-1.html" />
     <Content Include="HTML\A-2.html" />
@@ -136,6 +137,9 @@
     <Compile Include="API\AssignTeamHandler.ashx.cs">
       <DependentUpon>AssignTeamHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="API\ClassDetailHandler.ashx.cs">
+      <DependentUpon>ClassDetailHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="API\CreateClassHandler.ashx.cs">
       <DependentUpon>CreateClassHandler.ashx</DependentUpon>
     </Compile>
@@ -162,6 +166,13 @@
     </Compile>
     <Compile Include="API\SeeGradeHandler.ashx.cs">
       <DependentUpon>SeeGradeHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="ClassDetail.aspx.cs">
+      <DependentUpon>ClassDetail.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ClassDetail.aspx.designer.cs">
+      <DependentUpon>ClassDetail.aspx</DependentUpon>
     </Compile>
     <Compile Include="DBModels\Grade.cs" />
     <Compile Include="DBModels\Project.cs" />
@@ -225,6 +236,7 @@
     <Compile Include="Utility\PageTool.cs" />
     <Compile Include="Utility\SortTool.cs" />
     <Compile Include="ViewModels\ForAssignTeam.cs" />
+    <Compile Include="ViewModels\ForClassDetail.cs" />
     <Compile Include="ViewModels\ForGradesShow.cs" />
     <Compile Include="ViewModels\ForProjectDetail.cs" />
     <Compile Include="ViewModels\ForSeeGrade.cs" />
@@ -313,6 +325,7 @@
     <Content Include="API\GetFileHandler.ashx" />
     <Content Include="API\AssignTeamHandler.ashx" />
     <Content Include="API\ProjectDetailHandler.ashx" />
+    <Content Include="API\ClassDetailHandler.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

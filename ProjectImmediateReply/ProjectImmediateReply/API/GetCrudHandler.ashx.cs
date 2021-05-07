@@ -172,7 +172,7 @@ namespace ProjectImmediateReply.API
                 //將最後結果以JSON形式放進回傳字串
                 ShowTable = JsonConvert.SerializeObject(ProjectAll);
             }
-            else if (innertype == "ProjectDetail")
+            else if (innertype == "Detail")
             {
                 if (string.IsNullOrWhiteSpace(ClassNumber))
                 {
@@ -185,29 +185,53 @@ namespace ProjectImmediateReply.API
                     context.Response.Write(ShowTable);
                     return;
                 }
-                else
-                {
-                    string[] colname = { "ProjectID", "ProjectName", "TeamName", "DeadLine" };
-                    string[] colnamep = { "@ClassNumber" };
-                    string[] p = { ClassNumber };
-                    string logic = @"
+                
+            }
+            else if (innertype == "ClassDetail")
+            {
+                string[] colname = { "UserID", "Name", "Phone", "Mail" };
+                string[] colnamep = { "@ClassNumber" };
+                string[] p = { ClassNumber };
+                string logic = @"
                                 WHERE ClassNumber=@ClassNumber AND DeleteDate IS NULL AND WhoDelete IS NULL
                                 ";
-                    DataTable data = Dbtool.readTable("Projects", colname, logic, colnamep, p);//查班級所有專案
+                DataTable data = Dbtool.readTable("Users", colname, logic, colnamep, p);//查班級所有專案
 
-                    List<ForProjectDetail> detaildatalist = new List<ForProjectDetail>();
+                List<ForClassDetail> detaildatalist = new List<ForClassDetail>();
 
-                    foreach (DataRow item in data.Rows)
-                    {
-                        ForProjectDetail detail = new ForProjectDetail();
-                        detail.ProjectID = item["ProjectID"].ToString();
-                        detail.ProjectName = item["ProjectName"].ToString();
-                        detail.TeamName = item["TeamName"].ToString();
-                        detail.DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd");
-                        detaildatalist.Add(detail);
-                    }
-                    ShowTable = JsonConvert.SerializeObject(detaildatalist);
+                foreach (DataRow item in data.Rows)
+                {
+                    ForClassDetail detail = new ForClassDetail();
+                    detail.UserID = item["UserID"].ToString();
+                    detail.Name = item["Name"].ToString();
+                    detail.Phone = item["Phone"].ToString();
+                    detail.Mail = item["Mail"].ToString();
+                    detaildatalist.Add(detail);
                 }
+                ShowTable = JsonConvert.SerializeObject(detaildatalist);
+            }
+            else if (innertype == "ProjectDetail")
+            {
+                string[] colname = { "ProjectID", "ProjectName", "TeamName", "DeadLine" };
+                string[] colnamep = { "@ClassNumber" };
+                string[] p = { ClassNumber };
+                string logic = @"
+                                WHERE ClassNumber=@ClassNumber AND DeleteDate IS NULL AND WhoDelete IS NULL
+                                ";
+                DataTable data = Dbtool.readTable("Projects", colname, logic, colnamep, p);//查班級所有專案
+
+                List<ForProjectDetail> detaildatalist = new List<ForProjectDetail>();
+
+                foreach (DataRow item in data.Rows)
+                {
+                    ForProjectDetail detail = new ForProjectDetail();
+                    detail.ProjectID = item["ProjectID"].ToString();
+                    detail.ProjectName = item["ProjectName"].ToString();
+                    detail.TeamName = item["TeamName"].ToString();
+                    detail.DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd");
+                    detaildatalist.Add(detail);
+                }
+                ShowTable = JsonConvert.SerializeObject(detaildatalist);
             }
             else
             {

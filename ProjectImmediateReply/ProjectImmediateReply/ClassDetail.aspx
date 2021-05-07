@@ -1,15 +1,14 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ImmediateReplyInSide.Master" AutoEventWireup="true" CodeBehind="ProjectDetail.aspx.cs" Inherits="ProjectImmediateReply.ProjectDetail" %>
-
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ImmediateReplyInSide.Master" AutoEventWireup="true" CodeBehind="ClassDetail.aspx.cs" Inherits="ProjectImmediateReply.ClassDetail" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    <v-main
+        <v-main
         style="background: -webkit-linear-gradient(right, #FFAF7B,#EE82EE, #FFB6C1); background: linear-gradient(to right, #FFAF7B, #FFB6C1);">
 						<v-container>
 							<v-row style="height:2vh">
 								<v-spacer></v-spacer>
 								<p class="font-weight-bold">
-									專案修改</p>
+									班級修改</p>
 								<v-spacer></v-spacer>
 							</v-row>
 							<v-row style="height:57px">
@@ -29,7 +28,7 @@
 								style="background: -webkit-linear-gradient(right, #FFAF7B, #FFB6C1);background: linear-gradient(to right, #FFAF7B, #FFB6C1);"
 								height="45vh" @page-count="pageCount = $event" :page.sync="page"
 								:items-per-page="itemsPerPage" hide-default-footer :headers="headers" :items="inneritem"
-								sort-by="ProjectID" class="elevation　table-striped　
+								sort-by="UserID" class="elevation　table-striped　
 								">
 								<!-- v-slot 開始							 -->
 								<template v-slot:top>
@@ -40,7 +39,7 @@
 										<!-- <v-divider class="mx-4" inset vertical></v-divider> -->
 										<v-spacer></v-spacer>
 										<!-- 彈跳視窗功能 (包含按鍵觸發)開始 -->
-										<v-dialog v-model="dialog" max-width="500px">
+<%--										<v-dialog v-model="dialog" max-width="500px">
 											<!-- <template v-slot:activator="{ on, attrs }">
 												<v-btn color="primary" dark class="mb-2" v-bind="attrs" v-on="on">New
 													Item</v-btn>
@@ -84,7 +83,7 @@
 
 												<!-- 編輯彈跳視窗按鈕結束 -->
 											</v-card>
-										</v-dialog>
+										</v-dialog>--%>
 										<!-- 彈跳視窗功能 (包含按鍵觸發)結束 -->
 									</v-toolbar>
 								</template>
@@ -110,7 +109,7 @@
 							</v-data-table>
 							<v-row>
 							<v-spacer></v-spacer>
-							<v-btn color="primary" href="./Index.aspx?PageInnerType=CreateProject"　class="mr-5" >
+							<v-btn color="primary" href="./Index.aspx?PageInnerType=CreateClass"　class="mr-5" >
 								返回
 							</v-btn>
 							</v-row>
@@ -118,10 +117,9 @@
 						</template>
 
 					</v-main>
-
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-    <script>
+	    <script>
         var vm = new Vue({
             el: '#app',
             vuetify: new Vuetify(),
@@ -149,36 +147,31 @@
                 editedIndex: -1,
                 // 判斷是否是修改頁面 會自動改標題結束
 
-                editedItem: {
-                    ProjectID: '',
-                    ProjectName: '',
-                    TeamName: '',
-                    DeadLine: '',
-                },
+                //editedItem: {
+                //    ProjectID: '',
+                //    ProjectName: '',
+                //    TeamName: '',
+                //    DeadLine: '',
+                //},
                 defaultItem: {
-                    ProjectID: '',
-                    ProjectName: '',
-                    TeamName: '',
-                    DeadLine: '',
+                    UserID: '',
+                    Name: '',
+                    Phone: '',
+                    Mail: '',
                 },
                 // 變數結束
                 headers: [{
-                    text: '專案名稱',
+                    text: '姓名',
                     align: 'start',
-                    value: 'ProjectName',
+                    value: 'Name',
                 },
                 {
-                    text: '小組名稱',
-                    value: 'TeamName'
+                    text: '電話號碼',
+                    value: 'Phone'
                 },
                 {
-                    text: '時程期限',
-                    value: 'DeadLine'
-                },
-                {
-                    text: '',
-                    value: '修改',
-                    sortable: false
+                    text: '電子郵件',
+                    value: 'Mail'
                 },
                 {
                     text: '',
@@ -210,41 +203,41 @@
                 // 監聽select值若發生變化
                 changeRoute() {
                     axios.post('API/GetCrudHandler.ashx', {
-                        innertype: 'ProjectDetail',
+                        innertype: 'ClassDetail',
                         classchoice: vm.classchoice
                     })
                         .then(response => this.inneritem = response.data)
                         .catch(error => alert(error))
                 },
                 // 
-                editItem(item) {
-                    // FOR循環找到item(此for循環物件)的index
-                    this.editedIndex = this.inneritem.indexOf(item)
-                    // 抓到此item後 
-                    // Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象source复制到目标对象。它将返回目标对象target。
-                    // 例子
-                    // const v1 = 'abc' const v2 = true const v3 = 10 
-                    // const obj = Object.assign({}, v1, v2, v3)
-                    // obj // { "0": "a", "1": "b", "2": "c" }
+                //editItem(item) {
+                //    // FOR循環找到item(此for循環物件)的index
+                //    this.editedIndex = this.inneritem.indexOf(item)
+                //    // 抓到此item後 
+                //    // Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象source复制到目标对象。它将返回目标对象target。
+                //    // 例子
+                //    // const v1 = 'abc' const v2 = true const v3 = 10 
+                //    // const obj = Object.assign({}, v1, v2, v3)
+                //    // obj // { "0": "a", "1": "b", "2": "c" }
 
-                    this.editedItem = Object.assign({}, item)
-                    this.dialog = true
-                },
+                //    this.editedItem = Object.assign({}, item)
+                //    this.dialog = true
+                //},
 
                 deleteItem(item) {
                     // 宣告此index數字為此筆  之後可能會有若中間資料庫有人增刪的bug
                     const index = this.inneritem.indexOf(item)
                     if
                         (confirm('確定要刪除此資料嗎?')) {
-                        axios.post('API/ProjectDetailHandler.ashx', {
+                        axios.post('API/ClassDetailHandler.ashx', {
                             Type: 'Delete',
-                            id: item.ProjectID
+                            id: item.UserID
                         }).then(response => {
-                            alert(item.ProjectID + '發送刪除成功');
+                            alert(item.UserID + '發送刪除成功');
                             this.changeRoute();
                             // this.inneritem.splice(index, 1);
                         })
-                            .catch(error => alert('id:' + item.ProjectID + '發送刪除失敗'))
+                            .catch(error => alert('id:' + item.UserID + '發送刪除失敗'))
                     } else {
 
                     }
@@ -262,28 +255,28 @@
                     })
                 },
 
-                save() {
-                    // 若是為編輯狀態 editedIndex會有該項的indexof 
-                    if (this.editedIndex > -1) {
-                        // 把資料灌回DOM
-                        // Object.assign(this.inneritem[this.editedIndex], this.editedItem);
-                        axios.post('API/ProjectDetailHandler.ashx', {
-                            Type: 'Edit',
-                            id: this.editedItem.ProjectID,
-                            ProjectName: this.editedItem.ProjectName,
-                            TeamName: this.editedItem.TeamName,
-                            DeadLine: this.editedItem.DeadLine
-                        })
-                            .then(response => this.changeRoute(), this.close())
-                            .catch(error => alert(error), this.close())
-                        // alert(this.editedItem)
-                    }
-                    // 若是為新增狀態 預設editedIndex -1 不處理 直接推新的editedIndex和editedItem
-                    else {
-                        // this.inneritem.push(this.editedItem)
-                    }
-                    this.close()
-                },
+                //save() {
+                //    // 若是為編輯狀態 editedIndex會有該項的indexof 
+                //    if (this.editedIndex > -1) {
+                //        // 把資料灌回DOM
+                //        // Object.assign(this.inneritem[this.editedIndex], this.editedItem);
+                //        axios.post('API/ClassDetailHandler.ashx', {
+                //            Type: 'Edit',
+                //            id: this.editedItem.UserID,
+                //            ProjectName: this.editedItem.ProjectName,
+                //            TeamName: this.editedItem.TeamName,
+                //            DeadLine: this.editedItem.DeadLine
+                //        })
+                //            .then(response => this.changeRoute(), this.close())
+                //            .catch(error => alert(error), this.close())
+                //        // alert(this.editedItem)
+                //    }
+                //    // 若是為新增狀態 預設editedIndex -1 不處理 直接推新的editedIndex和editedItem
+                //    else {
+                //        // this.inneritem.push(this.editedItem)
+                //    }
+                //    this.close()
+                //},
                 // 初始化資料
                 initialize() {
                     axios
@@ -304,5 +297,5 @@
             },
 
         })
-    </script>
+        </script>
 </asp:Content>

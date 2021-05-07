@@ -40,8 +40,9 @@ namespace ProjectImmediateReply.Utility
 
         public string PageLeft(string PageType)
         {
-            //轉跳的網頁網址 => href = "" / Index.aspx ? PageInnerType = UpdateInfo"" >
-            if (PageType == "Manager")
+			//href =""./Index.aspx?PageInnerType=UpdateInfo"" +. 從根目錄開始抓
+			//轉跳的網頁網址 => href = "" / Index.aspx ? PageInnerType = UpdateInfo"" >
+			if (PageType == "Manager")
             {
                 return @"<v-list two-line>
 								<v-list-item @click="""" href =""./Index.aspx?PageInnerType=UpdateInfo"" >

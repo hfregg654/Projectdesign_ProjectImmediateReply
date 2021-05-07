@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace ProjectImmediateReply
 {
-    public partial class ProjectDetail : System.Web.UI.Page
+    public partial class ClassDetail : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {

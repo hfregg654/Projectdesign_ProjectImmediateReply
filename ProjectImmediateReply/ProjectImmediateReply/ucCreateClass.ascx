@@ -31,7 +31,7 @@
 									</span>
 								</v-card-actions>
 								<v-card-actions class="justify-end">
-									<v-btn color="blue lighten-2" text>
+									<v-btn color="blue lighten-2" text href="./ClassDetail.aspx">
 										班級修改
 									</v-btn>
 								</v-card-actions>
