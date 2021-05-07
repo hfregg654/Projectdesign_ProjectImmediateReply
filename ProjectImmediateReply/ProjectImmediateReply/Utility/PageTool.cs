@@ -355,7 +355,10 @@ namespace ProjectImmediateReply.Utility
 											changeRoute() {{
 												axios
 													.post('API/GetCrudHandler.ashx',{{innertype:'AssignTeam',classchoice:vm.classchoice}})
-													.then(response => (this.inneritem = response.data))
+													.then(response => {{
+															console.table(response.data); 
+															this.inneritem = response.data;
+													}})
 													.catch(function(error) {{ 
 													alert(error);
 													}});

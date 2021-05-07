@@ -7,8 +7,9 @@ namespace ProjectImmediateReply.ViewModels
 {
     public class ForAssignTeam
     {
+        public int UserID { get; set; }
         public string Name { get; set; }
-        public string TeamNumber { get; set; }
+        public int TeamID { get; set; }
         public string ProjectName { get; set; }
         public string[] TeamNameGroup { get; set; }
     }

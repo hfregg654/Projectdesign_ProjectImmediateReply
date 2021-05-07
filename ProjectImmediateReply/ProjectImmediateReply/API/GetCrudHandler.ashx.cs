@@ -50,7 +50,7 @@ namespace ProjectImmediateReply.API
                 //宣告評分頁面顯示型別的變數
                 List<ForGradesShow> ProjectAll = new List<ForGradesShow>();
                 //準備查詢語法
-                string[] colname = { "Projects.ProjectID","Projects.ProjectName", "Users.[Name]", "Users.TeamName", "Users.Privilege", "Users.TeamID" };
+                string[] colname = { "Projects.ProjectID", "Projects.ProjectName", "Users.[Name]", "Users.TeamName", "Users.Privilege", "Users.TeamID" };
                 string[] colnamep = { "@ClassNumber" };
                 string[] p = { ClassNumber };
                 string logic = @"
@@ -111,7 +111,62 @@ namespace ProjectImmediateReply.API
             }
             else if (innertype == "AssignTeam")
             {
-               
+                //若沒有班級參數則直接回傳
+                if (string.IsNullOrWhiteSpace(ClassNumber))
+                    return;
+                //宣告評分頁面顯示型別的變數
+                List<ForAssignTeam> ProjectAll = new List<ForAssignTeam>();
+                //準備查詢語法 INNER JOIN聯集
+                string[] colname = { "Projects.ProjectName", "Users.[Name]", "Users.UserID", "Users.TeamName", "Users.TeamID" };
+                string[] colnamep = { "@ClassNumber" };
+                string[] p = { ClassNumber };
+                string logic = @"
+                                INNER JOIN Users ON Projects.ProjectID=Users.ProjectID
+                                WHERE Users.ClassNumber=@ClassNumber AND Projects.DeleteDate IS NULL AND Users.WhoDelete IS NULL
+                                ORDER BY Users.TeamID
+                                ";
+                DataTable data = Dbtool.readTable("Projects", colname, logic, colnamep, p);//查班級的所有人
+
+                //抓小組名
+                string[] groupcolname = { "TeamName" };
+                string[] groupcolnamep = { "@ClassNumber" };
+                string[] groupp = { ClassNumber };
+                string grouplogic = @"
+                                WHERE ClassNumber=@ClassNumber AND TeamName IS NOT NULL AND DeleteDate IS NULL AND WhoDelete IS NULL
+                                GROUP BY TeamName
+                                ";
+                DataTable groupdata = Dbtool.readTable("Users", groupcolname, grouplogic, groupcolnamep, groupp);//查班級的所有人
+                List<string> grouplist = new List<string>();
+                if (groupdata.Rows.Count != 0)
+                {
+                    foreach (DataRow item in groupdata.Rows)
+                    {
+                        grouplist.Add(item["TeamName"].ToString());
+                    }
+                }
+                if (data.Rows.Count != 0)
+                {
+                    
+                    foreach (DataRow item in data.Rows)
+                    {
+                        ForAssignTeam ClassMember = new ForAssignTeam();
+                        if (data.Columns["UserID"] != null && !Convert.IsDBNull(item["UserID"]))
+                            ClassMember.UserID = Convert.ToInt32(item["UserID"]);
+                        if (data.Columns["Name"] != null && !Convert.IsDBNull(item["Name"]))
+                            ClassMember.Name = item["Name"].ToString();
+                        if (data.Columns["TeamID"] != null && !Convert.IsDBNull(item["TeamID"]))
+                            ClassMember.TeamID = Convert.ToInt32(item["TeamID"]);
+                        if (data.Columns["ProjectName"] != null && !Convert.IsDBNull(item["ProjectName"]))
+                            ClassMember.ProjectName = item["ProjectName"].ToString();
+                        if (groupdata.Columns["TeamName"] != null)
+                            ClassMember.TeamNameGroup = grouplist.ToArray();
+
+                        ProjectAll.Add(ClassMember);
+                    }
+                    
+                }
+                //將最後結果以JSON形式放進回傳字串
+                ShowTable = JsonConvert.SerializeObject(ProjectAll);
             }
             else
             {
