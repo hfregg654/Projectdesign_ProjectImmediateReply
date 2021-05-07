@@ -60,11 +60,9 @@
 						<v-spacer></v-spacer>
 					</v-app-bar>
 
-
 					<!-- 導航欄開始 -->
-					<uc1:ucLeft runat="server" id="ucLeft" />
+					    <uc1:ucLeft runat="server" id="ucLeft" />
 					<!-- 導航欄結束 -->
-
 
 					 <asp:ContentPlaceHolder ID="ContentPlaceHolder1" runat="server">
                      </asp:ContentPlaceHolder>
