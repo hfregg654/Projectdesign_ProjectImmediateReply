@@ -109,14 +109,13 @@ namespace ProjectImmediateReply.API
                 //將最後結果以JSON形式放進回傳字串
                 ShowTable = JsonConvert.SerializeObject(ProjectAll);
             }
+            else if (innertype == "AssignTeam")
+            {
+               
+            }
             else
             {
-                string[] colname = { "ClassNumber", "License", "Name" };
-                string[] colnamep = { "@ClassNumber" };
-                string[] p = { ClassNumber };
-                List<UserInfo> data = Dbtool.ChangeTypeUserInfo(Dbtool.readTable("Users", colname, "WHERE ClassNumber=@ClassNumber AND DeleteDate IS NULL AND WhoDelete IS NULL", colnamep, p));
 
-                ShowTable = JsonConvert.SerializeObject(data);
             }
 
 

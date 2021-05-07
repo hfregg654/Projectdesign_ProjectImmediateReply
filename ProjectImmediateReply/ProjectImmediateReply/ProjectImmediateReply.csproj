@@ -128,6 +128,7 @@
     <Content Include="Web.config" />
     <Content Include="LogIn.aspx" />
     <Content Include="ucLeft.ascx" />
+    <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\CreateClassHandler.ashx.cs">
@@ -141,6 +142,9 @@
     </Compile>
     <Compile Include="API\GetCrudHandler.ashx.cs">
       <DependentUpon>GetCrudHandler.ashx</DependentUpon>
+    </Compile>
+    <Compile Include="API\GetFileHandler.ashx.cs">
+      <DependentUpon>GetFileHandler.ashx</DependentUpon>
     </Compile>
     <Compile Include="API\RegisteredHandler.ashx.cs">
       <DependentUpon>RegisteredHandler.ashx</DependentUpon>
@@ -205,8 +209,16 @@
     <Compile Include="Utility\MailTool.cs" />
     <Compile Include="Utility\PageTool.cs" />
     <Compile Include="Utility\SortTool.cs" />
+    <Compile Include="ViewModels\ForAssignTeam.cs" />
     <Compile Include="ViewModels\ForGradesShow.cs" />
     <Compile Include="ViewModels\ForSeeGrade.cs" />
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
     <Compile Include="WriteLog\txtLog.cs" />
     <Compile Include="Models\GradeInfo.cs" />
     <Compile Include="Models\LogInfo.cs" />
@@ -282,6 +294,7 @@
     <Content Include="API\CreateProjectHandler.ashx" />
     <Content Include="API\UpdateInfoHandler.ashx" />
     <Content Include="API\SeeGradeHandler.ashx" />
+    <Content Include="API\GetFileHandler.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -292,6 +305,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="FileUpload\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
