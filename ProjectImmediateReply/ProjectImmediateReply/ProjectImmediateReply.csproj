@@ -90,6 +90,7 @@
     <Content Include="assets\js\skel.min.js" />
     <Content Include="assets\js\util.js" />
     <Content Include="ClassDetail.aspx" />
+    <Content Include="CreateSpecialAccount.aspx" />
     <Content Include="Global.asax" />
     <Content Include="HTML\A-1.html" />
     <Content Include="HTML\A-2.html" />
@@ -99,6 +100,7 @@
     <Content Include="HTML\B3-1.html" />
     <Content Include="HTML\B3-2.html" />
     <Content Include="HTML\C.html" />
+    <Content Include="HTML\C1-1.html" />
     <Content Include="HTML\C1.html" />
     <Content Include="HTML\C2.html" />
     <Content Include="HTML\C3-1.html" />
@@ -174,6 +176,13 @@
     </Compile>
     <Compile Include="ClassDetail.aspx.designer.cs">
       <DependentUpon>ClassDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CreateSpecialAccount.aspx.cs">
+      <DependentUpon>CreateSpecialAccount.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateSpecialAccount.aspx.designer.cs">
+      <DependentUpon>CreateSpecialAccount.aspx</DependentUpon>
     </Compile>
     <Compile Include="DBModels\Grade.cs" />
     <Compile Include="DBModels\Project.cs" />

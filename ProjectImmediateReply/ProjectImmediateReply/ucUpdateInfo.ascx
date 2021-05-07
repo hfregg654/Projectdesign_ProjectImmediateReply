@@ -39,7 +39,7 @@
 									<p class="blue--text" v-model="license">授權碼：{{license}}</p>
 									<v-spacer></v-spacer>
 									<div id="specialaccountbtn">
-										<v-btn color="blue lighten-2" text href="/abcde" target="_blank">
+										<v-btn color="blue lighten-2" text href="./CreateSpecialAccount.aspx" >
 											特別帳號及建立
 										</v-btn>
 									</div>
