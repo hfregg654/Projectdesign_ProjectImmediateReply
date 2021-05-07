@@ -1,4 +1,5 @@
-﻿using ProjectImmediateReply.Utility;
+﻿using ProjectImmediateReply.Models;
+using ProjectImmediateReply.Utility;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -24,14 +25,28 @@ namespace ProjectImmediateReply
             {
                 PageInner = Request.QueryString[_sessionKey].ToString();
             }
+            LogInfo Info = (LogInfo)Session["IsLogined"];
+
             PageTool ptool = new PageTool();
             if (PageInner == "GradesCrud")//查看專案及評分
             {
+                if (Info.Privilege != "Grades")
+                {
+                    logtool.Logout();
+                    Response.Redirect("~/LogIn.aspx");
+                    return;
+                }
                 ucCrud.Visible = true;
                 divJS.InnerHtml = ptool.PageRight(PageInner);
             }
             else if (PageInner == "CreateClass")//班級建立
             {
+                if (Info.Privilege != "Manager")
+                {
+                    logtool.Logout();
+                    Response.Redirect("~/LogIn.aspx");
+                    return;
+                }
                 ucCreateClass.Visible = true;
                 divJS.InnerHtml = ptool.PageRight(PageInner); ;
             }
@@ -42,6 +57,12 @@ namespace ProjectImmediateReply
             }
             else if (PageInner == "CreateProject")//建立專案
             {
+                if (Info.Privilege != "Manager")
+                {
+                    logtool.Logout();
+                    Response.Redirect("~/LogIn.aspx");
+                    return;
+                }
                 ucCreateProject.Visible = true;
                 divJS.InnerHtml = ptool.PageRight(PageInner);
             }
@@ -50,8 +71,14 @@ namespace ProjectImmediateReply
                 ucSeeGrade.Visible = true;
                 divJS.InnerHtml = ptool.PageRight(PageInner);
             }
-            else if (PageInner == "AssignTeam")//查看成績
+            else if (PageInner == "AssignTeam")//分組
             {
+                if (Info.Privilege != "Manager")
+                {
+                    logtool.Logout();
+                    Response.Redirect("~/LogIn.aspx");
+                    return;
+                }
                 ucAssignTeam.Visible = true;
                 divJS.InnerHtml = ptool.PageRight(PageInner);
             }

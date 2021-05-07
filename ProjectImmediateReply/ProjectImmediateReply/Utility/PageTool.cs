@@ -437,9 +437,11 @@ namespace ProjectImmediateReply.Utility
                 {
                     userdata = checkdata[0];
                 }
-				//一格一格的值""{userdata.Name}"" 一列一列[{ chooseitem}]
-				//console.log(response); 顯示傳回來的值 確認到哪一個判斷狀態 於網頁上 F12  
-				return $@"
+                //一格一格的值""{userdata.Name}"" 一列一列[{ chooseitem}]
+                //console.log(response); 顯示傳回來的值 確認到哪一個判斷狀態 於網頁上 F12  
+                if (info.Privilege=="Manager")
+                {
+					return $@"
 						<script>
                             var vm = new Vue({{
                                      el: '#app',
@@ -504,6 +506,77 @@ namespace ProjectImmediateReply.Utility
                                      }}
                             }})
 						</script > ";
+				}
+                else
+                {
+					return $@"
+						<script>
+							$(""#specialaccountbtn"").hide();
+                            var vm = new Vue({{
+                                     el: '#app',
+                                     vuetify: new Vuetify(),
+                                     data: () => ({{
+										drawer: null,
+										valid: true, 
+										C1name: ""{userdata.Name}"",
+										C1phone: ""{userdata.Phone}"",
+										C1email: ""{userdata.Mail}"",
+										C1lineid: ""{userdata.LineID}"",
+										C1password: """",
+										C1newpassword: """",
+										C1newpasswordconfirm: """",
+										license: ""{userdata.License}"",
+										show1:false,
+										show2:false,
+										show3:false,				
+                                     }}),
+                                     methods: {{
+										validate () {{
+											if (this.$refs.form.validate()) {{
+												axios.post('API/UpdateInfoHandler.ashx', {{
+													C1name:vm.C1name,
+													C1phone:vm.C1phone,
+													C1email:vm.C1email,
+													C1lineid:vm.C1lineid,
+													C1password:vm.C1password,
+													C1newpassword:vm.C1newpassword,
+													C1newpasswordconfirm:vm.C1newpasswordconfirm,
+													license:vm.license,
+												}})
+												.then(response => {{
+													if(response.data[0].success== ""success""){{
+														console.log(response); 
+														alert(""更新完成"");
+													}}
+													else if(response.data[0].success== ""Empty""){{
+														console.log(response); 
+														alert(""原資料不可輸入空白"");
+													}}
+													else if(response.data[0].success== ""pwdwrong""){{
+														console.log(response); 
+														alert(""原密碼輸入錯誤"");
+													}}
+													else if(response.data[0].success== ""pwdmiss""){{
+														console.log(response); 
+														alert(""請將密碼欄位填寫完整"");
+													}}
+													else{{
+														console.log(response); 
+														alert(""更新失敗,請檢查新密碼輸入欄位"");
+													}}
+												}})
+												.catch (error => {{
+													console.log(error);
+													alert(""發送失敗可能是ＰＯＳＴ路徑問題"");
+												}});
+											}}
+										}},
+                                      
+                                     }}
+                            }})
+						</script > ";
+				}
+				
             }
             else if (PageInner == "SeeGrade")
             {// changeRoute方法名稱 修改

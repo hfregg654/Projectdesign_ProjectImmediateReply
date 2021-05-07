@@ -163,7 +163,6 @@ namespace ProjectImmediateReply.API
                         if (groupdata.Columns["TeamName"] != null)
                             ClassMember.TeamNameGroup = grouplist.ToArray();
 
-                        Array.Sort(ClassMember.Name.ToArray(), ClassMember.TeamNameGroup);
 
                         ProjectAll.Add(ClassMember);
                     }

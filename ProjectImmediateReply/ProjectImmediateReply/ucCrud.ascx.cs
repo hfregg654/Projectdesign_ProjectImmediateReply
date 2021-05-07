@@ -1,4 +1,6 @@
-﻿using System;
+﻿using ProjectImmediateReply.Models;
+using ProjectImmediateReply.Utility;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -12,7 +14,6 @@ namespace ProjectImmediateReply
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-          
 
         }
         protected void Page_PreRander(object sender, EventArgs e)
