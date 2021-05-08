@@ -187,11 +187,6 @@
     <Compile Include="CreateSpecialAccount.aspx.designer.cs">
       <DependentUpon>CreateSpecialAccount.aspx</DependentUpon>
     </Compile>
-    <Compile Include="DBModels\Grade.cs" />
-    <Compile Include="DBModels\Project.cs" />
-    <Compile Include="DBModels\ProjectImmediateReplyDataContext.cs" />
-    <Compile Include="DBModels\User.cs" />
-    <Compile Include="DBModels\Work.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
