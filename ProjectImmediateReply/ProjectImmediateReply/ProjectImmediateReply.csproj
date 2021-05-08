@@ -149,6 +149,9 @@
     <Compile Include="API\CreateProjectHandler.ashx.cs">
       <DependentUpon>CreateProjectHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="API\CreateSpecialAccountHandler.ashx.cs">
+      <DependentUpon>CreateSpecialAccountHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="API\ForgetPasswordHandeler.ashx.cs">
       <DependentUpon>ForgetPasswordHandeler.ashx</DependentUpon>
     </Compile>
@@ -336,6 +339,7 @@
     <Content Include="API\AssignTeamHandler.ashx" />
     <Content Include="API\ProjectDetailHandler.ashx" />
     <Content Include="API\ClassDetailHandler.ashx" />
+    <Content Include="API\CreateSpecialAccountHandler.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
