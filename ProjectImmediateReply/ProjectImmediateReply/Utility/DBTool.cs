@@ -172,8 +172,6 @@ namespace ProjectImmediateReply.Utility
                         uInfo.TeamName = item["TeamName"].ToString();
                     if (dataTable.Columns["ProjectID"] != null && item["ProjectID"] != null)
                         uInfo.ProjectID = Convert.ToInt32(item["ProjectID"]);
-                    if (dataTable.Columns["WorkID"] != null && item["WorkID"] != null)
-                        uInfo.WorkID = item["WorkID"].ToString();
                     if (dataTable.Columns["Privilege"] != null && item["Privilege"] != null)
                         uInfo.Privilege = item["Privilege"].ToString();
                     if (dataTable.Columns["CreateDate"] != null && item["CreateDate"] != null)
@@ -214,14 +212,6 @@ namespace ProjectImmediateReply.Utility
                         uInfo.ProjectName = item["ProjectName"].ToString();
                     if (dataTable.Columns["ClassNumber"] != null && item["ClassNumber"] != null)
                         uInfo.ClassNumber = item["ClassNumber"].ToString();
-                    if (dataTable.Columns["TeamID"] != null && item["TeamID"] != null)
-                        uInfo.TeamID = Convert.ToInt32(item["TeamID"]);
-                    if (dataTable.Columns["TeamName"] != null && item["TeamName"] != null)
-                        uInfo.TeamName = item["TeamName"].ToString();
-                    if (dataTable.Columns["WorkID"] != null && item["WorkID"] != null)
-                        uInfo.WorkID = item["WorkID"].ToString();
-                    if (dataTable.Columns["Schedule"] != null && item["Schedule"] != null)
-                        uInfo.Schedule = Convert.ToSingle(item["Schedule"]);
                     if (dataTable.Columns["DeadLine"] != null && item["DeadLine"] != null)
                         uInfo.DeadLine = Convert.ToDateTime(item["DeadLine"]);
                     if (dataTable.Columns["CreateDate"] != null && item["CreateDate"] != null)
@@ -258,8 +248,6 @@ namespace ProjectImmediateReply.Utility
                     var uInfo = new WorkInfo();
                     if (dataTable.Columns["ProjectID"] != null && item["ProjectID"] != null)
                         uInfo.ProjectID = Convert.ToInt32(item["ProjectID"]);
-                    if (dataTable.Columns["TeamID"] != null && item["TeamID"] != null)
-                        uInfo.TeamID = Convert.ToInt32(item["TeamID"]);
                     if (dataTable.Columns["WorkID"] != null && item["WorkID"] != null)
                         uInfo.WorkID = Convert.ToInt32(item["WorkID"]);
                     if (dataTable.Columns["WorkDescription"] != null && item["WorkDescription"] != null)
@@ -270,8 +258,6 @@ namespace ProjectImmediateReply.Utility
                         uInfo.FilePath = item["FilePath"].ToString();
                     if (dataTable.Columns["UpdateTime"] != null && item["UpdateTime"] != null)
                         uInfo.UpdateTime = Convert.ToDateTime(item["UpdateTime"]);
-                    if (dataTable.Columns["SpendTime"] != null && item["SpendTime"] != null)
-                        uInfo.SpendTime = Convert.ToDateTime(item["SpendTime"]);
                     if (dataTable.Columns["Complete"] != null && item["Complete"] != null)
                         uInfo.Complete = Convert.ToBoolean(item["Complete"]);
                     if (dataTable.Columns["CreateDate"] != null && item["CreateDate"] != null)
