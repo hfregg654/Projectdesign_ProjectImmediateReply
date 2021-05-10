@@ -25,6 +25,7 @@ namespace ProjectImmediateReply.API
             string C1newpassword = string.Empty;
             string C1newpasswordconfirm = string.Empty;
             string license = string.Empty;
+            string oldname = string.Empty;
             string json = string.Empty;
             //先處理接到的JSON放進字串中
             //從 PageTool  axios.post('API/UpdateInfoHandler.ashx' POST過來 放入json
@@ -43,6 +44,7 @@ namespace ProjectImmediateReply.API
                 C1newpassword = splitjson[23];
                 C1newpasswordconfirm = splitjson[27];
                 license = splitjson[31];
+                oldname = splitjson[35];
             }
             if (string.IsNullOrWhiteSpace(C1name) || string.IsNullOrWhiteSpace(C1phone) || string.IsNullOrWhiteSpace(C1email) || string.IsNullOrWhiteSpace(C1lineid)
                 ||!(C1name.LastIndexOf(" ")==-1)|| !(C1phone.LastIndexOf(" ") == -1)|| !(C1email.LastIndexOf(" ") == -1)|| !(C1lineid.LastIndexOf(" ") ==-1))
@@ -95,7 +97,7 @@ namespace ProjectImmediateReply.API
             {
                 string[] colname = { "PassWord" };
                 string[] colnamep = { "@License", "@Name" };
-                string[] p = { license, C1name };
+                string[] p = { license, oldname };
                 DataTable check_acc = Dbtool.readTable("users", colname, "WHERE License=@License AND Name=@Name AND DeleteDate IS NULL AND WhoDelete IS NULL", colnamep, p);
                 if (check_acc.Rows.Count != 0)
                 {
