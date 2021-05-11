@@ -6,8 +6,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <v-main style="background: -webkit-linear-gradient(right, #FFAF7B, #FFABAB); background: linear-gradient(to right, #FFAF7B, #FFABAB);">
         <div v-show="false">
-            <input type="hidden" id="hiddenClass" />
-            <input type="hidden" />
+            <input type="hidden" id="hiddenClass" value=""/>
+            <input type="hidden" id="hiddenTeam" value=""/>
         </div>
 						<v-row>
 							<v-spacer></v-spacer>
