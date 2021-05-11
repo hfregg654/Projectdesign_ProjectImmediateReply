@@ -1,0 +1,475 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<!-- meta引入 -->
+		<meta name="viewport"
+			content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, minimal-ui">
+		<meta charset="UTF-8">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<meta http-equiv="content-language" content="zh-tw">
+		<meta name="viewport"
+			content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<!-- ---------- -->
+		<link rel="stylesheet" type="text/css"
+			href="https://cdn.jsdelivr.net/npm/@mdi/font@5.x/css/materialdesignicons.min.css" />
+		<link href="https://fonts.googleapis.com/css?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" rel="stylesheet">
+		<link href="https://cdn.jsdelivr.net/npm/vuetify@2.3.10/dist/vuetify.min.css" rel="stylesheet">
+		<!-- 導入中文字體 -->
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@900&display=swap" rel="stylesheet">
+		<!-- 導入英文字體 -->
+		<link rel="preconnect" href="https://fonts.gstatic.com">
+		<link href="https://fonts.googleapis.com/css2?family=Lemonada:wght@700&display=swap" rel="stylesheet">
+	</head>
+	<body>
+		<div id="app">
+			<v-app id="inspire">
+				<v-app id="keep">
+					<v-app-bar app clipped-left color="black">
+						<v-app-bar-nav-icon @click="drawer = !drawer" color="white"></v-app-bar-nav-icon>
+						<v-spacer></v-spacer>
+						<span class="title mr-5">
+							<font color="#0069CE" class="ubay">u</font>
+							<font color="#00A65A" class="ubay">B</font>
+							<font color="#EEC803" class="ubay">A</font>
+							<font color="#EC475A" class="ubay">Y</font>
+						</span>
+						<v-spacer></v-spacer>
+					</v-app-bar>
+					<!-- 導航欄開始 -->
+					<v-navigation-drawer v-model="drawer" app clipped color="grey lighten-4">
+						<v-card max-width="375" class="mx-auto" height="100%">
+							<v-img
+								src="https://www.morganstanley.com/pub/content/dam/msdotcom/ideas/rise-of-the-tech-super-platforms/tw-rise-of-tech.jpg"
+								height="250px" dark>
+								<v-row class="fill-height">
+									<v-card-title>
+										<!-- <v-btn dark icon>
+						            <v-icon>mdi-chevron-left</v-icon>
+						          </v-btn> -->
+
+										<v-spacer></v-spacer>
+
+									</v-card-title>
+
+									<v-spacer></v-spacer>
+
+									<v-card-content class="white--text mb-3 pr-8 mt-7">
+										<v-list-item-avatar size="90" class="ml-6">
+											<img
+												src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQV-9p7LkFhpIsdRTn3uij6E50Nn-4SQZO3sA&usqp=CAU">
+										</v-list-item-avatar>
+										<v-list-item class="mr-7 mt-5">
+											<div class="h1 navfont pr-4">歡迎您</div><br>
+											<div class="h1 navfont pr-4">XXXX</div>
+										</v-list-item>
+									</v-card-content>
+								</v-row>
+							</v-img>
+
+							<v-list two-line>
+								<v-list-item @click="" href="#1">
+									<v-list-item-icon>
+										<v-icon color="primary">face</v-icon>
+									</v-list-item-icon>
+
+									<v-list-item-content>
+										<v-list-item-title class="chinese h4 primary--text">個人資料維護</v-list-item-title>
+										<v-list-item-subtitle>Mobile</v-list-item-subtitle>
+									</v-list-item-content>
+
+								</v-list-item>
+
+
+								<v-divider inset></v-divider>
+								<!-- 專案選單開始 -->
+								<v-list-item @click="" href="#2">
+									<v-list-item-icon>
+										<v-icon color="primary">assignment_ind</v-icon>
+									</v-list-item-icon>
+
+									<v-list-item-content>
+										<v-list-item-title class="chinese h4 primary--text">建立班級及修改</v-list-item-title>
+										<v-list-item-subtitle>Personal</v-list-item-subtitle>
+									</v-list-item-content>
+								</v-list-item>
+
+								<v-list-item @click="" href="#2">
+									<v-list-item-icon>
+										<v-icon color="primary">assignment_turned_in</v-icon>
+									</v-list-item-icon>
+
+									<v-list-item-content>
+										<v-list-item-title class="chinese h4 primary--text">建立專案及修改</v-list-item-title>
+										<v-list-item-subtitle>Personal</v-list-item-subtitle>
+									</v-list-item-content>
+								</v-list-item>
+
+								<v-list-item @click="" href="#2">
+									<v-list-item-icon>
+										<v-icon color="primary">today</v-icon>
+									</v-list-item-icon>
+
+									<v-list-item-content>
+										<v-list-item-title class="chinese h4 primary--text">小組分配及修改</v-list-item-title>
+										<v-list-item-subtitle>Personal</v-list-item-subtitle>
+									</v-list-item-content>
+								</v-list-item>
+								<!-- 專案選單結束 -->
+								<v-list-item @click="" href="#3">
+									<v-list-item-icon>
+										<v-icon color="primary">receipt</v-icon>
+									</v-list-item-icon>
+
+									<v-list-item-content>
+										<v-list-item-title class="chinese h4 primary--text">成績</v-list-item-title>
+										<v-list-item-subtitle>Work</v-list-item-subtitle>
+									</v-list-item-content>
+								</v-list-item>
+
+								<v-divider inset></v-divider>
+
+							</v-list>
+						</v-card>
+					</v-navigation-drawer>
+					<!-- 導航欄結束 -->
+					<v-main
+						style="background: -webkit-linear-gradient(right, #FFAF7B, #FFABAB);background: linear-gradient(to right, #FFAF7B, #FFABAB);   ">
+						<v-row>
+							<v-spacer></v-spacer>
+							<p class="h1 ml-10 pl-16 font-weight-bold">{{專案}}專案</p>
+							<v-spacer></v-spacer>
+							<!-- <v-btn color="primary" dark class="my-2 mr-10"　@click="GiveGrade()">
+									評分</v-btn> -->
+									<!-- 評分彈跳視窗開始 -->
+							<v-dialog v-model="dialog" persistent max-width="600px">
+								<template v-slot:activator="{ on, attrs }">
+									<v-btn color="primary" dark class="mr-5" 　@click="GetData()" 　v-bind="attrs"
+										v-on="on">
+										評分
+									</v-btn>
+								</template>
+								<v-card>
+									<!-- <v-card-title>
+								      <span class="headline">User Profile</span>
+								    </v-card-title> -->
+									<v-card-text>
+										<v-container>
+											<v-row>
+												
+												<v-col cols="12" sm="6">
+													<v-select :items="details.班別集合" v-model="details.班別" label="班別" required></v-select>
+												</v-col>
+												<v-col cols="12" sm="6">
+													<v-select v-model="details.姓名" :items="details.姓名" label="姓名" required></v-select>
+												</v-col>
+												<v-col cols="12" sm="12" md="6">
+													<v-text-field v-model="details.專案成績" label="專案成績" hint="專案成績:每位成員分數皆不一樣"></v-text-field>
+												</v-col>
+
+												<v-col cols="12" sm="12" md="6">
+													<v-text-field v-model="details.面談成績" label="面談成績" hint="面談成績:成員和社長或PM面談所獲得的分數">
+													</v-text-field>
+												</v-col>
+
+												<v-col cols="12" sm="12">
+													<v-textarea background-color="amber lighten-4"
+														color="orange orange-darken-4" label="評語" no-resize class="mb-0"
+														v-model="details.評語"></v-textarea>
+												</v-col>
+
+											</v-row>
+										</v-container>
+										<!-- <small>*indicates required field</small> -->
+									</v-card-text>
+									<v-card-actions>
+										<v-spacer></v-spacer>
+										<v-btn color="blue darken-1" text @click="send()">
+											評分
+										</v-btn>
+										<v-btn color="blue darken-1" text @click="dialog = false">
+											取消
+										</v-btn>
+
+									</v-card-actions>
+								</v-card>
+							</v-dialog>
+							<!-- 評分彈跳視窗end -->
+						</v-row>
+						<!-- -------- -->
+						<v-row>
+							<v-spacer></v-spacer>
+							<p class="pa-5 subtitle-2 font-weight-bold">組名{{組名}} 組長{{組長}} 組員{{組員}}</p>
+							<v-spacer></v-spacer>
+						</v-row>
+						
+						<template>
+							<v-data-table @page-count="pageCount = $event" :page.sync="page"
+								:items-per-page="itemsPerPage" 
+								hide-default-footer 
+								:headers="headers" 
+								:items="inneritem"
+								item-key="id"
+								class="elevation-1"
+								style="background: -webkit-linear-gradient(right, #FFAF7B, #FFABAB);background: linear-gradient(to right, #FFAF7B, #FFABAB);   ">
+								<!-- v-slot 開始							 -->
+								<template v-slot:top>
+									<v-toolbar flat color="white"
+										style="background: -webkit-linear-gradient(right, #FFAF7B, #FFABAB);background: linear-gradient(to right, #FFAF7B, #FFABAB);   ">
+										<v-spacer></v-spacer>
+										工作項目
+										<v-spacer></v-spacer>
+									</v-toolbar>
+								</template>
+								<!-- ----->
+									  <template #item.花費時間="{ item }">
+									        {{ item.花費時間 }}天
+									    </template>
+										<template #item.url="{ item }">
+										             <v-btn  text dark small color="green" :href="item.url">
+														 檔案連結
+										             </v-btn>
+										         </template>
+								<!-- ---
+								 -->
+								
+							</v-data-table>
+
+							<v-pagination v-model="page" :length="pageCount"></v-pagination>
+							<v-row>
+								<v-spacer></v-spacer>
+								<v-btn color="primary" dark class="mb-2 mr-10" >
+									返回</v-btn>
+							</v-row>
+						</template>
+
+					</v-main>
+					<!-- footer -->
+					<v-footer dark padless>
+						<v-card class="flex" flat tile>
+
+							<v-card-text class="py-2 white--text text-center">
+								<p class="flow-text grey-text center footer-ubay h6">Copyright&copy;2021,
+									<font color="#0069CE">u
+									</font>
+									<font color="#00A65A">B</font>
+									<font color="#EEC803">A</font>
+									<font color="#EC475A">Y</font> All Rights Reserved
+								</p>
+							</v-card-text>
+						</v-card>
+					</v-footer>
+				</v-app>
+			</v-app>
+		</div>
+		<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/babel-polyfill/dist/polyfill.min.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vue@2.x/dist/vue.js"></script>
+		<script src="https://cdn.jsdelivr.net/npm/vuetify@2.3.10/dist/vuetify.min.js"></script>
+		<!-- 導入AXIOS -->
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.21.1/axios.min.js"></script>
+		<script>
+			// 下面ＴＡＢＬＥ的作法是,頁面加載時獲取一次,按下小組亂數分配刷新獲取一次,儲存時ＰＯＳＴ回去小組亂數結果
+			// 組別和專案名一開始先給空值 不會顯示 （inneritem.project  inneritem.teamname）
+		var vm = new Vue({
+				el: '#app',
+				vuetify: new Vuetify(),
+				data: () => ({
+					drawer: false,
+					//
+					dialog: false,
+					// -----
+					// table外面資料
+					專案: "XXX",
+					組名: "1234",
+					組長: "5678",
+					組員: "XXXXX,XXXX,XXXX,XXXXX,XXXXXXXX,XXXXXX",
+					// 評分按鈕彈跳視窗邏輯
+					details:{
+					班別集合:['第一班', '第二班', '第三班', '第四班'],
+					班別: '第三班',
+					姓名: ['A', 'B', 'C', 'D'],
+					專案成績: "",
+					面談成績: "",
+					評語: "aaaaa <br> bbbbbb   cccc       ddddddd    eeeee      ffffffff",		
+					},
+					// ----------------------
+					// 變數開始
+					// 管理分頁變數開始
+					page: 1,
+					pageCount: 0,
+					itemsPerPage: 10,
+					// 管理分頁變數結束
+					// 彈跳視窗開始
+					dialog: false,
+					// 彈跳視窗結束					
+					inneritem: [],
+					// json資料結束
+
+					// 變數結束
+					headers: [{
+							text: '工作',
+							align: 'start',
+							value: '工作',
+						},
+						{
+							text: '工作內容',
+							value: '工作內容'
+						},
+						{
+							text: '時程期限',
+							value: '時程期限'
+						},
+						{
+							text: '負責人員',
+							value: '負責人員',
+						},
+						{
+							text: '完成日期',
+							value: '完成日期',
+						},
+						{
+							text: '花費時間',
+							value: '花費時間',
+						},
+						{
+							text: '',
+							value: 'url',
+						},
+					],
+
+				}),
+
+				created() {
+					this.initialize()
+				},
+
+				methods: {
+					// 評分案件邏輯
+					GetData(){
+						// axios
+						// 	.get('API/GetCrudHandler.ashx')
+						// 	.then(response => (this.details = response.data))
+						// 	.catch(function(error) {
+						// 		{
+						// 			alert(error);
+						// 		}
+						// 	});	
+					},
+					// 彈跳視窗評分按鍵	按下後把整個inneritem傳過去	
+					send() {
+						// axios
+						// 	.post('API/GetCrudHandler.ashx', {
+						// 		{
+						// 			innertype: 'GradesCrud',
+						// 			classchoice: vm.班別,
+						// 			classchoice: vm.姓名,
+						// 			classchoice: vm.專案成績,
+						// 			classchoice: vm.面談成績,
+						// 			classchoice: vm.評語,
+									// 	or
+									// details:	 vm.details
+						// 		}
+						// 	})
+						// 	.then(response => (this.inneritem = response.data);this.dialog = false)
+						// 	.catch(function(error) {
+						// 		{
+						// 			alert(error);
+						// 		}
+						// 	});	
+						
+					},
+
+					// 初始化資料
+					// 二擇一 initialize上面靜態 下面動態get取得資料
+					initialize() {
+						// 組別專案名一開始給空的 之後去接值
+						this.inneritem = [{
+								id: "1",
+								工作: '專案管理',
+								工作內容: '工作內容1',
+								時程期限: '2020/10/21',
+								負責人員: '學武 學武 學武 學武',
+								完成日期: '2020/10/21',
+								花費時間: '15',
+								url: 'https://www.google.com/webhp?hl=zh-TW&sa=X&ved=0ahUKEwiG9Yn3_cDwAhVKBKYKHYddDlAQPAgI'
+							},
+							{
+								id: "2",
+								工作: '專案管理',
+								工作內容: '工作內容2',
+								時程期限: '2020/10/21',
+								負責人員: '學武 學武 學武 學武 ',
+								完成日期: '2020/10/21',
+								花費時間: '6',
+								url: 'https://tw.help.yahoo.com/kb/account'
+							},
+
+						];
+					},
+					// initialize() {
+					// 	axios
+					// 		.get('API/GetCrudHandler.ashx')
+					// 		.then(response => {
+					// 			console.table(response.data)
+					// 			this.inneritem = response.data;
+					// 		})
+					// 		.catch(function(error) {
+					// 			{
+					// 				alert(error);
+					// 			}
+					// 		});
+					// 	this.inneritem = []
+					// },
+				},
+
+			})
+		</script>
+		<style type="text/css">
+			#keep .v-navigation-drawer__border {
+				display: none
+			}
+
+			.ubay {
+				font-family: 'Lemonada', cursive;
+				font-weight: 900;
+				font-size: 3.125rem;
+				padding-left: 0.9375rem;
+				margin-left: -0.3125rem;
+			}
+
+			.navfont {
+				font-family: 'ZCOOL KuaiLe', cursive;
+				font-weight: bold;
+			}
+
+			.footer-ubay {
+				font-family: 'Lemonada', cursive !important;
+			}
+
+			.top {
+				background: rgba(0, 0, 0, .6) !important;
+			}
+
+			.chinese {
+				font-family: 'Noto Sans TC', sans-serif;
+				padding-right: 2.375rem;
+			}
+
+
+			@media (max-width:600px),
+			print {
+				.ubay {
+					font-size: 2.125rem;
+					padding: 0.125rem
+				}
+
+				.footer-ubay {
+					font-family: 'Anton', sans-serif;
+					font-family: 'Shadows Into Light', cursive;
+					font-size: 1rem;
+				}
+			}
+		</style>
+	</body>
+</html>

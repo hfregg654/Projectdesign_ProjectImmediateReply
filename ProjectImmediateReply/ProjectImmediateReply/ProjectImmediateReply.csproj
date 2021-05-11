@@ -93,6 +93,7 @@
     <Content Include="CreateSpecialAccount.aspx" />
     <Content Include="Global.asax" />
     <Content Include="HTML\A-1.html" />
+    <Content Include="HTML\A-2-1.html" />
     <Content Include="HTML\A-2.html" />
     <Content Include="HTML\A-3.html" />
     <Content Include="HTML\B-1.html" />
@@ -123,6 +124,7 @@
     <Content Include="images\slide05.jpg" />
     <Content Include="Index.aspx" />
     <Content Include="ProjectDetail.aspx" />
+    <Content Include="ProjectDetail_Grades.aspx" />
     <Content Include="ucAssignTeam.ascx" />
     <Content Include="ucCreateClass.ascx" />
     <Content Include="ucCreateProject.ascx" />
@@ -217,6 +219,13 @@
     </Compile>
     <Compile Include="ProjectDetail.aspx.designer.cs">
       <DependentUpon>ProjectDetail.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ProjectDetail_Grades.aspx.cs">
+      <DependentUpon>ProjectDetail_Grades.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ProjectDetail_Grades.aspx.designer.cs">
+      <DependentUpon>ProjectDetail_Grades.aspx</DependentUpon>
     </Compile>
     <Compile Include="ucAssignTeam.ascx.cs">
       <DependentUpon>ucAssignTeam.ascx</DependentUpon>

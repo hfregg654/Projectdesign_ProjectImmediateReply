@@ -211,11 +211,13 @@ namespace ProjectImmediateReply.API
             }
             else if (innertype == "ProjectDetail")
             {
-                string[] colname = { "ProjectID", "ProjectName", "TeamName", "DeadLine" };
+                string[] colname = { "Projects.ProjectID", "Projects.ProjectName", "Users.TeamName", "Projects.DeadLine" };
                 string[] colnamep = { "@ClassNumber" };
                 string[] p = { ClassNumber };
                 string logic = @"
-                                WHERE ClassNumber=@ClassNumber AND DeleteDate IS NULL AND WhoDelete IS NULL
+                                INNER JOIN Users ON Projects.ProjectID=Users.ProjectID
+                                WHERE Users.ClassNumber=@ClassNumber AND Projects.DeleteDate IS NULL AND Projects.WhoDelete IS NULL
+                                GROUP BY Projects.ProjectID, Projects.ProjectName, Users.TeamName, Projects.DeadLine
                                 ";
                 DataTable data = Dbtool.readTable("Projects", colname, logic, colnamep, p);//查班級所有專案
 

@@ -270,7 +270,7 @@ namespace ProjectImmediateReply.Utility
 												}});
 										}},
 										onButtonClick(item) {{
-											alert('按下了第' + item.ProjectID + '個')
+											window.location.href='./ProjectDetail_Grades.aspx?ProjectID='+item.ProjectID;
 										}},
 										initialize() {{
 											this.inneritem = [];
@@ -428,7 +428,7 @@ namespace ProjectImmediateReply.Utility
             else if (PageInner == "UpdateInfo")
             {
                 DBTool Dbtool = new DBTool();
-                string[] colcheckname = { "Name", "Phone", "Mail", "LineID", "License" };
+                string[] colcheckname = { "Name", "Phone", "Mail", "LineID" };
                 string[] colchecknamep = { "@UserID" };
                 LogInfo info = (LogInfo)HttpContext.Current.Session["IsLogined"];
                 string[] checkp = { info.UserID.ToString() };
@@ -457,7 +457,7 @@ namespace ProjectImmediateReply.Utility
 										C1password: """",
 										C1newpassword: """",
 										C1newpasswordconfirm: """",
-										license: ""{userdata.License}"",
+										license: ""{info.License}"",
 										show1:false,
 										show2:false,
 										show3:false,				
@@ -527,7 +527,7 @@ namespace ProjectImmediateReply.Utility
 										C1password: """",
 										C1newpassword: """",
 										C1newpasswordconfirm: """",
-										license: ""{userdata.License}"",
+										license: ""{info.License}"",
 										show1:false,
 										show2:false,
 										show3:false,				

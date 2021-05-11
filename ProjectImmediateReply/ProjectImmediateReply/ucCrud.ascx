@@ -43,10 +43,6 @@
 							</v-data-table>
 
 							<v-pagination v-model="page" :length="pageCount"></v-pagination>
-								<v-row>
-									<v-spacer></v-spacer>
-							<v-btn color="primary" dark class="mb-2 mr-10"　@click="store">
-								儲存</v-btn>
-								</v-row>
+								
 						</template>
 </v-main>

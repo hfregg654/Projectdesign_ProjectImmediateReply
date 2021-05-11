@@ -45,14 +45,18 @@ namespace ProjectImmediateReply.API
                 ProjectName = json.Split('"')[11];
                 TeamName = json.Split('"')[15];
                 DeadLine = json.Split('"')[19];
-                string[] updatecol_Logic = { "ProjectName=@ProjectName", "TeamName=@TeamName", "DeadLine=@DeadLine" }; /*  要更新的欄位*/
-                string Where_Logic = "ProjectID=@ProjectID AND DeleteDate IS NULL AND WhoDelete IS NULL";
-                string[] updatecolname_P = { "@ProjectName", "@TeamName", "@DeadLine", "@ProjectID" }; /*要帶入的參數格子*/
+
+                string[] updatecol_Logic = { "ProjectName=@ProjectName", "DeadLine=@DeadLine" }; /*  要更新的欄位*/
+                string Where_Logic = "ProjectID=@ProjectID AND DeleteDate IS NULL AND WhoDelete IS NULL ; UPDATE Users SET TeamName=@TeamName WHERE ProjectID=@ProjctIDUsers";
+                string[] updatecolname_P = { "@ProjectName", "@DeadLine", "@ProjectID","@TeamName", "@ProjctIDUsers" }; /*要帶入的參數格子*/
                 List<string> update_P = new List<string>();
                 update_P.Add(ProjectName.Trim());
-                update_P.Add(TeamName.Trim());
                 update_P.Add(DeadLine.Trim());
                 update_P.Add(ProjectID);
+                update_P.Add(TeamName.Trim());
+                update_P.Add(ProjectID);
+
+
 
                 Dbtool.UpdateTable("Projects", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
                 context.Response.Write("{\"success\":\"success\"}");
