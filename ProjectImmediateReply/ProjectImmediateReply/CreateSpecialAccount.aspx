@@ -31,6 +31,7 @@
 									<v-text-field :rules="[(this.C1newpasswordconfirm === this.C1newpassword || '密碼與密碼確認不相符'),[v => !!v || '此輸入框不可為空白']]" class="mt-1" label="密碼確認"
 										type="password" v-model="C1newpasswordconfirm" :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'" :type="show3 ? 'text' : 'password'" @click:append="show3 = !show3" required></v-text-field>
 										
+<%--										v-model="authority" 接:items="chooseauthority"--%>
 										<v-select 
 										:items="chooseauthority" v-model="authority" label="權限" :rules="[v => !!v || '此輸入框不可為空白']" class="mt-4"
 											solo required></v-select>
@@ -41,7 +42,11 @@
 										:disabled="!valid" class="justify-center h1 font-weight-black" large>
 										建立
 									</v-btn>
+									<span style="color: red" >
+									<literal id="messagelabel"></literal>
+									</span>
 								</v-card-actions>
+								
 								<v-card-actions class="justify-start">
 									<!-- <label for="" class="blue--text">授權碼 XXXXXX</label> -->
 									<v-spacer></v-spacer>
@@ -66,7 +71,6 @@
 					drawer: false,
 					// 資料宣告 街輸入者資料框資料
 					valid: true,  //v-form驗證
-					License: "",
 					C1name: "",
 					C1phone: "",
 					C1email: "",
@@ -76,7 +80,7 @@
 					C1newpasswordconfirm: "",
 					authority:"",
 					// 權限選擇框
-					chooseauthority: ['權限1', '權限2', '權限3'],
+					chooseauthority: ['Manager', 'Grades'],
 					// 控制密碼眼睛
 					show1:false,
 					show2:false,
@@ -88,13 +92,34 @@
 						// vuetify驗證寫法 refs
 					        if (this.$refs.form.validate()) {
 								// 表單提交
-					               axios.post('/123', {
+								// 大括弧內是傳過去的參數
+								axios.post('API/CreateSpecialAccountHandler.ashx', {
+									   Name: this.C1name,
+									   Phone: this.C1phone,
+									   Mail: this.C1email,
+									   LineID: this.C1lineid,
+									   Account: this.C1account,
+									   PassWord: this.C1newpassword,
+									   PassWordCheck: this.C1newpasswordconfirm,
+                                       Privilege: this.authority,
 					                   classchoice:this.classchoice,
 									   people:this.people,
 					                 })
 					                 .then(response => {
-					                   console.log(response);
-									   alert("發送成功");
+										 //console.log(response); 寫在F12裡 測試用 顯示傳回來的值
+                                         $("#messagelabel").empty();
+										 if (response.data.success == "true") {
+											 $("#messagelabel").append("帳號建立成功");
+										 }
+                                         else if (response.data.success == "account") {
+											 $("#messagelabel").append("帳號已存在，請建立其他帳號");
+										 }
+                                         else if (response.data.success == "PassWordWrong") {
+											 $("#messagelabel").append("密碼確認輸入錯誤");
+										 }
+                                         else if (response.data.success == "empty") {
+											 $("#messagelabel").append("欄位不可為空");
+										 }
 					                 })
 					                 .catch(error => {
 					                   console.log(error);

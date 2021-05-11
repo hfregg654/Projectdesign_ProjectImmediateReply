@@ -40,6 +40,7 @@ namespace ProjectImmediateReply.Utility
 
         public string PageLeft(string PageType)
         {
+			//ascx才要寫到這裡插入
 			//href =""./Index.aspx?PageInnerType=UpdateInfo"" +. 從根目錄開始抓
 			//轉跳的網頁網址 => href = "" / Index.aspx ? PageInnerType = UpdateInfo"" >
 			if (PageType == "Manager")

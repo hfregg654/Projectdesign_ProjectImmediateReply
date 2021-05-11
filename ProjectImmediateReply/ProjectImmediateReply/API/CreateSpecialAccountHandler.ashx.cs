@@ -2,6 +2,7 @@
 using ProjectImmediateReply.Utility;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 
@@ -16,22 +17,44 @@ namespace ProjectImmediateReply.API
         public void ProcessRequest(HttpContext context)
         {
             RandomTool RTool = new RandomTool();
-
-            string Name = context.Request.Form["Name"]; //POST取值
-            string Phone = context.Request.Form["Phone"];
-            string Mail = context.Request.Form["Mail"];
-            string LineID = context.Request.Form["LineID"];
-            string ClassNumber = context.Request.Form["ClassNumber"];
-            string Account = context.Request.Form["Account"];
-            string PassWord = context.Request.Form["PassWord"];
-            string PassWordCheck = context.Request.Form["PassWordCheck"];
+            string json = string.Empty;
+            string Name = string.Empty; //POST取值
+            string Phone = string.Empty;
+            string Mail = string.Empty;
+            string LineID = string.Empty;
+            string Account = string.Empty;
+            string PassWord = string.Empty;
+            string PassWordCheck = string.Empty;
+            string Privilege = string.Empty;
             string License = string.Empty;
+
+            //先處理接到的JSON放進字串中
+            using (StreamReader reader = new StreamReader(context.Request.InputStream))
+            {
+                json = reader.ReadToEnd();
+            }
+            //若有接到則提取裡面的資料
+            if (!string.IsNullOrWhiteSpace(json))
+            {
+                string[] splititem = json.Split('"');
+                Name = splititem[3];//用"切開則參數會在3,7,11,15...的位置
+                Phone = splititem[7];
+                Mail = splititem[11];
+                LineID = splititem[15];
+                Account = splititem[19];
+                PassWord = splititem[23];
+                PassWordCheck = splititem[27];
+                Privilege = splititem[31];
+            }
+
+
+
 
             List<UserInfo> Check_Acc = new List<UserInfo>();
             List<UserInfo> Check_Acc_Lic = new List<UserInfo>();
             string ShowMessage = string.Empty;
             string ShowMessage2 = string.Empty;
-            if (Name != string.Empty && Phone != string.Empty && Mail != string.Empty && LineID != string.Empty && ClassNumber != string.Empty
+            if (Name != string.Empty && Phone != string.Empty && Mail != string.Empty && LineID != string.Empty
                 && Account != string.Empty && PassWord != string.Empty && PassWordCheck != string.Empty)
             {
                 if (PassWord == PassWordCheck)
@@ -57,36 +80,38 @@ namespace ProjectImmediateReply.API
                     if (Check_Acc.Count != 0)
                     {
                         context.Response.ContentType = "text/json";
-                        context.Response.Write("[{\"success\":\"account\"}]");
+                        context.Response.Write("{\"success\":\"account\"}");
                     }
                     else
                     {
-                        string[] insertcolname = { "Name=@Name", "Phone=@Phone", "Mail=@Mail", "LineID=@LineID", "ClassNumber=@ClassNumber", "Account=@Account", "PassWord=@PassWord", }; 
-                        string[] inserttablenamep = { "@Name", "@Phone", "@Mail", "@LineID", "@ClassNumber", "@Account", "@PassWord", "@License" };
+                        string[] insertcolname = { "Name", "Phone", "Mail", "LineID", "Account", "PassWord","License", "Privilege","WhoCreate","CreateDate" }; 
+                        string[] inserttablenamep = { "@Name", "@Phone", "@Mail", "@LineID", "@Account", "@PassWord", "@License", "@Privilege", "@WhoCreate", "@CreateDate" };
                         List<string> insert_P = new List<string>();
                         insert_P.Add(Name);
                         insert_P.Add(Phone);
                         insert_P.Add(Mail);
                         insert_P.Add(LineID);
-                        insert_P.Add(ClassNumber);
                         insert_P.Add(Account);
                         insert_P.Add(PassWord);
                         insert_P.Add(License);
+                        insert_P.Add(Privilege);
+                        insert_P.Add("Manager");
+                        insert_P.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                         Create.InsertTable("Users", insertcolname, inserttablenamep, insert_P);
                         context.Response.ContentType = "text/json";
-                        context.Response.Write("[{\"success\":\"true\"}]");
+                        context.Response.Write("{\"success\":\"true\"}");
                     }
                 }
                 else
                 {
                     context.Response.ContentType = "text/json";
-                    context.Response.Write("[{\"success\":\"PassWordWrong\"}]");
-                }
+                    context.Response.Write("{\"success\":\"PassWordWrong\"}");
+                }   // "{\"success\":\"PassWordWrong\"}" 單一值JSON字串寫法 "[{\"success\":\"PassWordWrong\"}","{\"success\":\"PassWordWrong\"}]" JSON陣列字串寫法
             }
             else
             {
                 context.Response.ContentType = "text/json";
-                context.Response.Write("[{\"success\":\"Empty\"}]");
+                context.Response.Write("{\"success\":\"Empty\"}");
             }
         }
 
