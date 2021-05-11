@@ -184,7 +184,7 @@ namespace ProjectImmediateReply.API
                     context.Response.Write(ShowTable);
                     return;
                 }
-                
+
             }
             else if (innertype == "ClassDetail")
             {
@@ -233,6 +233,61 @@ namespace ProjectImmediateReply.API
                     detaildatalist.Add(detail);
                 }
                 ShowTable = JsonConvert.SerializeObject(detaildatalist);
+            }
+            else if (innertype == "ProjectDetail_Grades")
+            {
+                //若沒有班級參數則直接回傳
+                if (string.IsNullOrWhiteSpace(ClassNumber))
+                    return;
+                string[] colnameclass = { "Users.Classnumber", "Users.TeamID" };
+                string[] colnamepclass = { "@ProjectID" };
+                string[] pclass = { ClassNumber };
+                string logicclass = @"
+                                INNER JOIN Users ON Projects.ProjectID=Users.ProjectID
+                                WHERE Projects.ProjectID=@ProjectID AND Projects.DeleteDate IS NULL AND Users.WhoDelete IS NULL
+                                GROUP BY Users.Classnumber,Users.TeamID
+                                ";
+                DataTable dataclass = Dbtool.readTable("Projects", colnameclass, logicclass, colnamepclass, pclass);//查班級
+
+
+
+
+                //宣告評分頁面顯示型別的變數
+                ForGradesShow ProjectAll = new ForGradesShow();
+                //準備查詢語法
+                string[] colnameteam = { "Projects.ProjectID", "Projects.ProjectName", "Users.[Name]", "Users.TeamName", "Users.Privilege" };
+                string[] colnamepteam = { "@ClassNumber", "@TeamID" };
+                string[] pteam = { dataclass.Rows[0]["Classnumber"].ToString(), dataclass.Rows[0]["TeamID"].ToString() };
+                string logicteam = @"
+                                INNER JOIN Users ON Projects.ProjectID=Users.ProjectID
+                                WHERE Users.ClassNumber=@ClassNumber AND Users.TeamID=@TeamID AND Projects.DeleteDate IS NULL AND Users.WhoDelete IS NULL
+                                ";
+                DataTable data = Dbtool.readTable("Projects", colnameteam, logicteam, colnamepteam, pteam);//查班級的所有人
+                                                                                                           //整理小組資料,宣告小組以及組員的Dictionary,以組別分別做排序，字典裡面放表。
+                List<string> member = new List<string>();
+                if (data.Rows.Count != 0)//如果根本沒有查回資料則將空資料回傳,有的話才開始整理
+                {
+                    foreach (DataRow item in data.Rows)
+                    {
+                        //以小組組別分別整理,判斷是否為組長來分別做排序處理
+                        if (item["Privilege"].ToString() == "Leader")
+                        {
+                            ProjectAll.LeaderName = item["Name"].ToString();
+                            ProjectAll.ProjectID = Convert.ToInt32(item["ProjectID"]);
+                            ProjectAll.ProjectName = item["ProjectName"].ToString();
+                            ProjectAll.TeamName = item["TeamName"].ToString();
+                        }
+                        else
+                            member.Add(item["Name"].ToString());
+                    }
+                    ProjectAll.MemberName = string.Join("、", member);
+                }
+
+
+
+                //將最後結果以JSON形式放進回傳字串
+                ShowTable = JsonConvert.SerializeObject(ProjectAll);
+
             }
             else
             {

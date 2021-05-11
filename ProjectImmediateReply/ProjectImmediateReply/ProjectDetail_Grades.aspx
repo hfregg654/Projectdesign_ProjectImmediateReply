@@ -11,7 +11,7 @@
         </div>
 						<v-row>
 							<v-spacer></v-spacer>
-							<p class="h1 ml-10 pl-16 font-weight-bold">{{專案}}專案</p>
+							<p class="h1 ml-10 pl-16 font-weight-bold">{{ProjectName}}</p>
 							<v-spacer></v-spacer>
 							<!-- <v-btn color="primary" dark class="my-2 mr-10"　@click="GiveGrade()">
 									評分</v-btn> -->
@@ -69,7 +69,7 @@
 						<!-- -------- -->
 						<v-row>
 							<v-spacer></v-spacer>
-							<p class="pa-5 subtitle-2 font-weight-bold">組名{{組名}} 組長{{組長}} 組員{{組員}}</p>
+							<p class="pa-5 subtitle-2 font-weight-bold">組名{{TeamName}} 組長{{Leader}} 組員{{Member}}</p>
 							<v-spacer></v-spacer>
 						</v-row>
 						
@@ -128,10 +128,10 @@
                 dialog: false,
                 // -----
                 // table外面資料
-                專案: "XXX",
-                組名: "1234",
-                組長: "5678",
-                組員: "XXXXX,XXXX,XXXX,XXXXX,XXXXXXXX,XXXXXX",
+                ProjectName: "XXX",
+                TeamName: "1234",
+                Leader: "5678",
+                Member: "XXXXX,XXXX,XXXX,XXXXX,XXXXXXXX,XXXXXX",
                 // 評分按鈕彈跳視窗邏輯
                 details: {
                     班別集合: ['第一班', '第二班', '第三班', '第四班'],
@@ -230,45 +230,53 @@
 
                 // 初始化資料
                 // 二擇一 initialize上面靜態 下面動態get取得資料
-                initialize() {
-                    // 組別專案名一開始給空的 之後去接值
-                    this.inneritem = [{
-                        id: "1",
-                        工作: '專案管理',
-                        工作內容: '工作內容1',
-                        時程期限: '2020/10/21',
-                        負責人員: '學武 學武 學武 學武',
-                        完成日期: '2020/10/21',
-                        花費時間: '15',
-                        url: 'https://www.google.com/webhp?hl=zh-TW&sa=X&ved=0ahUKEwiG9Yn3_cDwAhVKBKYKHYddDlAQPAgI'
-                    },
-                    {
-                        id: "2",
-                        工作: '專案管理',
-                        工作內容: '工作內容2',
-                        時程期限: '2020/10/21',
-                        負責人員: '學武 學武 學武 學武 ',
-                        完成日期: '2020/10/21',
-                        花費時間: '6',
-                        url: 'https://tw.help.yahoo.com/kb/account'
-                    },
+                //initialize() {
+                //    // 組別專案名一開始給空的 之後去接值
+                //    this.inneritem = [{
+                //        id: "1",
+                //        工作: '專案管理',
+                //        工作內容: '工作內容1',
+                //        時程期限: '2020/10/21',
+                //        負責人員: '學武 學武 學武 學武',
+                //        完成日期: '2020/10/21',
+                //        花費時間: '15',
+                //        url: 'https://www.google.com/webhp?hl=zh-TW&sa=X&ved=0ahUKEwiG9Yn3_cDwAhVKBKYKHYddDlAQPAgI'
+                //    },
+                //    {
+                //        id: "2",
+                //        工作: '專案管理',
+                //        工作內容: '工作內容2',
+                //        時程期限: '2020/10/21',
+                //        負責人員: '學武 學武 學武 學武 ',
+                //        完成日期: '2020/10/21',
+                //        花費時間: '6',
+                //        url: 'https://tw.help.yahoo.com/kb/account'
+                //    },
 
-                    ];
+                //    ];
+                //},
+                initialize() {
+                    let urlParams = new URLSearchParams(window.location.search);
+                    axios
+                        .post('API/GetCrudHandler.ashx', {
+                            innertype: 'ProjectDetail_Grades',
+                            ProjectID: urlParams.get('ProjectID')
+                        })
+                        .then(response => {
+                            console.table(response.data);
+                            vm.ProjectName = response.data.ProjectName;
+                            vm.TeamName = response.data.TeamName;
+                            vm.Leader = response.data.LeaderName;
+                            vm.Member = response.data.MemberName;
+                            //this.inneritem = response.data;
+                        })
+                        .catch(function (error) {
+                            {
+                                alert(error);
+                            }
+                        });
+                    this.inneritem = []
                 },
-                // initialize() {
-                // 	axios
-                // 		.get('API/GetCrudHandler.ashx')
-                // 		.then(response => {
-                // 			console.table(response.data)
-                // 			this.inneritem = response.data;
-                // 		})
-                // 		.catch(function(error) {
-                // 			{
-                // 				alert(error);
-                // 			}
-                // 		});
-                // 	this.inneritem = []
-                // },
             },
 
         })
