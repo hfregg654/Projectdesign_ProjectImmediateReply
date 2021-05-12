@@ -80,7 +80,7 @@ namespace ProjectImmediateReply.Utility
         /// <summary>
         /// 將隨機人員加入小組集合
         /// </summary>
-        /// <param name="people">當前剩餘人員之集合</param>
+        /// <param name="assignpeople">當前剩餘人員之集合</param>
         /// <param name="team">當前未滿人之小組集合</param>
         private void AssignMember(List<string> assignpeople, List<string> team)
         {

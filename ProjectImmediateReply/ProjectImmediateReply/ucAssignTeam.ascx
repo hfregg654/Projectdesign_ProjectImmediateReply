@@ -19,8 +19,7 @@
 									<v-toolbar flat color="white">
 										<v-spacer></v-spacer>
 										<!-- 彈跳視窗功能 (包含按鍵觸發)開始 -->
-										<v-btn color="primary" dark class="mb-2" @click="randam()">小組亂數分配</v-btn>
-										
+											<v-btn color="primary" dark class="mb-2" @click="randam()" id="randombtn">小組亂數分配</v-btn>
 									</v-toolbar>
 								</template>
 								<!-- v-slot 結束							 -->
@@ -41,7 +40,7 @@
 							<v-pagination v-model="page" :length="pageCount"></v-pagination>
 								<v-row>
 									<v-spacer></v-spacer>
-							<v-btn color="primary" dark class="mb-2 mr-10"　@click="store">
+							<v-btn color="primary" dark class="mb-2 mr-10 justify-end mb-15"　@click="store">
 								儲存</v-btn>
 								</v-row>
 						</template>
