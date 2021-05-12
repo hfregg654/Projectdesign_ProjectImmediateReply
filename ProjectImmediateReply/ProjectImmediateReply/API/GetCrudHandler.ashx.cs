@@ -11,6 +11,7 @@ using System.Web;
 
 namespace ProjectImmediateReply.API
 {
+    /// 查詢建表專用的泛型處理常式
     /// <summary>
     /// GetCrudHandler 的摘要描述
     /// </summary>
@@ -242,6 +243,7 @@ namespace ProjectImmediateReply.API
                 string[] colnameclass = { "Users.Classnumber", "Users.TeamID" };
                 string[] colnamepclass = { "@ProjectID" };
                 string[] pclass = { ClassNumber };
+                // ClassNumber 在ProjectDetail_Grades 為 ProjectID
                 string logicclass = @"
                                 INNER JOIN Users ON Projects.ProjectID=Users.ProjectID
                                 WHERE Projects.ProjectID=@ProjectID AND Projects.DeleteDate IS NULL AND Users.WhoDelete IS NULL
@@ -253,7 +255,7 @@ namespace ProjectImmediateReply.API
 
 
                 //宣告評分頁面顯示型別的變數
-                ForGradesShow ProjectAll = new ForGradesShow();
+                ForProjectDetail_Grades ProjectAll = new ForProjectDetail_Grades();
                 //準備查詢語法
                 string[] colnameteam = { "Projects.ProjectID", "Projects.ProjectName", "Users.[Name]", "Users.TeamName", "Users.Privilege" };
                 string[] colnamepteam = { "@ClassNumber", "@TeamID" };
@@ -262,8 +264,18 @@ namespace ProjectImmediateReply.API
                                 INNER JOIN Users ON Projects.ProjectID=Users.ProjectID
                                 WHERE Users.ClassNumber=@ClassNumber AND Users.TeamID=@TeamID AND Projects.DeleteDate IS NULL AND Users.WhoDelete IS NULL
                                 ";
+
                 DataTable data = Dbtool.readTable("Projects", colnameteam, logicteam, colnamepteam, pteam);//查班級的所有人
                                                                                                            //整理小組資料,宣告小組以及組員的Dictionary,以組別分別做排序，字典裡面放表。
+                string[] colnamework = { "Works.WorkID", "Works.WorkName", "Works.WorkDescription", "Works.DeadLine", "Users.[Name]", "Works.UpdateTime", "Works.FilePath" }; //欲查詢的欄位
+                string[] colnamepwork = { "@ProjectID" }; //以什麼欄位作查詢 @為資料庫內欄位
+                string[] pwork = { ClassNumber }; //實際抓到的變數欄位 對照colnamepwork
+                string logicwork = @"
+                                INNER JOIN Users ON Users.UserID=Works.UserID
+                                WHERE Works.ProjectID=@ProjectID AND Works.DeleteDate IS NULL AND Works.WhoDelete IS NULL
+                                ";
+                //前主後副 此方法一次只能作一次查詢或一次insert
+                DataTable workdata = Dbtool.readTable("Works", colnamework, logicwork, colnamepwork, pwork);//查專案工作的所有工作項目
                 List<string> member = new List<string>();
                 if (data.Rows.Count != 0)//如果根本沒有查回資料則將空資料回傳,有的話才開始整理
                 {
@@ -282,11 +294,26 @@ namespace ProjectImmediateReply.API
                     }
                     ProjectAll.MemberName = string.Join("、", member);
                 }
+                if (workdata.Rows.Count != 0) //如果根本沒有查回資料則將空資料回傳,有的話才開始整理
+                {
+                    ProjectAll.inneritem = new List<InnerItem_Work>();
+                    foreach (DataRow item in workdata.Rows)
+                    {
+                        ProjectAll.inneritem.Add(
+                            new InnerItem_Work() {
+                                Name = item["Name"].ToString(),
+                                WorkID = Convert.ToInt32(item["WorkID"]),
+                                WorkName = item["WorkName"].ToString(),
+                                WorkDescription = item["WorkDescription"].ToString(),
+                                DeadLine = Convert.ToDateTime(item["DeadLine"]),
+                                UpdateTime = Convert.ToDateTime(item["UpdateTime"]),
+                                FilePath = item["FilePath"].ToString(),
+                            });
+                    }
+                }
 
-
-
-                //將最後結果以JSON形式放進回傳字串
-                ShowTable = JsonConvert.SerializeObject(ProjectAll);
+                    //將最後結果以JSON形式放進回傳字串
+                    ShowTable = JsonConvert.SerializeObject(ProjectAll);
 
             }
             else

@@ -256,6 +256,7 @@
     <Compile Include="ViewModels\ForClassDetail.cs" />
     <Compile Include="ViewModels\ForGradesShow.cs" />
     <Compile Include="ViewModels\ForProjectDetail.cs" />
+    <Compile Include="ViewModels\ForProjectDetail_Grades.cs" />
     <Compile Include="ViewModels\ForSeeGrade.cs" />
     <Compile Include="WebForm1.aspx.cs">
       <DependentUpon>WebForm1.aspx</DependentUpon>
