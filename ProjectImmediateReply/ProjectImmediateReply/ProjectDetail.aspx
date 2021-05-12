@@ -5,6 +5,38 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <v-main
         style="background: -webkit-linear-gradient(right, #FFAF7B,#EE82EE, #FFB6C1); background: linear-gradient(to right, #FFAF7B, #FFB6C1);">
+        
+        
+        <div class="text-center">
+            <v-snackbar v-model="snackbar" top right>
+              <v-icon color="red">mdi-close-circle-outline</v-icon>
+              {{ showmessage }}
+
+              <template v-slot:action="{ attrs }">
+                <v-btn color="red" text v-bind="attrs" @click="snackbar = false">
+                  Close
+                </v-btn>
+              </template>
+            </v-snackbar>
+
+            <v-snackbar v-model="snackbar1" top right>
+              <v-icon color="green">
+                mdi-checkbox-marked-circle
+              </v-icon>
+              {{ showmessagesuccess }}
+
+              <template v-slot:action="{ attrs }">
+                <v-btn color="red" text v-bind="attrs" @click="snackbar1 = false">
+                  Close
+                </v-btn>
+              </template>
+            </v-snackbar>
+          </div>
+
+
+
+
+
 						<v-container>
 							<v-row style="height:2vh">
 								<v-spacer></v-spacer>
@@ -127,6 +159,10 @@
             vuetify: new Vuetify(),
             data: () => ({
                 drawer: false,
+                snackbar: false,
+                snackbar1: false,
+                showmessagesuccess: '我是正確訊息',
+                showmessage: '我是錯誤訊息',
                 // -----
                 // 上方班級選擇開始
                 chooseclass: ['班級A', '班級B', '班級C', '班級D'],
@@ -213,8 +249,21 @@
                         innertype: 'ProjectDetail',
                         classchoice: vm.classchoice
                     })
-                        .then(response => this.inneritem = response.data)
-                        .catch(error => alert(error))
+                        .then(response => {
+                            this.inneritem = response.data;
+                            if (vm.inneritem.length!=0) {
+                                vm.showmessagesuccess = '完成';
+                                vm.snackbar1 = true;
+                            } else {
+                                vm.showmessagesuccess = '無資料';
+                                vm.snackbar1 = true;
+                            }
+
+                        })
+                        .catch(error => {
+                            vm.showmessage = '失敗' + error;
+                            vm.snackbar = true;
+                        })
                 },
                 // 
                 editItem(item) {
@@ -240,11 +289,17 @@
                             Type: 'Delete',
                             id: item.ProjectID
                         }).then(response => {
-                            alert(item.ProjectID + '發送刪除成功');
+                            vm.showmessagesuccess = item.ProjectID + '發送刪除成功';
+                            vm.snackbar1 = true;
                             this.changeRoute();
                             // this.inneritem.splice(index, 1);
                         })
-                            .catch(error => alert('id:' + item.ProjectID + '發送刪除失敗'))
+                            .catch(error =>
+                            // alert('id:' + item.ProjectID + '發送刪除失敗')
+                            {
+                                vm.showmessage = '刪除失敗：' + item.ProjectID + '發送刪除失敗';
+                                vm.snackbar = true;
+                            })
                     } else {
 
                     }
@@ -275,7 +330,11 @@
                             DeadLine: this.editedItem.DeadLine
                         })
                             .then(response => this.changeRoute(), this.close())
-                            .catch(error => alert(error), this.close())
+                            .catch(error => {
+                                vm.showmessage = '發送失敗' + error;
+                                vm.snackbar = true;
+                                this.close();
+                            })
                         // alert(this.editedItem)
                     }
                     // 若是為新增狀態 預設editedIndex -1 不處理 直接推新的editedIndex和editedItem
@@ -294,7 +353,8 @@
                         })
                         .catch(function (error) {
                             {
-                                alert(error);
+                                vm.showmessage = '加載失敗' + error;
+                                vm.snackbar = true;
                             }
                         });
 

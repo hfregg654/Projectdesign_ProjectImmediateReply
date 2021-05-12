@@ -321,7 +321,7 @@ namespace ProjectImmediateReply.Utility
 										TeamName:"""",
 										page: 1,
 										pageCount: 0,
-										itemsPerPage: 10,
+										itemsPerPage: 4,
 										dialog: false,
 										inneritem: [],
 										editedIndex: -1,
@@ -360,19 +360,36 @@ namespace ProjectImmediateReply.Utility
 													.post('API/GetCrudHandler.ashx',{{innertype:'AssignTeam',classchoice:vm.classchoice}})
 													.then(response => {{
 															console.table(response.data); 
-															this.inneritem = response.data;
-															vm.choosegroup=response.data[0].TeamNameGroup;
+															vm.inneritem = response.data;
+															if(vm.inneritem[0].TeamID==0){{
+																$(""#randombtn"").show();
+															}}else{{
+																$(""#randombtn"").hide();
+															}}
 													}})
 													.catch(function(error) {{ 
 													alert(error);
 													}});
 											}},
 											randam(){{
-												axios.get('/kkkk')
-												  .then(response => {{alert(response.data);}})
-												  .catch(error => {{
-												    alert('小組亂數分配失敗');
-												  }});
+												if(confirm('請確認資料正確性,分組後無法再次分組,確定開始進行亂數分組?')){{
+													axios.post('API/AssignTeamHandler.ashx',{{
+														classchoice:vm.classchoice,
+														inneritem:vm.inneritem,
+													}})
+													  .then(response => {{
+															console.table(response);
+															this.changeRoute();
+															if(response.data.success){{
+																alert('小組亂數分配失敗,請檢查資料正確性(是否有4個專案等等)');
+															}}else{{
+																alert('小組亂數分配完成');
+															}}
+													  }})
+													  .catch(error => {{
+													    alert('小組亂數分配失敗');
+													  }});
+												}}
 											}},
 											store(){{
 												axios.post('', {{

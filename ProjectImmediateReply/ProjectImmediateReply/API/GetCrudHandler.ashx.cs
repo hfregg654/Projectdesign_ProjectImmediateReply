@@ -122,49 +122,75 @@ namespace ProjectImmediateReply.API
                 string[] p = { ClassNumber };
                 string logic = @"
                                 INNER JOIN Users ON Projects.ProjectID=Users.ProjectID
-                                WHERE Users.ClassNumber=@ClassNumber AND Projects.DeleteDate IS NULL AND Users.WhoDelete IS NULL
+                                WHERE Users.ClassNumber=@ClassNumber AND Users.DeleteDate IS NULL AND Users.WhoDelete IS NULL
                                 ORDER BY Users.TeamID
                                 ";
                 DataTable data = Dbtool.readTable("Projects", colname, logic, colnamep, p);//查班級的所有人
-
-                //抓小組名
-                string[] groupcolname = { "TeamName" };
-                string[] groupcolnamep = { "@ClassNumber" };
-                string[] groupp = { ClassNumber };
-                string grouplogic = @"
+                if (data.Rows.Count != 0)
+                {
+                    //抓小組名
+                    string[] groupcolname = { "TeamName" };
+                    string[] groupcolnamep = { "@ClassNumber" };
+                    string[] groupp = { ClassNumber };
+                    string grouplogic = @"
                                 WHERE ClassNumber=@ClassNumber AND TeamName IS NOT NULL AND DeleteDate IS NULL AND WhoDelete IS NULL
                                 GROUP BY TeamName
                                 ";
-                DataTable groupdata = Dbtool.readTable("Users", groupcolname, grouplogic, groupcolnamep, groupp);//查班級的所有人
-                List<string> grouplist = new List<string>();
-                if (groupdata.Rows.Count != 0)
-                {
-                    foreach (DataRow item in groupdata.Rows)
+                    DataTable groupdata = Dbtool.readTable("Users", groupcolname, grouplogic, groupcolnamep, groupp);//查班級的所有人
+                    List<string> grouplist = new List<string>();
+                    if (groupdata.Rows.Count != 0)
                     {
-                        grouplist.Add(item["TeamName"].ToString());
+                        foreach (DataRow item in groupdata.Rows)
+                        {
+                            grouplist.Add(item["TeamName"].ToString());
+                        }
+                    }
+                    if (data.Rows.Count != 0)
+                    {
+
+                        foreach (DataRow item in data.Rows)
+                        {
+                            ForAssignTeam ClassMember = new ForAssignTeam();
+                            if (data.Columns["UserID"] != null && !Convert.IsDBNull(item["UserID"]))
+                                ClassMember.UserID = Convert.ToInt32(item["UserID"]);
+                            if (data.Columns["Name"] != null && !Convert.IsDBNull(item["Name"]))
+                                ClassMember.Name = item["Name"].ToString();
+                            if (data.Columns["TeamID"] != null && !Convert.IsDBNull(item["TeamID"]))
+                                ClassMember.TeamID = Convert.ToInt32(item["TeamID"]);
+                            if (data.Columns["ProjectName"] != null && !Convert.IsDBNull(item["ProjectName"]))
+                                ClassMember.ProjectName = item["ProjectName"].ToString();
+                            if (data.Columns["TeamName"] != null && !Convert.IsDBNull(item["TeamName"]))
+                                ClassMember.TeamName = item["TeamName"].ToString();
+                            if (groupdata.Columns["TeamName"] != null)
+                                ClassMember.TeamNameGroup = grouplist.ToArray();
+
+
+                            ProjectAll.Add(ClassMember);
+                        }
                     }
                 }
-                if (data.Rows.Count != 0)
+                else
                 {
-
-                    foreach (DataRow item in data.Rows)
+                    string[] colnamenotassign = { "Name", "UserID" };
+                    string[] colnamepnotassign = { "@ClassNumber" };
+                    string[] pnotassign = { ClassNumber };
+                    string logicnotassign = @"
+                                WHERE ClassNumber=@ClassNumber AND DeleteDate IS NULL AND WhoDelete IS NULL
+                                ";
+                    DataTable datanotassign = Dbtool.readTable("Users", colnamenotassign, logicnotassign, colnamepnotassign, pnotassign);//查班級的所有人
+                    if (datanotassign.Rows.Count != 0)
                     {
-                        ForAssignTeam ClassMember = new ForAssignTeam();
-                        if (data.Columns["UserID"] != null && !Convert.IsDBNull(item["UserID"]))
-                            ClassMember.UserID = Convert.ToInt32(item["UserID"]);
-                        if (data.Columns["Name"] != null && !Convert.IsDBNull(item["Name"]))
-                            ClassMember.Name = item["Name"].ToString();
-                        if (data.Columns["TeamID"] != null && !Convert.IsDBNull(item["TeamID"]))
-                            ClassMember.TeamID = Convert.ToInt32(item["TeamID"]);
-                        if (data.Columns["ProjectName"] != null && !Convert.IsDBNull(item["ProjectName"]))
-                            ClassMember.ProjectName = item["ProjectName"].ToString();
-                        if (data.Columns["TeamName"] != null && !Convert.IsDBNull(item["TeamName"]))
-                            ClassMember.TeamName = item["TeamName"].ToString();
-                        if (groupdata.Columns["TeamName"] != null)
-                            ClassMember.TeamNameGroup = grouplist.ToArray();
 
+                        foreach (DataRow item in datanotassign.Rows)
+                        {
+                            ForAssignTeam ClassMember = new ForAssignTeam();
+                            if (data.Columns["UserID"] != null && !Convert.IsDBNull(item["UserID"]))
+                                ClassMember.UserID = Convert.ToInt32(item["UserID"]);
+                            if (data.Columns["Name"] != null && !Convert.IsDBNull(item["Name"]))
+                                ClassMember.Name = item["Name"].ToString();
 
-                        ProjectAll.Add(ClassMember);
+                            ProjectAll.Add(ClassMember);
+                        }
                     }
 
                 }
