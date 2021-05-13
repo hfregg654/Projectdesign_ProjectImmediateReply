@@ -24,9 +24,10 @@
 								</template>
 								<!-- v-slot 結束							 -->
 								<!-- 小組名插槽1 -->
-								<template v-slot:item.choosegroup="{ item }">
+								<template #item.choosegroup="{ item }">
 									<v-select
-									          :items="choosegroup"
+									          :items="item.TeamNameGroup"
+											  v-model="item.TeamName"
 									          prepend-icon="mdi-dialpad"
 									          menu-props="auto"
 									          label="小組名"

@@ -40,10 +40,10 @@ namespace ProjectImmediateReply.Utility
 
         public string PageLeft(string PageType)
         {
-			//ascx才要寫到這裡插入
-			//href =""./Index.aspx?PageInnerType=UpdateInfo"" +. 從根目錄開始抓
-			//轉跳的網頁網址 => href = "" / Index.aspx ? PageInnerType = UpdateInfo"" >
-			if (PageType == "Manager")
+            //ascx才要寫到這裡插入
+            //href =""./Index.aspx?PageInnerType=UpdateInfo"" +. 從根目錄開始抓
+            //轉跳的網頁網址 => href = "" / Index.aspx ? PageInnerType = UpdateInfo"" >
+            if (PageType == "Manager")
             {
                 return @"<v-list two-line>
 								<v-list-item @click="""" href =""./Index.aspx?PageInnerType=UpdateInfo"" >
@@ -305,10 +305,10 @@ namespace ProjectImmediateReply.Utility
                                })
                          </script>";
             }
-			else if (PageInner == "AssignTeam")
+            else if (PageInner == "AssignTeam")
             {
-				string chooseclass = GetClassNumberJS(GetClassNumber());
-				return $@"
+                string chooseclass = GetClassNumberJS(GetClassNumber());
+                return $@"
 						<script>
                               var vm = new Vue({{
                                      el: '#app',
@@ -318,7 +318,6 @@ namespace ProjectImmediateReply.Utility
 										chooseclass: [{chooseclass}],
 										classchoice:"""",
 										choosegroup:[],
-										TeamName:"""",
 										page: 1,
 										pageCount: 0,
 										itemsPerPage: 4,
@@ -413,7 +412,7 @@ namespace ProjectImmediateReply.Utility
 								}})
 						</script>";
             }
-			else if (PageInner == "CreateProject")
+            else if (PageInner == "CreateProject")
             {
                 string getclass = GetClassNumberJS(GetClassNumber());
                 return $@"
@@ -457,9 +456,9 @@ namespace ProjectImmediateReply.Utility
                 }
                 //一格一格的值""{userdata.Name}"" 一列一列[{ chooseitem}]
                 //console.log(response); 顯示傳回來的值 確認到哪一個判斷狀態 於網頁上 F12  
-                if (info.Privilege=="Manager")
+                if (info.Privilege == "Manager")
                 {
-					return $@"
+                    return $@"
 						<script>
                             var vm = new Vue({{
                                      el: '#app',
@@ -525,10 +524,10 @@ namespace ProjectImmediateReply.Utility
                                      }}
                             }})
 						</script > ";
-				}
+                }
                 else
                 {
-					return $@"
+                    return $@"
 						<script>
 							$(""#specialaccountbtn"").hide();
                             var vm = new Vue({{
@@ -595,16 +594,16 @@ namespace ProjectImmediateReply.Utility
                                      }}
                             }})
 						</script > ";
-				}
-				
+                }
+
             }
             else if (PageInner == "SeeGrade")
             {// changeRoute方法名稱 修改
                 string chooseitem = GetClassNumberJS(GetClassNumber());
                 LogInfo info = (LogInfo)HttpContext.Current.Session["IsLogined"];
-                if (info.Privilege=="Grades")
+                if (info.Privilege == "Grades")
                 {
-		             return $@"
+                    return $@"
 								<script>
 								$(""#Showgradesandmanager"").show();
 								$(""#Showuserandleader"").hide();
@@ -703,9 +702,9 @@ namespace ProjectImmediateReply.Utility
 									}}
 								</style > ";
                 }
-                else if (info.Privilege=="Manager")
+                else if (info.Privilege == "Manager")
                 {
-					return $@"
+                    return $@"
 								<script>
 								$(""#Showgradesandmanager"").show();
 								$(""#Showuserandleader"").hide();
@@ -804,15 +803,15 @@ namespace ProjectImmediateReply.Utility
 										align-items: center!important
 									}}
 								</style > ";
-				}
-                else if (info.Privilege=="Leader"||info.Privilege=="User")
+                }
+                else if (info.Privilege == "Leader" || info.Privilege == "User")
                 {
-					DBTool dBTool = new DBTool();
-					string[] col = { "ClassNumber", "TeamName", "Account","Name" };
-					DataTable dt = dBTool.readTable("Users", col,$"WHERE UserID={info.UserID} AND DeleteDate IS NULL AND WhoDelete IS NULL",null,null);
-                    if (dt.Rows.Count==0)
+                    DBTool dBTool = new DBTool();
+                    string[] col = { "ClassNumber", "TeamName", "Account", "Name" };
+                    DataTable dt = dBTool.readTable("Users", col, $"WHERE UserID={info.UserID} AND DeleteDate IS NULL AND WhoDelete IS NULL", null, null);
+                    if (dt.Rows.Count == 0)
                     {
-						return @"
+                        return @"
 							   <script>
 							        new Vue({
 							                 el: '#app',
@@ -822,8 +821,8 @@ namespace ProjectImmediateReply.Utility
 							                  }),
 							               })
 							    </script>";
-					}
-					return $@"
+                    }
+                    return $@"
 								<script>
 								$(""#Showgradesandmanager"").hide();
 								$(""#Showuserandleader"").show();
@@ -894,7 +893,7 @@ namespace ProjectImmediateReply.Utility
                 }
                 else
                 {
-					return @"
+                    return @"
                        <script>
                             new Vue({
 				                     el: '#app',
@@ -904,8 +903,8 @@ namespace ProjectImmediateReply.Utility
 				                      }),
 			                       })
                         </script>";
-				}
-			}
+                }
+            }
             else
             {
                 return @"
