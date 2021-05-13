@@ -293,7 +293,7 @@ namespace ProjectImmediateReply.API
 
                 DataTable data = Dbtool.readTable("Projects", colnameteam, logicteam, colnamepteam, pteam);//查班級的所有人
                                                                                                            //整理小組資料,宣告小組以及組員的Dictionary,以組別分別做排序，字典裡面放表。
-                string[] colnamework = { "Works.WorkID", "Works.WorkName", "Works.WorkDescription", "Works.DeadLine", "Users.[Name]", "Works.UpdateTime", "Works.FilePath" }; //欲查詢的欄位
+                string[] colnamework = { "Works.WorkID", "Works.WorkName", "Works.WorkDescription", "Works.DeadLine", "Users.[Name]", "Works.UpdateTime", "Works.FilePath", "Works.CreateDate" }; //欲查詢的欄位
                 string[] colnamepwork = { "@ProjectID" }; //以什麼欄位作查詢 @為資料庫內欄位
                 string[] pwork = { ClassNumber }; //實際抓到的變數欄位 對照colnamepwork
                 string logicwork = @"
@@ -325,15 +325,18 @@ namespace ProjectImmediateReply.API
                     ProjectAll.inneritem = new List<InnerItem_Work>();
                     foreach (DataRow item in workdata.Rows)
                     {
+                        TimeSpan ts = new TimeSpan(Convert.ToDateTime(item["UpdateTime"]).Ticks - Convert.ToDateTime(item["CreateDate"]).Ticks);
+                        int SpendDate = (int)ts.TotalDays+1;
                         ProjectAll.inneritem.Add(
                             new InnerItem_Work() {
                                 Name = item["Name"].ToString(),
                                 WorkID = Convert.ToInt32(item["WorkID"]),
                                 WorkName = item["WorkName"].ToString(),
                                 WorkDescription = item["WorkDescription"].ToString(),
-                                DeadLine = Convert.ToDateTime(item["DeadLine"]),
-                                UpdateTime = Convert.ToDateTime(item["UpdateTime"]),
-                                FilePath = item["FilePath"].ToString(),
+                                DeadLine = $"{Convert.ToDateTime(item["CreateDate"]).ToString("yyyy-MM-dd")} ~ {Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd")}",
+                                UpdateTime = Convert.ToDateTime(item["UpdateTime"]).ToString("yyyy-MM-dd"),
+                                SpendTime = $"{SpendDate}天",
+                                FilePath = (item["FilePath"].ToString()),
                             });
                     }
                 }

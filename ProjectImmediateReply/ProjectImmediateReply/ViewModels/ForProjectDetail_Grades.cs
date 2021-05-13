@@ -13,9 +13,9 @@ namespace ProjectImmediateReply.ViewModels
         public int WorkID { get; set; }
         public string WorkName { get; set; }
         public string WorkDescription { get; set; }
-        public DateTime DeadLine { get; set; }
-        public DateTime UpdateTime { get; set; }
-        public string SpendTime { get { return (UpdateTime - DeadLine).ToString(); } }
+        public string DeadLine { get; set; }
+        public string UpdateTime { get; set; }
+        public string SpendTime { get; set; }
         public string FilePath { get; set; }
     }
     public class ForProjectDetail_Grades
@@ -26,6 +26,7 @@ namespace ProjectImmediateReply.ViewModels
         public string LeaderName { get; set; }
         public string MemberName { get; set; }
         public string TeamName { get; set; }
-        public List<InnerItem_Work> inneritem { get;  set;} 
+        public List<InnerItem_Work> inneritem { get;  set;}
+        // 傳過去ProjectDetail_Grades 的變數名稱 inneritem
     }
 }

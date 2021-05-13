@@ -91,15 +91,20 @@
 										<v-spacer></v-spacer>
 									</v-toolbar>
 								</template>
+                                <template #item.FilePath="{ inneritem }">
+                                        <a :href="inneritem.FilePath">
+                                        檔案連結
+                                        </a>
+                                </template>
 								<!-- ----->
-									  <template #item.花費時間="{ item }">
-									        {{ item.花費時間 }}天
+<%--									  <template #item.SpendTime="{ item }">
+									        {{ item.SpendTime }}天
 									    </template>
-										<template #item.url="{ item }">
-										             <v-btn  text dark small color="green" :href="item.url">
+										<template #item.FilePath="{ item }">
+										             <v-btn  text dark small color="green" :href="item.FilePath">
 														 檔案連結
 										             </v-btn>
-										         </template>
+										         </template>--%>
 								<!-- ---
 								 -->
 								
@@ -155,34 +160,36 @@
                 // json資料結束
 
                 // 變數結束
+                //align: 'start' 對齊用
+                //直接抓底下.then response的值
                 headers: [{
                     text: '工作',
                     align: 'start',
-                    value: '工作',
+                    value: 'WorkName',
                 },
                 {
                     text: '工作內容',
-                    value: '工作內容'
+                    value: 'WorkDescription'
                 },
                 {
                     text: '時程期限',
-                    value: '時程期限'
+                    value: 'DeadLine'
                 },
                 {
                     text: '負責人員',
-                    value: '負責人員',
+                    value: 'Name',
                 },
                 {
                     text: '完成日期',
-                    value: '完成日期',
+                    value: 'UpdateTime',
                 },
                 {
                     text: '花費時間',
-                    value: '花費時間',
+                    value: 'SpendTime',
                 },
                 {
-                    text: '',
-                    value: 'url',
+                    text: '檔案連結',
+                    value: 'FilePath',
                 },
                 ],
 
@@ -268,7 +275,8 @@
                             vm.TeamName = response.data.TeamName;
                             vm.Leader = response.data.LeaderName;
                             vm.Member = response.data.MemberName;
-                            //this.inneritem = response.data;
+                            vm.inneritem = response.data.inneritem;
+                            //
                         })
                         .catch(function (error) {
                             {
