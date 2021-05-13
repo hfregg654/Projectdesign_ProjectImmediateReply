@@ -203,28 +203,28 @@
                     // 		}
                     // 	});	
                 },
-                // 彈跳視窗評分按鍵	按下後把整個inneritem傳過去	
+                 //彈跳視窗評分按鍵	按下後把整個inneritem傳過去	
                 send() {
-                    // axios
-                    // 	.post('API/GetCrudHandler.ashx', {
-                    // 		{
-                    // 			innertype: 'GradesCrud',
-                    // 			classchoice: vm.班別,
-                    // 			classchoice: vm.姓名,
-                    // 			classchoice: vm.專案成績,
-                    // 			classchoice: vm.面談成績,
-                    // 			classchoice: vm.評語,
-                    // 	or
-                    // details:	 vm.details
-                    // 		}
-                    // 	})
-                    // 	.then(response => (this.inneritem = response.data);this.dialog = false)
-                    // 	.catch(function(error) {
-                    // 		{
-                    // 			alert(error);
-                    // 		}
-                    // 	});	
-
+                     axios
+                     	.post('API/GetCrudHandler.ashx', {
+                     		
+                     			innertype: 'GradesCrud',
+                     			classchoice: vm.班別,
+                     			classchoice: vm.姓名,
+                     			classchoice: vm.專案成績,
+                     			classchoice: vm.面談成績,
+                     			classchoice: vm.評語,
+                     	        //or
+                                details:	 vm.details
+                     		
+                     	})
+                     	.then(response => (this.inneritem = response.data))
+                     	.catch(function(error) {
+                     		{
+                     			alert(error);
+                     		}
+                     	});	
+                    
                 },
 
                 // 初始化資料

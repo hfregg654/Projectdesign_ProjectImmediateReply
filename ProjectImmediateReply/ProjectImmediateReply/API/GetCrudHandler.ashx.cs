@@ -263,7 +263,7 @@ namespace ProjectImmediateReply.API
             }
             else if (innertype == "ProjectDetail_Grades")
             {
-                //若沒有班級參數則直接回傳
+                //若沒有專案ID參數則直接回傳
                 if (string.IsNullOrWhiteSpace(ClassNumber))
                     return;
                 string[] colnameclass = { "Users.Classnumber", "Users.TeamID" };
