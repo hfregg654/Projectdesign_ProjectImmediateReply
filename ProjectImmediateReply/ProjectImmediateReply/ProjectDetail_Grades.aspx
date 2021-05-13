@@ -91,20 +91,12 @@
 										<v-spacer></v-spacer>
 									</v-toolbar>
 								</template>
-                                <template #item.FilePath="{ inneritem }">
-                                        <a :href="inneritem.FilePath">
-                                        檔案連結
-                                        </a>
-                                </template>
 								<!-- ----->
-<%--									  <template #item.SpendTime="{ item }">
-									        {{ item.SpendTime }}天
-									    </template>
-										<template #item.FilePath="{ item }">
+										<template #item.url="{ item }">
 										             <v-btn  text dark small color="green" :href="item.FilePath">
 														 檔案連結
 										             </v-btn>
-										         </template>--%>
+										         </template>
 								<!-- ---
 								 -->
 								
@@ -188,8 +180,8 @@
                     value: 'SpendTime',
                 },
                 {
-                    text: '檔案連結',
-                    value: 'FilePath',
+                    text: '',
+                    value: 'url',
                 },
                 ],
 
@@ -275,7 +267,7 @@
                             vm.TeamName = response.data.TeamName;
                             vm.Leader = response.data.LeaderName;
                             vm.Member = response.data.MemberName;
-                            vm.inneritem = response.data.inneritem;
+                            this.inneritem = response.data.inneritem;
                             //
                         })
                         .catch(function (error) {
@@ -283,7 +275,6 @@
                                 alert(error);
                             }
                         });
-                    this.inneritem = []
                 },
             },
 

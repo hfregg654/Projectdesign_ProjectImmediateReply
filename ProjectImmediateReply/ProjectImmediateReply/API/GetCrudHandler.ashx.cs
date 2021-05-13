@@ -336,7 +336,7 @@ namespace ProjectImmediateReply.API
                                 DeadLine = $"{Convert.ToDateTime(item["CreateDate"]).ToString("yyyy-MM-dd")} ~ {Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd")}",
                                 UpdateTime = Convert.ToDateTime(item["UpdateTime"]).ToString("yyyy-MM-dd"),
                                 SpendTime = $"{SpendDate}天",
-                                FilePath = (item["FilePath"].ToString()),
+                                FilePath = item["FilePath"].ToString(),
                             });
                     }
                 }
