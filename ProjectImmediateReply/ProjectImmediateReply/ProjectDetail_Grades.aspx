@@ -91,20 +91,12 @@
 										<v-spacer></v-spacer>
 									</v-toolbar>
 								</template>
-<%--                                <template #item.FilePath="{ inneritem }">
-                                        <a :href="inneritem.FilePath">
-                                        檔案連結
-                                        </a>
-                                </template>--%>
 								<!-- ----->
-<%--									  <template #item.SpendTime="{ item }">
-									        {{ item.SpendTime }}天
-									    </template>
-										<template #item.FilePath="{ item }">
+										<template #item.url="{ item }">
 										             <v-btn  text dark small color="green" :href="item.FilePath">
 														 檔案連結
 										             </v-btn>
-										         </template>--%>
+										         </template>
 								<!-- ---
 								 -->
 								
@@ -121,172 +113,171 @@
 					</v-main>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-		    <script>
-                // 下面ＴＡＢＬＥ的作法是,頁面加載時獲取一次,按下小組亂數分配刷新獲取一次,儲存時ＰＯＳＴ回去小組亂數結果
-                // 組別和專案名一開始先給空值 不會顯示 （inneritem.project  inneritem.teamname）
-                var vm = new Vue({
-                    el: '#app',
-                    vuetify: new Vuetify(),
-                    data: () => ({
-                        drawer: false,
-                        //
-                        dialog: false,
-                        // -----
-                        // table外面資料
-                        ProjectName: "XXX",
-                        TeamName: "1234",
-                        Leader: "5678",
-                        Member: "XXXXX,XXXX,XXXX,XXXXX,XXXXXXXX,XXXXXX",
-                        // 評分按鈕彈跳視窗邏輯
-                        details: {
-                            班別集合: ['第一班', '第二班', '第三班', '第四班'],
-                            班別: '第三班',
-                            姓名: ['A', 'B', 'C', 'D'],
-                            專案成績: "",
-                            面談成績: "",
-                            評語: "aaaaa <br> bbbbbb   cccc       ddddddd    eeeee      ffffffff",
-                        },
-                        // ----------------------
-                        // 變數開始
-                        // 管理分頁變數開始
-                        page: 1,
-                        pageCount: 0,
-                        itemsPerPage: 10,
-                        // 管理分頁變數結束
-                        // 彈跳視窗開始
-                        dialog: false,
-                        // 彈跳視窗結束					
-                        inneritem: [],
-                        // json資料結束
+    <script>
+        // 下面ＴＡＢＬＥ的作法是,頁面加載時獲取一次,按下小組亂數分配刷新獲取一次,儲存時ＰＯＳＴ回去小組亂數結果
+        // 組別和專案名一開始先給空值 不會顯示 （inneritem.project  inneritem.teamname）
+        var vm = new Vue({
+            el: '#app',
+            vuetify: new Vuetify(),
+            data: () => ({
+                drawer: false,
+                //
+                dialog: false,
+                // -----
+                // table外面資料
+                ProjectName: "XXX",
+                TeamName: "1234",
+                Leader: "5678",
+                Member: "XXXXX,XXXX,XXXX,XXXXX,XXXXXXXX,XXXXXX",
+                // 評分按鈕彈跳視窗邏輯
+                details: {
+                    班別集合: ['第一班', '第二班', '第三班', '第四班'],
+                    班別: '第三班',
+                    姓名: ['A', 'B', 'C', 'D'],
+                    專案成績: "",
+                    面談成績: "",
+                    評語: "aaaaa <br> bbbbbb   cccc       ddddddd    eeeee      ffffffff",
+                },
+                // ----------------------
+                // 變數開始
+                // 管理分頁變數開始
+                page: 1,
+                pageCount: 0,
+                itemsPerPage: 10,
+                // 管理分頁變數結束
+                // 彈跳視窗開始
+                dialog: false,
+                // 彈跳視窗結束					
+                inneritem: [],
+                // json資料結束
 
-                        // 變數結束
-                        //align: 'start' 對齊用
-                        //直接抓底下.then response的值
-                        headers: [{
-                            text: '工作',
-                            align: 'start',
-                            value: 'WorkName',
-                        },
-                        {
-                            text: '工作內容',
-                            value: 'WorkDescription'
-                        },
-                        {
-                            text: '時程期限',
-                            value: 'DeadLine'
-                        },
-                        {
-                            text: '負責人員',
-                            value: 'Name',
-                        },
-                        {
-                            text: '完成日期',
-                            value: 'UpdateTime',
-                        },
-                        {
-                            text: '花費時間',
-                            value: 'SpendTime',
-                        },
-                        {
-                            text: '檔案連結',
-                            value: 'FilePath',
-                        },
-                        ],
+                // 變數結束
+                //align: 'start' 對齊用
+                //直接抓底下.then response的值
+                headers: [{
+                    text: '工作',
+                    align: 'start',
+                    value: 'WorkName',
+                },
+                {
+                    text: '工作內容',
+                    value: 'WorkDescription'
+                },
+                {
+                    text: '時程期限',
+                    value: 'DeadLine'
+                },
+                {
+                    text: '負責人員',
+                    value: 'Name',
+                },
+                {
+                    text: '完成日期',
+                    value: 'UpdateTime',
+                },
+                {
+                    text: '花費時間',
+                    value: 'SpendTime',
+                },
+                {
+                    text: '',
+                    value: 'url',
+                },
+                ],
 
-                    }),
+            }),
 
-                    created() {
-                        this.initialize()
-                    },
+            created() {
+                this.initialize()
+            },
 
-                    methods: {
-                        // 評分案件邏輯
-                        GetData() {
-                            // axios
-                            // 	.get('API/GetCrudHandler.ashx')
-                            // 	.then(response => (this.details = response.data))
-                            // 	.catch(function(error) {
-                            // 		{
-                            // 			alert(error);
-                            // 		}
-                            // 	});	
-                        },
-                        // 彈跳視窗評分按鍵	按下後把整個inneritem傳過去	
-                        send() {
-                            // axios
-                            // 	.post('API/GetCrudHandler.ashx', {
-                            // 		{
-                            // 			innertype: 'GradesCrud',
-                            // 			classchoice: vm.班別,
-                            // 			classchoice: vm.姓名,
-                            // 			classchoice: vm.專案成績,
-                            // 			classchoice: vm.面談成績,
-                            // 			classchoice: vm.評語,
-                            // 	or
-                            // details:	 vm.details
-                            // 		}
-                            // 	})
-                            // 	.then(response => (this.inneritem = response.data);this.dialog = false)
-                            // 	.catch(function(error) {
-                            // 		{
-                            // 			alert(error);
-                            // 		}
-                            // 	});	
+            methods: {
+                // 評分案件邏輯
+                GetData() {
+                    // axios
+                    // 	.get('API/GetCrudHandler.ashx')
+                    // 	.then(response => (this.details = response.data))
+                    // 	.catch(function(error) {
+                    // 		{
+                    // 			alert(error);
+                    // 		}
+                    // 	});	
+                },
+                // 彈跳視窗評分按鍵	按下後把整個inneritem傳過去	
+                send() {
+                    // axios
+                    // 	.post('API/GetCrudHandler.ashx', {
+                    // 		{
+                    // 			innertype: 'GradesCrud',
+                    // 			classchoice: vm.班別,
+                    // 			classchoice: vm.姓名,
+                    // 			classchoice: vm.專案成績,
+                    // 			classchoice: vm.面談成績,
+                    // 			classchoice: vm.評語,
+                    // 	or
+                    // details:	 vm.details
+                    // 		}
+                    // 	})
+                    // 	.then(response => (this.inneritem = response.data);this.dialog = false)
+                    // 	.catch(function(error) {
+                    // 		{
+                    // 			alert(error);
+                    // 		}
+                    // 	});	
 
-                        },
+                },
 
-                        // 初始化資料
-                        // 二擇一 initialize上面靜態 下面動態get取得資料
-                        //initialize() {
-                        //    // 組別專案名一開始給空的 之後去接值
-                        //    this.inneritem = [{
-                        //        id: "1",
-                        //        工作: '專案管理',
-                        //        工作內容: '工作內容1',
-                        //        時程期限: '2020/10/21',
-                        //        負責人員: '學武 學武 學武 學武',
-                        //        完成日期: '2020/10/21',
-                        //        花費時間: '15',
-                        //        url: 'https://www.google.com/webhp?hl=zh-TW&sa=X&ved=0ahUKEwiG9Yn3_cDwAhVKBKYKHYddDlAQPAgI'
-                        //    },
-                        //    {
-                        //        id: "2",
-                        //        工作: '專案管理',
-                        //        工作內容: '工作內容2',
-                        //        時程期限: '2020/10/21',
-                        //        負責人員: '學武 學武 學武 學武 ',
-                        //        完成日期: '2020/10/21',
-                        //        花費時間: '6',
-                        //        url: 'https://tw.help.yahoo.com/kb/account'
-                        //    },
+                // 初始化資料
+                // 二擇一 initialize上面靜態 下面動態get取得資料
+                //initialize() {
+                //    // 組別專案名一開始給空的 之後去接值
+                //    this.inneritem = [{
+                //        id: "1",
+                //        工作: '專案管理',
+                //        工作內容: '工作內容1',
+                //        時程期限: '2020/10/21',
+                //        負責人員: '學武 學武 學武 學武',
+                //        完成日期: '2020/10/21',
+                //        花費時間: '15',
+                //        url: 'https://www.google.com/webhp?hl=zh-TW&sa=X&ved=0ahUKEwiG9Yn3_cDwAhVKBKYKHYddDlAQPAgI'
+                //    },
+                //    {
+                //        id: "2",
+                //        工作: '專案管理',
+                //        工作內容: '工作內容2',
+                //        時程期限: '2020/10/21',
+                //        負責人員: '學武 學武 學武 學武 ',
+                //        完成日期: '2020/10/21',
+                //        花費時間: '6',
+                //        url: 'https://tw.help.yahoo.com/kb/account'
+                //    },
 
-                        //    ];
-                        //},
-                        initialize() {
-                            let urlParams = new URLSearchParams(window.location.search);
-                            axios
-                                .post('API/GetCrudHandler.ashx', {
-                                    innertype: 'ProjectDetail_Grades',
-                                    ProjectID: urlParams.get('ProjectID')
-                                })
-                                .then(response => {
-                                    console.table(response.data);
-                                    vm.ProjectName = response.data.ProjectName;
-                                    vm.TeamName = response.data.TeamName;
-                                    vm.Leader = response.data.LeaderName;
-                                    vm.Member = response.data.MemberName;
-                                    vm.inneritem = response.data.inneritem;
-                                    //
-                                })
-                                .catch(function (error) {
-                                    {
-                                        alert(error);
-                                    }
-                                });
-                            this.inneritem = []
-                        },
-                    },
+                //    ];
+                //},
+                initialize() {
+                    let urlParams = new URLSearchParams(window.location.search);
+                    axios
+                        .post('API/GetCrudHandler.ashx', {
+                            innertype: 'ProjectDetail_Grades',
+                            ProjectID: urlParams.get('ProjectID')
+                        })
+                        .then(response => {
+                            console.table(response.data);
+                            vm.ProjectName = response.data.ProjectName;
+                            vm.TeamName = response.data.TeamName;
+                            vm.Leader = response.data.LeaderName;
+                            vm.Member = response.data.MemberName;
+                            this.inneritem = response.data.inneritem;
+                            //
+                        })
+                        .catch(function (error) {
+                            {
+                                alert(error);
+                            }
+                        });
+                },
+            },
 
-                })
-            </script>
+        })
+    </script>
 </asp:Content>
