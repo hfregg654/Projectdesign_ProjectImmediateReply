@@ -30,7 +30,7 @@
 									<v-select
 									          :items="item.TeamNameGroup"
 											  v-model="item.TeamName"
-									          prepend-icon="mdi-dialpad"
+									          prepend-icon="toc"
 									          menu-props="auto"
 									          label="小組名"
 									          single-line
@@ -39,11 +39,11 @@
 								
 								
 							</v-data-table>
-
+							<p id="leaderp">★為組長</p>
 							<v-pagination v-model="page" :length="pageCount"></v-pagination>
 								<v-row>
 									<v-spacer></v-spacer>
-							<v-btn color="primary" dark class="mb-2 mr-10 justify-end mb-15"　@click="store">
+							<v-btn color="primary" dark class="mb-2 mr-10 justify-end mb-15"　@click="store" id="savebtn" >
 								儲存</v-btn>
 								</v-row>
 						</template>

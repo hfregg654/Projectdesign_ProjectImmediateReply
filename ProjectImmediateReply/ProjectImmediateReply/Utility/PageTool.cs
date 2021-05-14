@@ -352,19 +352,27 @@ namespace ProjectImmediateReply.Utility
 										}},
 									}},
 									created() {{
-										this.initialize()
+										this.changeRoute();
+									}},
+									mounted() {{
+										$(""#savebtn"").hide();
+										$(""#randombtn"").hide();
+										$(""#leaderp"").hide();
 									}},
 									methods: {{
 											changeRoute() {{
 												axios
 													.post('API/GetCrudHandler.ashx',{{innertype:'AssignTeam',classchoice:vm.classchoice}})
 													.then(response => {{
-															console.table(response.data); 
+															vm.page=1;
 															vm.inneritem = response.data;
+															$(""#savebtn"").show();
 															if(vm.inneritem[0].TeamID==0){{
 																$(""#randombtn"").show();
+																$(""#leaderp"").hide();
 															}}else{{
 																$(""#randombtn"").hide();
+																$(""#leaderp"").show();
 															}}
 													}})
 													.catch(function(error) {{ 
@@ -372,13 +380,13 @@ namespace ProjectImmediateReply.Utility
 													}});
 											}},
 											randam(){{
-												if(confirm('請確認資料正確性,分組後無法再次分組,確定開始進行亂數分組?')){{
+												if(confirm('請確認資料正確性,分組完成後無法再次分組,確定開始進行亂數分組?')){{
 													axios.post('API/AssignTeamHandler.ashx',{{
+														Type:""RandomAssign"",
 														classchoice:vm.classchoice,
 														inneritem:vm.inneritem,
 													}})
 													  .then(response => {{
-															console.table(response);
 															this.changeRoute();
 															if(response.data.success){{
 																alert('小組亂數分配失敗,請檢查資料正確性(是否有4個專案等等)');
@@ -392,22 +400,27 @@ namespace ProjectImmediateReply.Utility
 												}}
 											}},
 											store(){{
-												axios.post('', {{
-													inneritem:this.inneritem
-												  }})
-												  .then(response =>{{
-													  alert('儲存發送成功');
-												  }})
-												  .catch(error => {{
-												    alert('儲存發送失敗');
-												  }});
+												if(confirm('確定儲存更改的小組結果?(注意：組長無法更改組別)')){{
+													axios.post('API/AssignTeamHandler.ashx', {{
+														Type:""SaveTeamChange"",
+														classchoice:vm.classchoice,
+														inneritem:vm.inneritem
+													  }})
+													  .then(response =>{{
+														  this.changeRoute();
+														  if(response.data.Type==""Wrong""){{
+															  alert('儲存成功,但部分無法更改組別,請確認是否更改到組長');
+														  }}else{{
+															  alert('儲存成功');
+														  }}
+													  }})
+													  .catch(error => {{
+													    alert('儲存發送失敗');
+													  }});
+												}}
 											}},
 										initialize() {{
-											this.inneritem = [
-												{{
-													
-												}},
-											];
+											
 										}},
 									}},
 								}})
@@ -608,6 +621,7 @@ namespace ProjectImmediateReply.Utility
 								<script>
 								$(""#Showgradesandmanager"").show();
 								$(""#Showuserandleader"").hide();
+								$(""#chagegrade"").hide();
 		                        var vm = new Vue({{
 		                                  el: '#app',
 		                                  vuetify: new Vuetify(),
@@ -634,6 +648,7 @@ namespace ProjectImmediateReply.Utility
 		                                  }}),
 		                                  methods: {{
 												changeRoutechooseclass() {{
+													$(""#chagegrade"").hide();
 													vm.group="""";
 													vm.name="""";
 													axios
@@ -652,6 +667,7 @@ namespace ProjectImmediateReply.Utility
 														}})
 												}},
 												changeRoutechoosegroup() {{
+													$(""#chagegrade"").hide();
 													vm.name="""";
 													axios
 														.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
@@ -668,11 +684,11 @@ namespace ProjectImmediateReply.Utility
 														}})
 												}},
 												changeRoutechoosename() {{
+													$(""#chagegrade"").show();
 													axios
 														.post('API/SeeGradeHandler.ashx',{{innerType:'SeeGrade', Privilege:'{info.Privilege}', ClassNumber:vm.classchoice, TeamName:vm.group, Name:vm.name}})
 														.then(response => {{
 															if(response.data.Grade!=0){{
-
 																vm.email=response.data.Mail;
 																vm.score=response.data.Grade+""分"";
 																vm.boss=response.data.PresidentComments;
