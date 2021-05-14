@@ -307,6 +307,7 @@ namespace ProjectImmediateReply.Utility
             }
             else if (PageInner == "AssignTeam")
             {
+				//刪除data:() 裡的 TeamName 防止跟ForAssignTeam的變數名稱相撞
                 string chooseclass = GetClassNumberJS(GetClassNumber());
                 return $@"
 						<script>

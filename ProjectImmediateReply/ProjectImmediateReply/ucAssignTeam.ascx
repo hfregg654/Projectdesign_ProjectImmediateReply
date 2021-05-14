@@ -24,6 +24,8 @@
 								</template>
 								<!-- v-slot 結束							 -->
 								<!-- 小組名插槽1 -->
+<%--							不抓前台資料 「:items = "item.choosegroup"」 --> 抓後台資料  「:items="item.TeamNameGroup"」 --%>
+<%--								vue.js內的 v-select套件 :items 傳一個是label 傳多個會變成下拉式選單  v-model為使用者對應值--%>
 								<template #item.choosegroup="{ item }">
 									<v-select
 									          :items="item.TeamNameGroup"
