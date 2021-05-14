@@ -10,6 +10,8 @@ namespace ProjectImmediateReply.ViewModels
     {
         [JsonProperty("classchoice")]
         public string ClassNumber { get; set; }
+        [JsonProperty("Type")]
+        public string Type { get; set; }
         [JsonProperty("inneritem")]
         public List<ForAssignTeam> InnerItems { get; set; }
     }

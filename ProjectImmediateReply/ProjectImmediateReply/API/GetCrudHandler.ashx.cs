@@ -118,7 +118,7 @@ namespace ProjectImmediateReply.API
                 //宣告評分頁面顯示型別的變數
                 List<ForAssignTeam> ProjectAll = new List<ForAssignTeam>();
                 //準備查詢語法 INNER JOIN聯集
-                string[] colname = { "Projects.ProjectName", "Users.[Name]", "Users.UserID", "Users.TeamName", "Users.TeamID" };
+                string[] colname = { "Projects.ProjectName", "Users.[Name]", "Users.UserID", "Users.TeamName", "Users.TeamID", "Users.Privilege" };
                 string[] colnamep = { "@ClassNumber" };
                 string[] p = { ClassNumber };
                 string logic = @"
@@ -137,7 +137,7 @@ namespace ProjectImmediateReply.API
                                 WHERE ClassNumber=@ClassNumber AND TeamName IS NOT NULL AND DeleteDate IS NULL AND WhoDelete IS NULL
                                 GROUP BY TeamName
                                 ";
-                    DataTable groupdata = Dbtool.readTable("Users", groupcolname, grouplogic, groupcolnamep, groupp);//查班級的所有人
+                    DataTable groupdata = Dbtool.readTable("Users", groupcolname, grouplogic, groupcolnamep, groupp);//查班級的所有小組
                     List<string> grouplist = new List<string>();
                     if (groupdata.Rows.Count != 0)
                     {
@@ -155,7 +155,10 @@ namespace ProjectImmediateReply.API
                             if (data.Columns["UserID"] != null && !Convert.IsDBNull(item["UserID"]))
                                 ClassMember.UserID = Convert.ToInt32(item["UserID"]);
                             if (data.Columns["Name"] != null && !Convert.IsDBNull(item["Name"]))
-                                ClassMember.Name = item["Name"].ToString();
+                                if (item["Privilege"].ToString() == "Leader")
+                                    ClassMember.Name = $"★{item["Name"]}";
+                                else
+                                    ClassMember.Name = item["Name"].ToString();
                             if (data.Columns["TeamID"] != null && !Convert.IsDBNull(item["TeamID"]))
                                 ClassMember.TeamID = Convert.ToInt32(item["TeamID"]);
                             if (data.Columns["ProjectName"] != null && !Convert.IsDBNull(item["ProjectName"]))
@@ -326,9 +329,10 @@ namespace ProjectImmediateReply.API
                     foreach (DataRow item in workdata.Rows)
                     {
                         TimeSpan ts = new TimeSpan(Convert.ToDateTime(item["UpdateTime"]).Ticks - Convert.ToDateTime(item["CreateDate"]).Ticks);
-                        int SpendDate = (int)ts.TotalDays+1;
+                        int SpendDate = (int)ts.TotalDays + 1;
                         ProjectAll.inneritem.Add(
-                            new InnerItem_Work() {
+                            new InnerItem_Work()
+                            {
                                 Name = item["Name"].ToString(),
                                 WorkID = Convert.ToInt32(item["WorkID"]),
                                 WorkName = item["WorkName"].ToString(),
@@ -341,8 +345,8 @@ namespace ProjectImmediateReply.API
                     }
                 }
 
-                    //將最後結果以JSON形式放進回傳字串
-                    ShowTable = JsonConvert.SerializeObject(ProjectAll);
+                //將最後結果以JSON形式放進回傳字串
+                ShowTable = JsonConvert.SerializeObject(ProjectAll);
 
             }
             else
