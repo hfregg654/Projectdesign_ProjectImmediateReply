@@ -23,12 +23,14 @@ namespace ProjectImmediateReply.API
             DBTool Dbtool = new DBTool();
             string innertype = string.Empty;
             string ClassNumber = string.Empty;
+            //接值的處理方法 Start 前端有寫到API/GetCrudHandler.ashx會接到此處
             string json = string.Empty;
             //先處理接到的JSON放進字串中
             using (StreamReader reader = new StreamReader(context.Request.InputStream))
             {
                 json = reader.ReadToEnd();
             }
+            //接值的處理方法 End
             //若有接到則提取裡面的資料
             if (!string.IsNullOrWhiteSpace(json))
             {
@@ -303,10 +305,12 @@ namespace ProjectImmediateReply.API
                 //前主後副 此方法一次只能作一次查詢或一次insert
                 DataTable workdata = Dbtool.readTable("Works", colnamework, logicwork, colnamepwork, pwork);//查專案工作的所有工作項目
                 List<string> member = new List<string>();
+                List<string> AllMember = new List<string>();
                 if (data.Rows.Count != 0)//如果根本沒有查回資料則將空資料回傳,有的話才開始整理
                 {
                     foreach (DataRow item in data.Rows)
                     {
+                        AllMember.Add(item["Name"].ToString());
                         //以小組組別分別整理,判斷是否為組長來分別做排序處理
                         if (item["Privilege"].ToString() == "Leader")
                         {
@@ -319,6 +323,7 @@ namespace ProjectImmediateReply.API
                             member.Add(item["Name"].ToString());
                     }
                     ProjectAll.MemberName = string.Join("、", member);
+                    ProjectAll.NameGroup = AllMember.ToArray();
                 }
                 if (workdata.Rows.Count != 0) //如果根本沒有查回資料則將空資料回傳,有的話才開始整理
                 {

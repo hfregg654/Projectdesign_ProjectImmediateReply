@@ -15,6 +15,8 @@ namespace ProjectImmediateReply.ViewModels
     }
     public class ForAssignTeam
     {
+        //object為最底層型別 可轉換成其他型別
+        //接過來為單一值 不會是JSON型態 將JSON轉換成object型別
         [JsonProperty("id")]
         public int UserID { get; set; }
         [JsonProperty("Name")]

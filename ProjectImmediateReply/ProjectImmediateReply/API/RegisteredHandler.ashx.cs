@@ -17,6 +17,7 @@ namespace ProjectImmediateReply.API
 
         public void ProcessRequest(HttpContext context)
         {
+            //ImmediateReplyAJAX內用data傳後  此處接值的用法
             string Name = context.Request.Form["Name"]; //POST取值
             string Phone = context.Request.Form["Phone"];
             string Mail = context.Request.Form["Mail"];

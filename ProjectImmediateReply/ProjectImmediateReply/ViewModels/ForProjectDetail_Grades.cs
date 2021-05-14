@@ -28,5 +28,6 @@ namespace ProjectImmediateReply.ViewModels
         public string TeamName { get; set; }
         public List<InnerItem_Work> inneritem { get;  set;}
         // 傳過去ProjectDetail_Grades 的變數名稱 inneritem
+        public string[] NameGroup { get; set; }
     }
 }

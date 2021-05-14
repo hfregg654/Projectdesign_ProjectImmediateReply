@@ -31,7 +31,7 @@
 										<v-container>
 											<v-row>
 												<v-col cols="12" >
-													<v-select v-model="details.姓名" :items="details.姓名" label="姓名" required></v-select>
+													<v-select :items="details.NameGroup" label="姓名" required></v-select>
 												</v-col>
 												<v-col cols="12" sm="12" md="6">
 													<v-text-field v-model="details.專案成績" label="專案成績" hint="專案成績:每位成員分數皆不一樣"></v-text-field>
@@ -120,6 +120,7 @@
             el: '#app',
             vuetify: new Vuetify(),
             data: () => ({
+                ////// 這邊是宣告變數名稱的地方
                 drawer: false,
                 //
                 dialog: false,
@@ -131,9 +132,7 @@
                 Member: "XXXXX,XXXX,XXXX,XXXXX,XXXXXXXX,XXXXXX",
                 // 評分按鈕彈跳視窗邏輯
                 details: {
-                    班別集合: ['第一班', '第二班', '第三班', '第四班'],
-                    班別: '第三班',
-                    姓名: ['A', 'B', 'C', 'D'],
+                    NameGroup: ['A', 'B', 'C', 'D'],
                     專案成績: "",
                     面談成績: "",
                     評語: "aaaaa <br> bbbbbb   cccc       ddddddd    eeeee      ffffffff",
@@ -186,7 +185,7 @@
                 ],
 
             }),
-
+            ////// 這邊是宣告變數名稱的地方
             created() {
                 this.initialize()
             },
@@ -203,30 +202,28 @@
                     // 		}
                     // 	});	
                 },
-                 //彈跳視窗評分按鍵	按下後把整個inneritem傳過去	
+                //彈跳視窗評分按鍵	按下後把整個inneritem傳過去
+                //////評完分送出去的地方
                 send() {
-                     axios
-                     	.post('API/GetCrudHandler.ashx', {
-                     		
-                     			innertype: 'GradesCrud',
-                     			classchoice: vm.班別,
-                     			classchoice: vm.姓名,
-                     			classchoice: vm.專案成績,
-                     			classchoice: vm.面談成績,
-                     			classchoice: vm.評語,
-                     	        //or
-                                details:	 vm.details
-                     		
-                     	})
-                     	.then(response => (this.inneritem = response.data))
-                     	.catch(function(error) {
-                     		{
-                     			alert(error);
-                     		}
-                     	});	
-                    
-                },
+                    axios
+                        .post('API/GetCrudHandler.ashx', {
+                            classchoice: vm.NameGroup,
+                            classchoice: vm.專案成績,
+                            classchoice: vm.面談成績,
+                            classchoice: vm.評語,
+                            //or
+                            details: vm.details
 
+                        })
+                        .then(response => (this.inneritem = response.data))
+                        .catch(function (error) {
+                            {
+                                alert(error);
+                            }
+                        });
+
+                },
+                //////評完分送出去的地方
                 // 初始化資料
                 // 二擇一 initialize上面靜態 下面動態get取得資料
                 //initialize() {
@@ -267,7 +264,9 @@
                             vm.TeamName = response.data.TeamName;
                             vm.Leader = response.data.LeaderName;
                             vm.Member = response.data.MemberName;
+                            vm.details.NameGroup = response.data.NameGroup;
                             this.inneritem = response.data.inneritem;
+                            
                             //
                         })
                         .catch(function (error) {

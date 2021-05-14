@@ -28,6 +28,8 @@ namespace ProjectImmediateReply.API
             {
                 json = reader.ReadToEnd();
             }
+            //SerializeObject()將物件與Dataset序列化(Serialize)為JSON
+            //DeserializeObject()將Json反序列化(Deserialize)為物件
             var allpeople = JsonConvert.DeserializeObject<InnerItem_AssignTeam>(json);
             ClassNumber = allpeople.ClassNumber;
 
