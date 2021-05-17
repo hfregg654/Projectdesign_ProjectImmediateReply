@@ -97,6 +97,7 @@
     <Content Include="HTML\A-2.html" />
     <Content Include="HTML\A-3.html" />
     <Content Include="HTML\B-1.html" />
+    <Content Include="HTML\B-3.html" />
     <Content Include="HTML\B-4.html" />
     <Content Include="HTML\B3-1.html" />
     <Content Include="HTML\B3-2.html" />
@@ -123,6 +124,7 @@
     <Content Include="images\slide04.jpg" />
     <Content Include="images\slide05.jpg" />
     <Content Include="Index.aspx" />
+    <Content Include="ManageProject.aspx" />
     <Content Include="ProjectDetail.aspx" />
     <Content Include="ProjectDetail_Grades.aspx" />
     <Content Include="ucAssignTeam.ascx" />
@@ -215,6 +217,13 @@
     </Compile>
     <Compile Include="Index.aspx.designer.cs">
       <DependentUpon>Index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="ManageProject.aspx.cs">
+      <DependentUpon>ManageProject.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="ManageProject.aspx.designer.cs">
+      <DependentUpon>ManageProject.aspx</DependentUpon>
     </Compile>
     <Compile Include="ProjectDetail.aspx.cs">
       <DependentUpon>ProjectDetail.aspx</DependentUpon>
