@@ -31,25 +31,29 @@
 										<v-container>
 											<v-row>
 												<v-col cols="12" >
-													<v-select :items="details.NameGroup" label="姓名" required></v-select>
+<%--                                                    name包了UserName跟UserID--%>
+													<v-select :items="details.NameGroup" v-model="name" item-text="UserName" item-value="UserID" label="姓名" required></v-select>
 												</v-col>
 												<v-col cols="12" sm="12" md="6">
-													<v-text-field v-model="details.專案成績" label="專案成績" hint="專案成績:每位成員分數皆不一樣"></v-text-field>
+													<v-text-field v-model="details.ProjectGrade" type="number" label="專案成績" hint="專案成績:每位成員分數皆不一樣"></v-text-field>
 												</v-col>
 
 												<v-col cols="12" sm="12" md="6">
-													<v-text-field v-model="details.面談成績" label="面談成績" hint="面談成績:成員和社長或PM面談所獲得的分數">
+													<v-text-field v-model="details.InterviewGrade" type="number" label="面談成績" hint="面談成績:成員和社長或PM面談所獲得的分數">
 													</v-text-field>
 												</v-col>
 
 												<v-col cols="12" sm="12">
 													<v-textarea background-color="amber lighten-4"
 														color="orange orange-darken-4" label="評語" no-resize class="mb-0"
-														v-model="details.評語"></v-textarea>
+														v-model="details.Comments">
+													</v-textarea>
 												</v-col>
-
 											</v-row>
 										</v-container>
+                                                <div style="color: red ; text-align:center">
+                                                    <literal id="messagelabel"></literal>
+                                                </div>
 										<!-- <small>*indicates required field</small> -->
 									</v-card-text>
 									<v-card-actions>
@@ -131,11 +135,13 @@
                 Leader: "5678",
                 Member: "XXXXX,XXXX,XXXX,XXXXX,XXXXXXXX,XXXXXX",
                 // 評分按鈕彈跳視窗邏輯
+                // <v-select :items="details.NameGroup" v-model="name"
+                name:'',
                 details: {
                     NameGroup: ['A', 'B', 'C', 'D'],
-                    專案成績: "",
-                    面談成績: "",
-                    評語: "aaaaa <br> bbbbbb   cccc       ddddddd    eeeee      ffffffff",
+                    ProjectGrade: "",
+                    InterviewGrade: "",
+                    Comments: "aaaaa <br> bbbbbb   cccc       ddddddd    eeeee      ffffffff",
                 },
                 // ----------------------
                 // 變數開始
@@ -206,16 +212,25 @@
                 //////評完分送出去的地方
                 send() {
                     axios
-                        .post('API/GetCrudHandler.ashx', {
-                            classchoice: vm.NameGroup,
-                            classchoice: vm.專案成績,
-                            classchoice: vm.面談成績,
-                            classchoice: vm.評語,
-                            //or
-                            details: vm.details
-
+                        //傳給ProjectDetail_GradesHandler的變數資料
+                        .post('API/ProjectDetail_GradesHandler.ashx', {
+                            UserID: vm.name,
+                            ProjectGrade: vm.details.ProjectGrade,
+                            InterviewGrade: vm.details.InterviewGrade,
+                            Comments: vm.details.Comments,
                         })
-                        .then(response => (this.inneritem = response.data))
+                        .then(response => {
+                            $("#messagelabel").empty();
+                            if (response.data[0].success == "true") {
+                                $("#messagelabel").append("評分完畢!");
+                            }
+                            else if (response.data[0].success == "ScoreWrong") {
+                                $("#messagelabel").append("分數格式錯誤，請重新評分");
+                            }
+                            else {
+                                $("#messagelabel").append("評分失敗,請確認輸入資訊或是連線狀況");
+                            }
+                        })
                         .catch(function (error) {
                             {
                                 alert(error);
@@ -266,8 +281,8 @@
                             vm.Member = response.data.MemberName;
                             vm.details.NameGroup = response.data.NameGroup;
                             this.inneritem = response.data.inneritem;
-                            
-                            //
+                            // 因為 items="details.NameGroup" 所以要將UserID包在NameGroup
+                            //前面是變數名稱 後面是從GetCrudHandler傳來的資料
                         })
                         .catch(function (error) {
                             {

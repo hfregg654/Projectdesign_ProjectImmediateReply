@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using ProjectImmediateReply.Utility;
 
 namespace ProjectImmediateReply
 {
@@ -12,9 +13,14 @@ namespace ProjectImmediateReply
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["IsLogined"] != null) /*使用Session內建方法取得LoginHelper TryLogin的值*/
+            LoginHelper logtool = new LoginHelper();
+            if (!logtool.HasLogIned())
+                Response.Redirect("~/LogIn.aspx");
+            LogInfo Info = (LogInfo)Session["IsLogined"];
+            if (Info.Privilege != "Grades")
             {
-                LogInfo Info = (LogInfo)Session["IsLogined"];
+                logtool.Logout();
+                Response.Redirect("~/LogIn.aspx");
             }
         }
     }

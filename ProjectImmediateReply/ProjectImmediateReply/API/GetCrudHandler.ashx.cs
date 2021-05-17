@@ -288,7 +288,7 @@ namespace ProjectImmediateReply.API
                 //宣告評分頁面顯示型別的變數
                 ForProjectDetail_Grades ProjectAll = new ForProjectDetail_Grades();
                 //準備查詢語法
-                string[] colnameteam = { "Projects.ProjectID", "Projects.ProjectName", "Users.[Name]", "Users.TeamName", "Users.Privilege" };
+                string[] colnameteam = { "Users.UserID", "Projects.ProjectID", "Projects.ProjectName", "Users.[Name]", "Users.TeamName", "Users.Privilege" };
                 string[] colnamepteam = { "@ClassNumber", "@TeamID" };
                 string[] pteam = { dataclass.Rows[0]["Classnumber"].ToString(), dataclass.Rows[0]["TeamID"].ToString() };
                 string logicteam = @"
@@ -308,52 +308,56 @@ namespace ProjectImmediateReply.API
                 //前主後副 此方法一次只能作一次查詢或一次insert
                 DataTable workdata = Dbtool.readTable("Works", colnamework, logicwork, colnamepwork, pwork);//查專案工作的所有工作項目
                 List<string> member = new List<string>();
-                List<string> AllMember = new List<string>();
+                List<UserNameGroupforPD_G> AllMember = new List<UserNameGroupforPD_G>();
                 if (data.Rows.Count != 0)//如果根本沒有查回資料則將空資料回傳,有的話才開始整理
                 {
                     foreach (DataRow item in data.Rows)
                     {
-                        AllMember.Add(item["Name"].ToString());
-                        //以小組組別分別整理,判斷是否為組長來分別做排序處理
-                        if (item["Privilege"].ToString() == "Leader")
+                        AllMember.Add(new UserNameGroupforPD_G()
                         {
-                            ProjectAll.LeaderName = item["Name"].ToString();
-                            ProjectAll.ProjectID = Convert.ToInt32(item["ProjectID"]);
-                            ProjectAll.ProjectName = item["ProjectName"].ToString();
-                            ProjectAll.TeamName = item["TeamName"].ToString();
-                        }
-                        else
-                            member.Add(item["Name"].ToString());
-                    }
-                    ProjectAll.MemberName = string.Join("、", member);
-                    ProjectAll.NameGroup = AllMember.ToArray();
-                }
-                if (workdata.Rows.Count != 0) //如果根本沒有查回資料則將空資料回傳,有的話才開始整理
-                {
-                    ProjectAll.inneritem = new List<InnerItem_Work>();
-                    foreach (DataRow item in workdata.Rows)
+                            UserID = Convert.ToInt32(item["UserID"]),
+                            UserName = item["Name"].ToString()
+                        });
+                    //以小組組別分別整理,判斷是否為組長來分別做排序處理
+                    if (item["Privilege"].ToString() == "Leader")
                     {
-                        TimeSpan ts = new TimeSpan(Convert.ToDateTime(item["UpdateTime"]).Ticks - Convert.ToDateTime(item["CreateDate"]).Ticks);
-                        int SpendDate = (int)ts.TotalDays + 1;
-                        ProjectAll.inneritem.Add(
-                            new InnerItem_Work()
-                            {
-                                Name = item["Name"].ToString(),
-                                WorkID = Convert.ToInt32(item["WorkID"]),
-                                WorkName = item["WorkName"].ToString(),
-                                WorkDescription = item["WorkDescription"].ToString(),
-                                DeadLine = $"{Convert.ToDateTime(item["CreateDate"]).ToString("yyyy-MM-dd")} ~ {Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd")}",
-                                UpdateTime = Convert.ToDateTime(item["UpdateTime"]).ToString("yyyy-MM-dd"),
-                                SpendTime = $"{SpendDate}天",
-                                FilePath = item["FilePath"].ToString(),
-                            });
+                        ProjectAll.LeaderName = item["Name"].ToString();
+                        ProjectAll.ProjectID = Convert.ToInt32(item["ProjectID"]);
+                        ProjectAll.ProjectName = item["ProjectName"].ToString();
+                        ProjectAll.TeamName = item["TeamName"].ToString();
                     }
+                    else
+                        member.Add(item["Name"].ToString());
                 }
-
-                //將最後結果以JSON形式放進回傳字串
-                ShowTable = JsonConvert.SerializeObject(ProjectAll);
-
+                ProjectAll.MemberName = string.Join("、", member);
+                ProjectAll.NameGroup = AllMember;
             }
+            if (workdata.Rows.Count != 0) //如果根本沒有查回資料則將空資料回傳,有的話才開始整理
+            {
+                ProjectAll.inneritem = new List<InnerItem_Work>();
+                foreach (DataRow item in workdata.Rows)
+                {
+                    TimeSpan ts = new TimeSpan(Convert.ToDateTime(item["UpdateTime"]).Ticks - Convert.ToDateTime(item["CreateDate"]).Ticks);
+                    int SpendDate = (int)ts.TotalDays + 1;
+                    ProjectAll.inneritem.Add(
+                        new InnerItem_Work()
+                        {
+                            Name = item["Name"].ToString(),
+                            WorkID = Convert.ToInt32(item["WorkID"]),
+                            WorkName = item["WorkName"].ToString(),
+                            WorkDescription = item["WorkDescription"].ToString(),
+                            DeadLine = $"{Convert.ToDateTime(item["CreateDate"]).ToString("yyyy-MM-dd")} ~ {Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd")}",
+                            UpdateTime = Convert.ToDateTime(item["UpdateTime"]).ToString("yyyy-MM-dd"),
+                            SpendTime = $"{SpendDate}天",
+                            FilePath = item["FilePath"].ToString(),
+                        });
+                }
+            }
+
+            //將最後結果以JSON形式放進回傳字串
+            ShowTable = JsonConvert.SerializeObject(ProjectAll);
+
+        }
             else
             {
 
@@ -364,16 +368,16 @@ namespace ProjectImmediateReply.API
             context.Response.ContentType = "text/json";
             context.Response.Write(ShowTable);
         }
-        private class getClassnumber
+    private class getClassnumber
+    {
+        public string[] chooseclass { get; set; }
+    }
+    public bool IsReusable
+    {
+        get
         {
-            public string[] chooseclass { get; set; }
-        }
-        public bool IsReusable
-        {
-            get
-            {
-                return false;
-            }
+            return false;
         }
     }
+}
 }
