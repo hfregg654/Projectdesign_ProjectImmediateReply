@@ -155,7 +155,7 @@ namespace ProjectImmediateReply.Utility
 
 							</v-list>";
             }
-            else if ( PageType == "Leader")
+            else if (PageType == "Leader")
             {
                 return @"<v-list two-line>
 								<v-list-item @click="""" href=""./Index.aspx?PageInnerType=UpdateInfo"" >
@@ -209,7 +209,7 @@ namespace ProjectImmediateReply.Utility
             }
             else if (PageType == "User")
             {
-				return @"<v-list two-line>
+                return @"<v-list two-line>
 								<v-list-item @click="""" href=""./Index.aspx?PageInnerType=UpdateInfo"" >
 									<v-list-item-icon >
 										<v-icon color=""primary"" > account_circle </v-icon >
@@ -247,8 +247,8 @@ namespace ProjectImmediateReply.Utility
 
 							</v-list>";
 
-			}
-			else
+            }
+            else
                 return string.Empty;
         }
         //then 等同於ajax的done
@@ -348,7 +348,7 @@ namespace ProjectImmediateReply.Utility
             }
             else if (PageInner == "AssignTeam")
             {
-				//刪除data:() 裡的 TeamName 防止跟ForAssignTeam的變數名稱相撞
+                //刪除data:() 裡的 TeamName 防止跟ForAssignTeam的變數名稱相撞
                 string chooseclass = GetClassNumberJS(GetClassNumber());
                 return $@"
 						<script>

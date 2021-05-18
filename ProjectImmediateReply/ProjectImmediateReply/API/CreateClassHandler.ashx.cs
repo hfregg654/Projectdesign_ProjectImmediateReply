@@ -20,7 +20,7 @@ namespace ProjectImmediateReply.API
             string ClassNumber = context.Request.Form["ClassNumber"];
             string PeopleNum = context.Request.Form["PeopleNum"];
             string Privilege = context.Request.Form["Privilege"];
-            string Mailaddress = context.Request.Form["Mail"]; 
+            string Mailaddress = context.Request.Form["Mail"];
             //先檢查傳過來的值有沒有問題並先定義回傳的訊息
             string success = "";
             if (ClassNumber == string.Empty || ClassNumber == null || PeopleNum == string.Empty || PeopleNum == null || Privilege != "Manager" || Mailaddress == string.Empty || Mailaddress == null)
@@ -30,10 +30,23 @@ namespace ProjectImmediateReply.API
                 context.Response.Write(success);
                 return;
             }
+            DBTool Dbtool = new DBTool();
+            string[] colcheckhasname = { "ClassNumber" };
+            string[] colcheckhasnamep = { "@ClassNumber" };
+            string[] checkhasp = { ClassNumber };
+            DataTable checkhasdata = Dbtool.readTable("Users", colcheckhasname, "WHERE ClassNumber=@ClassNumber AND DeleteDate IS NULL AND WhoDelete IS NULL", colcheckhasnamep, checkhasp);
+            if (checkhasdata.Rows.Count>0)
+            {
+                success = "[{\"success\":\"Wrong\"}]";
+                context.Response.ContentType = "text/json";
+                context.Response.Write(success);
+                return;
+            }
+
             //建立亂數工具並定義準備裝授權碼的集合
             RandomTool Rtool = new RandomTool();
             List<string> License = new List<string>();
-           
+
             try
             {
                 //確認人數為正確值後執行創建授權碼並放至集合中
@@ -53,7 +66,7 @@ namespace ProjectImmediateReply.API
                     }
 
                 }
-                DBTool Dbtool = new DBTool();
+
                 //將創建的授權碼一個一個加進資料庫
                 foreach (string item in License)
                 {
