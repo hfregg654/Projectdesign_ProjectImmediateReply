@@ -48,13 +48,13 @@
                 } else if (responseData[0].success == "NumWrong") {
                     $("#CreateClassMessage").append("建立途中發生錯誤,請將此班級刪除以重新建立");
                 } else {
-                    $("#CreateClassMessage").append("建立失敗,請確認輸入資訊或是資料庫狀況");
+                    $("#CreateClassMessage").append("建立失敗,請確認輸入資訊或是資料庫狀況並重新建立");
                 }
 
             })
             //當請求失敗提醒使用者失敗並顯示建立按鈕
             .fail(function (xhr, status, errorThrown) {
-                alert("建立失敗,請確認輸入資訊或是資料庫狀況");
+                alert("建立失敗,請確認輸入資訊或是資料庫狀況並重新建立");
             })
             .always(function () {
                 $("#CreatClassbtn").show(100);
