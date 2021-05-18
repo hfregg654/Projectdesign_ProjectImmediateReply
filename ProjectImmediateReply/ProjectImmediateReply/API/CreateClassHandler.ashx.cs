@@ -35,7 +35,7 @@ namespace ProjectImmediateReply.API
             string[] colcheckhasnamep = { "@ClassNumber" };
             string[] checkhasp = { ClassNumber };
             DataTable checkhasdata = Dbtool.readTable("Users", colcheckhasname, "WHERE ClassNumber=@ClassNumber AND DeleteDate IS NULL AND WhoDelete IS NULL", colcheckhasnamep, checkhasp);
-            if (checkhasdata.Rows.Count>0)
+            if (checkhasdata.Rows.Count > 0)
             {
                 success = "[{\"success\":\"Wrong\"}]";
                 context.Response.ContentType = "text/json";
@@ -68,22 +68,23 @@ namespace ProjectImmediateReply.API
                 }
 
                 //將創建的授權碼一個一個加進資料庫
+
+                string newPrivilege = "Visitor";
+                string CreateDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
+                string WhoCreate = Privilege;
+
+                string[] colname = { "ClassNumber", "License", "Privilege", "CreateDate", "WhoCreate" };
+                string[] colnamep = { "@ClassNumber", "@License", "@Privilege", "@CreateDate", "@WhoCreate" };
+                List<string> p = new List<string>();
                 foreach (string item in License)
                 {
-                    string newPrivilege = "Visitor";
-                    string CreateDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
-                    string WhoCreate = Privilege;
-
-                    string[] colname = { "ClassNumber", "License", "Privilege", "CreateDate", "WhoCreate" };
-                    string[] colnamep = { "@ClassNumber", "@License", "@Privilege", "@CreateDate", "@WhoCreate" };
-                    List<string> p = new List<string>();
                     p.Add(ClassNumber);
                     p.Add(item);
                     p.Add(newPrivilege);
                     p.Add(CreateDate);
                     p.Add(WhoCreate);
-                    Dbtool.InsertTable("Users", colname, colnamep, p);
                 }
+                Dbtool.InsertTable("Users", colname, colnamep, p);
                 //檢查欲寫入資料庫的數量與創建數量,相同則成功並發送信件,不同則提醒使用者
                 string[] colcheckname = { "ClassNumber" };
                 string[] colchecknamep = { "@ClassNumber" };

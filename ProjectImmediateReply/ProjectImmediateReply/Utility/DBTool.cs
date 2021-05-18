@@ -341,17 +341,68 @@ namespace ProjectImmediateReply.Utility
         public void InsertTable(string inserttablename, string[] insertcolname,
             string[] insertcolname_P, List<string> insert_P)
         {
+            //先宣告SQL語法字串為空字串
+            string queryString = string.Empty;
             //將接過來的目標欄位名稱及目標欄位名稱帶有@的陣列各自用「,」連接成一個字串
             string insertcolum = string.Join(",", insertcolname);
-            string insertparameter = string.Join(",", insertcolname_P);
-            //將user輸入的集合轉為陣列
+            //將參數的集合轉為陣列
             string[] puserinsert = insert_P.ToArray();
-            //SQL語法參數化"INSERT INTO 資料表名稱 (欄位名稱) VALUES (@欄位名稱)"
-            string queryString =
-               $@" INSERT INTO {inserttablename}
+            //宣告新的@陣列為集合
+            List<string> Newinsertcolname_P = new List<string>();
+            //判斷傳過來目標欄位名稱帶有@的陣列以及參數的集合大小，創建對應的SQL語法
+            //若參數大於@陣列則為新增多值 反之則為新增單值
+            if (insert_P.Count > insertcolname_P.Length)
+            {
+                //將接過來的目標欄位名稱帶有@的陣列宣告為空字串
+                string insertparameter = string.Empty;
+                //跑參數/@陣列次數的迴圈
+                for (int i = 0; i < (insert_P.Count / insertcolname_P.Length); i++)
+                {
+                    //每一筆加入加了i的@陣列
+                    if (i == 0)
+                    {
+                        //將新的@參數加入@集合
+                        foreach (var item in insertcolname_P)
+                        {
+                            Newinsertcolname_P.Add($"{item}{i}");
+                        }
+                        //第一筆前不用逗點
+                        insertparameter += $"({string.Join($"{i},", insertcolname_P)}{i})";
+                    }
+                    else
+                    {
+                        //將新的@參數加入@集合
+                        foreach (var item in insertcolname_P)
+                        {
+                            Newinsertcolname_P.Add(item + i);
+                        }
+                        //第二筆之後前面加逗點
+                        insertparameter += $",({string.Join($"{i},", insertcolname_P)}{i})";
+                    }
+                    //SQL語法參數化"INSERT INTO 資料表名稱 (欄位名稱) VALUES (@欄位名稱)"
+                }
+                queryString =
+                  $@" INSERT INTO {inserttablename}
+                         ({insertcolum})
+                   VALUES
+                         {insertparameter}";
+            }
+            else
+            {
+                //將接過來的目標欄位名稱帶有@的陣列各自用「,」連接成一個字串
+                string insertparameter = string.Join(",", insertcolname_P);
+                //將新的@參數加入@集合
+                foreach (var item in insertcolname_P)
+                {
+                    Newinsertcolname_P.Add(item);
+                }
+                //SQL語法參數化"INSERT INTO 資料表名稱 (欄位名稱) VALUES (@欄位名稱)"
+                queryString =
+                    $@" INSERT INTO {inserttablename}
                          ({insertcolum})
                    VALUES
                          ({insertparameter})";
+            }
             //資料庫開啟並執行SQL
             using (SqlConnection connection = new SqlConnection(connectionString))
             {
@@ -362,9 +413,9 @@ namespace ProjectImmediateReply.Utility
                 try
                 {
                     //利用迴圈將參數一個一個放進@欄位
-                    for (int i = 0; i < insertcolname_P.Length; i++)
+                    for (int i = 0; i < insert_P.Count; i++)
                     {
-                        command.Parameters.AddWithValue($"{insertcolname_P[i]}", puserinsert[i]);
+                        command.Parameters.AddWithValue($"{Newinsertcolname_P[i]}", puserinsert[i]);
                     }
                     command.ExecuteNonQuery();
                     sqlTransaction.Commit();
