@@ -91,12 +91,14 @@
     <Content Include="assets\js\util.js" />
     <Content Include="ClassDetail.aspx" />
     <Content Include="CreateSpecialAccount.aspx" />
+    <Content Include="CreateWorks.aspx" />
     <Content Include="Global.asax" />
     <Content Include="HTML\A-1.html" />
     <Content Include="HTML\A-2-1.html" />
     <Content Include="HTML\A-2.html" />
     <Content Include="HTML\A-3.html" />
     <Content Include="HTML\B-1.html" />
+    <Content Include="HTML\B-2.html" />
     <Content Include="HTML\B-3.html" />
     <Content Include="HTML\B-4.html" />
     <Content Include="HTML\B3-1.html" />
@@ -193,6 +195,13 @@
     </Compile>
     <Compile Include="CreateSpecialAccount.aspx.designer.cs">
       <DependentUpon>CreateSpecialAccount.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CreateWorks.aspx.cs">
+      <DependentUpon>CreateWorks.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateWorks.aspx.designer.cs">
+      <DependentUpon>CreateWorks.aspx</DependentUpon>
     </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>

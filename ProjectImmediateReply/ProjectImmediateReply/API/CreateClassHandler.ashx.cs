@@ -71,7 +71,7 @@ namespace ProjectImmediateReply.API
                     p.Add(WhoCreate);
                     Dbtool.InsertTable("Users", colname, colnamep, p);
                 }
-                //檢查寫入資料庫的數量與創建數量,相同則成功並發送信件,不同則提醒使用者
+                //檢查欲寫入資料庫的數量與創建數量,相同則成功並發送信件,不同則提醒使用者
                 string[] colcheckname = { "ClassNumber" };
                 string[] colchecknamep = { "@ClassNumber" };
                 string[] checkp = { ClassNumber };

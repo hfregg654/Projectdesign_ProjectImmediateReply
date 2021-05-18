@@ -44,134 +44,127 @@
 								<!-- ROW是TABLE裡面一橫排內容的意思 封裝好的 -->
 								<template #item.上傳連結或檔案="{ item }">
 								             <!-- 切割出來開始 -->
-								             								<v-dialog v-model="dialoga" persistent max-width="600px" :retain-focus="false">
-								             									<template v-slot:activator="{ on, attrs }">
-								             										<v-btn color="blue" dark text v-bind="attrs" v-on="on" @click="editItem(item)">
-								             											上傳連結或檔案
-								             										</v-btn>
-								             									</template>
+								      <v-dialog v-model="dialoga" persistent max-width="600px" :retain-focus="false">
+								             <template v-slot:activator="{ on, attrs }">
+								             	<v-btn color="blue" dark text v-bind="attrs" v-on="on" @click="editItem(item)">
+								             			上傳連結或檔案
+								             	</v-btn>
+								 </template>
+								           <v-card>
+								            <v-tabs
+								              v-model="tab"
+								             	dark
+								              centered
+								             icons-and-text
+								             >
+								            <v-tabs-slider></v-tabs-slider>
+								
+								            <v-tab href="#上傳檔案" @click="clear()">
+								                上傳檔案
+								                <v-icon>mdi-cloud-upload</v-icon>
+								            </v-tab>
+								
+								            <v-tab href="#上傳網址" @click="clear()">
+								                上傳網址
+								                <v-icon>mdi-code-json</v-icon>
+								            </v-tab>
+								        </v-tabs>
+								<!-- ------------ -->
+								        <v-tabs-items v-model="tab">
+											<!-- - -->
+											<v-form method="post" novalidate="true" ref="form1">
+								                <v-tab-item :key="1" value="上傳檔案">
+								                    <v-card flat>
+								        			<v-img src="https://wallpaperaccess.com/full/1381091.jpg" height="250">
+								            	<v-card-title>
+								            		<v-spacer></v-spacer>
+								            		<span class="headline">{{專案}}專案</span>
+								             	    <span class="headline ml-2">組名{{組名}}</span>
+												<v-spacer></v-spacer>
+											</v-card-title>
+											<v-card-text>
+												<v-row>
+												<v-spacer></v-spacer>
+												<span class="h6">工作項目</span>
+												<span class="h6 ml-6">{{editedItem.工作項目}}</span>
+												<v-spacer></v-spacer>
+												</v-row>
+					                    <v-col cols="12" sm="12">
+					                    	<v-file-input
+					                    		v-model="editedItem.files"
+					                    		:rules="rules1"
+					                    		hint="檔案大小須小於10MB"
+					                    		placeholder="請選擇檔案"
+					                    		label="上傳檔案"
+								                 accept=".docx,.doc,.pdf,.xlsx,.xls,.jpg,.png,"
+								            	show-size 
+								            	counter 
+								            	chips 
+								            	multiple
+								            	prepend-icon="mdi-paperclip"
+								            	required
+												 >
+								           <template v-slot:selection="{ text }">
+								            <v-chip
+								           	small
+								           	label
+								           	color="primary"
+								            >
+								           	{{ text }}
+							   		  </v-chip>
+							   		</template>
+							   	  </v-file-input>
+							   </v-col>
+								<v-card-actions>
+									<v-spacer></v-spacer>
+									<v-btn color="blue darken-1" text :disabled="!valid" @click="上傳1()">上傳</v-btn>
+							<v-btn color="blue darken-1" text @click="取消()">取消</v-btn>
+								</v-card-actions>
+								</v-card-text>
+								</v-img>
+					        </v-card>
+					    </v-tab-item>
+						</v-form>
+						<!-- ------ -->
+						<v-form method="post" novalidate="true" ref="form2">
+						  <v-tab-item :key="2" value="上傳網址">
+						      <v-card flat>
+								<v-img src="https://wallpaperaccess.com/full/1381091.jpg" height="250">
+					<v-card-title>
+						<v-spacer></v-spacer>
+						<span class="headline">{{專案}}專案</span>
+								<span class="headline ml-2">組名{{組名}}</span>
+											<v-spacer></v-spacer>
+										</v-card-title>
+										<v-card-text>
+											<v-row>
+											<v-spacer></v-spacer>
+											<span class="h6">工作項目</span>
+											<span class="h6 ml-6">{{editedItem.工作項目}}</span>
+						<v-spacer></v-spacer>
+						</v-row>
+		        <v-col cols="12" sm="12">
+		        	<v-text-field label="上傳網址"
+		        	v-model="url"
+					:rules="rules2"
+		        		 persistent-hint
+		        		required></v-text-field>
+		        </v-col>
+				<v-card-actions>
+					<v-spacer></v-spacer>
+					<v-btn color="blue darken-1" text :disabled="!valid" @click="上傳2()">上傳</v-btn>
+								   <v-btn color="blue darken-1" text @click="取消()">取消</v-btn>
+											</v-card-actions>
+											</v-card-text>
+											</v-img>
+						                </v-card>
+						            </v-tab-item>
+									</v-form>
+						        </v-tabs-items>
+								
+						    </v-card>
 								             									
-								             									
-								             									
-								             									
-								             									<v-card>
-								             									        <v-tabs
-								             									            v-model="tab"
-								             												dark
-								             									            centered
-								             									            icons-and-text
-								             									        >
-								             									            <v-tabs-slider></v-tabs-slider>
-								             									
-								             									            <v-tab href="#上傳檔案" @click="clear()">
-								             									                上傳檔案
-								             									                <v-icon>mdi-cloud-upload</v-icon>
-								             									            </v-tab>
-								             									
-								             									            <v-tab href="#上傳網址" @click="clear()">
-								             									                上傳網址
-								             									                <v-icon>mdi-code-json</v-icon>
-								             									            </v-tab>
-								             									        </v-tabs>
-								             									<!-- ------------ -->
-								             									        <v-tabs-items v-model="tab">
-								             												<!-- - -->
-								             												<v-form method="post" novalidate="true" ref="form1">
-								             									            <v-tab-item :key="1" value="上傳檔案">
-								             									                <v-card flat>
-								             														<v-img src="https://wallpaperaccess.com/full/1381091.jpg" height="250">
-								             															<v-card-title>
-								             																<v-spacer></v-spacer>
-								             																<span class="headline">{{專案}}專案</span>
-								             																<span class="headline ml-2">組名{{組名}}</span>
-								             																<v-spacer></v-spacer>
-								             															</v-card-title>
-								             															<v-card-text>
-								             																<v-row>
-								             																<v-spacer></v-spacer>
-								             																<span class="h6">工作項目</span>
-								             																<span class="h6 ml-6">{{editedItem.工作項目}}</span>
-								             																<v-spacer></v-spacer>
-								             																</v-row>
-								             									                    <v-col cols="12" sm="12">
-								             									                    	<v-file-input
-								             									                    		v-model="editedItem.files"
-								             									                    		:rules="rules1"
-								             									                    		hint="檔案大小須小於10MB"
-								             									                    		placeholder="請選擇檔案"
-								             									                    		label="上傳檔案"
-								             									                    		accept=".docx,.doc,.pdf,.xlsx,.xls,.jpg,.png,"
-								             									                    		show-size 
-								             									                    		counter 
-								             									                    		chips 
-								             									                    		multiple
-								             									                    		prepend-icon="mdi-paperclip"
-								             									                    		required
-								             									                    	  >
-								             									                    		<template v-slot:selection="{ text }">
-								             									                    		  <v-chip
-								             									                    			small
-								             									                    			label
-								             									                    			color="primary"
-								             									                    		  >
-								             									                    			{{ text }}
-								             									                    		  </v-chip>
-								             									                    		</template>
-								             									                    	  </v-file-input>
-								             									                    </v-col>
-								             														<v-card-actions>
-								             															<v-spacer></v-spacer>
-								             															<v-btn color="blue darken-1" text :disabled="!valid" @click="上傳1()">上傳</v-btn>
-								             															<v-btn color="blue darken-1" text @click="取消()">取消</v-btn>
-								             														</v-card-actions>
-								             														</v-card-text>
-								             														</v-img>
-								             									                </v-card>
-								             									            </v-tab-item>
-								             												</v-form>
-								             												<!-- ------ -->
-								             												<v-form method="post" novalidate="true" ref="form2">
-								             									            <v-tab-item :key="2" value="上傳網址">
-								             									                <v-card flat>
-								             														<v-img src="https://wallpaperaccess.com/full/1381091.jpg" height="250">
-								             															<v-card-title>
-								             																<v-spacer></v-spacer>
-								             																<span class="headline">{{專案}}專案</span>
-								             																<span class="headline ml-2">組名{{組名}}</span>
-								             																<v-spacer></v-spacer>
-								             															</v-card-title>
-								             															<v-card-text>
-								             																<v-row>
-								             																<v-spacer></v-spacer>
-								             																<span class="h6">工作項目</span>
-								             																<span class="h6 ml-6">{{editedItem.工作項目}}</span>
-								             																<v-spacer></v-spacer>
-								             																</v-row>
-								             									                    <v-col cols="12" sm="12">
-								             									                    	<v-text-field label="上傳網址"
-								             									                    	v-model="url"
-								             															:rules="rules2"
-								             									                    		 persistent-hint
-								             									                    		required></v-text-field>
-								             									                    </v-col>
-								             														<v-card-actions>
-								             															<v-spacer></v-spacer>
-								             															<v-btn color="blue darken-1" text :disabled="!valid" @click="上傳2()">上傳</v-btn>
-								             															<v-btn color="blue darken-1" text @click="取消()">取消</v-btn>
-								             														</v-card-actions>
-								             														</v-card-text>
-								             														</v-img>
-								             									                </v-card>
-								             									            </v-tab-item>
-								             												</v-form>
-								             									        </v-tabs-items>
-								             											
-								             									    </v-card>
-								             									
-								             									
-								             									
-								             									
-								             								</v-dialog>
+						</v-dialog>
 								             <!-- 切割出來結束 -->
 								         </template>
 										 
@@ -182,7 +175,7 @@
 								         </template>
 										 
 								<template #item.已完成="{ item }">
-								             <v-btn  color="cyan" dark text :href="item.已完成">
+								             <v-btn  color="cyan" dark text :href="item.上傳連結或檔案">
 												 已完成
 								             </v-btn>
 								         </template>
