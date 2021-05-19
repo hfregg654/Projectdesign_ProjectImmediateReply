@@ -78,9 +78,9 @@
 								<!-- ROW是TABLE裡面一橫排內容的意思 封裝好的 -->
 								<template #item.uploadfile="{ item }">
 								             <!-- 切割出來開始 -->
-						<v-dialog v-model="dialoga"  persistent max-width="600px" :retain-focus="false" v-if="Userid=inneritem.Work_UserID">
+						<v-dialog v-model="dialoga"  persistent max-width="600px" :retain-focus="false" >
 								  <template v-slot:activator="{ on, attrs }">
-								  <v-btn color="blue" dark text v-bind="attrs" v-on="on" @click="editItem(item)">
+								  <v-btn color="blue" dark text v-bind="attrs" v-on="on" @click="editItem(item)" v-if="Userid==1018">
 								        				上傳連結或檔案
 								        			</v-btn>
 								        		</template>
