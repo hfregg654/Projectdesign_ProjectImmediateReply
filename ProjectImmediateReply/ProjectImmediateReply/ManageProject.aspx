@@ -179,7 +179,7 @@
 								       				</v-row>
 								               <v-col cols="12" sm="12">
 								               	<v-text-field label="上傳網址"
-								               	v-model="url"
+								               	v-model="editedItem.url"
 								       			:rules="rules2"
 								               		 persistent-hint
 								               		required></v-text-field>
@@ -300,6 +300,8 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <script>
+        //import { error } from "jquery"
+
         // 下面ＴＡＢＬＥ的作法是,頁面加載時獲取一次,按下小組亂數分配刷新獲取一次,儲存時ＰＯＳＴ回去小組亂數結果
         // 組別和專案名一開始先給空值 不會顯示 （inneritem.project  inneritem.teamname）
         var vm = new Vue({
@@ -336,6 +338,7 @@
                 ProjectName: "123",
                 TeamName: "456",
                 ProjectID: "",
+                FileName: "",
                 // 工作項目:"789",
                 // 驗證valid
                 valid: true,
@@ -486,10 +489,8 @@
                         axios
                             .post("API/GetFileHandler.ashx", formData)
                             .then(response => {
-                                vm.showmessagesuccess = '發送成功';
-                                vm.snackbar1 = true;
-                                this.initialize();
-                                this.close();
+                                vm.FileName = response.data.FileName;
+                                this.UpdateFileDB();
                             })
                             .catch(error => {
                                 vm.showmessage = '發送失敗' + error;
@@ -506,7 +507,7 @@
                     if (this.$refs.form2.validate()) {
 
                         axios
-                            .post("API/GetFileHandler.ashx", vm.editedItem.url)
+                            .post("API/GetFileHandler.ashx", { FileName: vm.editedItem.url, id: vm.editedItem.id })
                             .then(response => {
                                 vm.showmessagesuccess = '發送成功';
                                 vm.snackbar1 = true;
@@ -558,7 +559,7 @@
                 取消() {
                     this.initialize();
                     this.close();
-                    this.valid = false;
+                    this.valid = fal;
                 },
                 //取消() {
                 //    this.editedItem.files = [],
@@ -617,7 +618,21 @@
                         });
                 },
 
-
+                UpdateFileDB() {
+                    axios.post("API/GetFileHandler.ashx", { FileName: vm.FileName, id: vm.editedItem.id })
+                        .then(response => {
+                            vm.showmessagesuccess = '發送成功';
+                            vm.snackbar1 = true;
+                            this.initialize();
+                            this.close();
+                        })
+                        .catch(error => {
+                            vm.showmessage = '發送失敗' + error;
+                            vm.snackbar = true;
+                            this.initialize();
+                            this.close();
+                        });
+                },
 
                 // B3-2方法結束
                 // B3-3方法開始
