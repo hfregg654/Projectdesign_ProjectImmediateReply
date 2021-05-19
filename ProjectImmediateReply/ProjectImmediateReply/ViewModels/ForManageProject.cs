@@ -12,6 +12,8 @@ namespace ProjectImmediateReply.ViewModels
         public int UserID { get; set; }
         [JsonProperty("UserName")]
         public string Name { get; set; }
+        [JsonProperty("Privilege")]
+        public string Privilege { get; set; }
         [JsonProperty("ClassNumber")]
         public string ClassNumber { get; set; }
         [JsonProperty("TeamName")]
