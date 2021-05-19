@@ -8,6 +8,7 @@ using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
+using System.Web.SessionState;
 
 namespace ProjectImmediateReply.API
 {
@@ -15,7 +16,7 @@ namespace ProjectImmediateReply.API
     /// <summary>
     /// GetCrudHandler 的摘要描述
     /// </summary>
-    public class GetCrudHandler : IHttpHandler
+    public class GetCrudHandler : IHttpHandler, IRequiresSessionState
     {
         public void ProcessRequest(HttpContext context)
         {
@@ -318,46 +319,156 @@ namespace ProjectImmediateReply.API
                             UserID = Convert.ToInt32(item["UserID"]),
                             UserName = item["Name"].ToString()
                         });
-                    //以小組組別分別整理,判斷是否為組長來分別做排序處理
-                    if (item["Privilege"].ToString() == "Leader")
-                    {
-                        ProjectAll.LeaderName = item["Name"].ToString();
-                        ProjectAll.ProjectID = Convert.ToInt32(item["ProjectID"]);
-                        ProjectAll.ProjectName = item["ProjectName"].ToString();
-                        ProjectAll.TeamName = item["TeamName"].ToString();
-                    }
-                    else
-                        member.Add(item["Name"].ToString());
-                }
-                ProjectAll.MemberName = string.Join("、", member);
-                ProjectAll.NameGroup = AllMember;
-            }
-            if (workdata.Rows.Count != 0) //如果根本沒有查回資料則將空資料回傳,有的話才開始整理
-            {
-                ProjectAll.inneritem = new List<InnerItem_Work>();
-                foreach (DataRow item in workdata.Rows)
-                {
-                    TimeSpan ts = new TimeSpan(Convert.ToDateTime(item["UpdateTime"]).Ticks - Convert.ToDateTime(item["CreateDate"]).Ticks);
-                    int SpendDate = (int)ts.TotalDays + 1;
-                    ProjectAll.inneritem.Add(
-                        new InnerItem_Work()
+                        //以小組組別分別整理,判斷是否為組長來分別做排序處理
+                        if (item["Privilege"].ToString() == "Leader")
                         {
-                            Name = item["Name"].ToString(),
+                            ProjectAll.LeaderName = item["Name"].ToString();
+                            ProjectAll.ProjectID = Convert.ToInt32(item["ProjectID"]);
+                            ProjectAll.ProjectName = item["ProjectName"].ToString();
+                            ProjectAll.TeamName = item["TeamName"].ToString();
+                        }
+                        else
+                            member.Add(item["Name"].ToString());
+                    }
+                    ProjectAll.MemberName = string.Join("、", member);
+                    ProjectAll.NameGroup = AllMember;
+                }
+                if (workdata.Rows.Count != 0) //如果根本沒有查回資料則將空資料回傳,有的話才開始整理
+                {
+                    ProjectAll.inneritem = new List<InnerItem_Work>();
+                    foreach (DataRow item in workdata.Rows)
+                    {
+                        TimeSpan ts = new TimeSpan(Convert.ToDateTime(item["UpdateTime"]).Ticks - Convert.ToDateTime(item["CreateDate"]).Ticks);
+                        int SpendDate = (int)ts.TotalDays + 1;
+                        ProjectAll.inneritem.Add(
+                            new InnerItem_Work()
+                            {
+                                Name = item["Name"].ToString(),
+                                WorkID = Convert.ToInt32(item["WorkID"]),
+                                WorkName = item["WorkName"].ToString(),
+                                WorkDescription = item["WorkDescription"].ToString(),
+                                DeadLine = $"{Convert.ToDateTime(item["CreateDate"]).ToString("yyyy-MM-dd")} ~ {Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd")}",
+                                UpdateTime = Convert.ToDateTime(item["UpdateTime"]).ToString("yyyy-MM-dd"),
+                                SpendTime = $"{SpendDate}天",
+                                FilePath = item["FilePath"].ToString(),
+                            });
+                    }
+                }
+
+                //將最後結果以JSON形式放進回傳字串
+                ShowTable = JsonConvert.SerializeObject(ProjectAll);
+
+            }
+            else if (innertype == "ManageProject")
+            {
+                LogInfo Info = new LogInfo();
+                if (context.Session["IsLogined"] != null) /*使用Session內建方法取得LoginHelper TryLogin的值*/
+                {
+                    Info = (LogInfo)context.Session["IsLogined"];
+                }
+                if (Info.Privilege != "Leader" && Info.Privilege != "User")
+                    return;
+
+                //宣告最後回傳的物件
+                ForManageProject result = new ForManageProject();
+                DataTable lastdata = new DataTable();
+                //準備查詢語法查詢此人的所有工作
+                string[] workscolname = { "ProjectID", "UserID", "WorkID", "WorkName", "WorkDescription", "DeadLine", "FilePath", "UpdateTime", "Complete" };
+                string[] workscolnamep = { "@UserID" };
+                string[] worksp = { Info.UserID.ToString() };
+                string workslogic = @"
+                                WHERE UserID=@UserID AND DeleteDate IS NULL AND WhoDelete IS NULL
+                                ";
+                DataTable worksdata = Dbtool.readTable("Works", workscolname, workslogic, workscolnamep, worksp);//查此人的所有工作
+                //準備查詢語法查此專案的所有工作
+                string[] allworksLcolname = { "ProjectID", "UserID", "WorkID", "WorkName", "WorkDescription", "DeadLine", "FilePath", "UpdateTime", "Complete" };
+                string[] allworksLcolnamep = { "@ProjectID" };
+                string[] allworksLp = { worksdata.Rows[0]["ProjectID"].ToString() };
+                string allworksLlogic = @"
+                                WHERE ProjectID=@ProjectID AND DeleteDate IS NULL AND WhoDelete IS NULL
+                                ";
+                DataTable allworksdata = Dbtool.readTable("Works", allworksLcolname, allworksLlogic, allworksLcolnamep, allworksLp);//查此專案的所有工作
+
+                //若有查到資料並且此人為組長,更改查詢此專案的所有工作
+                if (allworksdata.Rows.Count > 0 && Info.Privilege == "Leader")
+                {
+                    lastdata = allworksdata;
+                }
+                else
+                {
+                    lastdata = worksdata;
+                }
+                //
+                string[] ProAndUscolname = { "Projects.ProjectName", "Users.TeamName", "Users.ClassNumber" };
+                string[] ProAndUscolnamep = { "@ProjectID" };
+                string[] ProAndUsp = { lastdata.Rows[0]["ProjectID"].ToString() };
+                string ProAndUslogic = @"
+                                JOIN Projects ON Users.ProjectID=Projects.ProjectID
+                                WHERE Projects.ProjectID=@ProjectID AND Projects.DeleteDate IS NULL AND Projects.WhoDelete IS NULL
+                                ";
+                DataTable ProAndUsdata = Dbtool.readTable("Users", ProAndUscolname, ProAndUslogic, ProAndUscolnamep, ProAndUsp);//查此專案的所有工作
+                List<ViewWorks> TempVW = new List<ViewWorks>();
+                List<ViewWorks> Allworks = new List<ViewWorks>();
+                foreach (DataRow item in allworksdata.Rows)
+                {
+                    Allworks.Add(new ViewWorks()
+                    {
+                        Work_UserID = Convert.ToInt32(item["UserID"]),
+                        WorkID = Convert.ToInt32(item["WorkID"]),
+                        WorkName = item["WorkName"].ToString(),
+                        WorkDescription = item["WorkDescription"].ToString(),
+                        DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd"),
+                        UpdateTime = Convert.ToDateTime(item["UpdateTime"]).ToString("yyyy-MM-dd"),
+                        FilePath = item["FilePath"].ToString(),
+                        Complete = Convert.ToBoolean(item["Complete"])
+                    });
+                }
+                foreach (DataRow item in lastdata.Rows)
+                {
+                    if (Convert.ToBoolean(item["Complete"]))
+                    {
+                        TempVW.Add(new ViewWorks()
+                        {
+                            Work_UserID = Convert.ToInt32(item["UserID"]),
                             WorkID = Convert.ToInt32(item["WorkID"]),
                             WorkName = item["WorkName"].ToString(),
                             WorkDescription = item["WorkDescription"].ToString(),
-                            DeadLine = $"{Convert.ToDateTime(item["CreateDate"]).ToString("yyyy-MM-dd")} ~ {Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd")}",
+                            DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd"),
                             UpdateTime = Convert.ToDateTime(item["UpdateTime"]).ToString("yyyy-MM-dd"),
-                            SpendTime = $"{SpendDate}天",
                             FilePath = item["FilePath"].ToString(),
-                        });
+                            Complete = Convert.ToBoolean(item["Complete"])
+                        }); ;
+                    }
+                    else
+                    {
+                        TempVW.Add(new ViewWorks()
+                        {
+                            Work_UserID = Convert.ToInt32(item["UserID"]),
+                            WorkID = Convert.ToInt32(item["WorkID"]),
+                            WorkName = item["WorkName"].ToString(),
+                            WorkDescription = item["WorkDescription"].ToString(),
+                            DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd"),
+                            UpdateTime = "",
+                            FilePath = item["FilePath"].ToString(),
+                            Complete = Convert.ToBoolean(item["Complete"])
+                        }); ;
+                    }
+
                 }
+                result.viewWorks = TempVW;
+                result.UserID = Info.UserID;
+                result.Name = Info.Name;
+                result.ProjectID = Convert.ToInt32(lastdata.Rows[0]["ProjectID"]);
+                result.ProjectName = ProAndUsdata.Rows[0]["ProjectName"].ToString();
+                result.TeamName = ProAndUsdata.Rows[0]["TeamName"].ToString();
+                result.ClassNumber = ProAndUsdata.Rows[0]["ClassNumber"].ToString();
+                result.Schedule = SchedualCacu(Allworks);
+
+
+
+                //將最後結果以JSON形式放進回傳字串
+                ShowTable = JsonConvert.SerializeObject(result);
             }
-
-            //將最後結果以JSON形式放進回傳字串
-            ShowTable = JsonConvert.SerializeObject(ProjectAll);
-
-        }
             else
             {
 
@@ -368,16 +479,33 @@ namespace ProjectImmediateReply.API
             context.Response.ContentType = "text/json";
             context.Response.Write(ShowTable);
         }
-    private class getClassnumber
-    {
-        public string[] chooseclass { get; set; }
-    }
-    public bool IsReusable
-    {
-        get
+        private string SchedualCacu(List<ViewWorks> viewWorks)
         {
-            return false;
+            float sch = 0.0f;
+            if (viewWorks.Count > 0)
+            {
+                float completework = 0.0f;
+                foreach (ViewWorks item in viewWorks)
+                {
+                    if (item.Complete == true)
+                    {
+                        completework++;
+                    }
+                }
+                sch = completework / viewWorks.Count;
+            }
+            return (Math.Floor(sch * 100)).ToString();
+        }
+        private class getClassnumber
+        {
+            public string[] chooseclass { get; set; }
+        }
+        public bool IsReusable
+        {
+            get
+            {
+                return false;
+            }
         }
     }
-}
 }
