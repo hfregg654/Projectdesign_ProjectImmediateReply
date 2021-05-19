@@ -33,8 +33,8 @@ namespace ProjectImmediateReply.API
             List<UserInfo> Check_Acc_Lic = new List<UserInfo>();
             string ShowMessage = string.Empty;
             string ShowMessage2 = string.Empty;
-            if (Name != string.Empty && Phone != string.Empty && Mail != string.Empty && LineID != string.Empty && ClassNumber != string.Empty
-                && Account != string.Empty && PassWord != string.Empty && PassWordCheck != string.Empty && License != string.Empty)
+            if (!string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Phone) &&  !string.IsNullOrWhiteSpace(Mail) &&  !string.IsNullOrWhiteSpace(LineID) &&  !string.IsNullOrWhiteSpace(ClassNumber)
+                &&  !string.IsNullOrWhiteSpace(Account) &&  !string.IsNullOrWhiteSpace(PassWord) &&  !string.IsNullOrWhiteSpace(PassWordCheck) &&  !string.IsNullOrWhiteSpace(License))
             {
                 if (PassWord == PassWordCheck)
                 {
@@ -48,10 +48,10 @@ namespace ProjectImmediateReply.API
                     string[] Pname2 = { "@ClassNumber", "@License" };
                     string[] P2 = { ClassNumber, License };
                     Check_Lic = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname2, "WHERE License=@License AND ClassNumber=@ClassNumber AND DeleteDate IS NULL AND WhoDelete IS NULL", Pname2, P2));
-                    string[] readcolname3 = { "Account", "License", "Privilege" };
-                    string[] Pname3 = { "@Account", "@License" };
-                    string[] P3 = { Account, License };
-                    Check_Acc_Lic = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname3, "WHERE License=@License AND Account=@Account AND Privilege != 'Visitor' AND DeleteDate IS NULL AND WhoDelete IS NULL", Pname3, P3));
+                    string[] readcolname3 = { "License", "Privilege" };
+                    string[] Pname3 = { "@License" };
+                    string[] P3 = { License };
+                    Check_Acc_Lic = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname3, "WHERE License=@License AND Account IS NOT NULL AND Privilege != 'Visitor' AND DeleteDate IS NULL AND WhoDelete IS NULL", Pname3, P3));
                     if (Check_Lic.Count == 0)
                     {
                         context.Response.ContentType = "text/json";
