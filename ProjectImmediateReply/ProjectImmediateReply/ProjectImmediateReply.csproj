@@ -276,6 +276,7 @@
     <Compile Include="ViewModels\ForAssignTeam.cs" />
     <Compile Include="ViewModels\ForClassDetail.cs" />
     <Compile Include="ViewModels\ForGradesShow.cs" />
+    <Compile Include="ViewModels\ForManageProject.cs" />
     <Compile Include="ViewModels\ForProjectDetail.cs" />
     <Compile Include="ViewModels\ForProjectDetail_Grades.cs" />
     <Compile Include="ViewModels\ForSeeGrade.cs" />
