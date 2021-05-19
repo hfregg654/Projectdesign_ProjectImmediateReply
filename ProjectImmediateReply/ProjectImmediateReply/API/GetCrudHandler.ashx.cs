@@ -458,6 +458,7 @@ namespace ProjectImmediateReply.API
                 result.viewWorks = TempVW;
                 result.UserID = Info.UserID;
                 result.Name = Info.Name;
+                result.Privilege = Info.Privilege;
                 result.ProjectID = Convert.ToInt32(lastdata.Rows[0]["ProjectID"]);
                 result.ProjectName = ProAndUsdata.Rows[0]["ProjectName"].ToString();
                 result.TeamName = ProAndUsdata.Rows[0]["TeamName"].ToString();

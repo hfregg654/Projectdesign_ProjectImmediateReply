@@ -35,7 +35,7 @@
 						</div>
 						<v-row>
 							<v-spacer></v-spacer>
-							<p class="h1 ml-0 mr-6 mt-3 pl-0 font-weight-bold">{{ProjectName}}專案  組名{{TeamName}}</p>
+							<p class="h1 ml-0 mr-6 mt-3 pl-0 font-weight-bold">專案名：{{ProjectName}}  組名：{{TeamName}}</p>
 							</v-row>
 							<v-row>
 								<v-spacer></v-spacer>
@@ -78,9 +78,9 @@
 								<!-- ROW是TABLE裡面一橫排內容的意思 封裝好的 -->
 								<template #item.uploadfile="{ item }">
 								             <!-- 切割出來開始 -->
-						<v-dialog v-model="dialoga"  persistent max-width="600px" :retain-focus="false" v-if="Userid=inneritem.Work_UserID">
-								  <template v-slot:activator="{ on, attrs }">
-								  <v-btn color="blue" dark text v-bind="attrs" v-on="on" @click="editItem(item)">
+						<v-dialog v-model="dialoga"  persistent max-width="600px" :retain-focus="false" >
+						 <template v-slot:activator="{ on, attrs }">
+					<v-btn color="blue" dark text v-bind="attrs" v-on="on" @click="editItem(item)" v-if="Userid==item.Work_UserID">
 								        				上傳連結或檔案
 								        			</v-btn>
 								        		</template>
@@ -208,7 +208,7 @@
 								<template #item.leadercheck="{ item }">
 								             <v-dialog v-model="dialogb" persistent max-width="600px" :retain-focus="false">
 								             	<template v-slot:activator="{ on, attrs }">
-								             		<v-btn color="red" dark text v-bind="attrs" v-on="on" @click="editItem(item)">
+								    <v-btn color="red" dark text v-bind="attrs" v-on="on" @click="editItem(item)" v-if="item.FilePath && Privilege=='Leader'">
 								             			組長確認
 								             		</v-btn>
 								             	</template>
@@ -280,7 +280,7 @@
 								         </template>
 										 
 								<template #item.complete="{ item }">
-								             <v-btn  color="cyan" dark text :href="item.FilePath">
+								             <v-btn  color="cyan" dark text :href="item.FilePath" v-if="item.Complete">
 												 已完成
 								             </v-btn>
 								         </template>
@@ -316,6 +316,7 @@
                 Userid: 0,
                 UserName: "阿哲",
                 ClassNumber: "100-1",
+                Privilege: "100-1",
                 page: 1,
                 pageCount: 0,
                 itemsPerPage: 10,
@@ -339,7 +340,7 @@
                 // 驗證valid
                 valid: true,
                 // 上傳檔案後顯示的小卡值
-                files: null,
+                //files:[],
                 // 上傳網址
                 url: null,
                 rules1: [
@@ -355,10 +356,9 @@
                     ProjectName: '',
                     TeamName: '',
                     WorkName: '',
-                    files: '',
+                    files: [],
                     url: '',
                     opinion: '',
-                    checkbox: false,
                 },
                 // B3-1變數結束
                 // -----------------// B3-2變數開始
@@ -408,11 +408,6 @@
                 {
                     text: '',
                     value: 'complete',
-                    sortable: false
-                },
-                {
-                    text: '',
-                    value: 'Work_UserID',
                     sortable: false
                 },
                 ],
@@ -465,12 +460,17 @@
                             vm.ProjectName = response.data.ProjectName;
                             vm.TeamName = response.data.TeamName;
                             vm.ProjectID = response.data.ProjectID;
-
+                            vm.Privilege = response.data.Privilege;
+                            vm.editedItem.files = [];
+                            vm.editedItem.url = "";
                         }
                         )
                         .catch(error => {
                             vm.showmessage = '加載失敗' + error;
                             vm.snackbar = true;
+                            vm.editedItem.files = [];
+                            vm.editedItem.url = "";
+                            //vm.$refs.form.reset();
                         })
                 },
                 // 主頁方法結束
@@ -482,19 +482,21 @@
                         // files
                         for (let file of this.editedItem.files) {
                             formData.append("files", file, file.name);
-                            axios
-                                .post("API/GetFileHandler.ashx", this.editedItem.formData)
-                                .then(response => {
-                                    vm.showmessagesuccess = '發送成功';
-                                    vm.snackbar1 = true;
-                                    this.取消();
-                                })
-                                .catch(error => {
-                                    vm.showmessage = '發送失敗' + error;
-                                    vm.snackbar = true;
-                                    this.取消();
-                                });
                         }
+                        axios
+                            .post("API/GetFileHandler.ashx", formData)
+                            .then(response => {
+                                vm.showmessagesuccess = '發送成功';
+                                vm.snackbar1 = true;
+                                this.initialize();
+                                this.close();
+                            })
+                            .catch(error => {
+                                vm.showmessage = '發送失敗' + error;
+                                vm.snackbar = true;
+                                this.initialize();
+                                this.close();
+                            });
                     }
                     // else {
                     // 	alert('不可預期錯誤');
@@ -508,12 +510,14 @@
                             .then(response => {
                                 vm.showmessagesuccess = '發送成功';
                                 vm.snackbar1 = true;
-                                this.取消();
+                                this.initialize();
+                                this.close();
                             })
                             .catch(error => {
                                 vm.showmessage = '發送失敗' + error;
                                 vm.snackbar = true;
-                                this.取消();
+                                this.initialize();
+                                this.close();
                             });
                     }
                     // else {
@@ -521,6 +525,8 @@
                     // }
                 },
                 close() {
+                    this.valid = true,
+                        this.initialize();
                     this.dialoga = false,
                         this.dialogb = false,
                         this.$nextTick(() => {
@@ -546,25 +552,33 @@
                 },
                 clear() {
                     this.$refs.form.reset();
-                    this.$refs.form1.reset();
-                    this.$refs.form2.reset();
+                    //this.$refs.form1.reset();
+                    //this.$refs.form2.reset();
                 },
                 取消() {
-                    this.editedItem.opinion = null,
-                        this.editedItem.files = null,
-                        this.editedItem.url = null,
-                        this.editedItem.formData = null,
-                        this.editedItem.FormData = null,
-                        this.dialogb = false,
-                        this.dialoga = false,
-                        this.$refs.form.reset();
-                    this.$refs.form1.reset();
-                    this.$refs.form2.reset();
-                    this.$refs.form.resetValidation();
-                    this.$refs.form1.resetValidation();
-                    this.$refs.form2.resetValidation();
+                    this.initialize();
                     this.close();
+                    this.valid = false;
                 },
+                //取消() {
+                //    this.editedItem.files = [],
+                //        //this.files.formData = null,
+                //        //this.files.FormData = null,
+                //        this.editedItem.opinion = null,
+                //        //this.editedItem.files = [],
+                //        this.editedItem.url = null,
+                //        //this.editedItem.formData = null,
+                //        //this.editedItem.FormData = null,
+                //        this.dialogb = false,
+                //        this.dialoga = false,
+                //        this.$refs.form.reset(),
+                //    //this.$refs.form1.reset(),
+                //    //this.$refs.form2.reset(),
+                //    this.$refs.form.resetValidation(),
+                //    //this.$refs.form1.resetValidation(),
+                //    //this.$refs.form2.resetValidation(),
+                //    this.close();
+                //},
                 //B3-1方法結束		
                 // B3-2方法開始
                 leadercheck的確認() {
@@ -574,12 +588,14 @@
                         .then(response => {
                             vm.showmessagesuccess = '發送成功';
                             vm.snackbar1 = true;
-                            this.取消();
+                            this.initialize();
+                            this.close();
                         })
                         .catch(error => {
                             vm.showmessage = '發送失敗' + error;
                             vm.snackbar = true;
-                            this.取消();
+                            this.initialize();
+                            this.close();
                         });
                 },
                 leadercheck的駁回() {
@@ -590,12 +606,14 @@
                         .then(response => {
                             vm.showmessagesuccess = '發送成功';
                             vm.snackbar1 = true;
-                            this.取消();
+                            this.initialize();
+                            this.close();
                         })
                         .catch(error => {
                             vm.showmessage = '發送失敗' + error;
                             vm.snackbar = true;
-                            this.取消();
+                            this.initialize();
+                            this.close();
                         });
                 },
 
