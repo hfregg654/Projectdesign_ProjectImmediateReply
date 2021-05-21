@@ -1,11 +1,8 @@
 ﻿using ProjectImmediateReply.Log;
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
-using System.Web;
 
 namespace ProjectImmediateReply.Utility
 {
@@ -20,7 +17,6 @@ namespace ProjectImmediateReply.Utility
                 //msg.To.Add("b@b.com");可以發送給多人
                 //msg.CC.Add("c@c.com");
                 //msg.CC.Add("c@c.com");可以抄送副本給多人 
-                //這裡可以隨便填，不是很重要
                 msg.From = new MailAddress(mailfrom, mailername, Encoding.UTF8);
                 /* 上面3個參數分別是發件人地址（可以隨便寫），發件人姓名，編碼*/
                 msg.Subject = mailtitle;//郵件標題

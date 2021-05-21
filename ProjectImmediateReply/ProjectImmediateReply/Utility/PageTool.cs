@@ -12,8 +12,8 @@ namespace ProjectImmediateReply.Utility
         public List<string> GetClassNumber()
         {
             DBTool dbtool = new DBTool();
-            string[] colname = { "ClassNumber" };
-            DataTable classnumber = dbtool.readTable("Users", colname, "GROUP BY ClassNumber", null, null);
+            string[] colname = { "ClassNumber" }; //DataTable的欄位名稱
+            DataTable classnumber = dbtool.readTable("Users", colname, "GROUP BY ClassNumber", null, null);  //第一個null為DB內參數欄位名稱，第二個為傳入比對之變數
             List<string> classnum = new List<string>();
             foreach (DataRow item in classnumber.Rows) //Rows表一列
             {

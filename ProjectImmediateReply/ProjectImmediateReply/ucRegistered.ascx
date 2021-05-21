@@ -1,4 +1,4 @@
-﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ucRegistered.ascx.cs" Inherits="ProjectImmediateReply.ucLogin" %>
+﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ucRegistered.ascx.cs" Inherits="ProjectImmediateReply.ucRegistered" %>
 <!-- 註冊帳號彈跳視窗內容 -->
 <div id="terms" class="modal" >
     <div class="modal-content center-align">

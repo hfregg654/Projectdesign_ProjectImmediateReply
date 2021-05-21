@@ -57,7 +57,7 @@ namespace ProjectImmediateReply
         /// 自動產生的欄位。
         /// 若要修改，請將欄位宣告從設計工具檔案移到程式碼後置檔案。
         /// </remarks>
-        protected global::ProjectImmediateReply.ucLogin ucRegistered;
+        protected global::ProjectImmediateReply.ucRegistered ucRegistered;
 
         /// <summary>
         /// ucForgetpassword 控制項。

@@ -116,15 +116,16 @@ namespace ProjectImmediateReply.Utility
                     && Pname.Length != 0 && P.Length != 0)
                 {
                     for (int i = 0; i < Pname.Length; i++)
-                        command.Parameters.AddWithValue(Pname[i], P[i]);
+                        command.Parameters.AddWithValue(Pname[i], P[i]);  //將command指令串內的@目標欄位以傳入參數取代
                 }
                 try
                 {
                     connection.Open();
-                    SqlDataReader reader = command.ExecuteReader();
+                    SqlDataReader reader = command.ExecuteReader(); //執行指令串
                     DataTable dt = new DataTable();
-                    dt.Load(reader);
+                    dt.Load(reader); // 將reader放入dt表
                     reader.Close();
+                    connection.Close();
                     return dt;
                 }
                 catch (Exception ex)
@@ -458,8 +459,8 @@ namespace ProjectImmediateReply.Utility
             {
                 SqlCommand command = new SqlCommand(queryString, connection);
                 connection.Open();
-                SqlTransaction sqlTransaction = connection.BeginTransaction();
-                command.Transaction = sqlTransaction;
+                SqlTransaction sqlTransaction = connection.BeginTransaction(); //塞方法進去sqlTransaction 起始 Commit() 及Rollback() 開頭 
+                command.Transaction = sqlTransaction; //開始交易 
                 try
                 {
                     //利用迴圈將參數一個一個放進@欄位
@@ -468,11 +469,11 @@ namespace ProjectImmediateReply.Utility
                         command.Parameters.AddWithValue($"{updatecolname_P[i]}", puserupdate[i]);
                     }
                     command.ExecuteNonQuery();
-                    sqlTransaction.Commit();
+                    sqlTransaction.Commit();  //command.ExecuteNonQuery(); 成功 進入sqlTransaction.Commit() 真正寫進資料庫
                 }
                 catch (Exception ex)
                 {
-                    sqlTransaction.Rollback();
+                    sqlTransaction.Rollback(); //失敗的話進入此sqlTransaction.Rollback();
                     txtLog logtool = new txtLog();
                     logtool.WriteLog(ex.ToString());
                     throw;

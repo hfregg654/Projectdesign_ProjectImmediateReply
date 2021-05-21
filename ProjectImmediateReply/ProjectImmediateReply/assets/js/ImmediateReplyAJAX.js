@@ -73,7 +73,7 @@
         var PassWord = $("#register_password").val();
         var PassWordCheck = $("#register_passwordcheck").val();
         var License = $("#register_key").val();
-        //發送ajax請求,呼叫註冊的API並將參數送進去
+        //發送ajax請求,呼叫註冊的API並將參數送進去 右邊變數值 左邊是傳過去的變數名稱
         $.ajax({
             url: "API/RegisteredHandler.ashx",
             data: {

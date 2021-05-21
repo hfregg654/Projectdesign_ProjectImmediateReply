@@ -11,7 +11,7 @@ namespace ProjectImmediateReply
 {
 
 
-    public partial class ucLogin
+    public partial class ucRegistered
     {
 
         /// <summary>

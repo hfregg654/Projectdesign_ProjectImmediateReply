@@ -1,17 +1,19 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 using System.Web;
-using System.Data;
 using ProjectImmediateReply.Models;
 using ProjectImmediateReply.Utility;
-using Newtonsoft.Json;
 
+//System.Collections.Generic 包含定義泛型集合的介面和類別，其允許使用者建立強型別集合，這些集合提供比起非泛型強型別集合更佳的型別安全和效能。
+//System.Web 包含啟用瀏覽器和伺服器間通訊的類別和介面
+//ProjectImmediateReply.Models; 引用專案內的模型
+//ProjectImmediateReply.Utility; 引用專案內的方法工具
+// 命名空間名稱 此專案的API
 namespace ProjectImmediateReply.API
 {
     /// <summary>
     /// RegisteredHandler 的摘要描述
     /// </summary>
+    //IHttpHandler 為父類別 委派給RegisteredHandler 使用IHttpHandler內容 執行伺服器連接
     public class RegisteredHandler : IHttpHandler
     {
 
@@ -31,8 +33,6 @@ namespace ProjectImmediateReply.API
             List<UserInfo> Check_Acc = new List<UserInfo>();
             List<UserInfo> Check_Lic = new List<UserInfo>();
             List<UserInfo> Check_Acc_Lic = new List<UserInfo>();
-            string ShowMessage = string.Empty;
-            string ShowMessage2 = string.Empty;
             if (!string.IsNullOrWhiteSpace(Name) && !string.IsNullOrWhiteSpace(Phone) &&  !string.IsNullOrWhiteSpace(Mail) &&  !string.IsNullOrWhiteSpace(LineID) &&  !string.IsNullOrWhiteSpace(ClassNumber)
                 &&  !string.IsNullOrWhiteSpace(Account) &&  !string.IsNullOrWhiteSpace(PassWord) &&  !string.IsNullOrWhiteSpace(PassWordCheck) &&  !string.IsNullOrWhiteSpace(License))
             {
@@ -54,7 +54,7 @@ namespace ProjectImmediateReply.API
                     Check_Acc_Lic = Create.ChangeTypeUserInfo(Create.readTable("Users", readcolname3, "WHERE License=@License AND Account IS NOT NULL AND Privilege != 'Visitor' AND DeleteDate IS NULL AND WhoDelete IS NULL", Pname3, P3));
                     if (Check_Lic.Count == 0)
                     {
-                        context.Response.ContentType = "text/json";
+                        context.Response.ContentType = "text/json"; //傳送的是文字 文字是json型態
                         context.Response.Write("[{\"success\":\"licensewrong\"}]"); // \"當成字串的雙引號
                     }
                     else if (Check_Acc_Lic.Count != 0) //資料表型式的變數都是存在，非空值。
@@ -71,7 +71,7 @@ namespace ProjectImmediateReply.API
                     {
                         MailTool mtool = new MailTool();
                         mtool.SendMail("shiyuance989898@gmail.com", Mail, "Manager", "驗證信", $"請點擊網址以完成註冊<br/>http://localhost:8085/LogIn.aspx?license={License}&classnumber={ClassNumber}", "1qazxcvfr432wsde");
-                        string[] updatecol_Logic = { "Name=@Name", "Phone=@Phone", "Mail=@Mail", "LineID=@LineID", "ClassNumber=@ClassNumber", "Account=@Account", "PassWord=@PassWord", };
+                        string[] updatecol_Logic = { "Name=@Name", "Phone=@Phone", "Mail=@Mail", "LineID=@LineID", "ClassNumber=@ClassNumber", "Account=@Account", "PassWord=@PassWord", }; //欲更新的欄位 Name是開頭欄位名稱 @Name是欄位名稱底下格子
                         string Where_Logic = "License=@License";
                         string[] updatecolname_P = { "@Name", "@Phone", "@Mail", "@LineID", "@ClassNumber", "@Account", "@PassWord","@License" };
                         List<string> update_P = new List<string>();
@@ -83,7 +83,7 @@ namespace ProjectImmediateReply.API
                         update_P.Add(Account);
                         update_P.Add(PassWord);
                         update_P.Add(License);
-                        Create.UpdateTable("Users", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
+                        Create.UpdateTable("Users", updatecol_Logic, Where_Logic, updatecolname_P, update_P); //updatecolname_P 傳入的@格 update_P傳入的值
                         context.Response.ContentType = "text/json";
                         context.Response.Write("[{\"success\":\"true\"}]");
                     }
