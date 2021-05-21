@@ -3,6 +3,7 @@ using ProjectImmediateReply.Utility;
 using ProjectImmediateReply.ViewModels;
 using System;
 using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -19,28 +20,29 @@ namespace ProjectImmediateReply.API
         {
             DBTool dbtool = new DBTool();
             context.Response.ContentType = "text/plain";
-            string filePath = string.Empty;
-            string fileNewName = string.Empty;
+            string filePath;
+            string fileNewName;
             string json = string.Empty;
 
             //這裡只能用<input type="file" />才能有效果,因為伺服器控制元件是HttpInputFile型別
             HttpFileCollection files = context.Request.Files;
             if (files.Count > 0)
             {
-
                 //設定檔名
                 fileNewName = DateTime.Now.ToString("yyyyMMddHHmmssff") + "_" + System.IO.Path.GetFileName(files[0].FileName);
+                //設定路徑
+                filePath = "~/FileUpload/" + fileNewName;
                 //儲存檔案
-                files[0].SaveAs(context.Server.MapPath("~/FileUpload/" + fileNewName));
+                files[0].SaveAs(context.Server.MapPath(filePath));
 
 
                 context.Response.ContentType = "text/json";
-                context.Response.Write($"{{\"FileName\":\"{"~/FileUpload/" + fileNewName}\"}}");
+                context.Response.Write($"{{\"FileName\":\"{filePath}\"}}");
             }
             else
             {
-                string filename = string.Empty;
-                string id = string.Empty;
+                string filename;
+                string id;
                 using (StreamReader reader = new StreamReader(context.Request.InputStream))
                 {
                     json = reader.ReadToEnd();
@@ -48,6 +50,25 @@ namespace ProjectImmediateReply.API
                 var Uploadfile = JsonConvert.DeserializeObject<ForUploadFile>(json);
                 filename = Uploadfile.FileName;
                 id = Uploadfile.WorkID.ToString();
+
+                string[] workscolname = { "FilePath" };
+                string[] workscolnamep = { "@WorkID" };
+                string[] worksp = { id };
+                string workslogic = @"
+                                WHERE WorkID=@WorkID AND DeleteDate IS NULL AND WhoDelete IS NULL
+                                ";
+                DataTable worksdata = dbtool.readTable("Works", workscolname, workslogic, workscolnamep, worksp);//查此工作的檔案路徑
+
+                string workfilepath = worksdata.Rows[0]["FilePath"].ToString();
+
+                if (!string.IsNullOrWhiteSpace(workfilepath))
+                {
+                    string paths = context.Server.MapPath(workfilepath);
+                    File.Delete(paths);
+                }
+
+
+
                 string[] updatecol_Logic = { "FilePath=@FilePath" }; /*  要更新的欄位*/
                 string Where_Logic = "WorkID=@WorkID";
                 string[] updatecolname_P = { "@FilePath", "@WorkID" }; /*要帶入的參數格子*/
