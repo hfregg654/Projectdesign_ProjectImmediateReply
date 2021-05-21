@@ -1,11 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
 using ProjectImmediateReply.Utility;
-using ProjectImmediateReply.Models;
 using System.Data;
 
 namespace ProjectImmediateReply
@@ -14,7 +9,7 @@ namespace ProjectImmediateReply
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Utility.DBTool dbtool = new Utility.DBTool();
+            DBTool dbtool = new DBTool();
             string[] colname = { "ClassNumber" };
             DataTable classnumber = dbtool.readTable("Users", colname, "GROUP BY ClassNumber", null, null);
             List<string> classnum = new List<string>();
