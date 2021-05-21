@@ -3,7 +3,6 @@ using ProjectImmediateReply.Utility;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 using System.Web;
 
 namespace ProjectImmediateReply.API
@@ -22,7 +21,7 @@ namespace ProjectImmediateReply.API
             string Privilege = context.Request.Form["Privilege"];
             string Mailaddress = context.Request.Form["Mail"];
             //先檢查傳過來的值有沒有問題並先定義回傳的訊息
-            string success = "";
+            string success;
             if (ClassNumber == string.Empty || ClassNumber == null || PeopleNum == string.Empty || PeopleNum == null || Privilege != "Manager" || Mailaddress == string.Empty || Mailaddress == null)
             {
                 success = "[{\"success\":\"Wrong\"}]";

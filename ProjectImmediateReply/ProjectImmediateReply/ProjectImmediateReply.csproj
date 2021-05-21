@@ -140,7 +140,6 @@
     <Content Include="Web.config" />
     <Content Include="LogIn.aspx" />
     <Content Include="ucLeft.ascx" />
-    <Content Include="WebForm1.aspx" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\AssignTeamHandler.ashx.cs">
@@ -280,13 +279,6 @@
     <Compile Include="ViewModels\ForProjectDetail.cs" />
     <Compile Include="ViewModels\ForProjectDetail_Grades.cs" />
     <Compile Include="ViewModels\ForSeeGrade.cs" />
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
     <Compile Include="WriteLog\txtLog.cs" />
     <Compile Include="Models\GradeInfo.cs" />
     <Compile Include="Models\LogInfo.cs" />

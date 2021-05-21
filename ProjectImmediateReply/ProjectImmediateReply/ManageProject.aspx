@@ -80,7 +80,7 @@
 								             <!-- 切割出來開始 -->
 						<v-dialog v-model="dialoga"  persistent max-width="600px" :retain-focus="false" >
 						 <template v-slot:activator="{ on, attrs }">
-					<v-btn color="blue" dark text v-bind="attrs" v-on="on" @click="editItem(item)" v-if="Userid==item.Work_UserID">
+					<v-btn color="blue" dark text v-bind="attrs" v-on="on" @click="editItem(item)" v-show="Userid==item.Work_UserID">
 								        				上傳連結或檔案
 								        			</v-btn>
 								        		</template>
@@ -93,12 +93,12 @@
 								             		     >
 									            <v-tabs-slider></v-tabs-slider>
 									
-									            <v-tab href="#上傳檔案" @click="clear()">
+									            <v-tab href="#上傳檔案" @click="">
 									                上傳檔案
 									                <v-icon>mdi-cloud-upload</v-icon>
 									            </v-tab>
 									
-									            <v-tab href="#上傳網址" @click="clear()">
+									            <v-tab href="#上傳網址" @click="">
 									                上傳網址
 									                <v-icon>mdi-code-json</v-icon>
 									            </v-tab>
@@ -106,7 +106,7 @@
 									<!-- ------------ -->
 									        <v-tabs-items v-model="tab">
 												<!-- - -->
-												<v-form method="post" novalidate="true" ref="form1">
+												<v-form method="post" novalidate="true" ref="form" v-model="valid1">
 								                 <v-tab-item :key="1" value="上傳檔案">
 								                     <v-card flat>
 								             	<v-img src="https://wallpaperaccess.com/full/1381091.jpg" height="250">
@@ -151,7 +151,7 @@
 		        			                    </v-col>
 		        								<v-card-actions>
 		        									<v-spacer></v-spacer>
-		        									<v-btn color="blue darken-1" text :disabled="!valid" @click="上傳1()">上傳</v-btn>
+		        									<v-btn color="blue darken-1" text :disabled="!valid1" @click="上傳1()">上傳</v-btn>
 								  <v-btn color="blue darken-1" text @click="取消()">取消</v-btn>
 								     					</v-card-actions>
 								     					</v-card-text>
@@ -160,7 +160,7 @@
 								                </v-tab-item>
 								     			</v-form>
 								     			<!-- ------ -->
-								     			<v-form method="post" novalidate="true" ref="form2">
+								     			<v-form method="post" novalidate="true" ref="form" v-model="valid2">
 								                <v-tab-item :key="2" value="上傳網址">
 								              <v-card flat>
 								     <v-img src="https://wallpaperaccess.com/full/1381091.jpg" height="250">
@@ -186,7 +186,7 @@
 								               </v-col>
 								       		<v-card-actions>
 								       			<v-spacer></v-spacer>
-								       			<v-btn color="blue darken-1" text :disabled="!valid" @click="上傳2()">上傳</v-btn>
+								       			<v-btn color="blue darken-1" text :disabled="!valid2" @click="上傳2()">上傳</v-btn>
 								             		<v-btn color="blue darken-1" text @click="取消()">取消</v-btn>
 								 									</v-card-actions>
 								 									</v-card-text>
@@ -208,14 +208,16 @@
 								<template #item.leadercheck="{ item }">
 								             <v-dialog v-model="dialogb" persistent max-width="600px" :retain-focus="false">
 								             	<template v-slot:activator="{ on, attrs }">
-								    <v-btn color="red" dark text v-bind="attrs" v-on="on" @click="editItem(item)" v-if="item.FilePath && Privilege=='Leader'">
+								    <v-btn color="red" dark text v-bind="attrs" v-on="on" @click="editItem(item)" v-show="item.FilePath && Privilege=='Leader'">
 								             			組長確認
 								             		</v-btn>
 								             	</template>
 								             	
 								             	<v-form
+                                                     method="post"
+                                                     novalidate="true"
 								             	    ref="form"
-								             	    v-model="valid"
+								             	    v-model="valid3"
 								             	  >
 								             	<v-card>
 								             		<v-img src="https://wallpaperaccess.com/full/1381091.jpg" height="470">
@@ -269,7 +271,7 @@
 								             		</v-card-text>
 								             		<v-card-actions class="mx-2 mt-0">
 								  <v-btn :disabled="!editedItem.checkbox" color="blue darken-1" text @click="leadercheck的確認()">確認</v-btn>
-								            <v-btn :disabled="!valid" color="blue darken-1" text @click="leadercheck的駁回()">駁回</v-btn>
+								            <v-btn :disabled="!valid3" color="blue darken-1" text @click="leadercheck的駁回()">駁回</v-btn>
 								             			<v-spacer></v-spacer>
 								             			<v-btn color="blue darken-1" text @click="取消()">取消</v-btn>
 								             		</v-card-actions>
@@ -280,7 +282,7 @@
 								         </template>
 										 
 								<template #item.complete="{ item }">
-								             <v-btn  color="cyan" dark text :href="item.FilePath" v-if="item.Complete">
+								             <v-btn  color="cyan" dark text :href="item.FilePath" v-show="item.Complete">
 												 已完成
 								             </v-btn>
 								         </template>
@@ -341,7 +343,8 @@
                 FileName: "",
                 // 工作項目:"789",
                 // 驗證valid
-                valid: true,
+                valid1: true,
+                valid2: true,
                 // 上傳檔案後顯示的小卡值
                 //files:[],
                 // 上傳網址
@@ -366,7 +369,7 @@
                 // B3-1變數結束
                 // -----------------// B3-2變數開始
                 dialogb: false,
-                valid: true,
+                valid3: true,
                 opinion: "",
 
                 // 下面是組長確認視窗中間變數
@@ -464,22 +467,17 @@
                             vm.TeamName = response.data.TeamName;
                             vm.ProjectID = response.data.ProjectID;
                             vm.Privilege = response.data.Privilege;
-                            vm.editedItem.files = [];
-                            vm.editedItem.url = "";
                         }
                         )
                         .catch(error => {
                             vm.showmessage = '加載失敗' + error;
                             vm.snackbar = true;
-                            vm.editedItem.files = [];
-                            vm.editedItem.url = "";
-                            //vm.$refs.form.reset();
                         })
                 },
                 // 主頁方法結束
                 //B3-1方法開始
                 上傳1() {
-                    if (this.$refs.form1.validate()) {
+                    
                         let formData = new FormData();
 
                         // files
@@ -491,20 +489,21 @@
                             .then(response => {
                                 vm.FileName = response.data.FileName;
                                 this.UpdateFileDB();
+                                this.取消();
                             })
                             .catch(error => {
                                 vm.showmessage = '發送失敗' + error;
                                 vm.snackbar = true;
                                 this.initialize();
-                                this.close();
+                                this.取消();
                             });
-                    }
+                    
                     // else {
                     // 	alert('不可預期錯誤');
                     // }
                 },
                 上傳2() {
-                    if (this.$refs.form2.validate()) {
+                    
 
                         axios
                             .post("API/GetFileHandler.ashx", { FileName: vm.editedItem.url, id: vm.editedItem.id })
@@ -512,21 +511,20 @@
                                 vm.showmessagesuccess = '發送成功';
                                 vm.snackbar1 = true;
                                 this.initialize();
-                                this.close();
+                                this.取消();
                             })
                             .catch(error => {
                                 vm.showmessage = '發送失敗' + error;
                                 vm.snackbar = true;
                                 this.initialize();
-                                this.close();
+                                this.取消();
                             });
-                    }
+                    
                     // else {
                     // 	alert('不可預期錯誤');
                     // }
                 },
                 close() {
-                    this.valid = true,
                         this.initialize();
                     this.dialoga = false,
                         this.dialogb = false,
@@ -551,15 +549,11 @@
                     this.dialoga = true
                     // this.dialogb = true
                 },
-                clear() {
-                    this.$refs.form.reset();
-                    //this.$refs.form1.reset();
-                    //this.$refs.form2.reset();
-                },
+            
                 取消() {
-                    this.initialize();
+                    this.$refs.form.reset();
+                    this.$refs.form.resetValidation();
                     this.close();
-                    this.valid = fal;
                 },
                 //取消() {
                 //    this.editedItem.files = [],
@@ -590,13 +584,13 @@
                             vm.showmessagesuccess = '發送成功';
                             vm.snackbar1 = true;
                             this.initialize();
-                            this.close();
+                            this.取消();
                         })
                         .catch(error => {
                             vm.showmessage = '發送失敗' + error;
                             vm.snackbar = true;
                             this.initialize();
-                            this.close();
+                            this.取消();
                         });
                 },
                 leadercheck的駁回() {
@@ -608,13 +602,13 @@
                             vm.showmessagesuccess = '發送成功';
                             vm.snackbar1 = true;
                             this.initialize();
-                            this.close();
+                            this.取消();
                         })
                         .catch(error => {
                             vm.showmessage = '發送失敗' + error;
                             vm.snackbar = true;
                             this.initialize();
-                            this.close();
+                            this.取消();
                         });
                 },
 
@@ -624,13 +618,13 @@
                             vm.showmessagesuccess = '發送成功';
                             vm.snackbar1 = true;
                             this.initialize();
-                            this.close();
+                            this.取消();
                         })
                         .catch(error => {
                             vm.showmessage = '發送失敗' + error;
                             vm.snackbar = true;
                             this.initialize();
-                            this.close();
+                            this.取消();
                         });
                 },
 
