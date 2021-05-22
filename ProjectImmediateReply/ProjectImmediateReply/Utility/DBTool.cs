@@ -7,14 +7,15 @@ using System.Data;
 using ProjectImmediateReply.Models;
 using ProjectImmediateReply.Log;
 using ProjectImmediateReply.ViewModels;
+using System.Configuration;
 
 namespace ProjectImmediateReply.Utility
 {
     public class DBTool
     {
         //資料庫連結字串
-        private const string connectionString =
-               "Data Source=localhost\\SQLEXPRESS;Initial Catalog=ProjectImmediateReply; Integrated Security=true";
+        private string connectionString =
+              ConfigurationManager.ConnectionStrings["MainDBDataContext"].ConnectionString;
         /// <summary>
         /// 判斷接過來的readtablename來決定那個表的order方式
         /// </summary>
