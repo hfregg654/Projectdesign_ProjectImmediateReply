@@ -33,8 +33,8 @@ namespace ProjectImmediateReply.Utility
                 client.Port = 25; //設定Port
                 client.EnableSsl = true; //gmail預設開啟驗證
                 client.Send(msg); //寄出信件
-                client.Dispose();
-                msg.Dispose();
+                client.Dispose(); //關閉伺服器端連接
+                msg.Dispose();  //關閉MaillMessage使用的資源
 
             }
             catch (Exception ex)
