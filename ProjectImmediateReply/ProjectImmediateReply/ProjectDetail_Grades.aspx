@@ -141,7 +141,7 @@
                     NameGroup: ['A', 'B', 'C', 'D'],
                     ProjectGrade: "",
                     InterviewGrade: "",
-                    Comments: "aaaaa <br> bbbbbb   cccc       ddddddd    eeeee      ffffffff",
+                    Comments: "",
                 },
                 // ----------------------
                 // 變數開始

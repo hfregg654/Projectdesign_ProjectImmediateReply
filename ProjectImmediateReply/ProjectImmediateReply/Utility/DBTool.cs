@@ -540,9 +540,15 @@ namespace ProjectImmediateReply.Utility
                 + (((pmprojectgrade + pminterviewgrade) * 0.5) * 0.3);
                 Data.Grade = (byte)gradecal;
                 if (!Convert.IsDBNull(dataTable.Rows[0]["PresidentComments"]))
-                    Data.PresidentComments = dataTable.Rows[0]["PresidentComments"].ToString();
+                {
+                    Data.PMComments = string.Join("  ", dataTable.Rows[0]["PresidentComments"].ToString().Split('/'));
+                }
+
                 if (!Convert.IsDBNull(dataTable.Rows[0]["PMComments"]))
-                    Data.PMComments = dataTable.Rows[0]["PMComments"].ToString();
+                {
+                    Data.PMComments =string.Join("  ", dataTable.Rows[0]["PMComments"].ToString().Split('/'));
+                }
+
 
                 return Data;
             }

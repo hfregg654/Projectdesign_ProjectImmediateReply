@@ -41,6 +41,7 @@ namespace ProjectImmediateReply.API
                 InterviewGrade = json.Split('"')[9];
                 Comments = json.Split('"')[13];
             }
+            string newComments = string.Join("/", Comments.Split('\n'));
             //接值的處理方法 End
             LogInfo Info = new LogInfo();
             if (context.Session["IsLogined"] != null) /*使用Session內建方法取得LoginHelper TryLogin的值*/
@@ -75,7 +76,7 @@ namespace ProjectImmediateReply.API
                         insert_P.Add(UserID);
                         insert_P.Add(ProjectGrade);
                         insert_P.Add(InterviewGrade);
-                        insert_P.Add(Comments);
+                        insert_P.Add(newComments);
                         insert_P.Add(CreateDate);
                         insert_P.Add(WhoCreate);
                         DbTool.InsertTable("Grades", insertcolname, insertcolname_P, insert_P);
@@ -90,7 +91,7 @@ namespace ProjectImmediateReply.API
                         List<string> update_P = new List<string>();
                         update_P.Add(ProjectGrade);
                         update_P.Add(InterviewGrade);
-                        update_P.Add(Comments);
+                        update_P.Add(newComments);
                         update_P.Add(UserID);
                         DbTool.UpdateTable("Grades", updatecol_Logic, Where_Logic, updateColname_P, update_P);
                         context.Response.ContentType = "text/json";
@@ -108,13 +109,13 @@ namespace ProjectImmediateReply.API
                     {
                         string CreateDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
                         string WhoCreate = "Grades";
-                        string[] insertcolname = { "UserID", "PMProjectGrade", "PMInterviewGrade", "PMComments" };
-                        string[] insertcolname_P = { "@UserID", "@PMProjectGrade", "@PMInterviewGrade", "@PMComments" };
+                        string[] insertcolname = { "UserID", "PMProjectGrade", "PMInterviewGrade", "PMComments", "CreateDate", "WhoCreate" };
+                        string[] insertcolname_P = { "@UserID", "@PMProjectGrade", "@PMInterviewGrade", "@PMComments", "@CreateDate", "@WhoCreate" };
                         List<string> insert_P = new List<string>();
                         insert_P.Add(UserID);
                         insert_P.Add(ProjectGrade);
                         insert_P.Add(InterviewGrade);
-                        insert_P.Add(Comments);
+                        insert_P.Add(newComments);
                         insert_P.Add(CreateDate);
                         insert_P.Add(WhoCreate);
                         DbTool.InsertTable("Grades", insertcolname, insertcolname_P, insert_P);
@@ -129,7 +130,7 @@ namespace ProjectImmediateReply.API
                         List<string> update_P = new List<string>();
                         update_P.Add(ProjectGrade);
                         update_P.Add(InterviewGrade);
-                        update_P.Add(Comments);
+                        update_P.Add(newComments);
                         update_P.Add(UserID);
                         DbTool.UpdateTable("Grades", updatecol_Logic, Where_Logic, updateColname_P, update_P);
                         context.Response.ContentType = "text/json";

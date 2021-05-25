@@ -738,8 +738,8 @@ namespace ProjectImmediateReply.Utility
 															else{{
 																vm.email=response.data.Mail;
 																vm.score=""無"";
-																vm.boss=""未評分"";
-																vm.pm=""未評分"";
+																vm.boss=""未評分完成"";
+																vm.pm=""未評分完成"";
 															}}
 														}})
 														.catch(function(error) {{ 

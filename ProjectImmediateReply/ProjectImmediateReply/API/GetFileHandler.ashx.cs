@@ -53,7 +53,7 @@ namespace ProjectImmediateReply.API
                 filename = Uploadfile.FileName;
                 id = Uploadfile.WorkID.ToString();
 
-                string[] workscolname = { "FilePath" };
+                string[] workscolname = { "FilePath", "Complete" };
                 string[] workscolnamep = { "@WorkID" };
                 string[] worksp = { id };
                 string workslogic = @"
@@ -70,15 +70,29 @@ namespace ProjectImmediateReply.API
                     File.Delete(paths);
                 }
 
+                if (worksdata.Rows[0]["Complete"].ToString().ToUpper() != "TRUE")
+                {
+                    string[] updatecol_Logic = { "FilePath=@FilePath", "UpdateTime=@UpdateTime" }; /*  要更新的欄位*/
+                    string Where_Logic = "WorkID=@WorkID";
+                    string[] updatecolname_P = { "@FilePath", "@UpdateTime", "@WorkID" }; /*要帶入的參數格子*/
+                    List<string> update_P = new List<string>();
+                    update_P.Add(filename);
+                    update_P.Add(DateTime.Now.ToString("yyyy-MM-dd"));
+                    update_P.Add(id);
+                    dbtool.UpdateTable("Works", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
+                }
+                else
+                {
+                    string[] updatecol_Logic = { "FilePath=@FilePath" }; /*  要更新的欄位*/
+                    string Where_Logic = "WorkID=@WorkID";
+                    string[] updatecolname_P = { "@FilePath", "@WorkID" }; /*要帶入的參數格子*/
+                    List<string> update_P = new List<string>();
+                    update_P.Add(filename);
+                    update_P.Add(id);
+                    dbtool.UpdateTable("Works", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
+                }
 
 
-                string[] updatecol_Logic = { "FilePath=@FilePath" }; /*  要更新的欄位*/
-                string Where_Logic = "WorkID=@WorkID";
-                string[] updatecolname_P = { "@FilePath", "@WorkID" }; /*要帶入的參數格子*/
-                List<string> update_P = new List<string>();
-                update_P.Add(filename);
-                update_P.Add(id);
-                dbtool.UpdateTable("Works", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
             }
 
             context.Response.End();

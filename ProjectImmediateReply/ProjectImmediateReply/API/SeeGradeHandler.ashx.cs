@@ -72,11 +72,19 @@ namespace ProjectImmediateReply.API
                                         WHERE Users.ClassNumber=@ClassNumber AND Users.TeamName=@TeamName AND Users.Account=@Account AND Grades.DeleteDate IS NULL AND Grades.WhoDelete IS NULL
                                         ";
                     DataTable data = DbTool.readTable("Users", colname, logic, colnamep, p);//查人
+
                     ForSeeGrade seeGrade = new ForSeeGrade();
                     if (data.Rows.Count != 0)
                     {
                         seeGrade = DbTool.GetForSeeGrade(data);
                     }
+
+                    if (Convert.IsDBNull(data.Rows[0]["PresidentProjectGrade"]) || Convert.IsDBNull(data.Rows[0]["PresidentInterviewGrade"])
+                        || Convert.IsDBNull(data.Rows[0]["PMProjectGrade"]) || Convert.IsDBNull(data.Rows[0]["PMInterviewGrade"])) 
+                    {
+                        seeGrade.Grade = 0;
+                    }
+                   
                     string ShowTable = JsonConvert.SerializeObject(seeGrade);
 
                     context.Response.ContentType = "text/json";

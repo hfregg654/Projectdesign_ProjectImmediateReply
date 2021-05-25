@@ -45,7 +45,7 @@
 							</v-row>
 							<v-row>
 								<p class="pa-5 ml-3 subtitle-2 font-weight-bold"> 專案進度 {{ProjectSchedule}}% </p>
-								<v-btn v-if="" color="primary" dark class="mt-3 mx-0" id="ProjectCompletebtn">結案</v-btn>
+								<v-btn v-if="" color="primary" dark class="mt-3 mx-0" id="ProjectCompletebtn" @click="ProjectCompleted">結案</v-btn>
 								<v-spacer></v-spacer>
 								<!-- <p class="pa-2 pr-10 mx-0 h1 font-weight-bold" style="font-size: 1.5rem;">
 									專案管理</p> -->
@@ -208,7 +208,8 @@
 								<template #item.leadercheck="{ item }">
 								             <v-dialog v-model="dialogb" persistent max-width="600px" :retain-focus="false">
 								             	<template v-slot:activator="{ on, attrs }">
-								    <v-btn color="red" dark text v-bind="attrs" v-on="on" @click="editItem(item)" v-show="item.FilePath && Privilege=='Leader'">
+								    <v-btn color="red" dark text v-bind="attrs" v-on="on" @click="editItem(item)" 
+                                        v-show="item.FilePath && Privilege=='Leader'&&!item.Complete">
 								             			組長確認
 								             		</v-btn>
 								             	</template>
@@ -316,11 +317,11 @@
                 // 專案:"A",
                 // 組名:"123",
                 ProjectComplete: false,
-                ProjectSchedule: "99",
+                ProjectSchedule: "",
                 Userid: 0,
-                UserName: "阿哲",
-                ClassNumber: "100-1",
-                Privilege: "100-1",
+                UserName: "",
+                ClassNumber: "",
+                Privilege: "",
                 page: 1,
                 pageCount: 0,
                 itemsPerPage: 10,
@@ -337,8 +338,8 @@
                 // 進入這頁面前需要帶的資料
                 editedIndex: -1,
                 tab: "subscribe",
-                ProjectName: "123",
-                TeamName: "456",
+                ProjectName: "",
+                TeamName: "",
                 ProjectID: "",
                 FileName: "",
                 // 工作項目:"789",
@@ -451,22 +452,24 @@
                         .then(response => {
                             vm.showmessagesuccess = '完成';
                             vm.snackbar1 = true;
-                            vm.inneritem = response.data.inneritem;
-                            vm.ProjectSchedule = response.data.ProjectSchedule;
-                            if (vm.ProjectSchedule == '100') {
-                                vm.ProjectComplete = true;
-                                $("#ProjectCompletebtn").show();
-                            } else {
-                                vm.ProjectComplete = false;
-                                $("#ProjectCompletebtn").hide();
-                            }
+                            vm.Privilege = response.data.Privilege;
                             vm.Userid = response.data.Userid;
                             vm.UserName = response.data.UserName;
                             vm.ClassNumber = response.data.ClassNumber;
                             vm.ProjectName = response.data.ProjectName;
                             vm.TeamName = response.data.TeamName;
                             vm.ProjectID = response.data.ProjectID;
-                            vm.Privilege = response.data.Privilege;
+                            vm.inneritem = response.data.inneritem;
+                            vm.ProjectSchedule = response.data.ProjectSchedule;
+                            vm.ProjectComplete = response.data.ProjectComplete;
+                            if (vm.ProjectSchedule == '100' && vm.Privilege == 'Leader') {
+                                $("#ProjectCompletebtn").show();
+                            } else {
+                                $("#ProjectCompletebtn").hide();
+                            }
+                            if (vm.ProjectComplete == true) {
+                                $("#ProjectCompletebtn").hide();
+                            }
                         }
                         )
                         .catch(error => {
@@ -477,55 +480,55 @@
                 // 主頁方法結束
                 //B3-1方法開始
                 上傳1() {
-                    
-                        let formData = new FormData();
 
-                        // files
-                        for (let file of this.editedItem.files) {
-                            formData.append("files", file, file.name);
-                        }
-                        axios
-                            .post("API/GetFileHandler.ashx", formData)
-                            .then(response => {
-                                vm.FileName = response.data.FileName;
-                                this.UpdateFileDB();
-                                this.取消();
-                            })
-                            .catch(error => {
-                                vm.showmessage = '發送失敗' + error;
-                                vm.snackbar = true;
-                                this.initialize();
-                                this.取消();
-                            });
-                    
+                    let formData = new FormData();
+
+                    // files
+                    for (let file of this.editedItem.files) {
+                        formData.append("files", file, file.name);
+                    }
+                    axios
+                        .post("API/GetFileHandler.ashx", formData)
+                        .then(response => {
+                            vm.FileName = response.data.FileName;
+                            this.UpdateFileDB();
+                            this.取消();
+                        })
+                        .catch(error => {
+                            vm.showmessage = '發送失敗' + error;
+                            vm.snackbar = true;
+                            this.initialize();
+                            this.取消();
+                        });
+
                     // else {
                     // 	alert('不可預期錯誤');
                     // }
                 },
                 上傳2() {
-                    
 
-                        axios
-                            .post("API/GetFileHandler.ashx", { FileName: vm.editedItem.url, id: vm.editedItem.id })
-                            .then(response => {
-                                vm.showmessagesuccess = '發送成功';
-                                vm.snackbar1 = true;
-                                this.initialize();
-                                this.取消();
-                            })
-                            .catch(error => {
-                                vm.showmessage = '發送失敗' + error;
-                                vm.snackbar = true;
-                                this.initialize();
-                                this.取消();
-                            });
-                    
+
+                    axios
+                        .post("API/GetFileHandler.ashx", { FileName: vm.editedItem.url, id: vm.editedItem.id })
+                        .then(response => {
+                            vm.showmessagesuccess = '發送成功';
+                            vm.snackbar1 = true;
+                            this.initialize();
+                            this.取消();
+                        })
+                        .catch(error => {
+                            vm.showmessage = '發送失敗' + error;
+                            vm.snackbar = true;
+                            this.initialize();
+                            this.取消();
+                        });
+
                     // else {
                     // 	alert('不可預期錯誤');
                     // }
                 },
                 close() {
-                        this.initialize();
+                    this.initialize();
                     this.dialoga = false,
                         this.dialogb = false,
                         this.$nextTick(() => {
@@ -549,69 +552,79 @@
                     this.dialoga = true
                     // this.dialogb = true
                 },
-            
+
                 取消() {
                     this.$refs.form.reset();
                     this.$refs.form.resetValidation();
                     this.close();
                 },
-                //取消() {
-                //    this.editedItem.files = [],
-                //        //this.files.formData = null,
-                //        //this.files.FormData = null,
-                //        this.editedItem.opinion = null,
-                //        //this.editedItem.files = [],
-                //        this.editedItem.url = null,
-                //        //this.editedItem.formData = null,
-                //        //this.editedItem.FormData = null,
-                //        this.dialogb = false,
-                //        this.dialoga = false,
-                //        this.$refs.form.reset(),
-                //    //this.$refs.form1.reset(),
-                //    //this.$refs.form2.reset(),
-                //    this.$refs.form.resetValidation(),
-                //    //this.$refs.form1.resetValidation(),
-                //    //this.$refs.form2.resetValidation(),
-                //    this.close();
-                //},
+
                 //B3-1方法結束		
                 // B3-2方法開始
                 leadercheck的確認() {
-                    axios.post('', {
-                        workid: this.editedItem.id,
-                    })
-                        .then(response => {
-                            vm.showmessagesuccess = '發送成功';
-                            vm.snackbar1 = true;
-                            this.initialize();
-                            this.取消();
+                    if (confirm('確定認可此工作?')) {
+                        axios.post('API/ManageProject_LeaderCheckHandler.ashx', {
+                            CheckType: "WorkComplete",
+                            id: this.editedItem.id,
+                            opinion: ""
                         })
-                        .catch(error => {
-                            vm.showmessage = '發送失敗' + error;
-                            vm.snackbar = true;
-                            this.initialize();
-                            this.取消();
-                        });
+                            .then(response => {
+                                vm.showmessagesuccess = '發送成功';
+                                vm.snackbar1 = true;
+                                this.initialize();
+                                this.取消();
+                            })
+                            .catch(error => {
+                                vm.showmessage = '發送失敗' + error;
+                                vm.snackbar = true;
+                                this.initialize();
+                                this.取消();
+                            });
+                    }
                 },
                 leadercheck的駁回() {
-                    axios.post('', {
-                        workid: this.editedItem.id,
-                        opinion: this.editedItem.opinion,
-                    })
-                        .then(response => {
-                            vm.showmessagesuccess = '發送成功';
-                            vm.snackbar1 = true;
-                            this.initialize();
-                            this.取消();
+                    if (confirm('確定駁回此工作?')) {
+                        axios.post('API/ManageProject_LeaderCheckHandler.ashx', {
+                            CheckType: "WorkFailed",
+                            id: this.editedItem.id,
+                            opinion: this.editedItem.opinion,
                         })
-                        .catch(error => {
-                            vm.showmessage = '發送失敗' + error;
-                            vm.snackbar = true;
-                            this.initialize();
-                            this.取消();
-                        });
+                            .then(response => {
+                                vm.showmessagesuccess = '發送成功';
+                                vm.snackbar1 = true;
+                                this.initialize();
+                                this.取消();
+                            })
+                            .catch(error => {
+                                vm.showmessage = '發送失敗' + error;
+                                vm.snackbar = true;
+                                this.initialize();
+                                this.取消();
+                            });
+                    }
                 },
-
+                ProjectCompleted() {
+                    if (confirm('確定完成此專案?')) {
+                        vm.ProjectComplete = true;
+                        axios.post('API/ManageProject_LeaderCheckHandler.ashx', {
+                            CheckType: "ProjectComplete",
+                            id: vm.ProjectID,
+                            opinion: "",
+                        })
+                            .then(response => {
+                                vm.showmessagesuccess = '發送成功';
+                                vm.snackbar1 = true;
+                                this.initialize();
+                                this.取消();
+                            })
+                            .catch(error => {
+                                vm.showmessage = '發送失敗' + error;
+                                vm.snackbar = true;
+                                this.initialize();
+                                this.取消();
+                            });
+                    }
+                },
                 UpdateFileDB() {
                     axios.post("API/GetFileHandler.ashx", { FileName: vm.FileName, id: vm.editedItem.id })
                         .then(response => {
