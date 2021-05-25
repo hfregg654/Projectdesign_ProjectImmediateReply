@@ -50,10 +50,15 @@
 									<v-select @change="changeRoute()" :items="chooseclass" v-model="classchoice"
 										label="選擇班級" solo outlined></v-select>
 								</v-col>
+                                	
 								<v-col>
+                                    <v-btn outlined tile color="danger" @click="deleteClass">
+										整班刪除
+									</v-btn>
 								</v-col>
 							</v-row>
 						</v-container>
+
 						<!-- 下面是table標題和table -->
 						<template>
 							<v-data-table
@@ -275,7 +280,7 @@
 
                 deleteItem(item) {
                     // 宣告此index數字為此筆  之後可能會有若中間資料庫有人增刪的bug
-                    const index = this.inneritem.indexOf(item)
+                    const index = this.inneritem.indexOf(item)  //排他check
                     if
                         (confirm('確定要刪除此資料嗎?')) {
                         axios.post('API/ClassDetailHandler.ashx', {
@@ -285,6 +290,32 @@
                             vm.showmessagesuccess = item.ProjectID + '發送刪除成功';
                             vm.snackbar1 = true;
                             this.changeRoute();
+                            // this.inneritem.splice(index, 1);
+                        })
+                            .catch(error =>
+                            // alert('id:' + item.ProjectID + '發送刪除失敗')
+                            {
+                                vm.showmessage = '刪除失敗：' + item.ProjectID + '發送刪除失敗';
+                                vm.snackbar = true;
+                            })
+                    } else {
+
+                    }
+
+
+                },
+
+                deleteClass() {
+                    if
+                        (confirm('確定要刪除此資料嗎?')) {
+                        axios.post('API/ClassDetailHandler.ashx', {
+                            Type: 'ALLDelete',
+                            classchoice: vm.classchoice
+                        }).then(response => {
+                            vm.showmessagesuccess = '發送刪除成功';
+                            vm.snackbar1 = true;
+                            this.changeRoute();
+                            this.initialize();
                             // this.inneritem.splice(index, 1);
                         })
                             .catch(error =>

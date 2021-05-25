@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Web;
 using ProjectImmediateReply.Utility;
 
@@ -20,7 +19,6 @@ namespace ProjectImmediateReply.API
             string Type = string.Empty;
             string UserID = string.Empty;
             string json = string.Empty;
-            string ClassNumber = string.Empty;
 
             //先處理接到的JSON放進字串中
             using (StreamReader reader = new StreamReader(context.Request.InputStream))
@@ -32,7 +30,7 @@ namespace ProjectImmediateReply.API
             {
                 string[] splititem = json.Split('"');
                 Type = splititem[3];//用"切開則參數會在3,7,11,15...的位置
-                UserID = splititem[7];
+                UserID = splititem[7];  //有時候會是ClassNumber
             }
             //若沒有接到頁面檢查的參數則直接回傳
             if (string.IsNullOrWhiteSpace(Type))
@@ -59,7 +57,7 @@ namespace ProjectImmediateReply.API
                 List<string> update_P = new List<string>();
                 update_P.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 update_P.Add("Manager");
-                update_P.Add(ClassNumber);
+                update_P.Add(UserID); //其實是ClassNumber
 
                 Dbtool.UpdateTable("Users", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
                 context.Response.Write("{\"success\":\"success\"}");
