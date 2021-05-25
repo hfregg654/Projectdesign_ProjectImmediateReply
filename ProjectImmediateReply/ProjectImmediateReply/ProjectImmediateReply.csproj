@@ -166,6 +166,9 @@
     <Compile Include="API\GetFileHandler.ashx.cs">
       <DependentUpon>GetFileHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="API\ManageProject_LeaderCheckHandler.ashx.cs">
+      <DependentUpon>ManageProject_LeaderCheckHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="API\ProjectDetailHandler.ashx.cs">
       <DependentUpon>ProjectDetailHandler.ashx</DependentUpon>
     </Compile>
@@ -360,6 +363,7 @@
     <Content Include="API\ClassDetailHandler.ashx" />
     <Content Include="API\CreateSpecialAccountHandler.ashx" />
     <Content Include="API\ProjectDetail_GradesHandler.ashx" />
+    <Content Include="API\ManageProject_LeaderCheckHandler.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

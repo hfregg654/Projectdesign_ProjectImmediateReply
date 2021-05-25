@@ -59,7 +59,7 @@ namespace ProjectImmediateReply.API
                 string[] p = { ClassNumber };
                 string logic = @"
                                 INNER JOIN Users ON Projects.ProjectID=Users.ProjectID
-                                WHERE Users.ClassNumber=@ClassNumber AND Projects.DeleteDate IS NULL AND Users.WhoDelete IS NULL
+                                WHERE Users.ClassNumber=@ClassNumber AND Projects.DeleteDate IS NULL AND Users.WhoDelete IS NULL AND Projects.Complete='TRUE'
                                 ORDER BY Users.TeamID
                                 ";
                 DataTable data = Dbtool.readTable("Projects", colname, logic, colnamep, p);//查班級的所有人
@@ -422,7 +422,7 @@ namespace ProjectImmediateReply.API
 
                 }
 
-                string[] ProAndUscolname = { "Projects.ProjectName", "Users.TeamName", "Users.ClassNumber" };
+                string[] ProAndUscolname = { "Projects.ProjectName", "Users.TeamName", "Users.ClassNumber","Projects.Complete" };
                 string[] ProAndUscolnamep = { "@ProjectID" };
                 string[] ProAndUsp = { "-1" };
                 if (projectdata.Rows.Count > 0)
@@ -495,6 +495,7 @@ namespace ProjectImmediateReply.API
                     result.ProjectName = ProAndUsdata.Rows[0]["ProjectName"].ToString();
                     result.TeamName = ProAndUsdata.Rows[0]["TeamName"].ToString();
                     result.ClassNumber = ProAndUsdata.Rows[0]["ClassNumber"].ToString();
+                    result.ProjectComplete = Convert.ToBoolean(ProAndUsdata.Rows[0]["Complete"]);
                 }
                 result.Schedule = SchedualCacu(Allworks);
 

@@ -67,18 +67,18 @@
            <v-expansion-panel class="mb-2">
             <v-expansion-panel-header>社長評語</v-expansion-panel-header>
             <v-expansion-panel-content>
-             <p class="font-weight-medium text-justify">
+             <span class="font-weight-medium text-justify">
                        {{boss}}
-             </p> 
+             </span> 
             </v-expansion-panel-content>
            </v-expansion-panel>
 
            <v-expansion-panel>
             <v-expansion-panel-header>PM評語</v-expansion-panel-header>
             <v-expansion-panel-content>
-             <p class="font-weight-medium text-justify">
+             <div class="font-weight-medium text-justify">
                     {{pm}}
-             </p>
+             </div>
             </v-expansion-panel-content>
            </v-expansion-panel>
 

@@ -26,7 +26,8 @@ namespace ProjectImmediateReply.ViewModels
         public List<ViewWorks> viewWorks { get; set; }
         [JsonProperty("ProjectSchedule")]
         public string Schedule { get; set; }
-
+        [JsonProperty("ProjectComplete")]
+        public bool ProjectComplete { get; set; }
 
     }
     public class ViewWorks
