@@ -20,6 +20,8 @@
         //    .always(function (xhr, status) {
 
         //    });
+
+
     //當按下班級建立按鈕時觸發事件
     $("#CreatClassbtn").click(function () {
         $("#CreatClassbtn").hide(100);//將建立按鈕隱藏
@@ -60,6 +62,8 @@
                 $("#CreatClassbtn").show(100);
             });
     })
+
+
     //當按下建立按鈕時觸發事件
     $("#regisbtn").click(function () {
         $("#regisbtn").hide(100);//將建立按鈕隱藏
@@ -120,6 +124,8 @@
                 $("#regisbtn").show(100);
             });
     })
+
+
     //當按下建立按鈕時觸發事件
     $("#CreateProjectbtn").click(function () {
         $("#CreateProjectbtn").hide(100);//將建立按鈕隱藏
@@ -165,6 +171,9 @@
                 $("#CreateProjectbtn").show(100);
             })
     })
+
+
+    //當按下查詢按鈕時觸發事件
     $("#Fgbtn").click(function () {
         $("#Fgbtn").hide(100);//將按鈕隱藏
         var License = $("#rescue_key").val();

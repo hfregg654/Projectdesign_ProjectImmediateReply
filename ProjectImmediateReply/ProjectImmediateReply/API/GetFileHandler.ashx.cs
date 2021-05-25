@@ -31,9 +31,11 @@ namespace ProjectImmediateReply.API
                 //設定檔名
                 fileNewName = DateTime.Now.ToString("yyyyMMddHHmmssff") + "_" + System.IO.Path.GetFileName(files[0].FileName);
                 //設定路徑
-                filePath = "~/FileUpload/" + fileNewName;
+                filePath = "/FileUpload/" + fileNewName;
+
+                string ActuallyPath = context.Server.MapPath(filePath);
                 //儲存檔案
-                files[0].SaveAs(context.Server.MapPath(filePath));
+                files[0].SaveAs(ActuallyPath);
 
 
                 context.Response.ContentType = "text/json";
@@ -60,6 +62,7 @@ namespace ProjectImmediateReply.API
                 DataTable worksdata = dbtool.readTable("Works", workscolname, workslogic, workscolnamep, worksp);//查此工作的檔案路徑
 
                 string workfilepath = worksdata.Rows[0]["FilePath"].ToString();
+
 
                 if (!string.IsNullOrWhiteSpace(workfilepath))
                 {

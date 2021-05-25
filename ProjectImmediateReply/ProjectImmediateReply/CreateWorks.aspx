@@ -1,9 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/ImmediateReplyInSide.Master" AutoEventWireup="true" CodeBehind="CreateWorks.aspx.cs" Inherits="ProjectImmediateReply.CreateWorks" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
     <v-main
-						style="background: -webkit-linear-gradient(right, #FFAF7B, #FFB6C1);background: linear-gradient(to right, #FFAF7B, #FFB6C1);">
+        style="background: -webkit-linear-gradient(right, #FFAF7B, #FFB6C1); background: linear-gradient(to right, #FFAF7B, #FFB6C1);">
 						<div class="text-center">
 						  <!--             <v-btn dark color="red darken-2" @click="snackbar = true">
 						    Open Snackbar
@@ -37,6 +38,9 @@
 						<v-row>
 							<v-spacer></v-spacer>
 							<p class="h1 ml-0 mr-6  mb-0 pl-0 font-weight-bold">{{專案}}專案 組名{{組名}}</p>
+                            <v-btn color="primary" @click="" class="mr-6">
+									更改組名
+							</v-btn>
 						</v-row>
 						<v-row style="height:3vh" class="mb-2">
 							<v-spacer></v-spacer>
@@ -249,283 +253,284 @@
 					</v-main>
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
-	<script>
-			var vm = new Vue({
-				el: '#app',
-				vuetify: new Vuetify(),
-				data: () => ({
-					drawer: false,
-					snackbar: false,
-					snackbar1: false,
-					showmessagesuccess: '我是正確訊息',
-					showmessage: '我是錯誤訊息',
-					// 
-					valid: true, //v-form驗證
-					專案: "123",
-					組名: "456",
-					指派人員種類: ['A同學', 'B同學', 'C同學', 'D同學'],
-					指派人員選擇: '',
-					e1: 1,
-					newWorkProject: [{
-						指派人員: "",
-						工作項目: "",
-						工作內容: "",
-						時程期限: new Date().toISOString().substr(0, 10),
-					}, ],
-					//
-					// date: new Date().toISOString().substr(0, 10),
-					menu2: false,
-					// 
-					// 管理分頁變數開始
-					page: 1,
-					pageCount: 0,
-					itemsPerPage: 4,
-					// 管理分頁變數結束
-					// 彈跳視窗開始
-					dialog: false,
-					// datepicker
-					menu2: false,
-					// 彈跳視窗結束					
-					// 
-					資料容器: [],
-					// json資料結束
-					// 判斷是否是修改頁面 會自動改標題開始
-					editedIndex: -1,
-					// 判斷是否是修改頁面 會自動改標題結束
+    <script>
+        var vm = new Vue({
+            el: '#app',
+            vuetify: new Vuetify(),
+            data: () => ({
+                drawer: false,
+                snackbar: false,
+                snackbar1: false,
+                showmessagesuccess: '我是正確訊息',
+                showmessage: '我是錯誤訊息',
+                // 
+                valid: true, //v-form驗證
+                專案: "123",
+                組名: "456",
+                指派人員種類: ['A同學', 'B同學', 'C同學', 'D同學'],
+                指派人員選擇: '',
+                e1: 1,
+                newWorkProject: [{
+                    指派人員: "",
+                    工作項目: "",
+                    工作內容: "",
+                    時程期限: new Date().toISOString().substr(0, 10),
+                },],
+                //
+                // date: new Date().toISOString().substr(0, 10),
+                menu2: false,
+                // 
+                // 管理分頁變數開始
+                page: 1,
+                pageCount: 0,
+                itemsPerPage: 4,
+                // 管理分頁變數結束
+                // 彈跳視窗開始
+                dialog: false,
+                // datepicker
+                menu2: false,
+                // 彈跳視窗結束					
+                // 
+                資料容器: [],
+                // json資料結束
+                // 判斷是否是修改頁面 會自動改標題開始
+                editedIndex: -1,
+                // 判斷是否是修改頁面 會自動改標題結束
 
-					editedItem: {
-						id: '',
-						工作項目: '',
-						工作內容: '',
-						時程期限: '',
-						負責人員: '',
-					},
-					defaultItem: {
-						id: '',
-						工作項目: '',
-						工作內容: '',
-						時程期限: '',
-						負責人員: '',
-					},
-					// 變數結束
-					headers: [{
-							text: '工作項目',
-							align: 'start',
-							value: '工作項目',
-						},
-						{
-							text: '工作內容',
-							value: '工作內容'
-						},
-						{
-							text: '時程期限',
-							value: '時程期限'
-						},
-						{
-							text: '負責人員',
-							value: '負責人員'
-						},
-						{
-							text: '',
-							value: '修改',
-							sortable: false
-						},
-						{
-							text: '',
-							value: '刪除',
-							sortable: false
-						},
-					],
-				}),
-				computed: {
-					formTitle() {
-						// computed計算後傳出的值可以直接當data 用鬍子語法被DOM拿到
-						// 抓到的index 若是-1則將標題改為New Item ; 非-1(正常indexof取到大於等於0)時為 Edit Item
-						return this.editedIndex === -1 ? '新增' : '修改'
-					},
-				},
+                editedItem: {
+                    id: '',
+                    工作項目: '',
+                    工作內容: '',
+                    時程期限: '',
+                    負責人員: '',
+                },
+                defaultItem: {
+                    id: '',
+                    工作項目: '',
+                    工作內容: '',
+                    時程期限: '',
+                    負責人員: '',
+                },
+                // 變數結束
+                headers: [{
+                    text: '工作項目',
+                    align: 'start',
+                    value: '工作項目',
+                },
+                {
+                    text: '工作內容',
+                    value: '工作內容'
+                },
+                {
+                    text: '時程期限',
+                    value: '時程期限'
+                },
+                {
+                    text: '負責人員',
+                    value: '負責人員'
+                },
+                {
+                    text: '',
+                    value: '修改',
+                    sortable: false
+                },
+                {
+                    text: '',
+                    value: '刪除',
+                    sortable: false
+                },
+                ],
+            }),
+            computed: {
+                formTitle() {
+                    // computed計算後傳出的值可以直接當data 用鬍子語法被DOM拿到
+                    // 抓到的index 若是-1則將標題改為New Item ; 非-1(正常indexof取到大於等於0)時為 Edit Item
+                    return this.editedIndex === -1 ? '新增' : '修改'
+                },
+            },
 
-				watch: {
-					dialog(val) {
-						val || this.close()
-					},
-				},
+            watch: {
+                dialog(val) {
+                    val || this.close()
+                },
+            },
 
-				created() {
-					this.頁面載入()
-				},
-				methods: {
-					enterevent() {
-						this.e1 += 1;
-					},
-					建立工作項目() {
-						if (this.$refs.form.validate()) {
-							axios.post('API/GetCrudHandler.ashx', {
-									innertype: '這一頁',
-									指派人員: vm.newWorkProject.指派人員,
-									工作項目: vm.newWorkProject.工作項目,
-									工作內容: vm.newWorkProject.工作內容,
-									時程期限: vm.newWorkProject.時程期限
-								})
-								.then(response => {
-									vm.showmessagesuccess = '發送成功';
-									vm.snackbar1 = true;
-									vm.頁面載入();
-									vm.刷新stepper();
-								})
-								.catch(error => {
-									vm.showmessage = '發送失敗'+ error;
-									vm.snackbar = true;
-									// vm.刷新stepper();
-								})
-						}
-					},
-					// 獲取資訊() {
-					// 	axios.post('API/GetCrudHandler.ashx', {
-					// 			innertype: '這一頁',
-					// 			專案: vm.專案,
-					// 			組名: vm.組名,
-					// 		})
-					// 		.then(response => {
-					// 			this.資料容器 = response.data;
-					// 		})
-					// 		.catch(error => alert(error))
-					// },
-					save() {
-						// 若是為編輯狀態 editedIndex會有該項的indexof 
-						if (this.editedIndex > -1) {
-							// 把資料灌回DOM
-							// Object.assign(this.資料容器[this.editedIndex], this.editedItem);
-							axios.post('', {
-									Type: 'Edit',
-									id:vm.editItem.id,
-									工作項目:vm.editItem.工作項目,
-									工作內容:vm.editItem.工作內容,
-									時程期限:vm.editItem.時程期限,
-									負責人員:vm.editItem.負責人員,
-								})
-								.then(response => this.頁面載入(), this.close())
-								.catch(error => {
-								vm.showmessage = '發送失敗' + error;
-								vm.snackbar = true;
-								this.close()
-								;})
-							// alert(this.editedItem)
-						}
-						// 若是為新增狀態 預設editedIndex -1 不處理 直接推新的editedIndex和editedItem
-						else {
-							// this.資料容器.push(this.editedItem)
-						}
-						this.close()
-					},
-					刷新stepper() {
-						this.$refs.form.reset();
-						this.e1 = 1
-					},
-					editItem(item) {
-						// FOR循環找到item(此for循環物件)的index
-						this.editedIndex = this.資料容器.indexOf(item)
-						// 抓到此item後 
-						// Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象source复制到目标对象。它将返回目标对象target。
-						// 例子
-						// const v1 = 'abc' const v2 = true const v3 = 10 
-						// const obj = Object.assign({}, v1, v2, v3)
-						// obj // { "0": "a", "1": "b", "2": "c" }
+            created() {
+                this.頁面載入()
+            },
+            methods: {
+                enterevent() {
+                    this.e1 += 1;
+                },
+                建立工作項目() {
+                    if (this.$refs.form.validate()) {
+                        axios.post('API/GetCrudHandler.ashx', {
+                            innertype: '這一頁',
+                            指派人員: vm.newWorkProject.指派人員,
+                            工作項目: vm.newWorkProject.工作項目,
+                            工作內容: vm.newWorkProject.工作內容,
+                            時程期限: vm.newWorkProject.時程期限
+                        })
+                            .then(response => {
+                                vm.showmessagesuccess = '發送成功';
+                                vm.snackbar1 = true;
+                                vm.頁面載入();
+                                vm.刷新stepper();
+                            })
+                            .catch(error => {
+                                vm.showmessage = '發送失敗' + error;
+                                vm.snackbar = true;
+                                // vm.刷新stepper();
+                            })
+                    }
+                },
+                // 獲取資訊() {
+                // 	axios.post('API/GetCrudHandler.ashx', {
+                // 			innertype: '這一頁',
+                // 			專案: vm.專案,
+                // 			組名: vm.組名,
+                // 		})
+                // 		.then(response => {
+                // 			this.資料容器 = response.data;
+                // 		})
+                // 		.catch(error => alert(error))
+                // },
+                save() {
+                    // 若是為編輯狀態 editedIndex會有該項的indexof 
+                    if (this.editedIndex > -1) {
+                        // 把資料灌回DOM
+                        // Object.assign(this.資料容器[this.editedIndex], this.editedItem);
+                        axios.post('', {
+                            Type: 'Edit',
+                            id: vm.editItem.id,
+                            工作項目: vm.editItem.工作項目,
+                            工作內容: vm.editItem.工作內容,
+                            時程期限: vm.editItem.時程期限,
+                            負責人員: vm.editItem.負責人員,
+                        })
+                            .then(response => this.頁面載入(), this.close())
+                            .catch(error => {
+                                vm.showmessage = '發送失敗' + error;
+                                vm.snackbar = true;
+                                this.close()
+                                    ;
+                            })
+                        // alert(this.editedItem)
+                    }
+                    // 若是為新增狀態 預設editedIndex -1 不處理 直接推新的editedIndex和editedItem
+                    else {
+                        // this.資料容器.push(this.editedItem)
+                    }
+                    this.close()
+                },
+                刷新stepper() {
+                    this.$refs.form.reset();
+                    this.e1 = 1
+                },
+                editItem(item) {
+                    // FOR循環找到item(此for循環物件)的index
+                    this.editedIndex = this.資料容器.indexOf(item)
+                    // 抓到此item後 
+                    // Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象source复制到目标对象。它将返回目标对象target。
+                    // 例子
+                    // const v1 = 'abc' const v2 = true const v3 = 10 
+                    // const obj = Object.assign({}, v1, v2, v3)
+                    // obj // { "0": "a", "1": "b", "2": "c" }
 
-						this.editedItem = Object.assign({}, item)
-						this.dialog = true
-					},
+                    this.editedItem = Object.assign({}, item)
+                    this.dialog = true
+                },
 
-					deleteItem(item) {
-						// 宣告此index數字為此筆  之後可能會有若中間資料庫有人增刪的bug
-						const index = this.資料容器.indexOf(item)
-						if (confirm('確定要刪除此資料嗎?')) {
-							axios.post('API/ProjectDetailHandler.ashx', {
-							        Type: 'Delete',
-							        id: item.id
-							      }).then(response => {
-							        // alert(item.ProjectID + '發送刪除成功');
-							        vm.showmessagesuccess = item.id + '發送刪除成功';
-							        vm.snackbar1 = true;
-							        this.頁面載入();
-							        // this.inneritem.splice(index, 1);
-							      })
-							      .catch(error =>
-							        // alert('id:' + item.ProjectID + '發送刪除失敗')
-							        {
-							          vm.showmessage = '刪除失敗：' + item.id + '發送刪除失敗';
-							          vm.snackbar = true;
-							        }
-							      )
-							  } else {}
-							},
+                deleteItem(item) {
+                    // 宣告此index數字為此筆  之後可能會有若中間資料庫有人增刪的bug
+                    const index = this.資料容器.indexOf(item)
+                    if (confirm('確定要刪除此資料嗎?')) {
+                        axios.post('API/ProjectDetailHandler.ashx', {
+                            Type: 'Delete',
+                            id: item.id
+                        }).then(response => {
+                            // alert(item.ProjectID + '發送刪除成功');
+                            vm.showmessagesuccess = item.id + '發送刪除成功';
+                            vm.snackbar1 = true;
+                            this.頁面載入();
+                            // this.inneritem.splice(index, 1);
+                        })
+                            .catch(error =>
+                            // alert('id:' + item.ProjectID + '發送刪除失敗')
+                            {
+                                vm.showmessage = '刪除失敗：' + item.id + '發送刪除失敗';
+                                vm.snackbar = true;
+                            }
+                            )
+                    } else { }
+                },
 
-					close() {
-						this.dialog = false
-						this.$nextTick(() => {
-							// 把彈跳視窗輸入框清空成defaultItem
-							this.editedItem = Object.assign({}, this.defaultItem)
-							// 恢復成新增模式
-							this.editedIndex = -1
-						})
-					},
+                close() {
+                    this.dialog = false
+                    this.$nextTick(() => {
+                        // 把彈跳視窗輸入框清空成defaultItem
+                        this.editedItem = Object.assign({}, this.defaultItem)
+                        // 恢復成新增模式
+                        this.editedIndex = -1
+                    })
+                },
 
-					// 初始化資料
-					頁面載入() {
-						// axios
-						//   .post('API/GetCrudHandler.ashx', {
-						//     innertype: 'ProjectDetail',
-						//     classchoice: ''
-						//   })
-						//   .then(response => {
-						//     console.table(response.data.chooseclass)
-						//     this.chooseclass = response.data.chooseclass;
-						//   })
-						//   .catch(function(error) {
-						//     {
-						//       vm.showmessage = '加載失敗' + error;
-						//       vm.snackbar = true;
-						//     }});
+                // 初始化資料
+                頁面載入() {
+                    // axios
+                    //   .post('API/GetCrudHandler.ashx', {
+                    //     innertype: 'ProjectDetail',
+                    //     classchoice: ''
+                    //   })
+                    //   .then(response => {
+                    //     console.table(response.data.chooseclass)
+                    //     this.chooseclass = response.data.chooseclass;
+                    //   })
+                    //   .catch(function(error) {
+                    //     {
+                    //       vm.showmessage = '加載失敗' + error;
+                    //       vm.snackbar = true;
+                    //     }});
 
-						this.資料容器 = [{
-								id: '1',
-								專案名稱: 'projectA',
-								小組名稱: 'teamA',
-								工作項目: '專案管理',
-								工作內容: '掃地',
-								時程期限: '2013-07-29',
-								負責人員: '小明',
-							},
-							{
-								id: '2',
-								專案名稱: 'BBBBBBBBB',
-								小組名稱: 'teamB',
-								工作項目: 'BBBBB',
-								工作內容: '掃地',
-								時程期限: '2013-07-29',
-								負責人員: 'BBBBBB',
-							},
-							{
-								id: '3',
-								專案名稱: 'BBBBBBBBB',
-								小組名稱: 'teamB',
-								工作項目: 'BBBBB',
-								工作內容: '掃地',
-								時程期限: '2013-07-29',
-								負責人員: 'BBBBBB',
-							},
-							{
-								id: '4',
-								專案名稱: 'BBBBBBBBB',
-								小組名稱: 'teamB',
-								工作項目: 'BBBBB',
-								工作內容: '掃地',
-								時程期限: '2013-07-29',
-								負責人員: 'BBBBBB',
-							},
-						]
-					},
-				}
-			})
+                    this.資料容器 = [{
+                        id: '1',
+                        專案名稱: 'projectA',
+                        小組名稱: 'teamA',
+                        工作項目: '專案管理',
+                        工作內容: '掃地',
+                        時程期限: '2013-07-29',
+                        負責人員: '小明',
+                    },
+                    {
+                        id: '2',
+                        專案名稱: 'BBBBBBBBB',
+                        小組名稱: 'teamB',
+                        工作項目: 'BBBBB',
+                        工作內容: '掃地',
+                        時程期限: '2013-07-29',
+                        負責人員: 'BBBBBB',
+                    },
+                    {
+                        id: '3',
+                        專案名稱: 'BBBBBBBBB',
+                        小組名稱: 'teamB',
+                        工作項目: 'BBBBB',
+                        工作內容: '掃地',
+                        時程期限: '2013-07-29',
+                        負責人員: 'BBBBBB',
+                    },
+                    {
+                        id: '4',
+                        專案名稱: 'BBBBBBBBB',
+                        小組名稱: 'teamB',
+                        工作項目: 'BBBBB',
+                        工作內容: '掃地',
+                        時程期限: '2013-07-29',
+                        負責人員: 'BBBBBB',
+                    },
+                    ]
+                },
+            }
+        })
     </script>
 </asp:Content>
