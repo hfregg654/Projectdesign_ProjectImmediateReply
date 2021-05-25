@@ -545,7 +545,7 @@ namespace ProjectImmediateReply.Utility
 													C1newpassword:vm.C1newpassword,
 													C1newpasswordconfirm:vm.C1newpasswordconfirm,
 													license:vm.license,
-													oldname:""{info.Name}""
+													userid:""{info.UserID}""
 												}})
 												.then(response => {{
 													if(response.data[0].success== ""success""){{
@@ -615,7 +615,7 @@ namespace ProjectImmediateReply.Utility
 													C1newpassword:vm.C1newpassword,
 													C1newpasswordconfirm:vm.C1newpasswordconfirm,
 													license:vm.license,
-													oldname:""{info.Name}""
+													userid:""{info.UserID}""
 												}})
 												.then(response => {{
 													if(response.data[0].success== ""success""){{

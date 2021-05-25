@@ -380,33 +380,60 @@ namespace ProjectImmediateReply.API
                                 WHERE UserID=@UserID AND DeleteDate IS NULL AND WhoDelete IS NULL
                                 ";
                 DataTable worksdata = Dbtool.readTable("Works", workscolname, workslogic, workscolnamep, worksp);//查此人的所有工作
+                //若此人目前無工作則查此人的專案ID(查專案所有工作用)
+                DataTable projectdata = new DataTable();
+                if (worksdata.Rows.Count <= 0)
+                {
+                    string[] projectcolname = { "ProjectID" };
+                    string[] projectcolnamep = { "@UserID" };
+                    string[] projectp = { Info.UserID.ToString() };
+                    string projectlogic = @"
+                                WHERE UserID=@UserID AND DeleteDate IS NULL AND WhoDelete IS NULL AND ProjectID IS NOT NULL
+                                ";
+                    projectdata = Dbtool.readTable("Users", projectcolname, projectlogic, projectcolnamep, projectp);//查此人的專案ID
+                }
+
                 //準備查詢語法查此專案的所有工作
                 string[] allworksLcolname = { "ProjectID", "UserID", "WorkID", "WorkName", "WorkDescription", "DeadLine", "FilePath", "UpdateTime", "Complete" };
                 string[] allworksLcolnamep = { "@ProjectID" };
-                string[] allworksLp = { worksdata.Rows[0]["ProjectID"].ToString() };
+                string[] allworksLp = { "-1" };
+                if (projectdata.Rows.Count > 0)
+                    allworksLp[0] = projectdata.Rows[0]["ProjectID"].ToString();
+                else if (worksdata.Rows.Count > 0)
+                    allworksLp[0] = worksdata.Rows[0]["ProjectID"].ToString();
+
                 string allworksLlogic = @"
                                 WHERE ProjectID=@ProjectID AND DeleteDate IS NULL AND WhoDelete IS NULL
                                 ";
                 DataTable allworksdata = Dbtool.readTable("Works", allworksLcolname, allworksLlogic, allworksLcolnamep, allworksLp);//查此專案的所有工作
 
-                //若有查到資料並且此人為組長,更改查詢此專案的所有工作
+                //若有查到資料並且此人為組長,更改顯示此專案的所有工作
                 if (allworksdata.Rows.Count > 0 && Info.Privilege == "Leader")
                 {
                     lastdata = allworksdata;
                 }
-                else
+                //為成員則顯示該成員的工作
+                else if (allworksdata.Rows.Count > 0 && Info.Privilege == "User")
                 {
                     lastdata = worksdata;
                 }
-                //
+                else
+                {
+
+                }
+
                 string[] ProAndUscolname = { "Projects.ProjectName", "Users.TeamName", "Users.ClassNumber" };
                 string[] ProAndUscolnamep = { "@ProjectID" };
-                string[] ProAndUsp = { lastdata.Rows[0]["ProjectID"].ToString() };
+                string[] ProAndUsp = { "-1" };
+                if (projectdata.Rows.Count > 0)
+                    ProAndUsp[0] = projectdata.Rows[0]["ProjectID"].ToString();
+                else if (worksdata.Rows.Count > 0)
+                    ProAndUsp[0] = worksdata.Rows[0]["ProjectID"].ToString();
                 string ProAndUslogic = @"
                                 JOIN Projects ON Users.ProjectID=Projects.ProjectID
                                 WHERE Projects.ProjectID=@ProjectID AND Projects.DeleteDate IS NULL AND Projects.WhoDelete IS NULL
                                 ";
-                DataTable ProAndUsdata = Dbtool.readTable("Users", ProAndUscolname, ProAndUslogic, ProAndUscolnamep, ProAndUsp);//查此專案的所有工作
+                DataTable ProAndUsdata = Dbtool.readTable("Users", ProAndUscolname, ProAndUslogic, ProAndUscolnamep, ProAndUsp);//查此專案的專案名,小組名,班級
                 List<ViewWorks> TempVW = new List<ViewWorks>();
                 List<ViewWorks> Allworks = new List<ViewWorks>();
                 foreach (DataRow item in allworksdata.Rows)
@@ -459,10 +486,16 @@ namespace ProjectImmediateReply.API
                 result.UserID = Info.UserID;
                 result.Name = Info.Name;
                 result.Privilege = Info.Privilege;
-                result.ProjectID = Convert.ToInt32(lastdata.Rows[0]["ProjectID"]);
-                result.ProjectName = ProAndUsdata.Rows[0]["ProjectName"].ToString();
-                result.TeamName = ProAndUsdata.Rows[0]["TeamName"].ToString();
-                result.ClassNumber = ProAndUsdata.Rows[0]["ClassNumber"].ToString();
+                if (projectdata.Rows.Count > 0 || worksdata.Rows.Count > 0)
+                {
+                    if (projectdata.Rows.Count > 0)
+                        result.ProjectID = Convert.ToInt32(projectdata.Rows[0]["ProjectID"]);
+                    else if (worksdata.Rows.Count > 0)
+                        result.ProjectID = Convert.ToInt32(worksdata.Rows[0]["ProjectID"]);
+                    result.ProjectName = ProAndUsdata.Rows[0]["ProjectName"].ToString();
+                    result.TeamName = ProAndUsdata.Rows[0]["TeamName"].ToString();
+                    result.ClassNumber = ProAndUsdata.Rows[0]["ClassNumber"].ToString();
+                }
                 result.Schedule = SchedualCacu(Allworks);
 
 
