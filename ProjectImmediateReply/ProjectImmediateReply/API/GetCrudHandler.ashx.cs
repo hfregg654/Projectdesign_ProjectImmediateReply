@@ -438,48 +438,62 @@ namespace ProjectImmediateReply.API
                 List<ViewWorks> Allworks = new List<ViewWorks>();
                 foreach (DataRow item in allworksdata.Rows)
                 {
-                    Allworks.Add(new ViewWorks()
-                    {
-                        Work_UserID = Convert.ToInt32(item["UserID"]),
-                        WorkID = Convert.ToInt32(item["WorkID"]),
-                        WorkName = item["WorkName"].ToString(),
-                        WorkDescription = item["WorkDescription"].ToString(),
-                        DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd"),
-                        UpdateTime = Convert.ToDateTime(item["UpdateTime"]).ToString("yyyy-MM-dd"),
-                        FilePath = item["FilePath"].ToString(),
-                        Complete = Convert.ToBoolean(item["Complete"])
-                    });
+                    ViewWorks viewWorks = new ViewWorks();
+                    if (!Convert.IsDBNull(item["UserID"]))
+                        viewWorks.Work_UserID = Convert.ToInt32(item["UserID"]);
+                    if (!Convert.IsDBNull(item["WorkID"]))
+                        viewWorks.WorkID = Convert.ToInt32(item["WorkID"]);
+                    if (!Convert.IsDBNull(item["WorkName"]))
+                        viewWorks.WorkName = item["WorkName"].ToString();
+                    if (!Convert.IsDBNull(item["WorkDescription"]))
+                        viewWorks.WorkDescription = item["WorkDescription"].ToString();
+                    if (!Convert.IsDBNull(item["DeadLine"]))
+                        viewWorks.DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd");
+                    if (!Convert.IsDBNull(item["UpdateTime"]))
+                        viewWorks.UpdateTime = Convert.ToDateTime(item["UpdateTime"]).ToString("yyyy-MM-dd");
+                    if (!Convert.IsDBNull(item["FilePath"]))
+                        viewWorks.FilePath = item["FilePath"].ToString();
+                    if (!Convert.IsDBNull(item["Complete"]))
+                        viewWorks.Complete = Convert.ToBoolean(item["Complete"]);
+                    Allworks.Add(viewWorks);
                 }
                 foreach (DataRow item in lastdata.Rows)
                 {
-                    if (Convert.ToBoolean(item["Complete"]))
-                    {
-                        TempVW.Add(new ViewWorks()
-                        {
-                            Work_UserID = Convert.ToInt32(item["UserID"]),
-                            WorkID = Convert.ToInt32(item["WorkID"]),
-                            WorkName = item["WorkName"].ToString(),
-                            WorkDescription = item["WorkDescription"].ToString(),
-                            DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd"),
-                            UpdateTime = Convert.ToDateTime(item["UpdateTime"]).ToString("yyyy-MM-dd"),
-                            FilePath = item["FilePath"].ToString(),
-                            Complete = Convert.ToBoolean(item["Complete"])
-                        }); ;
-                    }
-                    else
-                    {
-                        TempVW.Add(new ViewWorks()
-                        {
-                            Work_UserID = Convert.ToInt32(item["UserID"]),
-                            WorkID = Convert.ToInt32(item["WorkID"]),
-                            WorkName = item["WorkName"].ToString(),
-                            WorkDescription = item["WorkDescription"].ToString(),
-                            DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd"),
-                            UpdateTime = "",
-                            FilePath = item["FilePath"].ToString(),
-                            Complete = Convert.ToBoolean(item["Complete"])
-                        }); ;
-                    }
+                    //if (Convert.ToBoolean(item["Complete"]))
+                    //{
+                    ViewWorks viewWorks = new ViewWorks();
+                    if (!Convert.IsDBNull(item["UserID"]))
+                        viewWorks.Work_UserID = Convert.ToInt32(item["UserID"]);
+                    if (!Convert.IsDBNull(item["WorkID"]))
+                        viewWorks.WorkID = Convert.ToInt32(item["WorkID"]);
+                    if (!Convert.IsDBNull(item["WorkName"]))
+                        viewWorks.WorkName = item["WorkName"].ToString();
+                    if (!Convert.IsDBNull(item["WorkDescription"]))
+                        viewWorks.WorkDescription = item["WorkDescription"].ToString();
+                    if (!Convert.IsDBNull(item["DeadLine"]))
+                        viewWorks.DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd");
+                    if (!Convert.IsDBNull(item["UpdateTime"]))
+                        viewWorks.UpdateTime = Convert.ToDateTime(item["UpdateTime"]).ToString("yyyy-MM-dd");
+                    if (!Convert.IsDBNull(item["FilePath"]))
+                        viewWorks.FilePath = item["FilePath"].ToString();
+                    if (!Convert.IsDBNull(item["Complete"]))
+                        viewWorks.Complete = Convert.ToBoolean(item["Complete"]);
+                    TempVW.Add(viewWorks);
+                    //}
+                    //else
+                    //{
+                    //    TempVW.Add(new ViewWorks()
+                    //    {
+                    //        Work_UserID = Convert.ToInt32(item["UserID"]),
+                    //        WorkID = Convert.ToInt32(item["WorkID"]),
+                    //        WorkName = item["WorkName"].ToString(),
+                    //        WorkDescription = item["WorkDescription"].ToString(),
+                    //        DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd"),
+                    //        UpdateTime = "",
+                    //        FilePath = item["FilePath"].ToString(),
+                    //        Complete = Convert.ToBoolean(item["Complete"])
+                    //    });
+                    //}
 
                 }
                 result.viewWorks = TempVW;
@@ -521,7 +535,7 @@ namespace ProjectImmediateReply.API
                                 WHERE UserID=@UserID AND DeleteDate IS NULL AND WhoDelete IS NULL
                                 ";
                 DataTable usersdata = Dbtool.readTable("Users", userscolname, userslogic, userscolnamep, usersp); //查User表的Leader UserID
-                //準備查詢語法查詢此隊伍的所有資料
+                                                                                                                  //準備查詢語法查詢此隊伍的所有資料
                 string[] teamcolname = { "UserID", "Name" };
                 string[] teamcolnamep = { "@ProjectID" };
                 string[] teamp = { usersdata.Rows[0]["ProjectID"].ToString() };
@@ -529,8 +543,8 @@ namespace ProjectImmediateReply.API
                                 WHERE ProjectID=@ProjectID AND DeleteDate IS NULL AND WhoDelete IS NULL
                                 ";
                 DataTable teamdata = Dbtool.readTable("Users", teamcolname, teamlogic, teamcolnamep, teamp); //查User表的Leader UserID
-                //準備查詢語法查詢此隊伍的所有資料
-                string[] workscolname = { "Works.ProjectID", "Projects.ProjectName","Users.TeamName","Works.UserID", "Users.[Name]", "Works.WorkID", "Works.WorkName", "Works.WorkDescription", "Works.DeadLine" };
+                                                                                                             //準備查詢語法查詢此隊伍的所有資料
+                string[] workscolname = { "Works.ProjectID", "Projects.ProjectName", "Users.TeamName", "Works.UserID", "Users.[Name]", "Works.WorkID", "Works.WorkName", "Works.WorkDescription", "Works.DeadLine" };
                 string[] workscolnamep = { "@ProjectID" };
                 string[] worksp = { usersdata.Rows[0]["ProjectID"].ToString() };
                 string workslogic = @"
@@ -549,7 +563,7 @@ namespace ProjectImmediateReply.API
                 foreach (DataRow item in teamdata.Rows)
                 {
                     teamMember.Add(new TeamMember()
-                    { 
+                    {
                         UserID = Convert.ToInt32(item["UserID"]),
                         UserName = item["Name"].ToString(),
                     });
