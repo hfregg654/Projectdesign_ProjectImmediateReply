@@ -157,6 +157,9 @@
     <Compile Include="API\CreateSpecialAccountHandler.ashx.cs">
       <DependentUpon>CreateSpecialAccountHandler.ashx</DependentUpon>
     </Compile>
+    <Compile Include="API\CreateWorkHandler.ashx.cs">
+      <DependentUpon>CreateWorkHandler.ashx</DependentUpon>
+    </Compile>
     <Compile Include="API\ForgetPasswordHandeler.ashx.cs">
       <DependentUpon>ForgetPasswordHandeler.ashx</DependentUpon>
     </Compile>
@@ -277,6 +280,7 @@
     <Compile Include="Utility\SortTool.cs" />
     <Compile Include="ViewModels\ForAssignTeam.cs" />
     <Compile Include="ViewModels\ForClassDetail.cs" />
+    <Compile Include="ViewModels\ForCreateWorks.cs" />
     <Compile Include="ViewModels\ForGradesShow.cs" />
     <Compile Include="ViewModels\ForManageProject.cs" />
     <Compile Include="ViewModels\ForProjectDetail.cs" />
@@ -364,6 +368,7 @@
     <Content Include="API\CreateSpecialAccountHandler.ashx" />
     <Content Include="API\ProjectDetail_GradesHandler.ashx" />
     <Content Include="API\ManageProject_LeaderCheckHandler.ashx" />
+    <Content Include="API\CreateWorkHandler.ashx" />
     <None Include="packages.config" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

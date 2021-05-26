@@ -1,9 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.UI;
-using System.Web.UI.WebControls;
+using ProjectImmediateReply.Utility;
+using ProjectImmediateReply.Models;
 
 namespace ProjectImmediateReply
 {
@@ -11,7 +8,15 @@ namespace ProjectImmediateReply
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            LoginHelper logtool = new LoginHelper();
+            if (!logtool.HasLogIned())
+                Response.Redirect("~/LogIn.aspx");
+            LogInfo Info = (LogInfo)Session["IsLogined"];
+            if (Info.Privilege != "Leader")
+            {
+                logtool.Logout();
+                Response.Redirect("~/LogIn.aspx");
+            }
         }
     }
 }

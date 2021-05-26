@@ -9,18 +9,8 @@ namespace ProjectImmediateReply
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            DBTool dbtool = new DBTool();
-            string[] colname = { "ClassNumber" };
-            DataTable classnumber = dbtool.readTable("Users", colname, "GROUP BY ClassNumber", null, null);
-            List<string> classnum = new List<string>();
-            foreach (DataRow item in classnumber.Rows)
-            {
-                if (item != null && item[0].ToString() != "")
-                {
-                    classnum.Add(item[0].ToString());
-                }
-
-            }
+            Utility.PageTool ptool = new Utility.PageTool();
+            List<string> classnum = ptool.GetClassNumber();
             forgetpwd_class.DataSource = classnum;
             forgetpwd_class.DataBind();
 

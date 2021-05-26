@@ -495,6 +495,7 @@ namespace ProjectImmediateReply.Utility
                               }})
 						</script >";
             }
+
             //沒動到後端資料庫的話，可將方法寫在PageTool.cs
             else if (PageInner == "UpdateInfo")
             {

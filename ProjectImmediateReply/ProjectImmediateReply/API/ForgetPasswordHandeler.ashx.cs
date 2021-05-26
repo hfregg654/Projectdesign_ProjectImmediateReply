@@ -20,7 +20,7 @@ namespace ProjectImmediateReply.API
             string[] Pname = { "@License", "@ClassNumber" };
             string[] P = { License,ClassNum };
             List<UserInfo> Check = new List<UserInfo>();
-            if (P[0] != null && P[0] != string.Empty && P[0] != "null")
+            if (!string.IsNullOrWhiteSpace(P[0]))
             {
                 Check = Forgot.ChangeTypeUserInfo(Forgot.readTable("Users", readcolname, "WHERE License=@License AND ClassNumber=@ClassNumber AND DeleteDate IS NULL AND WhoDelete IS NULL", Pname, P)); //單筆時候的取值用法
             }

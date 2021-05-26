@@ -370,8 +370,8 @@ namespace ProjectImmediateReply.API
                     return;
 
                 //宣告最後回傳的物件
-                ForManageProject result = new ForManageProject();
-                DataTable lastdata = new DataTable();
+                ForManageProject result = new ForManageProject();  //回傳的畫面全部資料
+                DataTable lastdata = new DataTable(); //資料表部分 依照權限判斷顯示不同
                 //準備查詢語法查詢此人的所有工作
                 string[] workscolname = { "ProjectID", "UserID", "WorkID", "WorkName", "WorkDescription", "DeadLine", "FilePath", "UpdateTime", "Complete" };
                 string[] workscolnamep = { "@UserID" };
@@ -422,7 +422,7 @@ namespace ProjectImmediateReply.API
 
                 }
 
-                string[] ProAndUscolname = { "Projects.ProjectName", "Users.TeamName", "Users.ClassNumber","Projects.Complete" };
+                string[] ProAndUscolname = { "Projects.ProjectName", "Users.TeamName", "Users.ClassNumber", "Projects.Complete" };
                 string[] ProAndUscolnamep = { "@ProjectID" };
                 string[] ProAndUsp = { "-1" };
                 if (projectdata.Rows.Count > 0)
@@ -504,12 +504,72 @@ namespace ProjectImmediateReply.API
                 //將最後結果以JSON形式放進回傳字串
                 ShowTable = JsonConvert.SerializeObject(result);
             }
-            else
+            else if (innertype == "CreateWorks")
             {
+                LogInfo Info = new LogInfo();
+                if (context.Session["IsLogined"] != null) /*使用Session內建方法取得LoginHelper TryLogin的值*/
+                {
+                    Info = (LogInfo)context.Session["IsLogined"];
+                }
+                if (Info.Privilege != "Leader")
+                    return;
+                //準備查詢語法查詢此隊伍的所有資料
+                string[] userscolname = { "ProjectID" };
+                string[] userscolnamep = { "@UserID" };
+                string[] usersp = { Info.UserID.ToString() };
+                string userslogic = @"
+                                WHERE UserID=@UserID AND DeleteDate IS NULL AND WhoDelete IS NULL
+                                ";
+                DataTable usersdata = Dbtool.readTable("Users", userscolname, userslogic, userscolnamep, usersp); //查User表的Leader UserID
+                //準備查詢語法查詢此隊伍的所有資料
+                string[] teamcolname = { "UserID", "Name" };
+                string[] teamcolnamep = { "@ProjectID" };
+                string[] teamp = { usersdata.Rows[0]["ProjectID"].ToString() };
+                string teamlogic = @"
+                                WHERE ProjectID=@ProjectID AND DeleteDate IS NULL AND WhoDelete IS NULL
+                                ";
+                DataTable teamdata = Dbtool.readTable("Users", teamcolname, teamlogic, teamcolnamep, teamp); //查User表的Leader UserID
+                //準備查詢語法查詢此隊伍的所有資料
+                string[] workscolname = { "Works.ProjectID", "Projects.ProjectName","Users.TeamName","Works.UserID", "Users.[Name]", "Works.WorkID", "Works.WorkName", "Works.WorkDescription", "Works.DeadLine" };
+                string[] workscolnamep = { "@ProjectID" };
+                string[] worksp = { usersdata.Rows[0]["ProjectID"].ToString() };
+                string workslogic = @"
+                                join Projects on Works.ProjectID = Projects.ProjectID
+                                join Users on Works.UserID = Users.UserID
+                                WHERE Works.ProjectID=@ProjectID AND Works.DeleteDate IS NULL AND Works.WhoDelete IS NULL
+                                ";
+                DataTable worksdata = Dbtool.readTable("Works", workscolname, workslogic, workscolnamep, worksp);//查此人的所有工作
+                ForCreateWorks Alldata = new ForCreateWorks();
 
+                Alldata.ProjectID = Convert.ToInt32(worksdata.Rows[0]["ProjectID"]); //中括弧內字串是資料庫的欄位名稱
+                Alldata.ProjectName = worksdata.Rows[1]["ProjectName"].ToString();
+                Alldata.TeamName = worksdata.Rows[2]["TeamName"].ToString();
+                List<TeamMember> teamMember = new List<TeamMember>();
+                List<WorkItem> workItem = new List<WorkItem>();
+                foreach (DataRow item in teamdata.Rows)
+                {
+                    teamMember.Add(new TeamMember()
+                    { 
+                        UserID = Convert.ToInt32(item["UserID"]),
+                        UserName = item["Name"].ToString(),
+                    });
+                }
+                Alldata.TeamMember = teamMember;
+                foreach (DataRow item in worksdata.Rows)
+                {
+                    workItem.Add(new WorkItem()
+                    {
+                        WorkID = Convert.ToInt32(item["WorkID"]),
+                        WorkName = item["WorkName"].ToString(),
+                        WorkDescription = item["WorkDescription"].ToString(),
+                        DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd"),
+                        OrderName = item["Name"].ToString(),
+                    });
+                }
+                Alldata.WorkItems = workItem;
+                //將最後結果以JSON形式放進回傳字串
+                ShowTable = JsonConvert.SerializeObject(Alldata);
             }
-
-
             //以JSON形式回傳資料
             context.Response.ContentType = "text/json";
             context.Response.Write(ShowTable);

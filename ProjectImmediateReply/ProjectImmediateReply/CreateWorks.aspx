@@ -37,8 +37,8 @@
 						
 						<v-row>
 							<v-spacer></v-spacer>
-							<p class="h1 ml-0 mr-6  mb-0 pl-0 font-weight-bold">{{專案}}專案 組名{{組名}}</p>
-                            <v-btn color="primary" @click="" class="mr-6">
+							<p class="h1 ml-0 mr-6  mb-0 pl-0 font-weight-bold">專案名：{{ProjectName}} 組名：{{TeamName}}</p>
+                            <v-btn id="ChangeTeamName_btn" color="primary" @click="" class="mr-6">
 									更改組名
 							</v-btn>
 						</v-row>
@@ -81,7 +81,7 @@
 								<v-stepper-items>
 									<v-container fill-height>
 										<v-stepper-content step="1">
-											<v-select :items="指派人員種類" v-model="newWorkProject.指派人員"
+											<v-select :items="SelectList" v-model="SelectMember" item-text="UserName" item-value="UserID"
 												@change="enterevent()" label="選擇指派人員" solo outlined required>
 											</v-select>
 											<v-spacer></v-spacer>
@@ -94,7 +94,7 @@
 
 										<v-stepper-content step="2">
 											<v-text-field @keydown.enter="enterevent" :rules="[v => !!v || '此輸入框不可為空白']"
-												class="mb-5" label="工作項目" type="text" v-model="newWorkProject.工作項目"
+												class="mb-5" label="工作項目" type="text" v-model="newWorkProject.WorkName"
 												required></v-text-field>
 											<v-spacer></v-spacer>
 
@@ -109,7 +109,7 @@
 
 										<v-stepper-content step="3">
 											<v-text-field @keydown.enter="enterevent" 
-												class="mb-5" label="工作內容" type="text" v-model="newWorkProject.工作內容"
+												class="mb-5" label="工作內容" type="text" v-model="newWorkProject.WorkDescription"
 												></v-text-field>
 											<v-spacer></v-spacer>
 											<v-spacer></v-spacer>
@@ -128,12 +128,12 @@
 											<v-menu v-model="menu2" :close-on-content-click="false" :nudge-right="40"
 												transition="scale-transition" offset-y min-width="290px">
 												<template v-slot:activator="{ on, attrs }">
-													<v-text-field @keydown.enter="enterevent" v-model="newWorkProject.時程期限"
+													<v-text-field @keydown.enter="enterevent" v-model="newWorkProject.DeadLine"
 														label="時程期限" prepend-icon="event"
 														:rules="[v => !!v || '此輸入框不可為空白']" readonly v-bind="attrs"
 														v-on="on"></v-text-field>
 												</template>
-												<v-date-picker v-model="newWorkProject.時程期限" @input="menu2 = false" locale="zh-cn">
+												<v-date-picker v-model="newWorkProject.DeadLine" @input="menu2 = false" locale="zh-cn">
 												</v-date-picker>
 											</v-menu>
 											<v-spacer></v-spacer>
@@ -157,7 +157,7 @@
 							<v-data-table
 								style="background: -webkit-linear-gradient(right, #FFAF7B, #FFB6C1);background: linear-gradient(to right, #FFAF7B, #FFB6C1);"
 								height="35vh" @page-count="pageCount = $event" :page.sync="page"
-								:items-per-page="itemsPerPage" hide-default-footer :headers="headers" :items="資料容器"
+								:items-per-page="itemsPerPage" hide-default-footer :headers="headers" :items="newWorkProject"
 								sort-by="id" class="elevation　table-striped mt-0　
 									">
 								<!-- v-slot 開始							 -->
@@ -184,22 +184,27 @@
 													<v-container>
 														<v-row>
 															<v-col cols="12" sm="6" md="6">
-																<v-text-field v-model="editedItem.工作項目" label="工作項目">
+																<v-text-field v-model="editedItem.WorkName" label="工作項目">
 																</v-text-field>
 															</v-col>
 															<v-col cols="12" sm="6" md="6">
-																<v-text-field v-model="editedItem.工作內容" label="工作內容">
+																<v-text-field v-model="editedItem.WorkDescription" label="工作內容">
 																</v-text-field>
 															</v-col>
-															<v-col cols="12" sm="12" md="12">
-																<v-text-field v-model="editedItem.負責人員" label="負責人員">
-																</v-text-field>
+															<v-col cols="12" sm="12" md="12"> 
+                                                                 
+                                        <v-select :items="SelectList" v-model="editedItem.id" item-text="UserName" item-value="UserID"
+												label="更換負責人員" solo outlined>
+										</v-select>
+									
+																<%--<v-text-field v-model="editedItem.OrderMember" label="負責人員">
+																</v-text-field>--%>
 															</v-col>
 															<v-col cols="12" sm="12" md="12" class="mx-0 px-0">
 																<!-- <v-text-field v-model="editedItem.時程期限" label="時程期限">
 																	</v-text-field> <-->
 																<span>時程期限</span>
-																<v-date-picker v-model="editedItem.時程期限" label="時程期限"
+																<v-date-picker v-model="editedItem.DeadLine" label="時程期限"
 																	@input="menu2 = false" locale="zh-cn">
 																</v-date-picker>
 															</v-col>
@@ -254,6 +259,7 @@
 </asp:Content>
 <asp:Content ID="Content3" ContentPlaceHolderID="ContentPlaceHolder2" runat="server">
     <script>
+
         var vm = new Vue({
             el: '#app',
             vuetify: new Vuetify(),
@@ -265,16 +271,18 @@
                 showmessage: '我是錯誤訊息',
                 // 
                 valid: true, //v-form驗證
-                專案: "123",
-                組名: "456",
-                指派人員種類: ['A同學', 'B同學', 'C同學', 'D同學'],
-                指派人員選擇: '',
+                ProjectID: "",
+                ProjectName: "",  //要連同 同樣名稱的變數一起更改
+                TeamName: "",
+                SelectList: [],
+                SelectMember: '',
                 e1: 1,
                 newWorkProject: [{
-                    指派人員: "",
-                    工作項目: "",
-                    工作內容: "",
-                    時程期限: new Date().toISOString().substr(0, 10),
+                    WorkID: "",
+                    OrderMember: "",
+                    WorkName: "",
+                    WorkDescription: "",
+                    DeadLine: new Date().toISOString().substr(0, 10),
                 },],
                 //
                 // date: new Date().toISOString().substr(0, 10),
@@ -291,7 +299,7 @@
                 menu2: false,
                 // 彈跳視窗結束					
                 // 
-                資料容器: [],
+                //資料容器: [],
                 // json資料結束
                 // 判斷是否是修改頁面 會自動改標題開始
                 editedIndex: -1,
@@ -299,35 +307,35 @@
 
                 editedItem: {
                     id: '',
-                    工作項目: '',
-                    工作內容: '',
-                    時程期限: '',
-                    負責人員: '',
+                    WorkName: '',
+                    WorkDescription: '',
+                    DeadLine: '',
+                    OrderMember: '',
                 },
                 defaultItem: {
                     id: '',
-                    工作項目: '',
-                    工作內容: '',
-                    時程期限: '',
-                    負責人員: '',
+                    WorkName: '',
+                    WorkDescription: '',
+                    DeadLine: '',
+                    OrderMember: '',
                 },
                 // 變數結束
                 headers: [{
                     text: '工作項目',
                     align: 'start',
-                    value: '工作項目',
+                    value: 'WorkName',
                 },
                 {
                     text: '工作內容',
-                    value: '工作內容'
+                    value: 'WorkDescription'
                 },
                 {
                     text: '時程期限',
-                    value: '時程期限'
+                    value: 'DeadLine'
                 },
                 {
                     text: '負責人員',
-                    value: '負責人員'
+                    value: 'OrderMember'
                 },
                 {
                     text: '',
@@ -364,18 +372,25 @@
                 },
                 建立工作項目() {
                     if (this.$refs.form.validate()) {
-                        axios.post('API/GetCrudHandler.ashx', {
-                            innertype: '這一頁',
-                            指派人員: vm.newWorkProject.指派人員,
-                            工作項目: vm.newWorkProject.工作項目,
-                            工作內容: vm.newWorkProject.工作內容,
-                            時程期限: vm.newWorkProject.時程期限
+                        axios.post('API/CreateWorkHandler.ashx', {
+                            innertype: 'CreateNewWork',
+                            ProjectID: vm.ProjectID,
+                            OrderMember: vm.SelectMember,
+                            WorkName: vm.newWorkProject.WorkName,
+                            WorkDescription: vm.newWorkProject.WorkDescription,
+                            DeadLine: vm.newWorkProject.DeadLine
                         })
                             .then(response => {
-                                vm.showmessagesuccess = '發送成功';
-                                vm.snackbar1 = true;
-                                vm.頁面載入();
-                                vm.刷新stepper();
+                                if (!response.data.success) {
+                                    vm.showmessagesuccess = '發送成功';
+                                    vm.snackbar1 = true;
+                                    vm.頁面載入();
+                                    vm.刷新stepper();
+                                }
+                                else {
+                                    alert(response.data.success);
+                                }
+
                             })
                             .catch(error => {
                                 vm.showmessage = '發送失敗' + error;
@@ -400,13 +415,13 @@
                     if (this.editedIndex > -1) {
                         // 把資料灌回DOM
                         // Object.assign(this.資料容器[this.editedIndex], this.editedItem);
-                        axios.post('', {
-                            Type: 'Edit',
-                            id: vm.editItem.id,
-                            工作項目: vm.editItem.工作項目,
-                            工作內容: vm.editItem.工作內容,
-                            時程期限: vm.editItem.時程期限,
-                            負責人員: vm.editItem.負責人員,
+                        axios.post('API/CreateWorkHandler.ashx', {
+                            Type: 'UpdateWork',
+                            id: vm.editedItem.id,
+                            WorkName: vm.editedItem.WorkName,
+                            WorkDescription: vm.editedItem.WorkDescription,
+                            DeadLine: vm.editedItem.DeadLine,
+                            OrderMember: vm.editedItem.OrderMember,
                         })
                             .then(response => this.頁面載入(), this.close())
                             .catch(error => {
@@ -429,7 +444,7 @@
                 },
                 editItem(item) {
                     // FOR循環找到item(此for循環物件)的index
-                    this.editedIndex = this.資料容器.indexOf(item)
+                    this.editedIndex = this.newWorkProject.indexOf(item)
                     // 抓到此item後 
                     // Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象source复制到目标对象。它将返回目标对象target。
                     // 例子
@@ -443,7 +458,7 @@
 
                 deleteItem(item) {
                     // 宣告此index數字為此筆  之後可能會有若中間資料庫有人增刪的bug
-                    const index = this.資料容器.indexOf(item)
+                    //const index = this.資料容器.indexOf(item)
                     if (confirm('確定要刪除此資料嗎?')) {
                         axios.post('API/ProjectDetailHandler.ashx', {
                             Type: 'Delete',
@@ -475,62 +490,52 @@
                     })
                 },
 
+                ChangeTName() {
+                    var TName = prompt("請輸入欲變更組名");
+                    if (TName) {
+                        axios
+                            .post('API/CreateWorkHandler.ashx', {
+                                innertype: 'ChangeTeamName',
+                                TeamName: TName,
+                                ProjectID: vm.ProjectID
+                            })
+                            .then(response => {
+                                vm.頁面載入();
+                            })
+                            .catch(function (error) {
+                                {
+                                    vm.showmessage = '加載失敗' + error;
+                                    vm.snackbar = true;
+                                }
+                            });
+                    };
+                },
+
                 // 初始化資料
                 頁面載入() {
-                    // axios
-                    //   .post('API/GetCrudHandler.ashx', {
-                    //     innertype: 'ProjectDetail',
-                    //     classchoice: ''
-                    //   })
-                    //   .then(response => {
-                    //     console.table(response.data.chooseclass)
-                    //     this.chooseclass = response.data.chooseclass;
-                    //   })
-                    //   .catch(function(error) {
-                    //     {
-                    //       vm.showmessage = '加載失敗' + error;
-                    //       vm.snackbar = true;
-                    //     }});
-
-                    this.資料容器 = [{
-                        id: '1',
-                        專案名稱: 'projectA',
-                        小組名稱: 'teamA',
-                        工作項目: '專案管理',
-                        工作內容: '掃地',
-                        時程期限: '2013-07-29',
-                        負責人員: '小明',
-                    },
-                    {
-                        id: '2',
-                        專案名稱: 'BBBBBBBBB',
-                        小組名稱: 'teamB',
-                        工作項目: 'BBBBB',
-                        工作內容: '掃地',
-                        時程期限: '2013-07-29',
-                        負責人員: 'BBBBBB',
-                    },
-                    {
-                        id: '3',
-                        專案名稱: 'BBBBBBBBB',
-                        小組名稱: 'teamB',
-                        工作項目: 'BBBBB',
-                        工作內容: '掃地',
-                        時程期限: '2013-07-29',
-                        負責人員: 'BBBBBB',
-                    },
-                    {
-                        id: '4',
-                        專案名稱: 'BBBBBBBBB',
-                        小組名稱: 'teamB',
-                        工作項目: 'BBBBB',
-                        工作內容: '掃地',
-                        時程期限: '2013-07-29',
-                        負責人員: 'BBBBBB',
-                    },
-                    ]
+                    axios
+                        .post('API/GetCrudHandler.ashx', {
+                            innertype: 'CreateWorks',
+                            ClassNumber: 'none'
+                        })
+                        .then(response => {
+                            vm.ProjectID = response.data.ProjectID;
+                            vm.ProjectName = response.data.ProjectName;
+                            vm.TeamName = response.data.TeamName;
+                            vm.SelectList = response.data.SelectList;
+                            vm.newWorkProject = response.data.newWorkProject;
+                        })
+                        .catch(function (error) {
+                            {
+                                vm.showmessage = '加載失敗' + error;
+                                vm.snackbar = true;
+                            }
+                        });
                 },
             }
         })
+        $("#ChangeTeamName_btn").click(function () {
+            vm.ChangeTName();
+        });
     </script>
 </asp:Content>
