@@ -37,11 +37,12 @@ namespace ProjectImmediateReply.API
 
                 if (Convert.ToDateTime(DeadLine) > Convert.ToDateTime(CreateDate))
                 {
-                    string[] colname = { "ClassNumber", "ProjectName", "DeadLine", "CreateDate", "WhoCreate" };
-                    string[] colnamep = { "@ClassNumber", "@ProjectName", "@DeadLine", "@CreateDate", "@WhoCreate" };
+                    string[] colname = { "ClassNumber", "ProjectName","Complete", "DeadLine", "CreateDate", "WhoCreate" };
+                    string[] colnamep = { "@ClassNumber", "@ProjectName", "@Complete", "@DeadLine", "@CreateDate", "@WhoCreate" };
                     List<string> p = new List<string>();
                     p.Add(ClassNumber);
                     p.Add(ProjectName);
+                    p.Add("false");
                     p.Add(DeadLine);
                     p.Add(CreateDate);
                     p.Add(WhoCreate);

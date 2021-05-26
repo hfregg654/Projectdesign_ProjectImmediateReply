@@ -44,7 +44,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AutomaticMail0.cs" />
     <Compile Include="AutomaticMail.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

@@ -3,6 +3,7 @@ using System;
 using System.Net;
 using System.Net.Mail;
 using System.Text;
+using System.Text.RegularExpressions;
 
 namespace ProjectImmediateReply.Utility
 {
@@ -12,6 +13,10 @@ namespace ProjectImmediateReply.Utility
         {
             try
             {
+                if (!IsValidEMailAddress(mailfrom)|| !IsValidEMailAddress(mailto))
+                {
+                    return;
+                }
                 MailMessage msg = new MailMessage();
                 msg.To.Add(mailto);
                 //msg.To.Add("b@b.com");可以發送給多人
@@ -43,6 +48,10 @@ namespace ProjectImmediateReply.Utility
                 logtool.WriteLog(ex.ToString());
                 throw;
             }
+        }
+        public static bool IsValidEMailAddress(string email)
+        {
+            return Regex.IsMatch(email, @"^([\w-]+\.)*?[\w-]+@[\w-]+\.([\w-]+\.)*?[\w]+$");
         }
     }
 }
