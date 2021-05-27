@@ -38,7 +38,7 @@
 						<v-row>
 							<v-spacer></v-spacer>
 							<p class="h1 ml-0 mr-6  mb-0 pl-0 font-weight-bold">專案名：{{ProjectName}} 組名：{{TeamName}}</p>
-                            <v-btn id="ChangeTeamName_btn" color="primary" @click="" class="mr-6">
+                            <v-btn id="ChangeTeamName_btn" color="primary" @click="" class="mr-6" v-show="ProjectID">
 									更改組名
 							</v-btn>
 						</v-row>
