@@ -544,7 +544,10 @@ namespace ProjectImmediateReply.API
                                                                                                                   //準備查詢語法查詢此隊伍的所有資料
                 string[] teamcolname = { "UserID", "Name" };
                 string[] teamcolnamep = { "@ProjectID" };
-                string[] teamp = { usersdata.Rows[0]["ProjectID"].ToString() };
+                string[] teamp = { "-1" };
+                if (usersdata.Rows.Count > 0)
+                    teamp[0] = usersdata.Rows[0]["ProjectID"].ToString();
+
                 string teamlogic = @"
                                 WHERE ProjectID=@ProjectID AND DeleteDate IS NULL AND WhoDelete IS NULL
                                 ";
@@ -552,7 +555,9 @@ namespace ProjectImmediateReply.API
                                                                                                              //準備查詢語法查詢此隊伍的所有資料
                 string[] workscolname = { "Works.ProjectID", "Projects.ProjectName", "Users.TeamName", "Works.UserID", "Users.[Name]", "Works.WorkID", "Works.WorkName", "Works.WorkDescription", "Works.DeadLine" };
                 string[] workscolnamep = { "@ProjectID" };
-                string[] worksp = { usersdata.Rows[0]["ProjectID"].ToString() };
+                string[] worksp = { "-1" };
+                if (usersdata.Rows.Count > 0)
+                    worksp[0] = usersdata.Rows[0]["ProjectID"].ToString();
                 string workslogic = @"
                                 join Projects on Works.ProjectID = Projects.ProjectID
                                 join Users on Works.UserID = Users.UserID
