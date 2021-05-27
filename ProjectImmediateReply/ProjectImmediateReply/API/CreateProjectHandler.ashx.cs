@@ -15,7 +15,8 @@ namespace ProjectImmediateReply.API
     {
 
         public void ProcessRequest(HttpContext context)
-        {
+        { 
+            DBTool DbTool = new DBTool();
             //取得傳過來的資料
             string ClassNumber = context.Request.Form["ClassNumber"];
             string ProjectName = context.Request.Form["ProjectName"];
@@ -35,6 +36,22 @@ namespace ProjectImmediateReply.API
                 string CreateDate = DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
                 string WhoCreate = Privilege;
 
+                string[] projectcolname = { "ProjectID" };
+                string[] projectcolnamep = { "@ClassNumber" };
+                string[] projectp = { ClassNumber };
+                string projectlogic = @"
+                                WHERE ClassNumber=@ClassNumber AND DeleteDate IS NULL AND WhoDelete IS NULL
+                                ";
+                DataTable projectdata = DbTool.readTable("Projects", projectcolname, projectlogic, projectcolnamep, projectp);//查班級的所有專案
+                if (projectdata.Rows.Count>=4)
+                {
+                    success = "[{\"success\":\"ProjectCountWrong\"}]";
+                    context.Response.ContentType = "text/json";
+                    context.Response.Write(success);
+                    return;
+                }
+
+
                 if (Convert.ToDateTime(DeadLine) > Convert.ToDateTime(CreateDate))
                 {
                     string[] colname = { "ClassNumber", "ProjectName","Complete", "DeadLine", "CreateDate", "WhoCreate" };
@@ -46,7 +63,7 @@ namespace ProjectImmediateReply.API
                     p.Add(DeadLine);
                     p.Add(CreateDate);
                     p.Add(WhoCreate);
-                    DBTool DbTool = new DBTool();
+                   
                     DbTool.InsertTable("Projects", colname, colnamep, p);
 
                     success = "[{\"success\":\"true\"}]";
@@ -58,6 +75,7 @@ namespace ProjectImmediateReply.API
                     success = "[{\"success\":\"DateWrong\"}]";
                     context.Response.ContentType = "text/json";
                     context.Response.Write(success);
+                    return;
                 }
             }
             catch (Exception ex)

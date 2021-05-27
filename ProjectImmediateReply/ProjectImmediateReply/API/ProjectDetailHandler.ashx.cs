@@ -75,17 +75,16 @@ namespace ProjectImmediateReply.API
             {
                 string[] updatecol_Logic = { "DeleteDate=@DeleteDate", "WhoDelete=@WhoDelete" }; /*  要更新的欄位*/
                 string Where_Logic = @"ProjectID=@ProjectID AND DeleteDate IS NULL AND WhoDelete IS NULL 
-                                        UPDATE Users SET ProjectID=NULL,TeamID=NULL,TeamName=NULL WHERE ProjectID=@UserProjectID";
-                string[] updatecolname_P = { "@DeleteDate", "@WhoDelete", "@ProjectID", "@UserProjectID" }; /*要帶入的參數格子*/
+                                       ";
+                string[] updatecolname_P = { "@DeleteDate", "@WhoDelete", "@ProjectID" }; /*要帶入的參數格子*/
                 List<string> update_P = new List<string>();
                 update_P.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 update_P.Add("Manager");
                 update_P.Add(ProjectID);
-                update_P.Add(ProjectID);
 
                 Dbtool.UpdateTable("Projects", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
 
-                
+
                 context.Response.Write("{\"success\":\"success\"}");
             }
         }
