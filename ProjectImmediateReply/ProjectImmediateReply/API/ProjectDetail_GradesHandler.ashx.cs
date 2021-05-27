@@ -59,7 +59,7 @@ namespace ProjectImmediateReply.API
 
             if (PGNum >= 0 && PGNum <= 100 && IGNum >= 0 && IGNum <= 100)
             {
-                if (Info.UserID == 13)
+                if (Info.UserID == 1)
                 {
                     string[] readcolname = { "UserID" };
                     string[] Pname = { "@UserID" };
