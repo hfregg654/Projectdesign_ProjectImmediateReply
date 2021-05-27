@@ -122,7 +122,7 @@
 								</template>
 								<!-- v-slot 結束							 -->
 								<template v-slot:item.修改="{ item }">
-									<v-btn outlined tile color="success" @click="editItem(item)">
+									<v-btn outlined tile color="success" @click="editItem(item)" v-show="item.TeamName">
 										<v-icon color="green lighten-1" small class="mr-1">
 											mdi-pencil
 										</v-icon>
@@ -131,7 +131,7 @@
 								</template>
 								<!-- ------- -->
 								<template v-slot:item.刪除="{ item }">
-									<v-btn outlined tile color="danger" @click="deleteItem(item)">
+									<v-btn outlined tile color="danger" @click="deleteItem(item)" v-show="!item.TeamName">
 
 										<v-icon color="red darken-2" small class="mr-1">
 											mdi-delete
@@ -251,7 +251,7 @@
                     })
                         .then(response => {
                             this.inneritem = response.data;
-                            if (vm.inneritem.length!=0) {
+                            if (vm.inneritem.length != 0) {
                                 vm.showmessagesuccess = '完成';
                                 vm.snackbar1 = true;
                             } else {
@@ -329,7 +329,16 @@
                             TeamName: this.editedItem.TeamName,
                             DeadLine: this.editedItem.DeadLine
                         })
-                            .then(response => this.changeRoute(), this.close())
+                            .then(response => {
+                                if (!response.data.success) {
+                                    vm.showmessagesuccess = '發送成功';
+                                    this.changeRoute();
+                                    this.close();
+                                }
+                                else {
+                                    alert(response.data.success);
+                                }
+                            })
                             .catch(error => {
                                 vm.showmessage = '發送失敗' + error;
                                 vm.snackbar = true;

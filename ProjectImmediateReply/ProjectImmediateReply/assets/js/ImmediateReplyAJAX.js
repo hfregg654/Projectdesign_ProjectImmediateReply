@@ -159,6 +159,9 @@
                 {
                     $("#CreateProjectMessage").append("日期錯誤，請重新選擇日期");
                 }
+                else if (responsedata[0].success == "ProjectCountWrong") {
+                    $("#CreateProjectMessage").append("此班的專案已存在4組");
+                }
                 else { 
                     $("#CreateProjectMessage").append("專案建立失敗，請重新建立");
                 }

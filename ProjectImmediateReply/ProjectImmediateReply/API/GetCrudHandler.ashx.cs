@@ -244,6 +244,7 @@ namespace ProjectImmediateReply.API
             }
             else if (innertype == "ProjectDetail")
             {
+
                 string[] colname = { "Projects.ProjectID", "Projects.ProjectName", "Users.TeamName", "Projects.DeadLine" };
                 string[] colnamep = { "@ClassNumber" };
                 string[] p = { ClassNumber };
@@ -252,20 +253,43 @@ namespace ProjectImmediateReply.API
                                 WHERE Users.ClassNumber=@ClassNumber AND Projects.DeleteDate IS NULL AND Projects.WhoDelete IS NULL
                                 GROUP BY Projects.ProjectID, Projects.ProjectName, Users.TeamName, Projects.DeadLine
                                 ";
-                DataTable data = Dbtool.readTable("Projects", colname, logic, colnamep, p);//查班級所有專案
-
+                DataTable data = Dbtool.readTable("Projects", colname, logic, colnamep, p);//查班級已分組的所有專案
                 List<ForProjectDetail> detaildatalist = new List<ForProjectDetail>();
-
-                foreach (DataRow item in data.Rows)
+                if (data.Rows.Count > 0)
                 {
-                    ForProjectDetail detail = new ForProjectDetail();
-                    detail.ProjectID = item["ProjectID"].ToString();
-                    detail.ProjectName = item["ProjectName"].ToString();
-                    detail.TeamName = item["TeamName"].ToString();
-                    detail.DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd");
-                    detaildatalist.Add(detail);
+                    foreach (DataRow item in data.Rows)
+                    {
+                        ForProjectDetail detail = new ForProjectDetail();
+                        detail.ProjectID = item["ProjectID"].ToString();
+                        detail.ProjectName = item["ProjectName"].ToString();
+                        detail.TeamName = item["TeamName"].ToString();
+                        detail.DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd");
+                        detaildatalist.Add(detail);
+                    }
+                    ShowTable = JsonConvert.SerializeObject(detaildatalist);
                 }
-                ShowTable = JsonConvert.SerializeObject(detaildatalist);
+                else
+                {
+                    string[] projectcolname = { "ProjectID", "ProjectName", "DeadLine" };
+                    string[] projectcolnamep = { "@ClassNumber" };
+                    string[] projectp = { ClassNumber };
+                    string projectlogic = @"
+                                WHERE ClassNumber=@ClassNumber AND DeleteDate IS NULL AND WhoDelete IS NULL
+                                ";
+                    DataTable projectdata = Dbtool.readTable("Projects", projectcolname, projectlogic, projectcolnamep, projectp);//查班級的所有專案
+
+                    foreach (DataRow item in projectdata.Rows)
+                    {
+                        ForProjectDetail detail = new ForProjectDetail();
+                        detail.ProjectID = item["ProjectID"].ToString();
+                        detail.ProjectName = item["ProjectName"].ToString();
+                        detail.DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd");
+                        detaildatalist.Add(detail);
+                    }
+                    ShowTable = JsonConvert.SerializeObject(detaildatalist);
+                }
+
+
             }
             else if (innertype == "ProjectDetail_Grades")
             {
@@ -538,8 +562,8 @@ namespace ProjectImmediateReply.API
                 ForCreateWorks Alldata = new ForCreateWorks();
 
                 Alldata.ProjectID = Convert.ToInt32(worksdata.Rows[0]["ProjectID"]); //中括弧內字串是資料庫的欄位名稱
-                Alldata.ProjectName = worksdata.Rows[1]["ProjectName"].ToString();
-                Alldata.TeamName = worksdata.Rows[2]["TeamName"].ToString();
+                Alldata.ProjectName = worksdata.Rows[0]["ProjectName"].ToString();
+                Alldata.TeamName = worksdata.Rows[0]["TeamName"].ToString();
                 List<TeamMember> teamMember = new List<TeamMember>();
                 List<WorkItem> workItem = new List<WorkItem>();
                 foreach (DataRow item in teamdata.Rows)
