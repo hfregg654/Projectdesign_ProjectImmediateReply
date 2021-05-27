@@ -1,4 +1,5 @@
-﻿using ProjectImmediateReply.Utility;
+﻿using Newtonsoft.Json;
+using ProjectImmediateReply.Utility;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -46,32 +47,45 @@ namespace ProjectImmediateReply.API
                 TeamName = json.Split('"')[15];
                 DeadLine = json.Split('"')[19];
 
-                string[] updatecol_Logic = { "ProjectName=@ProjectName", "DeadLine=@DeadLine" }; /*  要更新的欄位*/
-                string Where_Logic = "ProjectID=@ProjectID AND DeleteDate IS NULL AND WhoDelete IS NULL ; UPDATE Users SET TeamName=@TeamName WHERE ProjectID=@ProjctIDUsers";
-                string[] updatecolname_P = { "@ProjectName", "@DeadLine", "@ProjectID","@TeamName", "@ProjctIDUsers" }; /*要帶入的參數格子*/
-                List<string> update_P = new List<string>();
-                update_P.Add(ProjectName.Trim());
-                update_P.Add(DeadLine.Trim());
-                update_P.Add(ProjectID);
-                update_P.Add(TeamName.Trim());
-                update_P.Add(ProjectID);
+
+                if (Convert.ToDateTime(DeadLine) >= DateTime.Now)
+                {
+
+                    string[] updatecol_Logic = { "ProjectName=@ProjectName", "DeadLine=@DeadLine" }; /*  要更新的欄位*/
+                    string Where_Logic = "ProjectID=@ProjectID AND DeleteDate IS NULL AND WhoDelete IS NULL ; UPDATE Users SET TeamName=@TeamName WHERE ProjectID=@ProjctIDUsers";
+                    string[] updatecolname_P = { "@ProjectName", "@DeadLine", "@ProjectID", "@TeamName", "@ProjctIDUsers" }; /*要帶入的參數格子*/
+                    List<string> update_P = new List<string>();
+                    update_P.Add(ProjectName.Trim());
+                    update_P.Add(DeadLine.Trim());
+                    update_P.Add(ProjectID);
+                    update_P.Add(TeamName.Trim());
+                    update_P.Add(ProjectID);
 
 
-
-                Dbtool.UpdateTable("Projects", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
-                context.Response.Write("{\"success\":\"success\"}");
+                    Dbtool.UpdateTable("Projects", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
+                }
+                else
+                {
+                    context.Response.ContentType = "text/json";
+                    context.Response.Write("{\"success\":\"日期不可小於當前日期\"}");
+                    return;
+                }
             }
             else if (Type == "Delete")
             {
-                string[] updatecol_Logic = { "DeleteDate=@DeleteDate", "WhoDelete=@WhoDelete"}; /*  要更新的欄位*/
-                string Where_Logic = "ProjectID=@ProjectID AND DeleteDate IS NULL AND WhoDelete IS NULL";
-                string[] updatecolname_P = { "@DeleteDate", "@WhoDelete", "@ProjectID" }; /*要帶入的參數格子*/
+                string[] updatecol_Logic = { "DeleteDate=@DeleteDate", "WhoDelete=@WhoDelete" }; /*  要更新的欄位*/
+                string Where_Logic = @"ProjectID=@ProjectID AND DeleteDate IS NULL AND WhoDelete IS NULL 
+                                        UPDATE Users SET ProjectID=NULL,TeamID=NULL,TeamName=NULL WHERE ProjectID=@UserProjectID";
+                string[] updatecolname_P = { "@DeleteDate", "@WhoDelete", "@ProjectID", "@UserProjectID" }; /*要帶入的參數格子*/
                 List<string> update_P = new List<string>();
                 update_P.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 update_P.Add("Manager");
                 update_P.Add(ProjectID);
+                update_P.Add(ProjectID);
 
                 Dbtool.UpdateTable("Projects", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
+
+                
                 context.Response.Write("{\"success\":\"success\"}");
             }
         }

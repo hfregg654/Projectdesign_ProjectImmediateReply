@@ -538,8 +538,8 @@ namespace ProjectImmediateReply.API
                 ForCreateWorks Alldata = new ForCreateWorks();
 
                 Alldata.ProjectID = Convert.ToInt32(worksdata.Rows[0]["ProjectID"]); //中括弧內字串是資料庫的欄位名稱
-                Alldata.ProjectName = worksdata.Rows[1]["ProjectName"].ToString();
-                Alldata.TeamName = worksdata.Rows[2]["TeamName"].ToString();
+                Alldata.ProjectName = worksdata.Rows[0]["ProjectName"].ToString();
+                Alldata.TeamName = worksdata.Rows[0]["TeamName"].ToString();
                 List<TeamMember> teamMember = new List<TeamMember>();
                 List<WorkItem> workItem = new List<WorkItem>();
                 foreach (DataRow item in teamdata.Rows)

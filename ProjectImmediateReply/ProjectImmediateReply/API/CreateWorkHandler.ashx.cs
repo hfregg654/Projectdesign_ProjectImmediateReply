@@ -81,26 +81,35 @@ namespace ProjectImmediateReply.API
             else if (innertype == "UpdateWork")
             {
                 var updateWorkItem = JsonConvert.DeserializeObject<NewWorkItem>(json);
-                // 有@就是參數
-                string[] updatecol_Logic = { "WorkName=@WorkName", "WorkDescription=@WorkDescription", "DeadLine=@DeadLine", "UserID=@UserID" }; //欲更新的欄位 Name是開頭欄位名稱 @Name是欄位名稱底下格子
-                string Where_Logic = "WorkID=@WorkID";
-                string[] updatecolname_P = { "@WorkName", "@WorkDescription", "@DeadLine", "@UserID", "@WorkID" };
-                List<string> update_P = new List<string>();
-                update_P.Add(updateWorkItem.WorkName);
-                update_P.Add(updateWorkItem.WorkDescription);
-                update_P.Add(updateWorkItem.DeadLine.ToString("yyyy-MM-dd"));
-                update_P.Add(updateWorkItem.OrderMember.ToString()); //這裡是UserID
-                update_P.Add(updateWorkItem.ProjectID.ToString()); //其實這裡是workID
-                Create.UpdateTable("Works", updatecol_Logic, Where_Logic, updatecolname_P, update_P); //updatecolname_P 傳入的@格 update_P傳入的值
+                if (updateWorkItem.DeadLine >= DateTime.Now)
+                {
+                    // 有@就是參數
+                    string[] updatecol_Logic = { "WorkName=@WorkName", "WorkDescription=@WorkDescription", "DeadLine=@DeadLine", "UserID=@UserID" }; //欲更新的欄位 Name是開頭欄位名稱 @Name是欄位名稱底下格子
+                    string Where_Logic = "WorkID=@WorkID";
+                    string[] updatecolname_P = { "@WorkName", "@WorkDescription", "@DeadLine", "@UserID", "@WorkID" };
+                    List<string> update_P = new List<string>();
+                    update_P.Add(updateWorkItem.WorkName);
+                    update_P.Add(updateWorkItem.WorkDescription);
+                    update_P.Add(updateWorkItem.DeadLine.ToString("yyyy-MM-dd"));
+                    update_P.Add(updateWorkItem.OrderMember.ToString()); //這裡是UserID
+                    update_P.Add(updateWorkItem.ProjectID.ToString()); //其實這裡是workID
+                    Create.UpdateTable("Works", updatecol_Logic, Where_Logic, updatecolname_P, update_P); //updatecolname_P 傳入的@格 update_P傳入的值
+                }
+                else
+                {
+                    context.Response.ContentType = "text/json";
+                    context.Response.Write("{\"success\":\"日期不可小於當前日期\"}");
+                    return;
+                }
             }
             else if (innertype == "DeleteWork")
             {
-                string[] temp = json.Split('"','}', ':');
+                string[] temp = json.Split('"', '}', ':');
                 string WorkID = temp[8];
                 // 有@就是參數
-                string[] updatecol_Logic = { "DeleteDate=@DeleteDate", "WhoDelete=@WhoDelete"}; //欲更新的欄位 Name是開頭欄位名稱 @Name是欄位名稱底下格子
+                string[] updatecol_Logic = { "DeleteDate=@DeleteDate", "WhoDelete=@WhoDelete" }; //欲更新的欄位 Name是開頭欄位名稱 @Name是欄位名稱底下格子
                 string Where_Logic = "WorkID=@WorkID";
-                string[] updatecolname_P = { "@DeleteDate", "@WhoDelete", "@WorkID"};
+                string[] updatecolname_P = { "@DeleteDate", "@WhoDelete", "@WorkID" };
                 List<string> update_P = new List<string>();
                 update_P.Add(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"));
                 update_P.Add(Info.Name);

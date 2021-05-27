@@ -310,14 +310,14 @@
                     WorkName: '',
                     WorkDescription: '',
                     DeadLine: '',
-                    OrderMember: '',
+                    UserID: '',
                 },
                 defaultItem: {
                     WorkID: '',
                     WorkName: '',
                     WorkDescription: '',
                     DeadLine: '',
-                    OrderMember: '',
+                    UserID: '',
                 },
                 // 變數結束
                 headers: [{
@@ -423,7 +423,17 @@
                             DeadLine: vm.editedItem.DeadLine,
                             OrderMember: vm.editedItem.OrderMember,
                         })
-                            .then(response => this.頁面載入(), this.close())
+                            .then(response => {
+                                if (!response.data.success) {
+                                    vm.showmessagesuccess = '發送成功';
+                                    vm.snackbar1 = true;
+                                    this.頁面載入();
+                                    this.close();
+                                }
+                                else {
+                                    alert(response.data.success);
+                                }
+                            })
                             .catch(error => {
                                 vm.showmessage = '發送失敗' + error;
                                 vm.snackbar = true;

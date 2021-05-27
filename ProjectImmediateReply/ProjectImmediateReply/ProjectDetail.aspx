@@ -251,7 +251,7 @@
                     })
                         .then(response => {
                             this.inneritem = response.data;
-                            if (vm.inneritem.length!=0) {
+                            if (vm.inneritem.length != 0) {
                                 vm.showmessagesuccess = '完成';
                                 vm.snackbar1 = true;
                             } else {
@@ -329,7 +329,16 @@
                             TeamName: this.editedItem.TeamName,
                             DeadLine: this.editedItem.DeadLine
                         })
-                            .then(response => this.changeRoute(), this.close())
+                            .then(response => {
+                                if (!response.data.success) {
+                                    vm.showmessagesuccess = '發送成功';
+                                    this.changeRoute();
+                                    this.close();
+                                }
+                                else {
+                                    alert(response.data.success);
+                                }
+                            })
                             .catch(error => {
                                 vm.showmessage = '發送失敗' + error;
                                 vm.snackbar = true;
