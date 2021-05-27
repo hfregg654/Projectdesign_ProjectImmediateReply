@@ -126,12 +126,12 @@ namespace ProjectImmediateReply.API
 
                     if (utdata.Rows[0]["TeamName"].ToString() != item.TeamName)
                     {
-                        string[] tmcolname = { "TeamID" };
+                        string[] tmcolname = { "TeamID","ProjectID" };
                         string[] tmcolnamep = { "@TeamName" };
                         string[] tmp = { item.TeamName };
                         string tmlogic = @"
                             WHERE TeamName=@TeamName AND DeleteDate IS NULL AND WhoDelete IS NULL
-                            GROUP BY TeamID
+                            GROUP BY TeamID,ProjectID
                             ";
                         DataTable tmdata = Dbtool.readTable("Users", tmcolname, tmlogic, tmcolnamep, tmp);//查Users
                         if (utdata.Rows[0]["Privilege"].ToString() == "Leader")
@@ -140,12 +140,13 @@ namespace ProjectImmediateReply.API
                         }
                         else
                         {
-                            string[] updatecol_Logic = { "TeamID=@TeamID", "TeamName=@TeamName" }; /*  要更新的欄位*/
+                            string[] updatecol_Logic = { "TeamID=@TeamID", "TeamName=@TeamName", "ProjectID=@ProjectID" }; /*  要更新的欄位*/
                             string Where_Logic = "UserID=@UserID";
-                            string[] updatecolname_P = {"@TeamID", "@TeamName","@UserID" }; /*要帶入的參數格子*/
+                            string[] updatecolname_P = {"@TeamID", "@TeamName", "@ProjectID", "@UserID" }; /*要帶入的參數格子*/
                             List<string> update_P = new List<string>();
                             update_P.Add(tmdata.Rows[0]["TeamID"].ToString());
                             update_P.Add(item.TeamName);
+                            update_P.Add(tmdata.Rows[0]["ProjectID"].ToString());
                             update_P.Add(item.UserID.ToString());
                             Dbtool.UpdateTable("Users", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
                         }
