@@ -561,30 +561,38 @@ namespace ProjectImmediateReply.API
                 DataTable worksdata = Dbtool.readTable("Works", workscolname, workslogic, workscolnamep, worksp);//查此人的所有工作
                 ForCreateWorks Alldata = new ForCreateWorks();
 
-                Alldata.ProjectID = Convert.ToInt32(worksdata.Rows[0]["ProjectID"]); //中括弧內字串是資料庫的欄位名稱
-                Alldata.ProjectName = worksdata.Rows[0]["ProjectName"].ToString();
-                Alldata.TeamName = worksdata.Rows[0]["TeamName"].ToString();
+                if (worksdata.Rows.Count > 0)
+                {
+                    Alldata.ProjectID = Convert.ToInt32(worksdata.Rows[0]["ProjectID"]); //中括弧內字串是資料庫的欄位名稱
+                    Alldata.ProjectName = worksdata.Rows[0]["ProjectName"].ToString();
+                    Alldata.TeamName = worksdata.Rows[0]["TeamName"].ToString();
+                }
                 List<TeamMember> teamMember = new List<TeamMember>();
                 List<WorkItem> workItem = new List<WorkItem>();
                 foreach (DataRow item in teamdata.Rows)
                 {
-                    teamMember.Add(new TeamMember()
-                    {
-                        UserID = Convert.ToInt32(item["UserID"]),
-                        UserName = item["Name"].ToString(),
-                    });
+                    TeamMember cell = new TeamMember();
+                    if (!Convert.IsDBNull(item["UserID"]))
+                        cell.UserID = Convert.ToInt32(item["UserID"]);
+                    if (!Convert.IsDBNull(item["Name"]))
+                        cell.UserName = item["Name"].ToString();
+                    teamMember.Add(cell);
                 }
                 Alldata.TeamMember = teamMember;
                 foreach (DataRow item in worksdata.Rows)
                 {
-                    workItem.Add(new WorkItem()
-                    {
-                        WorkID = Convert.ToInt32(item["WorkID"]),
-                        WorkName = item["WorkName"].ToString(),
-                        WorkDescription = item["WorkDescription"].ToString(),
-                        DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd"),
-                        OrderName = item["Name"].ToString(),
-                    });
+                    WorkItem cell = new WorkItem();
+                    if (!Convert.IsDBNull(item["UserID"]))
+                        cell.WorkID = Convert.ToInt32(item["WorkID"]);
+                    if (!Convert.IsDBNull(item["WorkName"]))
+                        cell.WorkName = item["WorkName"].ToString();
+                    if (!Convert.IsDBNull(item["WorkDescription"]))
+                        cell.WorkDescription = item["WorkDescription"].ToString();
+                    if (!Convert.IsDBNull(item["DeadLine"]))
+                        cell.DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd");
+                    if (!Convert.IsDBNull(item["Name"]))
+                        cell.OrderName = item["Name"].ToString();
+                    workItem.Add(cell);
                 }
                 Alldata.WorkItems = workItem;
                 //將最後結果以JSON形式放進回傳字串
