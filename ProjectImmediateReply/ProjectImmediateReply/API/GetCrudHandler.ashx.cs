@@ -564,13 +564,30 @@ namespace ProjectImmediateReply.API
                                 WHERE Works.ProjectID=@ProjectID AND Works.DeleteDate IS NULL AND Works.WhoDelete IS NULL
                                 ";
                 DataTable worksdata = Dbtool.readTable("Works", workscolname, workslogic, workscolnamep, worksp);//查此人的所有工作
+
+
+                string[] projectcolname = { "Users.ProjectID", "Projects.ProjectName", "Users.TeamName" };
+                string[] projectcolnamep = { "@ProjectID" };
+                string[] projectp = { "-1" };
+                if (usersdata.Rows.Count > 0)
+                    projectp[0] = usersdata.Rows[0]["ProjectID"].ToString();
+                string projectlogic = @"
+                                JOIN Projects ON Users.ProjectID = Projects.ProjectID
+                                WHERE Users.ProjectID=@ProjectID AND Users.DeleteDate IS NULL AND Users.WhoDelete IS NULL
+                                ";
+                DataTable projectdata = Dbtool.readTable("Users", projectcolname, projectlogic, projectcolnamep, projectp);//查此人的所有工作
+
+
+
+
+
                 ForCreateWorks Alldata = new ForCreateWorks();
 
-                if (worksdata.Rows.Count > 0)
+                if (projectdata.Rows.Count > 0)
                 {
-                    Alldata.ProjectID = Convert.ToInt32(worksdata.Rows[0]["ProjectID"]); //中括弧內字串是資料庫的欄位名稱
-                    Alldata.ProjectName = worksdata.Rows[0]["ProjectName"].ToString();
-                    Alldata.TeamName = worksdata.Rows[0]["TeamName"].ToString();
+                    Alldata.ProjectID = Convert.ToInt32(projectdata.Rows[0]["ProjectID"]); //中括弧內字串是資料庫的欄位名稱
+                    Alldata.ProjectName = projectdata.Rows[0]["ProjectName"].ToString();
+                    Alldata.TeamName = projectdata.Rows[0]["TeamName"].ToString();
                 }
                 List<TeamMember> teamMember = new List<TeamMember>();
                 List<WorkItem> workItem = new List<WorkItem>();
