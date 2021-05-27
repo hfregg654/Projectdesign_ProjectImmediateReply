@@ -64,7 +64,7 @@ namespace ProjectImmediateReply.API
                 string workfilepath = worksdata.Rows[0]["FilePath"].ToString();
 
 
-                if (!string.IsNullOrWhiteSpace(workfilepath))
+                if (workfilepath.Contains("FileUpload"))
                 {
                     string paths = context.Server.MapPath(workfilepath);
                     File.Delete(paths);
