@@ -158,7 +158,7 @@
 								style="background: -webkit-linear-gradient(right, #FFAF7B, #FFB6C1);background: linear-gradient(to right, #FFAF7B, #FFB6C1);"
 								height="35vh" @page-count="pageCount = $event" :page.sync="page"
 								:items-per-page="itemsPerPage" hide-default-footer :headers="headers" :items="newWorkProject"
-								sort-by="id" class="elevation　table-striped mt-0　
+								sort-by="WorkID" class="elevation　table-striped mt-0　
 									">
 								<!-- v-slot 開始							 -->
 								<template v-slot:top>
@@ -193,7 +193,7 @@
 															</v-col>
 															<v-col cols="12" sm="12" md="12"> 
                                                                  
-                                        <v-select :items="SelectList" v-model="editedItem.id" item-text="UserName" item-value="UserID"
+                                        <v-select :items="SelectList" v-model="editedItem.OrderMember" item-text="UserName" item-value="UserID"
 												label="更換負責人員" solo outlined>
 										</v-select>
 									
@@ -306,14 +306,14 @@
                 // 判斷是否是修改頁面 會自動改標題結束
 
                 editedItem: {
-                    id: '',
+                    WorkID: '',
                     WorkName: '',
                     WorkDescription: '',
                     DeadLine: '',
                     OrderMember: '',
                 },
                 defaultItem: {
-                    id: '',
+                    WorkID: '',
                     WorkName: '',
                     WorkDescription: '',
                     DeadLine: '',
@@ -417,7 +417,7 @@
                         // Object.assign(this.資料容器[this.editedIndex], this.editedItem);
                         axios.post('API/CreateWorkHandler.ashx', {
                             Type: 'UpdateWork',
-                            id: vm.editedItem.id,
+                            ProjectID: vm.editedItem.WorkID,
                             WorkName: vm.editedItem.WorkName,
                             WorkDescription: vm.editedItem.WorkDescription,
                             DeadLine: vm.editedItem.DeadLine,
@@ -460,12 +460,12 @@
                     // 宣告此index數字為此筆  之後可能會有若中間資料庫有人增刪的bug
                     //const index = this.資料容器.indexOf(item)
                     if (confirm('確定要刪除此資料嗎?')) {
-                        axios.post('API/ProjectDetailHandler.ashx', {
-                            Type: 'Delete',
-                            id: item.id
+                        axios.post('API/CreateWorkHandler.ashx', {
+                            Type: 'DeleteWork',
+                            WorkID: item.WorkID
                         }).then(response => {
                             // alert(item.ProjectID + '發送刪除成功');
-                            vm.showmessagesuccess = item.id + '發送刪除成功';
+                            vm.showmessagesuccess = '發送刪除成功';
                             vm.snackbar1 = true;
                             this.頁面載入();
                             // this.inneritem.splice(index, 1);
@@ -473,7 +473,7 @@
                             .catch(error =>
                             // alert('id:' + item.ProjectID + '發送刪除失敗')
                             {
-                                vm.showmessage = '刪除失敗：' + item.id + '發送刪除失敗';
+                                vm.showmessage = '發送刪除失敗';
                                 vm.snackbar = true;
                             }
                             )
