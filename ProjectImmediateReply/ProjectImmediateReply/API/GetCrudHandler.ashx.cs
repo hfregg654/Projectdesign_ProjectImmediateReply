@@ -459,8 +459,6 @@ namespace ProjectImmediateReply.API
                 }
                 foreach (DataRow item in lastdata.Rows)
                 {
-                    //if (Convert.ToBoolean(item["Complete"]))
-                    //{
                     ViewWorks viewWorks = new ViewWorks();
                     if (!Convert.IsDBNull(item["UserID"]))
                         viewWorks.Work_UserID = Convert.ToInt32(item["UserID"]);
@@ -479,22 +477,6 @@ namespace ProjectImmediateReply.API
                     if (!Convert.IsDBNull(item["Complete"]))
                         viewWorks.Complete = Convert.ToBoolean(item["Complete"]);
                     TempVW.Add(viewWorks);
-                    //}
-                    //else
-                    //{
-                    //    TempVW.Add(new ViewWorks()
-                    //    {
-                    //        Work_UserID = Convert.ToInt32(item["UserID"]),
-                    //        WorkID = Convert.ToInt32(item["WorkID"]),
-                    //        WorkName = item["WorkName"].ToString(),
-                    //        WorkDescription = item["WorkDescription"].ToString(),
-                    //        DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd"),
-                    //        UpdateTime = "",
-                    //        FilePath = item["FilePath"].ToString(),
-                    //        Complete = Convert.ToBoolean(item["Complete"])
-                    //    });
-                    //}
-
                 }
                 result.viewWorks = TempVW;
                 result.UserID = Info.UserID;
