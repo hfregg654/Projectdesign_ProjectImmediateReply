@@ -137,7 +137,6 @@
     <Content Include="ucRegistered.ascx" />
     <Content Include="ucSeeGrade.ascx" />
     <Content Include="ucUpdateInfo.ascx" />
-    <Content Include="Web.config" />
     <Content Include="LogIn.aspx" />
     <Content Include="ucLeft.ascx" />
   </ItemGroup>
@@ -370,12 +369,6 @@
     <Content Include="API\ManageProject_LeaderCheckHandler.ashx" />
     <Content Include="API\CreateWorkHandler.ashx" />
     <None Include="packages.config" />
-    <None Include="Web.Debug.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
-    <None Include="Web.Release.config">
-      <DependentUpon>Web.config</DependentUpon>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
