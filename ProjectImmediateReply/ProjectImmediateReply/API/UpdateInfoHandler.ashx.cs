@@ -1,4 +1,5 @@
-﻿using ProjectImmediateReply.Utility;
+﻿using ProjectImmediateReply.Models;
+using ProjectImmediateReply.Utility;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -11,7 +12,7 @@ namespace ProjectImmediateReply.API
     /// <summary>
     /// UpdateInfoHandler 的摘要描述
     /// </summary>
-    public class UpdateInfoHandler : IHttpHandler
+    public class UpdateInfoHandler : IHttpHandler, System.Web.SessionState.IRequiresSessionState
     {
 
         public void ProcessRequest(HttpContext context)
@@ -47,7 +48,7 @@ namespace ProjectImmediateReply.API
                 userid = splitjson[35];
             }
             if (string.IsNullOrWhiteSpace(C1name) || string.IsNullOrWhiteSpace(C1phone) || string.IsNullOrWhiteSpace(C1email) || string.IsNullOrWhiteSpace(C1lineid)
-                ||!(C1name.LastIndexOf(" ")==-1)|| !(C1phone.LastIndexOf(" ") == -1)|| !(C1email.LastIndexOf(" ") == -1)|| !(C1lineid.LastIndexOf(" ") ==-1))
+                || !(C1name.LastIndexOf(" ") == -1) || !(C1phone.LastIndexOf(" ") == -1) || !(C1email.LastIndexOf(" ") == -1) || !(C1lineid.LastIndexOf(" ") == -1))
             {
                 context.Response.ContentType = "text/json";
                 context.Response.Write("[{\"success\":\"Empty\"}]");
@@ -112,8 +113,16 @@ namespace ProjectImmediateReply.API
                     update_P.Add(license.Trim());
                     update_P.Add(check_acc.Rows[0]["PassWord"].ToString());
                     Dbtool.UpdateTable("Users", updatecol_Logic, Where_Logic, updatecolname_P, update_P);
+                    LogInfo Info = new LogInfo();
+                    if (context.Session["IsLogined"] != null) /*使用Session內建方法取得LoginHelper TryLogin的值*/
+                    {
+                        Info = (LogInfo)context.Session["IsLogined"];
+                    }
+                    Info.Name = C1name.Trim();
+                    Info.Mail = C1email.Trim();
                     context.Response.ContentType = "text/json";
                     context.Response.Write("[{\"success\":\"success\"}]");
+
                 }
             }
             else
