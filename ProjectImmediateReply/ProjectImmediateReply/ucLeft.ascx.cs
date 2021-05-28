@@ -1,15 +1,11 @@
 ﻿using ProjectImmediateReply.Models;
 using ProjectImmediateReply.Utility;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 namespace ProjectImmediateReply
 {
-    public partial class WebUserControl1 : System.Web.UI.UserControl
+    public partial class WebUserControl1 : UserControl
     {
         protected void Page_Init(object sender, EventArgs e)
         {
@@ -24,7 +20,6 @@ namespace ProjectImmediateReply
             LabelUserName.Text = UserName;
             PageTool ptool = new PageTool();
             divLeftTitle.InnerHtml = ptool.PageLeft(PageType);
-
         }
 
         protected void Logoutbtn_ServerClick(object sender, EventArgs e)
