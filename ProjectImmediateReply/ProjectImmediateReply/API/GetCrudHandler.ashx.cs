@@ -396,14 +396,14 @@ namespace ProjectImmediateReply.API
                 //宣告最後回傳的物件
                 ForManageProject result = new ForManageProject();  //回傳的畫面全部資料
                 DataTable lastdata = new DataTable(); //資料表部分 依照權限判斷顯示不同
-                //準備查詢語法查詢此人的所有工作
+                //準備查詢語法查詢此人的未完成工作
                 string[] workscolname = { "ProjectID", "UserID", "WorkID", "WorkName", "WorkDescription", "DeadLine", "FilePath", "UpdateTime", "Complete" };
                 string[] workscolnamep = { "@UserID" };
                 string[] worksp = { Info.UserID.ToString() };
                 string workslogic = @"
-                                WHERE UserID=@UserID AND DeleteDate IS NULL AND WhoDelete IS NULL
+                                WHERE UserID=@UserID AND DeleteDate IS NULL AND WhoDelete IS NULL AND Complete=0
                                 ";
-                DataTable worksdata = Dbtool.readTable("Works", workscolname, workslogic, workscolnamep, worksp);//查此人的所有工作
+                DataTable worksdata = Dbtool.readTable("Works", workscolname, workslogic, workscolnamep, worksp);//查此人的未完成工作
                 //若此人目前無工作則查此人的專案ID(查專案所有工作用)
                 DataTable projectdata = new DataTable();
                 if (worksdata.Rows.Count <= 0)
@@ -430,6 +430,20 @@ namespace ProjectImmediateReply.API
                                 WHERE ProjectID=@ProjectID AND DeleteDate IS NULL AND WhoDelete IS NULL
                                 ";
                 DataTable allworksdata = Dbtool.readTable("Works", allworksLcolname, allworksLlogic, allworksLcolnamep, allworksLp);//查此專案的所有工作
+
+                //準備查詢語法查此專案的所有已完成工作
+                string[] ComworksLcolname = { "ProjectID", "UserID", "WorkID", "WorkName", "WorkDescription", "DeadLine", "FilePath", "UpdateTime", "Complete" };
+                string[] ComworksLcolnamep = { "@ProjectID" };
+                string[] ComworksLp = { "-1" };
+                if (projectdata.Rows.Count > 0)
+                    ComworksLp[0] = projectdata.Rows[0]["ProjectID"].ToString();
+                else if (worksdata.Rows.Count > 0)
+                    ComworksLp[0] = worksdata.Rows[0]["ProjectID"].ToString();
+
+                string ComworksLlogic = @"
+                                WHERE ProjectID=@ProjectID AND DeleteDate IS NULL AND WhoDelete IS NULL AND Complete=1
+                                ";
+                DataTable Comworksdata = Dbtool.readTable("Works", ComworksLcolname, ComworksLlogic, ComworksLcolnamep, ComworksLp);//查此專案的所有已完成工作
 
                 //若有查到資料並且此人為組長,更改顯示此專案的所有工作
                 if (allworksdata.Rows.Count > 0 && Info.Privilege == "Leader")
@@ -501,6 +515,30 @@ namespace ProjectImmediateReply.API
                     if (!Convert.IsDBNull(item["Complete"]))
                         viewWorks.Complete = Convert.ToBoolean(item["Complete"]);
                     TempVW.Add(viewWorks);
+                }
+                if (Comworksdata.Rows.Count > 0 && Info.Privilege == "User")
+                {
+                    foreach (DataRow item in Comworksdata.Rows)
+                    {
+                        ViewWorks viewWorks = new ViewWorks();
+                        if (!Convert.IsDBNull(item["UserID"]))
+                            viewWorks.Work_UserID = Convert.ToInt32(item["UserID"]);
+                        if (!Convert.IsDBNull(item["WorkID"]))
+                            viewWorks.WorkID = Convert.ToInt32(item["WorkID"]);
+                        if (!Convert.IsDBNull(item["WorkName"]))
+                            viewWorks.WorkName = item["WorkName"].ToString();
+                        if (!Convert.IsDBNull(item["WorkDescription"]))
+                            viewWorks.WorkDescription = item["WorkDescription"].ToString();
+                        if (!Convert.IsDBNull(item["DeadLine"]))
+                            viewWorks.DeadLine = Convert.ToDateTime(item["DeadLine"]).ToString("yyyy-MM-dd");
+                        if (!Convert.IsDBNull(item["UpdateTime"]))
+                            viewWorks.UpdateTime = Convert.ToDateTime(item["UpdateTime"]).ToString("yyyy-MM-dd");
+                        if (!Convert.IsDBNull(item["FilePath"]))
+                            viewWorks.FilePath = item["FilePath"].ToString();
+                        if (!Convert.IsDBNull(item["Complete"]))
+                            viewWorks.Complete = Convert.ToBoolean(item["Complete"]);
+                        TempVW.Add(viewWorks);
+                    }
                 }
                 result.viewWorks = TempVW;
                 result.UserID = Info.UserID;
