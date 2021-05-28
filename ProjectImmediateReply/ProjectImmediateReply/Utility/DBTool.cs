@@ -541,7 +541,7 @@ namespace ProjectImmediateReply.Utility
                 Data.Grade = (byte)gradecal;
                 if (!Convert.IsDBNull(dataTable.Rows[0]["PresidentComments"]))
                 {
-                    Data.PMComments = string.Join("  ", dataTable.Rows[0]["PresidentComments"].ToString().Split('/'));
+                    Data.PresidentComments= string.Join("  ", dataTable.Rows[0]["PresidentComments"].ToString().Split('/'));
                 }
 
                 if (!Convert.IsDBNull(dataTable.Rows[0]["PMComments"]))
