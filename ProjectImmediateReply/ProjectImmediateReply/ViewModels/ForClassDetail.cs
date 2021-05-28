@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+﻿
 namespace ProjectImmediateReply.ViewModels
 {
+    //班級修改頁面的變數模型
     public class ForClassDetail
     {
         public string UserID { get; set; }

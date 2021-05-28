@@ -1,11 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 
 namespace ProjectImmediateReply.ViewModels
 {
+    //Leader專案管理的變數模型
     public class ForManageProject
     {
         [JsonProperty("Userid")]

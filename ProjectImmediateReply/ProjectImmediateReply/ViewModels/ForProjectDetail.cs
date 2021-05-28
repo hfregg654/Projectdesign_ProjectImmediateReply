@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+﻿
 namespace ProjectImmediateReply.ViewModels
 {
+    //管理者的專案修改模型
     public class ForProjectDetail
     {
         public string ProjectID { get; set; }

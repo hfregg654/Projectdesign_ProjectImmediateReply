@@ -1,9 +1,9 @@
 ﻿using Newtonsoft.Json;
-using System;
 using System.Collections.Generic;
 
 namespace ProjectImmediateReply.ViewModels
 {
+    //Leader的建立工作頁面變數模型
     public class ForCreateWorks
     {
         [JsonProperty("ProjectID")]

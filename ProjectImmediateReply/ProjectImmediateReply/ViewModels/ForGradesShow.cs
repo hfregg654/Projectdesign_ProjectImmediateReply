@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿
 
 namespace ProjectImmediateReply.ViewModels
 {
+    //Grades的已完成全專案頁面變數模型
     public class ForGradesShow
     {
         public int ProjectID { get; set; }

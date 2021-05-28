@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 
 namespace ProjectImmediateReply.ViewModels
 {
+
     public class InnerItem_Work
     {
+        //小組專案評分頁面所使用到的變數模型
         // 在網頁顯示表用
         //public int UserID { get; set; }
         public string Name { get; set; }

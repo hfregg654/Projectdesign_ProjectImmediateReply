@@ -1,10 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-
+﻿
 namespace ProjectImmediateReply.ViewModels
 {
+    //看成績所使用到的變數模型
     public class ForSeeGrade
     {
         public string Mail { get; set; }
