@@ -10,17 +10,17 @@
 										<v-spacer></v-spacer>
 									</v-card-title>
 									<v-spacer></v-spacer>
-									<v-card-content class="white--text mb-3 pr-8 mt-7">
+									<v-card-content class="white--text mb-3 pr-8 mt-3 text-truncate">
 
-										<v-list-item class="mr-7 mt-5">
+										<v-list-item class="mr-7 mt-1">
 											<div class="h1 navfont pr-4">歡迎您</div><br>
 											<div class="h1 navfont pr-4"><asp:label text="" runat="server" ID="LabelUserName" /></div>
 										</v-list-item>
-
+										<v-list-item class="justify-center">
 										<button runat="server" id="Logoutbtn" onserverclick="Logoutbtn_ServerClick" type="button" class="ml-10 v-btn v-btn--depressed theme--dark v-size--default primary">
 											<span class="v-btn__content">登出</span>
 										</button>
-
+											</v-list-item>
 									</v-card-content>
 
 								</v-row>
