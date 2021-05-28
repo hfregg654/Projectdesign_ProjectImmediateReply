@@ -88,13 +88,13 @@
         <!-- 隱藏第三區結束 -->
 
         </v-card-text>
-   <div id="chagegrade">
+   <%--<div id="chagegrade">
         <v-card-actions class="justify-end mb-10">
          <v-btn color="blue lighten-2" text　href="/abcde" target="_blank">
           分數修改
          </v-btn>
         </v-card-actions>
-  </div>
+  </div>--%>
        </v-card>
       </v-form>
 
