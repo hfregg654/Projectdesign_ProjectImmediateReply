@@ -55,7 +55,7 @@
 							<font color="#00A65A" class="ubay">B</font>
 							<font color="#EEC803" class="ubay">A</font>
 							<font color="#EC475A" class="ubay">Y</font>
-                            <font color="#FFFFFF">專案即時回覆系統</font>
+                            <font color="#FFFFFF" class="text-caption font-weight-bold text-lg-h4 text-xl-h4">專案即時回覆系統</font>
 						</span>
 						<v-spacer></v-spacer>
 					</v-app-bar>

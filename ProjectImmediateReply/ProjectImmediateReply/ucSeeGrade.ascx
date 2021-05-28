@@ -3,7 +3,7 @@
 						<!-- 主要內容開始 -->
 						<!-- -----card start -->
 						<v-form method="post" novalidate="true" ref="form">
-       <v-card class="mx-5 mb-15 px-4 pb-0 pt-4" max-width="1100">
+       <v-card class="mx-auto mb-15 px-4 pb-0 pt-4" max-width="1100">
         <v-card-title class="justify-center">
               成績
             </v-card-title>
