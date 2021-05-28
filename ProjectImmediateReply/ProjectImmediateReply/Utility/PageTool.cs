@@ -43,6 +43,7 @@ namespace ProjectImmediateReply.Utility
             //ascx才要寫到這裡插入
             //href =""./Index.aspx?PageInnerType=UpdateInfo"" +. 從根目錄開始抓
             //轉跳的網頁網址 => href = "" / Index.aspx ? PageInnerType = UpdateInfo"" >
+			// 依照權限分別顯示左邊選單
             if (PageType == "Manager")
             {
                 return @"<v-list two-line>
@@ -255,6 +256,7 @@ namespace ProjectImmediateReply.Utility
         //catch 等同於ajax的fail
         public string PageRight(string PageInner)
         {
+			//評分者用 觀看所有專案
             if (PageInner == "GradesCrud")
             {
                 string headeritem = " {text: '專案名',align: 'start',sortable: true,value: 'ProjectName'},{text: '組長',value: 'LeaderName'},{text: '組員',value: 'MemberName'},{text: '組名',value: 'TeamName'},{text: '',value: 'btn',sortable: false}";
@@ -320,6 +322,7 @@ namespace ProjectImmediateReply.Utility
 							 }})
 						 </script>";
             }
+			//管理者用 建立班級
             else if (PageInner == "CreateClass")
             {
                 return @"
@@ -346,6 +349,7 @@ namespace ProjectImmediateReply.Utility
                                })
                          </script>";
             }
+			// 管理者用 亂數分配班級
             else if (PageInner == "AssignTeam")
             {
                 //刪除data:() 裡的 TeamName 防止跟ForAssignTeam的變數名稱相撞
@@ -467,6 +471,7 @@ namespace ProjectImmediateReply.Utility
 								}})
 						</script>";
             }
+			// 管理者用建立專案
             else if (PageInner == "CreateProject")
             {
                 string getclass = GetClassNumberJS(GetClassNumber());
@@ -497,6 +502,7 @@ namespace ProjectImmediateReply.Utility
             }
 
             //沒動到後端資料庫的話，可將方法寫在PageTool.cs
+			// 全部權限的個人資訊更新
             else if (PageInner == "UpdateInfo")
             {
                 DBTool Dbtool = new DBTool();
@@ -648,6 +654,7 @@ namespace ProjectImmediateReply.Utility
                 }
 
             }
+			// 全部權限的觀看成績
             else if (PageInner == "SeeGrade")
             {// changeRoute方法名稱 修改
                 string chooseitem = GetClassNumberJS(GetClassNumber());
