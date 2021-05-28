@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using ProjectImmediateReply.Utility;
-using System.Data;
 
 namespace ProjectImmediateReply
 {
     public partial class ucForgetpassword : System.Web.UI.UserControl
     {
+        //頁面載入事件
         protected void Page_Load(object sender, EventArgs e)
         {
-            Utility.PageTool ptool = new Utility.PageTool();
+            //引用PageTool方法內的GetClassNumber()取得資料庫內ClassNumber的變數放入到下拉式清單內，並設定給伺服器控制項forgetpwd_class.DataSource
+            //之後作資料繫結至控制項顯示出當前資料庫內之ClassNumber
+            PageTool ptool = new PageTool();
             List<string> classnum = ptool.GetClassNumber();
-            forgetpwd_class.DataSource = classnum;
+            forgetpwd_class.DataSource = classnum; 
             forgetpwd_class.DataBind();
 
         }
