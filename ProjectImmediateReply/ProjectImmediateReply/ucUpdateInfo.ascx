@@ -19,13 +19,13 @@
 									<v-text-field :rules="[v => !!v || '此輸入框不可為空白',v => !/[ ?<>{}!]/.test(v)||'請勿輸入特殊字元']" class="mt-6" label="LineID"
 										type="text" v-model="C1lineid" required></v-text-field>
 
-									<v-text-field :rules="[v => !!v || '此輸入框不可為空白',v => !/[ ?<>{}!]/.test(v)||'請勿輸入特殊字元']" class="mt-6" label="原密碼"
+									<v-text-field :rules="[v => !/[ ?<>{}!]/.test(v)||'請勿輸入特殊字元']" class="mt-6" label="原密碼"
 										type="password" v-model="C1password" :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'" :type="show1 ? 'text' : 'password'" @click:append="show1 = !show1" required></v-text-field>
 
-									<v-text-field :rules="[[v => !!v || '此輸入框不可為空白'],(this.C1newpassword != this.C1password || '新密碼需與原密碼不相符'),v => !/[ ?<>{}!]/.test(v)||'請勿輸入特殊字元']" class="mt-6" label="新密碼"
+									<v-text-field :rules="[v => !/[ ?<>{}!]/.test(v)||'請勿輸入特殊字元']" class="mt-6" label="新密碼"
 										type="password" v-model="C1newpassword" :append-icon="show2 ? 'mdi-eye' : 'mdi-eye-off'" :type="show2 ? 'text' : 'password'" @click:append="show2 = !show2" required></v-text-field>
 
-									<v-text-field :rules="[[v => !!v || '此輸入框不可為空白'],(this.C1newpasswordconfirm === this.C1newpassword || '新密碼與原密碼不相符')]" class="mt-6" label="新密碼確認"
+									<v-text-field :rules="[(this.C1newpasswordconfirm === this.C1newpassword || '新密碼與新密碼確認不相符')]" class="mt-6" label="新密碼確認"
 										type="password" v-model="C1newpasswordconfirm" :append-icon="show3 ? 'mdi-eye' : 'mdi-eye-off'" :type="show3 ? 'text' : 'password'" @click:append="show3 = !show3" required></v-text-field>
 								</v-card-text>
 				<!-- 儲存按鈕	 -->
