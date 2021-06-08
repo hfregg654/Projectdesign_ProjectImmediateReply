@@ -38,6 +38,8 @@ namespace ProjectImmediateReply
                     Response.Redirect("~/LogIn.aspx");
                     return;
                 }
+                //套用ImmediateReplyInSide.Master的Index ucCrud預設為false 
+                //點擊左選單判斷後變更為true並插入PageTool的PageInner == "GradesCrud" script部分
                 //將查看專案及評分頁面顯示的DOM變更為True 將網頁框架顯示出來
                 ucCrud.Visible = true;
                 //將查看專案及評分頁面顯示的JS效果插入到DOM裡面
@@ -53,6 +55,8 @@ namespace ProjectImmediateReply
                     Response.Redirect("~/LogIn.aspx");
                     return;
                 }
+                //套用ImmediateReplyInSide.Master的Index ucCreateClass預設為false 
+                //點擊左選單判斷後變更為true並插入PageTool的PageInner == "CreateClass" script部分
                 //將建立班級頁面顯示的DOM變更為True 將網頁框架顯示出來
                 ucCreateClass.Visible = true;
                 //將建立班級頁面顯示的JS效果插入到DOM裡面
@@ -60,7 +64,9 @@ namespace ProjectImmediateReply
             }
             //如果PageInner字串為UpdateInfo進入此判斷
             else if (PageInner == "UpdateInfo")//個人資料更新
-            {   
+            {
+                //套用ImmediateReplyInSide.Master的Index ucUpdateInfo預設為false 
+                //點擊左選單判斷後變更為true並插入PageTool的PageInner == "UpdateInfo" script部分
                 //將個人資訊更新頁面顯示的DOM變更為True 將網頁框架顯示出來
                 ucUpdateInfo.Visible = true;
                 //將個人資訊更新顯示的JS效果插入到DOM裡面
@@ -76,6 +82,8 @@ namespace ProjectImmediateReply
                     Response.Redirect("~/LogIn.aspx");
                     return;
                 }
+                //套用ImmediateReplyInSide.Master的Index ucCreateProject預設為false 
+                //點擊左選單判斷後變更為true並插入PageTool的PageInner == "CreateProject" script部分
                 //將建立專案頁面顯示的DOM變更為True 將網頁框架顯示出來
                 ucCreateProject.Visible = true;
                 //將建立專案頁面顯示的JS效果插入到DOM裡面
@@ -83,6 +91,8 @@ namespace ProjectImmediateReply
             }
             else if (PageInner == "SeeGrade")//查看成績
             {
+                //套用ImmediateReplyInSide.Master的Index ucSeeGrade預設為false 
+                //點擊左選單判斷後變更為true並插入PageTool的PageInner == "SeeGrade" script部分
                 //將觀看成績頁面顯示的DOM變更為True 將網頁框架顯示出來
                 ucSeeGrade.Visible = true;
                 //將觀看成績頁面顯示的JS效果插入到DOM裡面
@@ -97,6 +107,8 @@ namespace ProjectImmediateReply
                     Response.Redirect("~/LogIn.aspx");
                     return;
                 }
+                //套用ImmediateReplyInSide.Master的Index ucAssignTeam預設為false 
+                //點擊左選單判斷後變更為true並插入PageTool的PageInner == "AssignTeam" script部分
                 //將亂數分組頁面顯示的DOM變更為True 將網頁框架顯示出來
                 ucAssignTeam.Visible = true;
                 //將亂數分組頁面顯示的JS效果插入到DOM裡面

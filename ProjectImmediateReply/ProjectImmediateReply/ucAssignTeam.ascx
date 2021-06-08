@@ -19,7 +19,7 @@
 									<v-toolbar flat color="white">
 										<v-spacer></v-spacer>
 										<!-- 彈跳視窗功能 (包含按鍵觸發)開始 -->
-											<v-btn color="primary" dark class="mb-2" @click="randam()" id="randombtn">小組亂數分配</v-btn>
+											<v-btn color="primary" dark class="mb-2" @click="random()" id="randombtn">小組亂數分配</v-btn>
 									</v-toolbar>
 								</template>
 								<!-- v-slot 結束							 -->

@@ -1,5 +1,6 @@
 ﻿<%@ Control Language="C#" AutoEventWireup="true" CodeBehind="ucLeft.ascx.cs" Inherits="ProjectImmediateReply.WebUserControl1" %>
 <!-- 導航欄開始 -->
+<%--drawer 左選單的DOM ID部分--%>
 <v-navigation-drawer v-model="drawer" app clipped color="grey lighten-4">
 						<v-card max-width="375" class="mx-auto" height="100%">
 							<v-img

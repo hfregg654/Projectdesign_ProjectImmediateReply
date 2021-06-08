@@ -4,12 +4,14 @@
 	    <v-col>
 	    </v-col>
 	    <v-col sm="6" xs="12">
+<%--			對應PageTool裡的data chooseitem--%>
 	    	<v-select :items="chooseitem"  @change="changeRoute"  v-model="classchoice"  label="選擇班級" solo outlined></v-select>
 	    </v-col>
 	    <v-col>
 	    </v-col>
     </v-row>
    <template>
+	   <%--v-data-table 類似Repeater或GridView--%>
 							<v-data-table @page-count="pageCount = $event" :page.sync="page"
 								:items-per-page="itemsPerPage" hide-default-footer :headers="headers" :items="inneritem" 
 								sort-by="calories" class="elevation-1">
